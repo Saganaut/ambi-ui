@@ -1,23 +1,8 @@
-# vite-plus-starter
+# ambi-ui
 
-A starter for creating a Vite Plus project.
+My custom component library used in new projects
 
-## Development
+## Tooling
 
-- Install dependencies:
-
-```bash
-vp install
-```
-
-- Run the unit tests:
-
-```bash
-vp test
-```
-
-- Build the library:
-
-```bash
-vp pack
-```
+- Vite +
+- Storybook

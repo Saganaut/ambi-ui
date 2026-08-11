@@ -1,25 +1,32 @@
 {
-  "name": "ambi-ui",
+  "name": "@saganaut/ambi-ui",
   "version": "0.0.0",
-  "description": "A starter for creating a TypeScript package.",
-  "homepage": "https://github.com/author/library#readme",
+  "description": "React component library for Ambi applications",
+  "homepage": "https://github.com/Saganaut/ambi-ui#readme",
   "bugs": {
-    "url": "https://github.com/author/library/issues"
+    "url": "https://github.com/Saganaut/ambi-ui/issues"
   },
   "license": "MIT",
-  "author": "Author Name <author.name@mail.com>",
+  "author": "Saganaut",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/author/library.git"
+    "url": "git+https://github.com/Saganaut/ambi-ui.git"
   },
   "files": [
     "dist"
   ],
   "type": "module",
+  "types": "./dist/index.d.mts",
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
     "./package.json": "./package.json"
   },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -28,14 +35,32 @@
     "dev": "vp pack --watch",
     "test": "vp test",
     "check": "vp check",
-    "prepublishOnly": "vp run build"
+    "prepublishOnly": "vp run build",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "vp check && vp test --run && vp pack && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.31.1",
+    "@storybook/addon-a11y": "10.5.7",
+    "@storybook/addon-docs": "10.5.7",
+    "@storybook/react-vite": "10.5.7",
     "@types/node": "^26.1.1",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
     "bumpp": "^11.1.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "storybook": "^10.5.7",
     "typescript": "^7.0.2",
     "vite": "catalog:",
     "vite-plus": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devEngines": {
     "packageManager": {
@@ -43,8 +68,5 @@
       "version": "11.21.0",
       "onFail": "download"
     }
-  },
-  "dependencies": {
-    "storybook": "^10.5.7"
   }
 }
