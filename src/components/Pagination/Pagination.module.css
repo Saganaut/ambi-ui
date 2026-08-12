@@ -1,0 +1,94 @@
+.pagination {
+  --page-size: 36px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  font-variant-numeric: tabular-nums;
+
+  .list {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .item {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .navBtn {
+    --bg-fill: var(--bg-canvas);
+    --background-color: var(--bg-canvas);
+    --color: var(--text-secondary);
+    --shadow-size: var(--shadow-sm-size);
+    --shadow-color: var(--shadow-sm-color);
+  }
+
+  .pageBtn,
+  .ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--page-size);
+    height: var(--page-size);
+    border: 0;
+    border-radius: var(--radius-md);
+    background-color: var(--bg-canvas);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    user-select: none;
+  }
+
+  .pageBtn {
+    cursor: pointer;
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+
+    /* Active page. */
+    &.current {
+      background-color: var(--bg-brand);
+      color: var(--text-on-brand);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled, .current) {
+      background-color: var(--action-hover);
+      color: var(--bg-surface);
+      box-shadow: var(--shadow-md);
+    }
+  }
+
+  .chevron {
+    width: var(--space-5);
+    height: var(--space-5);
+  }
+
+  .compactLabel {
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    padding: 0 var(--gap-sm);
+  }
+}
+
+.compact {
+  gap: var(--gap-md);
+}

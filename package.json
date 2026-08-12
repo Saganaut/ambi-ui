@@ -44,6 +44,7 @@
     "@changesets/cli": "^2.31.1",
     "@storybook/addon-a11y": "10.5.7",
     "@storybook/addon-docs": "10.5.7",
+    "@storybook/addon-vitest": "^10.5.7",
     "@storybook/react-vite": "10.5.7",
     "@types/node": "^26.1.1",
     "@types/react": "19.2.14",
@@ -68,6 +69,7 @@
     }
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.20",
     "lucide-react": "^1.31.0",
     "morphicons": "^1.6.0"
   }
