@@ -1,0 +1,536 @@
+:root {
+  /* ─── Named Color Palette ─────────────────────────────────────────────────── */
+  --red-100: oklch(96.5% 0.03 12deg);
+  --red-200: oklch(93% 0.062 12deg);
+  --red-300: oklch(86% 0.115 12deg);
+  --red-400: oklch(70% 0.2 14deg);
+  --red-500: oklch(59% 0.235 16deg);
+  --red-600: oklch(50% 0.21 18deg);
+  --red-700: oklch(42% 0.17 18deg);
+  --red-800: oklch(30% 0.115 16deg);
+  --red-900: oklch(20% 0.07 14deg);
+  --yellow-100: oklch(97% 0.035 92deg);
+  --yellow-200: oklch(94.5% 0.075 92deg);
+  --yellow-300: oklch(90.5% 0.13 92deg);
+  --yellow-400: oklch(86.5% 0.17 90deg);
+  --yellow-500: oklch(84% 0.175 88deg);
+  --yellow-600: oklch(73% 0.155 84deg);
+  --yellow-700: oklch(55% 0.12 79deg);
+  --yellow-800: oklch(43% 0.095 76deg);
+  --yellow-900: oklch(29% 0.06 72deg);
+  --green-100: oklch(96.5% 0.028 155deg);
+  --green-200: oklch(93.5% 0.058 155deg);
+  --green-300: oklch(87% 0.105 155deg);
+  --green-400: oklch(76% 0.165 155deg);
+  --green-500: oklch(64.5% 0.185 153deg);
+  --green-600: oklch(54% 0.155 152deg);
+  --green-700: oklch(45% 0.12 152deg);
+  --green-800: oklch(32% 0.08 152deg);
+  --green-900: oklch(21% 0.05 152deg);
+  --turqoise-200: oklch(92% 0.04 200deg);
+  --turqoise-300: oklch(87% 0.06 200deg);
+  --turqoise-400: oklch(74% 0.13 200deg);
+  --turqoise-500: oklch(49% 0.11 200deg);
+  --turqoise-600: oklch(59% 0.13 200deg);
+  --turqoise-700: oklch(37% 0.08 200deg);
+  --turqoise-800: oklch(27% 0.06 200deg);
+  --turqoise-900: oklch(21% 0.05 200deg);
+  --blue-100: oklch(96.5% 0.025 252deg);
+  --blue-200: oklch(93% 0.052 252deg);
+  --blue-300: oklch(86% 0.1 252deg);
+  --blue-400: oklch(70% 0.175 252deg);
+  --blue-500: oklch(56.5% 0.215 254deg);
+  --blue-600: oklch(49% 0.195 256deg);
+  --blue-700: oklch(41% 0.155 256deg);
+  --blue-800: oklch(29.5% 0.105 254deg);
+  --blue-900: oklch(19.5% 0.065 252deg);
+  --lavender-200: oklch(93% 0.04 290deg);
+  --lavender-300: oklch(88% 0.06 290deg);
+  --lavender-400: oklch(77% 0.13 290deg);
+  --lavender-500: oklch(52% 0.11 290deg);
+  --lavender-600: oklch(63% 0.13 290deg);
+  --lavender-700: oklch(39% 0.08 290deg);
+  --lavender-800: oklch(28% 0.06 290deg);
+  --lavender-900: oklch(22% 0.05 290deg);
+  --fuchsia-200: oklch(93% 0.04 320deg);
+  --fuchsia-300: oklch(88% 0.06 320deg);
+  --fuchsia-400: oklch(77% 0.13 320deg);
+  --fuchsia-500: oklch(52% 0.11 320deg);
+  --fuchsia-600: oklch(63% 0.13 320deg);
+  --fuchsia-700: oklch(39% 0.08 320deg);
+  --fuchsia-800: oklch(28% 0.06 320deg);
+  --fuchsia-900: oklch(23% 0.05 320deg);
+  --mulberry-200: oklch(93% 0.04 350deg);
+  --mulberry-300: oklch(89% 0.06 350deg);
+  --mulberry-400: oklch(78% 0.13 350deg);
+  --mulberry-500: oklch(52% 0.11 350deg);
+  --mulberry-600: oklch(63% 0.13 350deg);
+  --mulberry-700: oklch(39% 0.08 350deg);
+  --mulberry-800: oklch(28% 0.06 350deg);
+  --mulberry-900: oklch(23% 0.05 350deg);
+  --zinc-100: oklch(98.5% 0.002 290deg);
+  --zinc-200: oklch(96% 0.003 290deg);
+  --zinc-300: oklch(90% 0.004 290deg);
+  --zinc-400: oklch(82% 0.005 290deg);
+  --zinc-500: oklch(70% 0.006 290deg);
+  --zinc-600: oklch(55% 0.008 290deg);
+  --zinc-700: oklch(40% 0.008 290deg);
+  --zinc-800: oklch(25% 0.01 290deg);
+  --zinc-900: oklch(14% 0.012 290deg);
+
+  /* ─── Brand Colors ─────────────────────────────────────────────────────── */
+  --violet-100: oklch(from #6019ff 97% calc(c * 0.25) h);
+  --violet-200: oklch(from #6019ff 92% calc(c * 0.45) h);
+  --violet-300: oklch(from #6019ff 84% calc(c * 0.65) h);
+  --violet-400: oklch(from #6019ff 72% calc(c * 0.85) h);
+  --violet-500: oklch(from #6019ff l c h);
+  --violet-600: oklch(from #6019ff 46% c h);
+  --violet-700: oklch(from #6019ff 36% calc(c * 0.9) h);
+  --violet-800: oklch(from #6019ff 25% calc(c * 0.7) h);
+  --violet-900: oklch(from #6019ff 14% calc(c * 0.5) h);
+  --orange-100: oklch(from #ff6e0b 97% calc(c * 0.25) h);
+  --orange-200: oklch(from #ff6e0b 92% calc(c * 0.45) h);
+  --orange-300: oklch(from #ff6e0b 84% calc(c * 0.65) h);
+  --orange-400: oklch(from #ff6e0b 75% calc(c * 0.85) h);
+  --orange-500: oklch(from #ff6e0b l c h);
+  --orange-600: oklch(from #ff6e0b 55% c h);
+  --orange-700: oklch(from #ff6e0b 42% calc(c * 0.9) h);
+  --orange-800: oklch(from #ff6e0b 30% calc(c * 0.7) h);
+  --orange-900: oklch(from #ff6e0b 18% calc(c * 0.5) h);
+  --tolopea-100: oklch(from #190042 97% calc(c * 0.25) h);
+  --tolopea-200: oklch(from #190042 92% calc(c * 0.45) h);
+  --tolopea-300: oklch(from #190042 84% calc(c * 0.65) h);
+  --tolopea-400: oklch(from #190042 72% calc(c * 0.85) h);
+  --tolopea-500: oklch(from #190042 55% c h);
+  --tolopea-600: oklch(from #190042 42% c h);
+  --tolopea-700: oklch(from #190042 30% c h);
+  --tolopea-800: oklch(from #190042 25% c h);
+  --tolopea-900: oklch(from #190042 l c h);
+  --cyan-100: oklch(from #54fff1 97% calc(c * 0.25) h);
+  --cyan-200: oklch(from #54fff1 93% calc(c * 0.45) h);
+  --cyan-300: oklch(from #54fff1 87% calc(c * 0.7) h);
+  --cyan-400: oklch(from #54fff1 80% calc(c * 0.9) h);
+  --cyan-500: oklch(from #54fff1 l c h);
+  --cyan-600: oklch(from #54fff1 60% c h);
+  --cyan-700: oklch(from #54fff1 45% calc(c * 0.9) h);
+  --cyan-800: oklch(from #54fff1 30% calc(c * 0.7) h);
+  --cyan-900: oklch(from #54fff1 18% calc(c * 0.5) h);
+}
+
+/* ─── Semantic Tokens (derived from roles) ──────────────────────────────── */
+
+:root,
+[data-appearance] {
+  /** Background Variants **/
+  --bg-canvas: var(--role-canvas);
+  --bg-surface: var(--role-surface);
+  --bg-surface-raised: var(--role-surface-raised);
+  --bg-secondary: color-mix(
+    in oklab,
+    var(--role-primary) 12%,
+    var(--role-surface)
+  );
+  --bg-subtle: var(--role-subtle);
+  --bg-primary: var(--role-primary);
+  --bg-brand: color-mix(in oklab, var(--role-primary) 78%, var(--role-canvas));
+  --bg-is-disabled: color-mix(
+    in oklab,
+    var(--role-muted-foreground) 28%,
+    var(--role-surface)
+  );
+  --bg-display-only: var(--role-canvas);
+
+  /** Inverted Backgrounds — swap toward the foreground end so they read as the */
+
+  /* opposite appearance without a second palette. */
+  --bg-canvas-inverted: var(--role-foreground);
+  --bg-surface-inverted: color-mix(
+    in oklab,
+    var(--role-foreground) 88%,
+    var(--role-canvas)
+  );
+  --bg-primary-inverted: var(--role-primary);
+
+  /** Modal / dialog backdrop. Fixed across themes — its job is to dim whatever */
+
+  /* is behind it, regardless of palette. */
+  --bg-overlay: rgb(0 0 0 / 50%);
+
+  /** Edge Tokens — hairline outline paired to each bg. Darker than the fill in */
+
+  /* light appearance, lighter in dark, via --edge-tint (flipped under          */
+
+  /* [data-appearance="dark"]).                                                 */
+  --edge-tint: black;
+  --edge-canvas: color-mix(in oklab, var(--bg-canvas) 92%, var(--edge-tint));
+  --edge-surface: color-mix(in oklab, var(--bg-surface) 92%, var(--edge-tint));
+  --edge-surface-raised: color-mix(
+    in oklab,
+    var(--bg-surface-raised) 92%,
+    var(--edge-tint)
+  );
+  --edge-subtle: color-mix(in oklab, var(--bg-subtle) 92%, var(--edge-tint));
+  --edge-secondary: color-mix(
+    in oklab,
+    var(--bg-secondary) 92%,
+    var(--edge-tint)
+  );
+  --edge-primary: color-mix(in oklab, var(--bg-primary) 92%, var(--edge-tint));
+  --edge-brand: color-mix(in oklab, var(--bg-brand) 92%, var(--edge-tint));
+
+  /** Text Variants **/
+  --text-primary: var(--role-foreground);
+  --text-secondary: var(--role-muted-foreground);
+  --text-muted: color-mix(
+    in oklab,
+    var(--role-muted-foreground) 60%,
+    var(--role-canvas)
+  );
+  --text-accent: var(--role-accent);
+  --text-brand: var(--role-primary);
+  --text-on-brand: var(--role-on-primary);
+  --text-is-disabled: color-mix(
+    in oklab,
+    var(--role-muted-foreground) 55%,
+    var(--role-canvas)
+  );
+  --line-height-control: 1;
+  --line-height-body: 1.5;
+  /** Inverted Text — swap toward the canvas end (mirrors inverted backgrounds). */
+  --text-primary-inverted: var(--role-canvas);
+  --text-secondary-inverted: color-mix(
+    in oklab,
+    var(--role-canvas) 70%,
+    var(--role-foreground)
+  );
+  --text-accent-inverted: var(--role-accent);
+
+  /** Status Backgrounds — a canvas-tinted wash of each status role, so the wash */
+
+  /* stays light on light themes and dark on dark themes automatically. */
+  --bg-error: color-mix(in oklab, var(--role-red) 18%, var(--role-canvas));
+  --bg-success: color-mix(in oklab, var(--role-green) 18%, var(--role-canvas));
+  --bg-info: color-mix(in oklab, var(--role-blue) 18%, var(--role-canvas));
+  --bg-warning: color-mix(in oklab, var(--role-yellow) 18%, var(--role-canvas));
+
+  /** Status Text — the status role pulled toward foreground for legibility on  */
+
+  /* its wash (darkens on light themes, lightens on dark themes). */
+  --text-error: color-mix(
+    in oklab,
+    var(--role-red) 72%,
+    var(--role-foreground)
+  );
+  --text-success: color-mix(
+    in oklab,
+    var(--role-green) 72%,
+    var(--role-foreground)
+  );
+  --text-warning: color-mix(
+    in oklab,
+    var(--role-yellow) 72%,
+    var(--role-foreground)
+  );
+  --text-info: color-mix(
+    in oklab,
+    var(--role-blue) 72%,
+    var(--role-foreground)
+  );
+
+  /** Borders **/
+  --border-default: var(--role-border);
+  --border-subtle: var(--role-border-subtle);
+  --border-focus: var(--role-accent);
+  --border-brand: var(--role-accent-secondary);
+  --border-is-disabled: color-mix(
+    in oklab,
+    var(--role-muted-foreground) 45%,
+    var(--role-canvas)
+  );
+
+  /** Status Borders — a mid blend of the status role toward canvas. */
+  --border-success: color-mix(
+    in oklab,
+    var(--role-green) 55%,
+    var(--role-canvas)
+  );
+  --border-warning: color-mix(
+    in oklab,
+    var(--role-yellow) 55%,
+    var(--role-canvas)
+  );
+  --border-error: color-mix(in oklab, var(--role-red) 55%, var(--role-canvas));
+  --border-info: color-mix(in oklab, var(--role-blue) 55%, var(--role-canvas));
+
+  /** Action States — built on the secondary accent (the CTA colour). */
+  --action-hover: var(--role-accent-secondary);
+  --action-active: color-mix(
+    in oklab,
+    var(--role-accent-secondary) 72%,
+    var(--role-foreground)
+  );
+  --action-is-disabled: color-mix(
+    in oklab,
+    var(--role-muted-foreground) 45%,
+    var(--role-surface)
+  );
+
+  /* --- Typography (Expanded Scale) --- */
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+  --font-heading: "Poppins", system-ui, "Segoe UI", "Roboto", sans-serif;
+  --font-sans: "Poppins", system-ui, sans-serif;
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-md: 1.125rem; /* 18px */
+  --font-size-lg: 1.5rem; /* 24px */
+  --font-size-xl: 2rem; /* 32px */
+  --font-size-2xl: 3rem; /* 48px */
+  --font-size-3xl: 3.75rem; /* 60px */
+
+  /* --- Spacing System --- */
+  --space-0: 0; /* 0px  */
+  --space-px: 1px; /* 1px  */
+  --space-half: 0.125rem; /* 2px  */
+  --space-1: 0.25rem; /* 4px  */
+  --space-2: 0.5rem; /* 8px  */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-7: 1.75rem; /* 28px */
+  --space-8: 2rem; /* 32px */
+  --space-10: 2.5rem; /* 40px */
+  --space-12: 3rem; /* 48px */
+  --space-14: 3.5rem; /* 56px */
+  --space-16: 4rem; /* 64px */
+  --space-20: 5rem; /* 80px */
+  --space-24: 6rem; /* 96px */
+
+  /* --- Component Padding — Default (mildly elongated, block < inline) ---  */
+
+  /* These are the day-to-day padding tokens. Block axis stays tight so labels */
+
+  /* sit close to the top/bottom edge; inline axis breathes for readability.   */
+  --p-xxs: var(--space-1) var(--space-1);
+  --p-xs: var(--space-1) var(--space-3);
+  --p-sm: var(--space-2) var(--space-3);
+  --p-md: var(--space-4) var(--space-6);
+  --p-lg: var(--space-8) var(--space-12);
+
+  /* --- Component Padding — Square (block === inline) --- */
+
+  /* Use for icon buttons, square tiles, anything where both axes should      */
+
+  /* mirror each other.                                                        */
+  --p-square-xxs: var(--space-1) var(--space-1);
+  --p-square-xs: var(--space-2) var(--space-2);
+  --p-square-sm: var(--space-3) var(--space-3);
+  --p-square-md: var(--space-4) var(--space-4);
+  --p-square-lg: var(--space-6) var(--space-6);
+  --p-square-xl: var(--space-8) var(--space-8);
+
+  /* --- Component Padding — Pill / Elongated (much wider than tall) ---     */
+
+  /* Stronger horizontal stretch than the default --p-* set. Use for chips,   */
+
+  /* badges, capsule buttons, tabs, search bars.                              */
+  --p-pill-xs: var(--space-half) var(--space-3);
+  --p-pill-sm: var(--space-1) var(--space-4);
+  --p-pill-md: var(--space-2) var(--space-6);
+  --p-pill-lg: var(--space-3) var(--space-10);
+  --p-pill-xl: var(--space-4) var(--space-16);
+
+  /* --- Component Padding — Stacked (taller than wide) --- */
+
+  /* Use for list rows, narrow vertical cells, sidebar items where the tap   */
+
+  /* target needs height without inflating the inline gutter.                */
+  --p-stack-xs: var(--space-2) var(--space-1);
+  --p-stack-sm: var(--space-3) var(--space-2);
+  --p-stack-md: var(--space-4) var(--space-2);
+  --p-stack-lg: var(--space-6) var(--space-3);
+
+  /* --- Component Padding — Asymmetric block (top !== bottom) --- */
+
+  /* Use for cards/sheets where header padding is tighter than body padding, */
+
+  /* or dropdown panels that hang below their trigger.                       */
+  --p-asym-sm: var(--space-2) var(--space-3) var(--space-3);
+  --p-asym-md: var(--space-3) var(--space-4) var(--space-5);
+  --p-asym-lg: var(--space-4) var(--space-6) var(--space-8);
+
+  /* --- Gap (matches the spacing scale, named for component consumption) --- */
+  --gap-xxs: var(--space-half);
+  --gap-xs: var(--space-1);
+  --gap-sm: var(--space-2);
+  --gap-md: var(--space-3);
+  --gap-lg: var(--space-4);
+  --gap-xl: var(--space-6);
+
+  /* Room reserved for ul/ol markers (padding-inline-start). One shared value so
+     rich-text editors, rich-text display, and board/author list surfaces indent
+     identically. */
+  --list-indent: var(--space-5);
+
+  /* --- Layout Spacing — between & around large components --- */
+
+  /* The layout tier, one level above --p-* and --gap-*: --stack-* separates   */
+
+  /* sibling regions (grid/flex gap, section breaks); --gutter-* insets a      */
+
+  /* region's own edges (padding), composable per axis like the --p-* sets.    */
+
+  /* Hierarchy comes from stepping the ladder — a container's stack must       */
+
+  /* exceed the gaps inside its children.                                      */
+
+  /* See rules/styling/spacing-hierarchy.md.                                   */
+  --stack-sm: var(--space-4); /* 16px — cards in a dense grid, tile lists */
+  --stack-md: var(
+    --space-6
+  ); /* 24px — default card/panel grid gap, header-to-body */
+  --stack-lg: var(
+    --space-8
+  ); /* 32px — panel-to-panel, section breaks in app pages */
+  --stack-xl: var(
+    --space-12
+  ); /* 48px — page-section boundaries (marketing/doc pages) */
+  --gutter-sm: var(--space-4); /* 16px — inline inset of app pages, sidebars */
+  --gutter-md: var(
+    --space-6
+  ); /* 24px — cards, dialogs, marketing-page inline inset */
+  --gutter-lg: var(--space-8); /* 32px — block inset of app pages */
+  --gutter-xl: var(--space-12); /* 48px — block inset of marketing/doc pages */
+
+  /* Fluid inline gutter — tightens in narrow containers, maxes at            */
+
+  /* --gutter-md. cqi resolves against the nearest query container (falls     */
+
+  /* back to the small viewport when none), per the container-queries rule.   */
+  --gutter-fluid: clamp(var(--gutter-sm), 3cqi, var(--gutter-md));
+
+  /* --- Border Radius --- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* ---- Border Sizes ---- */
+  --border-size-sm: 2px;
+  --border-size-md: 4px;
+  --border-size-lg: 6px;
+
+  /* --- Elevation & Shadows --- */
+
+  /* Soft neutral drop shadows (#141414), used the same in light and dark. See   */
+
+  /* rules/styling/elevation-over-borders.md — prefer elevation over borders.     
+   offset-x offset-y blur-radius spread-radius
+  */
+  --shadow-xs-size: 0 2px 3px 1px;
+  --shadow-sm-size: 0 3px 10px;
+  --shadow-md-size: 0 8px 24px;
+  --shadow-lg-size: 0 16px 40px;
+  --shadow-xs-color: rgb(20 20 20 / 0.3);
+  --shadow-sm-color: rgb(20 20 20 / 0.3);
+  --shadow-md-color: rgb(20 20 20 / 0.3);
+  --shadow-lg-color: rgb(20 20 20 / 0.3);
+  --shadow-xs: var(--shadow-xs-size) var(--shadow-xs-color);
+  --shadow-sm: var(--shadow-sm-size) var(--shadow-sm-color);
+  --shadow-md: var(--shadow-md-size) var(--shadow-md-color);
+  --shadow-lg: var(--shadow-lg-size) var(--shadow-lg-color);
+  --shadow: var(--shadow-md);
+  --shadow-hover-color: rgb(20 20 20 / 0.5);
+
+  /* Brand-tinted hover glow (DS shadow/hover) — the one non-neutral shadow;    */
+
+  /* derives from the theme's primary so per-deck themes recolor it.            */
+  --shadow-hover: 0 1px 1.5px oklch(from var(--role-primary) l c h / 25%);
+
+  /* Brand-tinted focus glow (DS shadow/focus) — same geometry as shadow/hover  */
+
+  /* at a stronger alpha; pairs with --border-focus on focused form fields.     */
+  --shadow-focus: 0 1px 1.5px oklch(from var(--role-primary) l c h / 45%);
+
+  /* --- Z-Index Layering (Prevents "z-index: 999999" chaos) --- */
+  --z-negative: -1;
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 1000;
+  --z-tooltip: 1100;
+
+  /* --- component sizes * --- */
+  --navbar-height: 80px;
+
+  /* MarkerBadge's geometry.*/
+  --marker-badge-disc-size: 1.375rem;
+  --marker-badge-border-size: var(--border-size-sm);
+
+  /* Block padding and leading inline padding */
+  --marker-badge-pad: var(--space-1);
+  --marker-badge-pad-end: var(--space-2);
+  --marker-badge-disc-inset: calc(
+    var(--marker-badge-border-size) + var(--marker-badge-pad) +
+      var(--marker-badge-disc-size) / 2
+  );
+
+  /* --- Transitions & Timing --- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+
+  /* ---- MAX SIZES ---- */
+  --max-screen-width: 2440px;
+}
+
+/* ─── Appearance Overrides ──────────────────────────────────────────────────── */
+
+:root,
+[data-appearance="light"] {
+  --role-canvas: var(--zinc-100);
+  --role-surface: var(--tolopea-100);
+  --role-surface-raised: var(--zinc-100);
+  --role-subtle: var(--violet-200);
+  --role-foreground: var(--tolopea-900);
+  --role-muted-foreground: var(--zinc-700);
+  --role-primary: var(--violet-500);
+  --role-on-primary: var(--violet-100);
+  --role-accent: var(--cyan-500);
+  --role-accent-secondary: var(--orange-500);
+  --role-border: var(--violet-800);
+  --role-border-subtle: var(--violet-200);
+  --role-red: var(--red-500);
+  --role-green: var(--green-500);
+  --role-yellow: var(--yellow-500);
+  --role-blue: var(--blue-500);
+  --edge-tint: black;
+  --bg-display-only: var(--role-canvas);
+
+  color-scheme: light;
+}
+
+[data-appearance="dark"] {
+  --role-canvas: var(--tolopea-900);
+  --role-surface: var(--tolopea-800);
+  --role-surface-raised: var(--tolopea-700);
+  --role-subtle: var(--violet-800);
+  --role-foreground: var(--zinc-100);
+  --role-muted-foreground: var(--zinc-500);
+  --role-primary: var(--violet-400);
+  --role-on-primary: var(--tolopea-900);
+  --role-accent: var(--cyan-400);
+  --role-accent-secondary: var(--orange-400);
+  --role-border: var(--violet-300);
+  --role-border-subtle: var(--violet-800);
+  --role-red: var(--red-400);
+  --role-green: var(--green-400);
+  --role-yellow: var(--yellow-400);
+  --role-blue: var(--blue-400);
+  --edge-tint: white;
+  --bg-display-only: var(--role-canvas);
+
+  color-scheme: dark;
+}

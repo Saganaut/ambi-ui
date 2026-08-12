@@ -18,11 +18,9 @@
   "type": "module",
   "types": "./dist/index.d.mts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
-    },
-    "./package.json": "./package.json"
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json",
+    "./style.css": "./dist/style.css"
   },
   "sideEffects": [
     "**/*.css"
@@ -68,5 +66,9 @@
       "version": "11.21.0",
       "onFail": "download"
     }
+  },
+  "dependencies": {
+    "lucide-react": "^1.31.0",
+    "morphicons": "^1.6.0"
   }
 }

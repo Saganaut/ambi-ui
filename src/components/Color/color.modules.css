@@ -1,0 +1,14 @@
+/* a swatch. Border-radius matches the rest of the toolbar primitives.        */
+.colorOptionBtn {
+  width: var(--space-6);
+  height: var(--space-6);
+  border-radius: var(--radius-full);
+  border: var(--border-size-sm) solid var(--border-subtle);
+  cursor: pointer;
+  padding: 0;
+  transition: transform var(--duration-fast, 150ms) ease-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
