@@ -1,0 +1,10 @@
+.git
+.github
+.changeset
+.vitest-attachments
+node_modules
+dist
+storybook-static
+Dockerfile*
+README.md
+AGENTS.md

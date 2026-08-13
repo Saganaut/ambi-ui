@@ -417,6 +417,8 @@
   --radius-full: 9999px;
 
   /* ---- Border Sizes ---- */
+  --border-size-xs: 2px;
+
   --border-size-sm: 2px;
   --border-size-md: 4px;
   --border-size-lg: 6px;
