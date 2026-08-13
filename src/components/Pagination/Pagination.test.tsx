@@ -1,10 +1,12 @@
 // Unit tests for Pagination — covers page-button rendering, ellipsis
 // collapse, callback wiring, ARIA, keyboard nav, and compact mode.
-import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { afterEach, describe, it, expect, vi } from "vitest";
+import { userEvent } from "vitest/browser";
+import { cleanup, render, screen } from "@testing-library/react";
 import { useState } from "react";
 import { Pagination } from "./Pagination";
+
+afterEach(cleanup);
 
 describe("Pagination", () => {
   it("returns null when there is at most one page", () => {

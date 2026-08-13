@@ -247,4 +247,40 @@
   &.isCollapsed {
     transform: rotate(180deg);
   }
+
+  &.splitBtnSecondary {
+    --split-btn-shadow-size: 2px 2px 3px 1px;
+    --split-btn-shadow-color: var(--shadow-xs-color);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    box-shadow: var(--split-btn-shadow-size) var(--split-btn-shadow-color);
+
+    &:hover {
+      --split-btn-shadow-size: 0px 2px 6px;
+      --split-btn-shadow-color: var(--shadow-hover-color);
+    }
+  }
+}
+
+.splitBtn {
+  display: inline-flex;
+  align-items: stretch;
+  position: relative;
+  border-radius: 100px;
+
+  .primaryBtn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .chevronIcon {
+    width: var(--space-4);
+    height: var(--space-4);
+    transition: transform var(--duration-fast) ease-in-out;
+  }
+}
+[aria-expanded="true"] {
+  .chevronIcon {
+    transform: rotate(180deg);
+  }
 }

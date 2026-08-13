@@ -17,5 +17,6 @@ My custom component library used in new projects
 ## Components
 
 - Buttons
-- Pagination (missing test & refactor css)
-- Popover & utility PopoverWrapper (missing test & storybook & refactor - especially css)
+- Pagination
+- Popover & utility PopoverWrapper
+- Dropdown Menu

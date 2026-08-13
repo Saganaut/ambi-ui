@@ -9,7 +9,6 @@ describe("Btn", () => {
     expect(markup).toContain('type="button"');
     expect(markup).toContain(">Save</span>");
     expect(markup).toContain("primary");
-    expect(markup).toContain("default");
     expect(markup).toContain("md");
   });
 

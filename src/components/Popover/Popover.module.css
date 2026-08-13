@@ -1,16 +1,9 @@
-/* Popover — shared visual chrome for floating edit surfaces (the RichTextInput
-   toolbar, future inline editors, etc.). Only the look-and-feel lives here:
-   positioning is left to the consumer so the same primitive can pair with
-   TipTap's BubbleMenu, an absolute-positioned panel, or a portal. */
-
 .popover {
   display: flex;
   flex-direction: column;
   gap: var(--gap-sm);
   padding: var(--p-square-xs);
   background-color: var(--bg-canvas);
-
-  /* border: var(--border-size-sm) solid var(--border-default); */
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
 }
@@ -61,9 +54,6 @@
   width: 1px;
   align-self: stretch;
   background-color: var(--border-subtle);
-
-  /* Additive breathing room around the rule on top of the row's gap; folding
-     it into the gap would widen every button pair. */
   margin: 0 var(--gap-xs);
 }
 

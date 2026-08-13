@@ -1,4 +1,5 @@
 import { defineConfig } from "vite-plus";
+import { playwright } from "@vitest/browser-playwright";
 
 export default defineConfig({
   pack: {
@@ -16,6 +17,13 @@ export default defineConfig({
   },
   fmt: {},
   test: {
+    include: ["src/**/*.test.{ts,tsx}"],
     passWithNoTests: true,
+    browser: {
+      enabled: true,
+      provider: playwright(),
+      headless: true,
+      instances: [{ browser: "chromium" }],
+    },
   },
 });

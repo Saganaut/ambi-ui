@@ -9,6 +9,14 @@ export type BtnFill = "default" | "bordered" | "ghost";
 
 export type BtnShape = "default" | "pill" | "avatar";
 
+export type MenuPosition =
+  | "bottom-right"
+  | "bottom-left"
+  | "top-right"
+  | "top-left";
+
+export type IconBtnPosition = "left" | "right";
+
 export interface BtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   ref?: Ref<HTMLButtonElement>;
   variant?: BtnVariant;
@@ -16,8 +24,14 @@ export interface BtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
   size?: BtnSize;
   shape?: BtnShape;
   icon?: ReactNode;
-  iconPosition?: "left" | "right";
+  iconPosition?: IconBtnPosition;
   isLoading?: boolean;
-  children?: ReactNode;
   isDisabled?: boolean;
+  children?: ReactNode;
+}
+
+export interface SplitBtnProps extends BtnProps {
+  menuItems: ReactNode;
+  menuPosition?: MenuPosition;
+  menuAriaLabel?: string;
 }
