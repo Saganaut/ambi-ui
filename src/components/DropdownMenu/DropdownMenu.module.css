@@ -11,29 +11,133 @@
   z-index: var(--z-dropdown);
 }
 .panel {
-  background: var(--bg-surface);
-  border: var(--border-size-xs) solid var(--border-default);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-  min-width: 180px;
+  composes: hoverable from "../../styles/utilities.module.css";
+
+  /**Layout & Size **/
+  --gap: var(--space-2);
+  --padding: var(--gap-md) var(--gap-lg);
+  --radius: var(--radius-lg);
+  --min-height: 2.5rem;
+
+  /** Styling **/
+  --font-family: var(--font-sans);
+  --font-weight: var(--font-weight-semibold);
+  --font-size: var(--font-size-md);
+  --color: var(--text-primary);
+  --bg-color: var(--bg-secondary);
+  --border-color: var(--role-border);
+  --shadow-size: var(--shadow-xs-size);
+  --shadow-color: var(--shadow-xs-color);
+  --icon-size: 1em;
+  --min-width: 180px;
+
   display: flex;
   flex-direction: column;
+  min-width: var(--min-width);
+  font-size: var(--font-size);
+
+  border: var(--border-size-xs) solid var(--border-color);
+  border-radius: var(--radius-md);
+
+  background: var(--bg-color);
+  box-shadow: var(--shadow-md);
+
   overflow: hidden;
   will-change: opacity, transform;
 
+  &.primary {
+    --color: var(--text-primary);
+    --bg-color: var(--bg-secondary);
+  }
+
+  &.secondary {
+    --color: var(--text-on-brand);
+    --bg-color: var(--bg-brand);
+    --hover-color: oklch(from var(--color) calc(l + 0.2) c h);
+  }
+
+  /**Only suitable for large text **/
+  &.brand {
+    --color: var(--text-on-brand);
+    --bg-color: var(--role-accent-secondary);
+    --hover-color: oklch(from var(--color) calc(l + 0.2) c h);
+  }
+
+  &.info {
+    --color: var(--text-info);
+    --bg-color: var(--bg-info);
+    --hover-border-color: var(--border-info);
+  }
+
+  &.error {
+    --color: var(--text-error);
+    --bg-color: var(--bg-error);
+    --hover-border-color: var(--border-error);
+  }
+
+  &.success {
+    --color: var(--text-success);
+    --bg-color: var(--bg-success);
+    --hover-border-color: var(--border-success);
+  }
+
+  &.warning {
+    --color: var(--text-warning);
+    --bg-color: var(--bg-warning);
+    --hover-border-color: var(--border-warning);
+  }
+  &.xs {
+    --padding: var(--gap-sm) var(--gap-md);
+    --font-size: var(--font-size-xs);
+    --radius: var(--radius-sm);
+    --gap: var(--space-1);
+    --min-height: 1.5rem;
+    --min-width: 100px;
+  }
+
+  &.sm {
+    --padding: var(--gap-sm) var(--gap-md);
+    --font-size: var(--font-size-xs);
+    --radius: var(--radius-md);
+    --gap: 0;
+    --min-height: 1.75rem;
+    --min-width: 120px;
+  }
+
+  &.md {
+    --padding: var(--gap-md) var(--gap-xl);
+    --font-size: var(--font-size-base);
+    --radius: var(--radius-md);
+    --gap: var(--space-3);
+    --min-height: 2.5rem;
+    --min-width: 180px;
+  }
+
+  &.lg {
+    --padding: var(--gap-lg) var(--gap-xl);
+    --font-size: var(--font-size-lg);
+    --radius: var(--radius-lg);
+    --gap: var(--space-4);
+    --min-height: 3.75rem;
+    --min-width: 220px;
+  }
+
   .item {
-    padding: var(--gap-md) var(--gap-lg);
+    padding: var(--padding);
     text-align: left;
+    font-size: var(--font-size);
     background: none;
     border: none;
     cursor: pointer;
-    font-size: var(--font-size-sm);
-    color: var(--text-primary);
+    color: var(--color);
     text-decoration: none;
     display: block;
     width: 100%;
     font-family: inherit;
     transition: background var(--duration-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
 
     &.center {
       display: flex;
@@ -42,7 +146,10 @@
     }
 
     &:hover {
-      background: var(--action-hover);
+      --hover-color: oklch(from var(--color) calc(l - 0.2) c h);
+      --hover-bg-color: oklch(from var(--bg-color) calc(l + 0.2) c h);
+      color: var(--hover-color);
+      background: var(--hover-bg-color);
     }
 
     &:disabled {
@@ -58,7 +165,6 @@
 
   .label {
     padding: var(--gap-sm) var(--gap-lg);
-    font-size: var(--font-size-sm);
     color: var(--text-muted);
     border-bottom: var(--border-size-sm) solid var(--border-subtle);
   }

@@ -21,6 +21,7 @@ const Btn = ({
       ref={ref}
       type={type}
       disabled={isDisabled || isLoading}
+      aria-busy={isLoading || undefined}
       data-icon-position={icon ? iconPosition : undefined}
       {...rest}
       className={[
@@ -35,7 +36,11 @@ const Btn = ({
         .filter(Boolean)
         .join(" ")}
     >
-      {icon != null && <span className={styles.icon}>{icon}</span>}
+      {icon != null && (
+        <span className={styles.icon} aria-hidden="true">
+          {icon}
+        </span>
+      )}
       <span className={styles.label}>{children}</span>
     </button>
   );

@@ -17,21 +17,36 @@ export type MenuPosition =
 
 export type IconBtnPosition = "left" | "right";
 
-export interface BtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: ReactNode;
+
   ref?: Ref<HTMLButtonElement>;
-  variant?: BtnVariant;
+  variant?: BtnVariant | BaseVariants;
   fill?: BtnFill;
   size?: BtnSize;
   shape?: BtnShape;
   icon?: ReactNode;
   iconPosition?: IconBtnPosition;
+  className?: string;
   isLoading?: boolean;
   isDisabled?: boolean;
-  children?: ReactNode;
 }
 
-export interface SplitBtnProps extends BtnProps {
+export interface SplitBtnProps extends BaseButtonProps {
   menuItems: ReactNode;
   menuPosition?: MenuPosition;
   menuAriaLabel?: string;
 }
+
+type LabelledButton = {
+  children: ReactNode;
+  "aria-label"?: string;
+};
+
+type IconOnlyButton = {
+  children?: never;
+  icon: ReactNode;
+  "aria-label": string;
+};
+
+export type BtnProps = BaseButtonProps & (LabelledButton | IconOnlyButton);

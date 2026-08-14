@@ -8,3 +8,8 @@ export type BaseVariants =
   | "warning";
 
 export type BaseSizes = "xs" | "sm" | "md" | "lg" | "xl";
+
+export interface CursorAnchor {
+  clientX: number;
+  clientY: number;
+}

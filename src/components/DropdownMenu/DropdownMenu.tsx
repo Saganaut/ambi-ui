@@ -43,6 +43,10 @@ const placementMap: Record<MenuPosition, Placement> = {
 };
 
 const DropdownMenu = ({
+  variant = "primary",
+  fill = "default",
+  size = "md",
+  iconPosition,
   trigger,
   children,
   position = "top-right",
@@ -87,11 +91,9 @@ const DropdownMenu = ({
     onNavigate: setActiveIndex,
     loop: true,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
-    role,
-    dismiss,
-    listNavigation,
-  ]);
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
+    [role, dismiss, listNavigation],
+  );
 
   const toggle: ToggleFn = (anchor) => {
     if (anchorToCursor && anchor) {
@@ -122,16 +124,18 @@ const DropdownMenu = ({
   const closeMenu = () => {
     setOpen(false);
   };
-
+  console.log("sizing", size);
   return (
     <div
       ref={(node) => {
         refs.setReference(node);
       }}
-      className={[styles.wrapper, className].filter(Boolean).join(" ")}
-      {...getReferenceProps()}
+      data-icon-position={iconPosition ?? undefined}
+      className={[styles.wrapper].filter(Boolean).join(" ")}
     >
-      {trigger(toggle)}
+      {trigger(toggle, {
+        ...getReferenceProps(),
+      })}
       {isMounted && (
         <FloatingPortal>
           <FloatingFocusManager context={context} modal={false}>
@@ -143,9 +147,24 @@ const DropdownMenu = ({
               style={floatingStyles}
               {...getFloatingProps()}
             >
-              <div className={styles.panel} style={transitionStyles}>
-                <DropdownMenuContext value={{ closeMenu, getItemProps, activeIndex }}>
-                  <FloatingList elementsRef={elementsRef}>{children}</FloatingList>
+              <div
+                className={[
+                  styles.panel,
+                  styles[variant],
+                  styles[fill],
+                  styles[size],
+                  className,
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+                style={transitionStyles}
+              >
+                <DropdownMenuContext
+                  value={{ closeMenu, getItemProps, activeIndex }}
+                >
+                  <FloatingList elementsRef={elementsRef}>
+                    {children}
+                  </FloatingList>
                 </DropdownMenuContext>
               </div>
             </div>
@@ -169,7 +188,9 @@ const Item = ({
     <button
       type="button"
       ref={ref}
-      className={[styles.item, centered && styles.center, className].filter(Boolean).join(" ")}
+      className={[styles.item, centered && styles.center, className]
+        .filter(Boolean)
+        .join(" ")}
       {...rest}
       {...getItemProps({
         onClick: (event) => {
@@ -215,7 +236,9 @@ const Link = ({ children, className }: DropdownMenuLinkProps) => {
 };
 
 const Label = ({ children, className }: DropdownMenuLabelProps) => (
-  <span className={[styles.label, className].filter(Boolean).join(" ")}>{children}</span>
+  <span className={[styles.label, className].filter(Boolean).join(" ")}>
+    {children}
+  </span>
 );
 
 const Divider = () => <div className={styles.divider} />;

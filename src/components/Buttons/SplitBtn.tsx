@@ -37,8 +37,13 @@ const SplitBtn = ({
         {children}
       </Btn>
       <DropdownMenu
+        variant={variant !== "isDisabled" ? variant : undefined}
+        size={size}
+        fill={fill}
+        iconPosition={iconPosition}
+        isLoading={isLoading}
         position={menuPosition}
-        trigger={(toggle) => (
+        trigger={(toggle, referenceProps) => (
           <Btn
             variant={variant}
             fill={fill}
@@ -48,8 +53,10 @@ const SplitBtn = ({
             aria-label={menuAriaLabel}
             className={styles.splitBtnSecondary}
             icon={<ChevronDownIcon className={styles.chevronIcon} />}
-            onClick={() => {
+            {...referenceProps}
+            onClick={(event) => {
               toggle();
+              referenceProps?.onClick?.(event);
             }}
           />
         )}

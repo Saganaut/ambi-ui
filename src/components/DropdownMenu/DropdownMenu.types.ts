@@ -1,6 +1,12 @@
 import type { UseInteractionsReturn } from "@floating-ui/react";
 import type { ReactElement, ReactNode } from "react";
-import type { MenuPosition } from "../Buttons/Btn.types";
+import type { BaseVariants, CursorAnchor } from "../Base.types";
+import type {
+  BtnFill,
+  BtnSize,
+  IconBtnPosition,
+  MenuPosition,
+} from "../Buttons/Btn.types";
 
 export interface DropdownMenuContextValue {
   closeMenu: () => void;
@@ -10,18 +16,25 @@ export interface DropdownMenuContextValue {
 
 // Anything with clientX/clientY — typically a MouseEvent / React.MouseEvent.
 // Only used when `anchorToCursor` is set; otherwise toggle ignores its argument.
-export interface CursorAnchor {
-  clientX: number;
-  clientY: number;
-}
+
 export type ToggleFn = (anchor?: CursorAnchor) => void;
 
 export interface DropdownMenuProps {
-  trigger: (toggle: ToggleFn) => ReactElement;
   children: ReactNode;
+  trigger: (
+    toggle: ToggleFn,
+    referenceProps?: Record<string, any>,
+  ) => ReactElement;
+
+  variant?: BaseVariants;
+  fill?: BtnFill;
+  size?: BtnSize;
   position?: MenuPosition;
+  isLoading?: boolean;
+
   className?: string;
   anchorToCursor?: boolean;
+  iconPosition?: IconBtnPosition;
 }
 export interface DropdownMenuLabelProps {
   children: ReactNode;

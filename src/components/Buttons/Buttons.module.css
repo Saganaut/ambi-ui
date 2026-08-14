@@ -76,13 +76,16 @@
   }
 
   &.secondary {
-    --color: var(--text-secondary);
-    --bg-color: var(--bg-subtle);
-  }
-
-  &.brand {
     --color: var(--text-on-brand);
     --bg-color: var(--bg-brand);
+    --hover-color: oklch(from var(--color) calc(l + 0.2) c h);
+  }
+
+  /**Only suitable for large text **/
+  &.brand {
+    --color: var(--text-on-brand);
+    --bg-color: var(--role-accent-secondary);
+    --hover-color: oklch(from var(--color) calc(l + 0.2) c h);
   }
 
   &.info {
@@ -182,7 +185,7 @@
     --shadow-color: transparent;
   }
 
-  &:not(.ghost):hover {
+  &:not(.ghost):not(:disabled):hover {
     --shadow-size: var(--shadow-sm-size);
     --shadow-color: var(--shadow-hover-color);
   }
@@ -223,11 +226,6 @@
     .icon {
       order: 1;
     }
-  }
-
-  &:focus-visible {
-    outline: var(--border-size-md) solid var(--border-focus);
-    outline-offset: var(--space-1);
   }
 
   &:focus-visible:not(:disabled) {
@@ -291,6 +289,24 @@
     }
     &.ghost {
       --hover-color: oklch(from var(--color) calc(l - 0.2) calc(c + 0.2) h);
+    }
+    &.secondary {
+      --color: var(--text-primary);
+      --bg-color: var(--bg-brand);
+    }
+
+    &.brand {
+      --color: var(--text-primary);
+      --bg-color: var(--role-accent-secondary);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+    .chevronIcon {
+      transition: none;
     }
   }
 }

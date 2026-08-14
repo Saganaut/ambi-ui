@@ -1,8 +1,8 @@
 /* oxlint-disable react-hooks/rules-of-hooks, no-console */
 /* oxlint-disable react-x/rules-of-hooks, no-console */
-import type { CSSProperties, ReactNode } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CirclePlus, CircleX, PenLine, PlusIcon } from "lucide-react";
+import type { CSSProperties, ReactNode } from "react";
 import userAvatar from "../../assets/user-avatar.svg";
 import { DropdownMenu } from "../DropdownMenu/DropdownMenu";
 import { Btn } from "./Btn";
@@ -76,6 +76,11 @@ Buttons share one set of semantic inputs and derive the rest of their presentati
 - **Derived states.** Hover colors and dark-mode borders are calculated from \`--color\` and \`--bg-color\`. The \`bordered\` fill also derives its border from \`--bg-color\`, while \`ghost\` makes the background, border, and shadow transparent.
 - **Composable forms.** The same variants, fills, sizes, shapes, icons, loading, and disabled behavior are shared by regular, icon-only, avatar, and split buttons.
 - **Native button props.** Props not owned by the component are forwarded to the underlying \`button\`, including \`aria-*\`, \`data-*\`, event handlers, and \`style\`.
+
+### Accessibility
+
+- **Color contrast** Components are evaluated using APCA algorithm, some items such as Brand button are only meant to be used with large text.
+
 
 ### Style overrides
 

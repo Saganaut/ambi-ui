@@ -64,6 +64,43 @@ docker stop ambi-ui
 docker rm ambi-ui
 ```
 
+### Rebuilding and relaunching an existing container
+
+Rebuilding the image does not replace an existing container. If a container
+named `ambi-ui` already exists, stop and remove it before starting the rebuilt
+image:
+
+```bash
+docker build --load -t ambi-ui:latest .
+
+docker stop ambi-ui
+docker rm ambi-ui
+
+docker run -d \
+  --name ambi-ui \
+  --restart unless-stopped \
+  --network cephadex_2_internal-network-1 \
+  ambi-ui:latest
+```
+
+Verify that the replacement container is running:
+
+```bash
+docker ps --filter name=ambi-ui
+docker logs --tail 100 ambi-ui
+```
+
+If Docker reports that the container does not exist, check for similarly named
+containers with:
+
+```bash
+docker ps -a --filter name=ambi-ui
+```
+
+Do not remove the shared Docker network. The replacement container will join
+the existing network when it starts. Use either `docker` or `sudo docker`
+consistently throughout these commands.
+
 ### Running behind a Docker reverse proxy
 
 On a server where the reverse proxy runs in Docker, attach Ambi UI to the same
@@ -73,9 +110,6 @@ Docker network. Publishing a host port is not required:
 docker run -d \
   --name ambi-ui \
   --restart unless-stopped \
-  --network ceph_default \
+  --network cephadex_2_internal-network-1 \
   ambi-ui:latest
 ```
-
-Replace `ceph_default` with the reverse proxy's network. The proxy can then
-forward requests to `http://ambi-ui:80`.
