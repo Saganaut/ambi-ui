@@ -1,0 +1,21 @@
+.hoverable {
+  --hover-color: oklch(from var(--color) calc(l - 0.1) calc(c + 0.01) h);
+  --hover-bg-color: oklch(from var(--bg-color) calc(l + 0.03) calc(c + 0.02) h);
+  --border-color: var(--role-border);
+
+  &:not(:disabled):hover {
+    background-color: var(--hover-bg-color);
+    color: var(--hover-color);
+  }
+}
+
+[data-appearance="dark"] {
+  .hoverable {
+    &:not(:disabled):hover {
+      --hover-border-color: oklch(
+        from var(--bg-color) calc(l + 0.3) calc(c - 0.02) h
+      );
+      border-color: var(--hover-border-color);
+    }
+  }
+}

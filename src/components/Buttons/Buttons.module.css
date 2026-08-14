@@ -1,4 +1,6 @@
 .btn {
+  composes: hoverable from "../../styles/utilities.module.css";
+
   /**Layout & Size **/
   --gap: var(--space-2);
   --padding: var(--p-md);
@@ -6,12 +8,12 @@
   --min-height: 2.5rem;
 
   /** Styling **/
+  --font-family: var(sans);
+  --font-weight: var(--font-weight-semibold);
   --font-size: var(--font-size-md);
   --color: var(--text-primary);
-  --bg-fill: var(--bg-secondary);
-  --border-fill: var(--text-primary);
-  --background-color: var(--bg-fill);
-  --border-color: transparent;
+  --bg-color: var(--bg-secondary);
+  --border-color: var(--role-border);
   --shadow-size: var(--shadow-xs-size);
   --shadow-color: var(--shadow-xs-color);
   --icon-size: 1em;
@@ -26,17 +28,19 @@
   gap: var(--gap);
   padding: var(--padding);
 
-  border-radius: var(--radius);
-
+  font-family: var(--font-family);
   font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  text-transform: capitalize;
 
   color: var(--color);
-  background-color: var(--background-color);
+  background-color: var(--bg-color);
+
+  border-radius: var(--radius);
   border: var(--border-size-xs) solid var(--border-color);
   box-shadow: var(--shadow-size) var(--shadow-color);
 
   cursor: pointer;
-
   transition:
     background-color var(--duration-base) ease-in-out,
     color var(--duration-base) ease-in-out,
@@ -68,84 +72,69 @@
   /* ─── Variants (color slot) ────────────────────────────────── */
   &.primary {
     --color: var(--text-primary);
-    --bg-fill: var(--bg-secondary);
-    --border-fill: var(--text-primary);
+    --bg-color: var(--bg-secondary);
   }
 
   &.secondary {
     --color: var(--text-secondary);
-    --bg-fill: var(--bg-subtle);
-    --border-fill: var(--text-secondary);
+    --bg-color: var(--bg-subtle);
   }
 
   &.brand {
     --color: var(--text-on-brand);
-    --bg-fill: var(--bg-brand);
-    --border-fill: var(--border-brand);
+    --bg-color: var(--bg-brand);
   }
 
   &.info {
     --color: var(--text-info);
-    --bg-fill: var(--bg-info);
-    --border-fill: var(--border-info);
+    --bg-color: var(--bg-info);
+    --hover-border-color: var(--border-info);
   }
 
   &.error {
     --color: var(--text-error);
-    --bg-fill: var(--bg-error);
-    --border-fill: var(--border-error);
+    --bg-color: var(--bg-error);
+    --hover-border-color: var(--border-error);
   }
 
   &.success {
     --color: var(--text-success);
-    --bg-fill: var(--bg-success);
-    --border-fill: var(--border-success);
+    --bg-color: var(--bg-success);
+    --hover-border-color: var(--border-success);
   }
 
   &.warning {
     --color: var(--text-warning);
-    --bg-fill: var(--bg-warning);
-    --border-fill: var(--border-warning);
+    --bg-color: var(--bg-warning);
+    --hover-border-color: var(--border-warning);
   }
 
   &:disabled {
     --color: var(--text-is-disabled);
-    --bg-fill: var(--bg-is-disabled);
-    --border-fill: var(--border-is-disabled);
+    --bg-color: var(--bg-is-disabled);
+    --border-color: var(--border-is-disabled);
     opacity: 0.5;
     color: var(--color);
     cursor: not-allowed;
-    background-color: var(--background-color);
+    background-color: var(--bg-color);
     border-color: var(--border-color);
   }
 
   &.bordered {
-    --border-color: oklch(from var(--background-color) 0.85 c h);
+    border-width: 2px;
+    --border-color: oklch(from var(--bg-color) calc(l * 0.95) calc(c + 0.02) h);
+    --hover-border-color: oklch(
+      from var(--bg-color) calc(l + 0.5) calc(c - 0.02) h
+    );
   }
 
   &.ghost {
-    --background-color: transparent;
+    --bg-color: transparent;
     --border-color: transparent;
     --shadow-size: 0 0;
     --shadow-color: transparent;
+    --hover-color: oklch(from var(--color) calc(l + 0.5) calc(c + 0.01) h);
   }
-
-  /* &.error,
-  &.success,
-  &.warning,
-  &.info { */
-  &:not(:disabled):hover {
-    --shadow-color: oklch(from var(--color) calc(l - 0.1) calc(c + 0.01) h);
-
-    color: oklch(from var(--color) calc(l - 0.1) calc(c + 0.01) h);
-    background-color: oklch(
-      from var(--background-color) calc(l + 0.05) calc(c + 0.02) h
-    );
-    border-color: oklch(
-      from var(--border-color) calc(l - 0.1) calc(c + 0.02) h
-    );
-  }
-  /* } */
 
   /* ─── Sizes ─────────────────────────────────────────────────── */
   &.xs {
@@ -183,6 +172,9 @@
   &.pill,
   &.avatar {
     border-radius: var(--radius-full);
+  }
+  &.avatar {
+    border: none;
   }
 
   &:disabled:hover {
@@ -243,11 +235,6 @@
     outline-offset: var(--space-1);
   }
 
-  /** Currently unused **/
-  &.isCollapsed {
-    transform: rotate(180deg);
-  }
-
   &.splitBtnSecondary {
     --split-btn-shadow-size: 2px 2px 3px 1px;
     --split-btn-shadow-color: var(--shadow-xs-color);
@@ -256,13 +243,13 @@
     box-shadow: var(--split-btn-shadow-size) var(--split-btn-shadow-color);
     border-left: none;
 
-    &:not(:disabled):hover {
-      --shadow-color: oklch(from var(--color) calc(l - 0.1) calc(c + 0.01) h);
-
-      color: oklch(from var(--color) calc(l - 0.1) calc(c + 0.01) h);
-      background-color: oklch(
-        from var(--background-color) calc(l + 0.05) calc(c + 0.02) h
-      );
+    &.ghost {
+      --bg-color: transparent;
+      --border-color: transparent;
+      --shadow-size: 0 0;
+      --shadow-color: transparent;
+      --split-btn-shadow-size: var(--shadow-size);
+      --split-btn-shadow-color: var(--shadow-color);
     }
   }
 }
@@ -283,8 +270,27 @@
     transition: transform var(--duration-fast) ease-in-out;
   }
 }
+
 [aria-expanded="true"] {
   .chevronIcon {
     transform: rotate(180deg);
+  }
+}
+
+[data-appearance="dark"] {
+  .btn {
+    --role-border: oklch(from var(--bg-color) calc(l + 0.2) calc(c - 0.01) h);
+
+    &.bordered {
+      --border-color: oklch(
+        from var(--bg-color) calc(l + 0.3) calc(c - 0.02) h
+      );
+      --hover-border-color: oklch(
+        from var(--bg-color) calc(l + 0.5) calc(c - 0.02) h
+      );
+    }
+    &.ghost {
+      --hover-color: oklch(from var(--color) calc(l - 0.2) calc(c + 0.2) h);
+    }
   }
 }

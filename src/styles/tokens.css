@@ -141,7 +141,7 @@
   --bg-display-only: var(--role-canvas);
 
   /** Inverted Backgrounds — swap toward the foreground end so they read as the */
-
+  /**TODO: still using inverted? **/
   /* opposite appearance without a second palette. */
   --bg-canvas-inverted: var(--role-foreground);
   --bg-surface-inverted: color-mix(
@@ -275,6 +275,16 @@
     var(--role-surface)
   );
 
+  /** --- Hover States - All should be derived from background and color --- **/
+  --bg-fill: var(--bg-surface);
+  --color: var(--text-primary);
+  --border-fill: var(--text-primary);
+  --hover-color: oklch(from var(--color) calc(l - 0.1) calc(c + 0.01) h);
+  --hover-bg-color: oklch(from var(--bg-fill) calc(l + 0.05) calc(c + 0.02) h);
+  --hover-border-color: oklch(
+    from var(--border-fill) calc(l - 0.1) calc(c + 0.02) h
+  );
+
   /* --- Typography (Expanded Scale) --- */
   --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
   --font-heading: "Poppins", system-ui, "Segoe UI", "Roboto", sans-serif;
@@ -287,6 +297,10 @@
   --font-size-xl: 2rem; /* 32px */
   --font-size-2xl: 3rem; /* 48px */
   --font-size-3xl: 3.75rem; /* 60px */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 
   /* --- Spacing System --- */
   --space-0: 0; /* 0px  */
@@ -417,7 +431,7 @@
   --radius-full: 9999px;
 
   /* ---- Border Sizes ---- */
-  --border-size-xs: 2px;
+  --border-size-xs: 1px;
 
   --border-size-sm: 2px;
   --border-size-md: 4px;
@@ -502,7 +516,9 @@
   --role-on-primary: var(--violet-100);
   --role-accent: var(--cyan-500);
   --role-accent-secondary: var(--orange-500);
-  --role-border: var(--violet-800);
+  /** Dark mode needs borders but light mode usually relies on shadows **/
+
+  --role-border: transparent;
   --role-border-subtle: var(--violet-200);
   --role-red: var(--red-500);
   --role-green: var(--green-500);
@@ -525,7 +541,8 @@
   --role-on-primary: var(--tolopea-900);
   --role-accent: var(--cyan-400);
   --role-accent-secondary: var(--orange-400);
-  --role-border: var(--violet-300);
+  --role-border-for-dark-mode: var(--violet-200);
+  --role-border: var(--violet-200);
   --role-border-subtle: var(--violet-800);
   --role-red: var(--red-400);
   --role-green: var(--green-400);

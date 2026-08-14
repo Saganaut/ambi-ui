@@ -51,6 +51,12 @@ export default {
         severity: "error",
       },
     ],
+    "property-no-unknown": [
+      true,
+      {
+        ignoreProperties: ["composes"],
+      },
+    ],
     "declaration-property-value-disallowed-list": [
       {
         "/^(padding|margin|gap|row-gap|column-gap)/": [/var\(--space-/],
