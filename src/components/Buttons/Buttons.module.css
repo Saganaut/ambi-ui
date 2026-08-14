@@ -8,7 +8,7 @@
   --min-height: 2.5rem;
 
   /** Styling **/
-  --font-family: var(sans);
+  --font-family: var(--font-sans);
   --font-weight: var(--font-weight-semibold);
   --font-size: var(--font-size-md);
   --color: var(--text-primary);
