@@ -21,6 +21,12 @@ My custom component library used in new projects
 - Popover & utility PopoverWrapper
 - Dropdown Menu
 
+## Styling
+
+- Tokens.css has primitives + roles. Always use roles never primitives in components.
+- Some styles are exposed as data-attributes they are:
+-- fill
+
 ## Running Storybook with Docker
 
 Build the production Storybook image and load it into the local Docker image

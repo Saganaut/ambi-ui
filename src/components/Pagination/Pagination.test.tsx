@@ -146,6 +146,29 @@ describe("Pagination", () => {
     expect(screen.getByRole("navigation", { name: "Decks pagination" })).toBeInTheDocument();
   });
 
+  it("applies appearance props to the pagination and navigation buttons", () => {
+    render(
+      <Pagination
+        page={1}
+        pageCount={3}
+        onPageChange={vi.fn()}
+        variant="success"
+        fill="ghost"
+        size="lg"
+      />,
+    );
+
+    const pagination = screen.getByRole("navigation");
+    expect(pagination).toHaveAttribute("data-fill", "ghost");
+    expect(pagination.className).toContain("success");
+    expect(pagination.className).toContain("lg");
+
+    const previous = screen.getByRole("button", { name: "Previous page" });
+    expect(previous).toHaveAttribute("data-fill", "ghost");
+    expect(previous.className).toContain("success");
+    expect(previous.className).toContain("lg");
+  });
+
   it("disables all page buttons when disabled", () => {
     render(<Pagination page={1} pageCount={5} onPageChange={vi.fn()} disabled />);
     expect(screen.getByRole("button", { name: "Go to page 3" })).toBeDisabled();

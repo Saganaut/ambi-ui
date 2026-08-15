@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { type KeyboardEvent } from "react";
+import variantStyles from "../../styles/variants.module.css";
 import { Btn } from "../Buttons/Btn";
 import styles from "./Pagination.module.css";
 import type { PageToken, PaginationProps } from "./Pagination.types";
@@ -8,6 +9,9 @@ const Pagination = (props: PaginationProps) => {
   const {
     page,
     onPageChange,
+    variant = "primary",
+    fill = "default",
+    size = "md",
     siblingCount = 1,
     boundaryCount = 1,
     disabled = false,
@@ -21,18 +25,13 @@ const Pagination = (props: PaginationProps) => {
 
   if (knownTotal && pageCount <= 1) return null;
 
-  const clampedPage = knownTotal
-    ? Math.max(0, Math.min(page, pageCount - 1))
-    : Math.max(0, page);
+  const clampedPage = knownTotal ? Math.max(0, Math.min(page, pageCount - 1)) : Math.max(0, page);
   const canGoPrev = !disabled && clampedPage > 0;
-  const canGoNext =
-    !disabled && (knownTotal ? clampedPage < pageCount - 1 : props.hasMore);
+  const canGoNext = !disabled && (knownTotal ? clampedPage < pageCount - 1 : props.hasMore);
 
   const goTo = (next: number) => {
     if (disabled) return;
-    const bounded = knownTotal
-      ? Math.max(0, Math.min(next, pageCount - 1))
-      : Math.max(0, next);
+    const bounded = knownTotal ? Math.max(0, Math.min(next, pageCount - 1)) : Math.max(0, next);
     if (bounded !== clampedPage) onPageChange(bounded);
   };
 
@@ -58,13 +57,21 @@ const Pagination = (props: PaginationProps) => {
     <nav
       aria-label={ariaLabel}
       onKeyDown={handleKeyDown}
-      className={[styles.pagination, compact ? styles.compact : null, className]
+      data-fill={fill === "default" ? undefined : fill}
+      className={[
+        styles.pagination,
+        variantStyles[variant],
+        styles[size],
+        compact ? styles.compact : null,
+        className,
+      ]
         .filter(Boolean)
         .join(" ")}
     >
       <Btn
-        variant="secondary"
-        size="sm"
+        variant={variant}
+        fill={fill}
+        size={size}
         className={styles.navBtn}
         icon={<ChevronLeft />}
         isDisabled={!canGoPrev}
@@ -89,20 +96,13 @@ const Pagination = (props: PaginationProps) => {
             boundaryCount,
           }).map((token, idx) => (
             <li
-              key={
-                typeof token === "number"
-                  ? `p-${String(token)}`
-                  : `${token}-${String(idx)}`
-              }
+              key={typeof token === "number" ? `p-${String(token)}` : `${token}-${String(idx)}`}
               className={styles.item}
             >
               {typeof token === "number" ? (
                 <button
                   type="button"
-                  className={[
-                    styles.pageBtn,
-                    token === clampedPage ? styles.current : null,
-                  ]
+                  className={[styles.pageBtn, token === clampedPage ? styles.current : null]
                     .filter(Boolean)
                     .join(" ")}
                   aria-current={token === clampedPage ? "page" : undefined}
@@ -125,8 +125,9 @@ const Pagination = (props: PaginationProps) => {
       )}
 
       <Btn
-        variant="secondary"
-        size="sm"
+        variant={variant}
+        fill={fill}
+        size={size}
         className={styles.navBtn}
         icon={<ChevronRight />}
         isDisabled={!canGoNext}
@@ -189,8 +190,7 @@ const buildPages = ({
   const firstMiddlePage = leadingEnd + 1;
   const lastMiddleStart = trailingStart - windowSize;
   const groupStart = Math.min(
-    firstMiddlePage +
-      Math.floor((page - firstMiddlePage) / windowSize) * windowSize,
+    firstMiddlePage + Math.floor((page - firstMiddlePage) / windowSize) * windowSize,
     lastMiddleStart,
   );
 

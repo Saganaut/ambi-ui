@@ -1,15 +1,42 @@
 .pagination {
-  --page-size: 36px;
+  --page-size: 2.5rem;
+  --page-font-size: var(--font-size-base);
+  --page-radius: var(--radius-md);
+  --page-gap: var(--gap-xs);
 
   display: inline-flex;
   align-items: center;
-  gap: var(--gap-xs);
+  gap: var(--page-gap);
   font-variant-numeric: tabular-nums;
+
+  &.xs {
+    --page-size: 1.5rem;
+    --page-font-size: var(--font-size-xs);
+    --page-radius: var(--radius-sm);
+  }
+
+  &.sm {
+    --page-size: 1.75rem;
+    --page-font-size: var(--font-size-xs);
+  }
+
+  &.md {
+    --page-size: 2.5rem;
+    --page-font-size: var(--font-size-base);
+    --page-radius: var(--radius-md);
+  }
+
+  &.lg {
+    --page-size: 3.75rem;
+    --page-font-size: var(--font-size-lg);
+    --page-radius: var(--radius-lg);
+    --page-gap: var(--gap-sm);
+  }
 
   .list {
     display: inline-flex;
     align-items: center;
-    gap: var(--gap-xs);
+    gap: var(--page-gap);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -21,11 +48,7 @@
   }
 
   .navBtn {
-    --bg-fill: var(--bg-canvas);
-    --background-color: var(--bg-canvas);
-    --color: var(--text-secondary);
-    --shadow-size: var(--shadow-sm-size);
-    --shadow-color: var(--shadow-sm-color);
+    flex: none;
   }
 
   .pageBtn,
@@ -36,13 +59,13 @@
     width: var(--page-size);
     height: var(--page-size);
     border: 0;
-    border-radius: var(--radius-md);
-    background-color: var(--bg-canvas);
-    box-shadow: var(--shadow-sm);
-    color: var(--text-secondary);
+    border-radius: var(--page-radius);
+    background-color: var(--bg-color);
+    box-shadow: var(--shadow-size) var(--shadow-color);
+    color: var(--color);
     font-family: var(--font-sans);
-    font-size: var(--font-size-sm);
-    font-weight: 500;
+    font-size: var(--page-font-size);
+    font-weight: var(--font-weight-medium);
     user-select: none;
   }
 
@@ -55,8 +78,7 @@
 
     /* Active page. */
     &.current {
-      background-color: var(--bg-brand);
-      color: var(--text-on-brand);
+      filter: brightness(0.85);
     }
 
     &:focus-visible {
@@ -76,15 +98,26 @@
     }
   }
 
+  &[data-fill="bordered"] .pageBtn {
+    border-width: 2px;
+    border-color: var(--border-color);
+  }
+
+  &[data-fill="ghost"] .pageBtn,
+  &[data-fill="ghost"] .ellipsis {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
   .chevron {
     width: var(--space-5);
     height: var(--space-5);
   }
 
   .compactLabel {
-    color: var(--text-secondary);
+    color: var(--color);
     font-family: var(--font-sans);
-    font-size: var(--font-size-sm);
+    font-size: var(--page-font-size);
     padding: 0 var(--gap-sm);
   }
 }

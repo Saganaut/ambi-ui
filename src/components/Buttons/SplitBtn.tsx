@@ -37,7 +37,7 @@ const SplitBtn = ({
         {children}
       </Btn>
       <DropdownMenu
-        variant={variant !== "isDisabled" ? variant : undefined}
+        variant={variant}
         size={size}
         fill={fill}
         iconPosition={iconPosition}

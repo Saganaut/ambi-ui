@@ -1,6 +1,11 @@
+import type { BtnFill, BtnSize, BtnVariant } from "../Buttons/Btn.types";
+
 export interface PaginationBaseProps {
   page: number;
   onPageChange: (page: number) => void;
+  variant?: BtnVariant;
+  fill?: BtnFill;
+  size?: BtnSize;
   siblingCount?: number;
   boundaryCount?: number;
   disabled?: boolean;

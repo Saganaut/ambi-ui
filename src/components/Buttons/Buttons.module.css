@@ -11,11 +11,11 @@
   --font-family: var(--font-sans);
   --font-weight: var(--font-weight-semibold);
   --font-size: var(--font-size-md);
-  --color: var(--text-primary);
-  --bg-color: var(--bg-secondary);
-  --border-color: var(--role-border);
-  --shadow-size: var(--shadow-xs-size);
-  --shadow-color: var(--shadow-xs-color);
+  /* --color: var(--text-primary);
+  --bg-color: var(--bg-secondary); */
+  /* --border-color: var(--role-border); */
+  /* --shadow-size: var(--shadow-xs-size);
+  --shadow-color: var(--shadow-xs-color); */
   --icon-size: 1em;
 
   display: flex;
@@ -70,7 +70,7 @@
   }
 
   /* ─── Variants (color slot) ────────────────────────────────── */
-  &.primary {
+  /* &.primary {
     --color: var(--text-primary);
     --bg-color: var(--bg-secondary);
   }
@@ -79,10 +79,10 @@
     --color: var(--text-on-brand);
     --bg-color: var(--bg-brand);
     --hover-color: oklch(from var(--color) calc(l + 0.2) c h);
-  }
+  } */
 
   /**Only suitable for large text **/
-  &.brand {
+  /* &.brand {
     --color: var(--text-on-brand);
     --bg-color: var(--role-accent-secondary);
     --hover-color: oklch(from var(--color) calc(l + 0.2) c h);
@@ -123,7 +123,7 @@
     border-color: var(--border-color);
   }
 
-  &.bordered {
+  &[data-fill="bordered"] {
     border-width: 2px;
     --border-color: oklch(from var(--bg-color) calc(l * 0.95) calc(c + 0.02) h);
     --hover-border-color: oklch(
@@ -131,13 +131,13 @@
     );
   }
 
-  &.ghost {
+  &[data-fill="ghost"] {
     --bg-color: transparent;
     --border-color: transparent;
     --shadow-size: 0 0;
     --shadow-color: transparent;
     --hover-color: oklch(from var(--color) calc(l + 0.5) calc(c + 0.01) h);
-  }
+  } */
 
   /* ─── Sizes ─────────────────────────────────────────────────── */
   &.xs {
@@ -180,12 +180,41 @@
     border: none;
   }
 
+  &[data-fill="bordered"] {
+    --shadow-size: var(--shadow-xs-size);
+    --shadow-color: var(--shadow-xs-color);
+    --border-color: oklch(from var(--bg-color) calc(l * 0.95) calc(c + 0.02) h);
+    --hover-border-color: oklch(
+      from var(--bg-color) calc(l + 0.5) calc(c - 0.02) h
+    );
+    border-width: 2px;
+  }
+
+  &[data-fill="ghost"] {
+    --bg-color: transparent;
+    --border-color: transparent;
+    --shadow-size: 0 0;
+    --shadow-color: transparent;
+    --hover-color: oklch(from var(--color) calc(l + 0.5) calc(c + 0.01) h);
+  }
+
+  &:disabled {
+    --color: var(--text-is-disabled);
+    --bg-color: var(--bg-is-disabled);
+    --border-color: var(--border-is-disabled);
+    opacity: 0.5;
+    color: var(--color);
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+    cursor: not-allowed;
+  }
+
   &:disabled:hover {
     --shadow-size: 0 0;
     --shadow-color: transparent;
   }
 
-  &:not(.ghost):not(:disabled):hover {
+  &:not([data-fill="ghost"]):not(:disabled):hover {
     --shadow-size: var(--shadow-sm-size);
     --shadow-color: var(--shadow-hover-color);
   }
@@ -241,13 +270,9 @@
     box-shadow: var(--split-btn-shadow-size) var(--split-btn-shadow-color);
     border-left: none;
 
-    &.ghost {
-      --bg-color: transparent;
-      --border-color: transparent;
-      --shadow-size: 0 0;
-      --shadow-color: transparent;
-      --split-btn-shadow-size: var(--shadow-size);
-      --split-btn-shadow-color: var(--shadow-color);
+    &[data-fill="ghost"] {
+      --split-btn-shadow-size: 0 0;
+      --split-btn-shadow-color: transparent;
     }
   }
 }
@@ -277,9 +302,7 @@
 
 [data-appearance="dark"] {
   .btn {
-    --role-border: oklch(from var(--bg-color) calc(l + 0.2) calc(c - 0.01) h);
-
-    &.bordered {
+    &[data-fill="bordered"] {
       --border-color: oklch(
         from var(--bg-color) calc(l + 0.3) calc(c - 0.02) h
       );
@@ -287,17 +310,9 @@
         from var(--bg-color) calc(l + 0.5) calc(c - 0.02) h
       );
     }
-    &.ghost {
-      --hover-color: oklch(from var(--color) calc(l - 0.2) calc(c + 0.2) h);
-    }
-    &.secondary {
-      --color: var(--text-primary);
-      --bg-color: var(--bg-brand);
-    }
 
-    &.brand {
-      --color: var(--text-primary);
-      --bg-color: var(--role-accent-secondary);
+    &[data-fill="ghost"] {
+      --hover-color: oklch(from var(--color) calc(l - 0.2) calc(c + 0.2) h);
     }
   }
 }

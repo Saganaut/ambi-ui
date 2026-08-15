@@ -23,21 +23,21 @@
   --font-family: var(--font-sans);
   --font-weight: var(--font-weight-semibold);
   --font-size: var(--font-size-md);
-  --color: var(--text-primary);
+  /* --color: var(--text-primary);
   --bg-color: var(--bg-secondary);
-  --border-color: var(--role-border);
+  --border-color: var(--role-border); */
   --shadow-size: var(--shadow-xs-size);
   --shadow-color: var(--shadow-xs-color);
   --icon-size: 1em;
   --min-width: 180px;
-
+  --radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   min-width: var(--min-width);
   font-size: var(--font-size);
 
   border: var(--border-size-xs) solid var(--border-color);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius);
 
   background: var(--bg-color);
   box-shadow: var(--shadow-md);
@@ -45,47 +45,6 @@
   overflow: hidden;
   will-change: opacity, transform;
 
-  &.primary {
-    --color: var(--text-primary);
-    --bg-color: var(--bg-secondary);
-  }
-
-  &.secondary {
-    --color: var(--text-on-brand);
-    --bg-color: var(--bg-brand);
-    --hover-color: oklch(from var(--color) calc(l + 0.2) c h);
-  }
-
-  /**Only suitable for large text **/
-  &.brand {
-    --color: var(--text-on-brand);
-    --bg-color: var(--role-accent-secondary);
-    --hover-color: oklch(from var(--color) calc(l + 0.2) c h);
-  }
-
-  &.info {
-    --color: var(--text-info);
-    --bg-color: var(--bg-info);
-    --hover-border-color: var(--border-info);
-  }
-
-  &.error {
-    --color: var(--text-error);
-    --bg-color: var(--bg-error);
-    --hover-border-color: var(--border-error);
-  }
-
-  &.success {
-    --color: var(--text-success);
-    --bg-color: var(--bg-success);
-    --hover-border-color: var(--border-success);
-  }
-
-  &.warning {
-    --color: var(--text-warning);
-    --bg-color: var(--bg-warning);
-    --hover-border-color: var(--border-warning);
-  }
   &.xs {
     --padding: var(--gap-sm) var(--gap-md);
     --font-size: var(--font-size-xs);

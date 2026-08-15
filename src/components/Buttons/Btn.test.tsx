@@ -10,6 +10,7 @@ describe("Btn", () => {
     expect(markup).toContain(">Save</span>");
     expect(markup).toContain("primary");
     expect(markup).toContain("md");
+    expect(markup).not.toContain("data-fill");
   });
 
   it("applies variant, fill, size, shape, and custom classes", () => {
@@ -20,7 +21,7 @@ describe("Btn", () => {
     );
 
     expect(markup).toContain("error");
-    expect(markup).toContain("ghost");
+    expect(markup).toContain('data-fill="ghost"');
     expect(markup).toContain("lg");
     expect(markup).toContain("pill");
     expect(markup).toContain("custom-btn");

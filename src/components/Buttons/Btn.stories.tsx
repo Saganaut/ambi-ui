@@ -17,7 +17,6 @@ const VARIANTS: BtnVariant[] = [
   "error",
   "success",
   "warning",
-  "isDisabled",
 ];
 const FILLS: BtnFill[] = ["default", "bordered", "ghost"];
 const SIZES: BtnSize[] = ["xs", "sm", "md", "lg"];
@@ -43,13 +42,7 @@ const Row = ({ children }: { children: ReactNode }) => (
   </div>
 );
 
-const StoryRow = ({
-  label,
-  children,
-}: {
-  label: string;
-  children: ReactNode;
-}) => (
+const StoryRow = ({ label, children }: { label: string; children: ReactNode }) => (
   <div style={{ display: "grid", gap: "0.5rem" }}>
     <strong>{label}</strong>
     <Row>{children}</Row>
@@ -103,7 +96,7 @@ Pass component CSS variables through \`style\` for a local override. Because oth
       },
     },
   },
-  args: { onClick: onClickFn },
+  args: { onClick: onClickFn, children: undefined },
   argTypes: {
     variant: { control: "select", options: VARIANTS },
     fill: { control: "inline-radio", options: FILLS },
@@ -189,37 +182,19 @@ export const IconOnly: Story = {
 
       <StoryRow label="Variants">
         {VARIANTS.map((variant) => (
-          <Btn
-            key={variant}
-            {...args}
-            icon={<PlusIcon />}
-            variant={variant}
-            aria-label={variant}
-          />
+          <Btn key={variant} {...args} icon={<PlusIcon />} variant={variant} aria-label={variant} />
         ))}
       </StoryRow>
 
       <StoryRow label="Fills">
         {FILLS.map((fill) => (
-          <Btn
-            key={fill}
-            {...args}
-            icon={<PlusIcon />}
-            fill={fill}
-            aria-label={fill}
-          />
+          <Btn key={fill} {...args} icon={<PlusIcon />} fill={fill} aria-label={fill} />
         ))}
       </StoryRow>
 
       <StoryRow label="Sizes">
         {SIZES.map((size) => (
-          <Btn
-            key={size}
-            {...args}
-            icon={<PlusIcon />}
-            size={size}
-            aria-label={size}
-          />
+          <Btn key={size} {...args} icon={<PlusIcon />} size={size} aria-label={size} />
         ))}
       </StoryRow>
     </div>
@@ -257,71 +232,6 @@ export const MiscIcons: Story = {
   ),
 };
 
-const columnStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  minWidth: "8rem",
-} as const;
-
-export const Sizing: Story = {
-  parameters: {
-    controls: { disable: true },
-    docs: {
-      description: {
-        story:
-          "A side-by-side comparison of icon, avatar, regular, and split button sizing.",
-      },
-    },
-  },
-  render: () => (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "3rem repeat(4, minmax(8rem, max-content))",
-        alignItems: "center",
-        gap: "1.5rem 1rem",
-        width: "max-content",
-      }}
-    >
-      <span aria-hidden="true" />
-      <strong style={columnStyle}>Icon</strong>
-      <strong style={columnStyle}>Avatar</strong>
-      <strong style={columnStyle}>Regular</strong>
-      <strong style={columnStyle}>Split</strong>
-
-      {SIZES.map((size) => (
-        <div key={size} style={{ display: "contents" }}>
-          <strong>{size}</strong>
-          <div style={columnStyle}>
-            <Btn icon={<PlusIcon />} size={size} aria-label={`Add (${size})`} />
-          </div>
-          <div style={columnStyle}>
-            <Btn
-              icon={<img src={userAvatar} alt="" />}
-              size={size}
-              shape="avatar"
-              aria-label={`User profile (${size})`}
-            />
-          </div>
-          <div style={columnStyle}>
-            <Btn size={size}>Button</Btn>
-          </div>
-          <div style={columnStyle}>
-            <SplitBtn
-              size={size}
-              menuAriaLabel={`More button options (${size})`}
-              menuItems={menuItems}
-            >
-              Button
-            </SplitBtn>
-          </div>
-        </div>
-      ))}
-    </div>
-  ),
-};
-
 export const Split: Story = {
   parameters: {
     docs: {
@@ -340,12 +250,7 @@ export const Split: Story = {
       </StoryRow>
       <StoryRow label="Variants">
         {VARIANTS.map((variant) => (
-          <SplitBtn
-            key={variant}
-            {...args}
-            menuItems={menuItems}
-            variant={variant}
-          >
+          <SplitBtn key={variant} {...args} menuItems={menuItems} variant={variant}>
             {variant}
           </SplitBtn>
         ))}
@@ -375,12 +280,7 @@ export const Split: Story = {
         <SplitBtn {...args} menuItems={menuItems} icon={<CirclePlus />}>
           Add deck
         </SplitBtn>
-        <SplitBtn
-          {...args}
-          menuItems={menuItems}
-          icon={<CirclePlus />}
-          iconPosition="right"
-        >
+        <SplitBtn {...args} menuItems={menuItems} icon={<CirclePlus />} iconPosition="right">
           Add deck
         </SplitBtn>
       </StoryRow>

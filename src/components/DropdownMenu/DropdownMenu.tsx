@@ -16,8 +16,10 @@ import {
   type Placement,
 } from "@floating-ui/react";
 import React, { createContext, use, useRef, useState } from "react";
+import variantStyles from "../../styles/variants.module.css";
 import type { MenuPosition } from "../Buttons/Btn.types";
 import styles from "./DropdownMenu.module.css";
+
 import type {
   DropdownMenuContextValue,
   DropdownMenuItemProps,
@@ -148,10 +150,10 @@ const DropdownMenu = ({
               {...getFloatingProps()}
             >
               <div
+                data-fill={fill === "default" ? undefined : fill}
                 className={[
                   styles.panel,
-                  styles[variant],
-                  styles[fill],
+                  variantStyles[variant],
                   styles[size],
                   className,
                 ]

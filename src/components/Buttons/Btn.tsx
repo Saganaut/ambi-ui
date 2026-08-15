@@ -1,6 +1,6 @@
+import variantStyles from "../../styles/variants.module.css";
 import type { BtnProps } from "./Btn.types";
 import styles from "./Buttons.module.css";
-
 const Btn = ({
   variant = "primary",
   fill = "default",
@@ -24,11 +24,11 @@ const Btn = ({
       aria-busy={isLoading || undefined}
       data-icon-position={icon ? iconPosition : undefined}
       {...rest}
+      data-fill={fill === "default" ? undefined : fill}
       className={[
         styles.btn,
         children == null && styles.iconBtn,
-        styles[variant],
-        styles[fill],
+        variantStyles[variant],
         styles[size],
         shape !== "default" && styles[shape],
         className,

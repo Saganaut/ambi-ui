@@ -3,17 +3,13 @@ import type { BaseSizes, BaseVariants } from "../Base.types";
 
 export type BtnSize = Exclude<BaseSizes, "xl">;
 
-export type BtnVariant = BaseVariants | "isDisabled";
+export type BtnVariant = BaseVariants;
 
 export type BtnFill = "default" | "bordered" | "ghost";
 
 export type BtnShape = "default" | "pill" | "avatar";
 
-export type MenuPosition =
-  | "bottom-right"
-  | "bottom-left"
-  | "top-right"
-  | "top-left";
+export type MenuPosition = "bottom-right" | "bottom-left" | "top-right" | "top-left";
 
 export type IconBtnPosition = "left" | "right";
 
@@ -21,7 +17,7 @@ export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   children?: ReactNode;
 
   ref?: Ref<HTMLButtonElement>;
-  variant?: BtnVariant | BaseVariants;
+  variant?: BtnVariant;
   fill?: BtnFill;
   size?: BtnSize;
   shape?: BtnShape;
