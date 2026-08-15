@@ -1,22 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  Check,
-  ChevronDown,
-  Copy,
-  ExternalLink,
-  Pencil,
-  Trash2,
-} from "lucide-react";
+import { Check, ChevronDown, Copy, ExternalLink, Pencil, Trash2 } from "lucide-react";
 import { Btn } from "../Buttons/Btn";
-import type { MenuPosition } from "../Buttons/Btn.types";
+import type { BtnFill, BtnSize, BtnVariant, MenuPosition } from "../Buttons/Btn.types";
 import { DropdownMenu } from "./DropdownMenu";
 
-const POSITIONS: MenuPosition[] = [
-  "top-left",
-  "top-right",
-  "bottom-left",
-  "bottom-right",
+const POSITIONS: MenuPosition[] = ["top-left", "top-right", "bottom-left", "bottom-right"];
+const VARIANTS: BtnVariant[] = [
+  "primary",
+  "secondary",
+  "brand",
+  "info",
+  "error",
+  "success",
+  "warning",
 ];
+const FILLS: BtnFill[] = ["default", "bordered", "ghost"];
+const SIZES: BtnSize[] = ["xs", "sm", "md", "lg"];
 
 const menuContent = (
   <>
@@ -54,9 +53,31 @@ const trigger = (toggle: () => void, referenceProps?: Record<string, any>) => (
 const meta = {
   title: "Common/DropdownMenu",
   component: DropdownMenu,
+  subcomponents: {
+    Item: DropdownMenu.Item,
+    Label: DropdownMenu.Label,
+    Link: DropdownMenu.Link,
+    Divider: DropdownMenu.Divider,
+  },
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component: `
+Dropdown Menu presents a keyboard-navigable action list anchored to a trigger or cursor position.
+
+The trigger render function receives a toggle callback and the reference props required for positioning and interaction. Compose menus with \`DropdownMenu.Item\`, \`Label\`, \`Divider\`, and \`Link\`. Its \`variant\`, \`fill\`, and \`size\` props use the same appearance vocabulary as Button and Pagination.
+
+### Accessibility
+
+- Provides menu semantics, focus management, dismissal, and arrow-key list navigation.
+- Items receive roving tab focus and links retain keyboard activation.
+- Label icon-only triggers with \`aria-label\` in the trigger render function.
+- Disabled menu items remain unavailable to pointer interaction.
+        `,
+      },
+    },
   },
   args: {
     position: "top-left",
@@ -65,24 +86,30 @@ const meta = {
     children: menuContent,
   },
   argTypes: {
-    position: { control: "select", options: POSITIONS },
-    anchorToCursor: { control: "boolean" },
-    trigger: { control: false },
-    children: { control: false },
+    variant: { control: "select", options: VARIANTS },
+    fill: { control: "inline-radio", options: FILLS },
+    size: { control: "inline-radio", options: SIZES },
+    position: {
+      control: "select",
+      options: POSITIONS,
+      description: "Panel edge and alignment relative to the trigger.",
+    },
+    anchorToCursor: {
+      control: "boolean",
+      description: "Position the menu at the pointer coordinates passed to toggle.",
+    },
+    trigger: { control: false, description: "Render function for the menu trigger." },
+    children: { control: false, description: "Menu items and compound content primitives." },
     className: { control: false },
+    iconPosition: { control: false },
+    isLoading: { control: false },
   },
 } satisfies Meta<typeof DropdownMenu>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const Section = ({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) => (
+const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section style={{ display: "grid", gap: "1rem" }}>
     <h2 style={{ margin: 0, fontSize: "1rem" }}>{title}</h2>
     {children}

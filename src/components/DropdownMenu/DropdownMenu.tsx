@@ -20,6 +20,7 @@ import variantStyles from "../../styles/variants.module.css";
 import type { MenuPosition } from "../Buttons/Btn.types";
 import styles from "./DropdownMenu.module.css";
 
+import { inheritThemeMiddleware } from "../../utils/inheritTheme";
 import type {
   DropdownMenuContextValue,
   DropdownMenuItemProps,
@@ -66,7 +67,12 @@ const DropdownMenu = ({
     onOpenChange: setOpen,
     placement: placementMap[position],
     strategy: "fixed",
-    middleware: [offset(8), flip(), shift({ padding: 8 })],
+    middleware: [
+      offset(8),
+      flip(),
+      shift({ padding: 8 }),
+      inheritThemeMiddleware,
+    ],
     whileElementsMounted: autoUpdate,
   });
   const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {

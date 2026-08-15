@@ -16,10 +16,10 @@ My custom component library used in new projects
 
 ## Components
 
-- Buttons
+- Buttons (regular, icon, split)
 - Pagination
 - Popover & utility PopoverWrapper
-- Dropdown Menu
+- Dropdown Menu (need to decide on hover effect here, unfinished)
 
 ## Styling
 

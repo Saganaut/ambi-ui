@@ -19,13 +19,45 @@ const FILLS: BtnFill[] = ["default", "bordered", "ghost"];
 const SIZES: BtnSize[] = ["xs", "sm", "md", "lg"];
 
 const meta = {
-  title: "Common/Pagination/Pagination",
+  title: "Common/Pagination",
   component: Pagination,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+Pagination moves through zero-indexed pages and supports both known and unknown totals.
+
+Use \`pageCount\` for a known total, or omit it and provide \`hasMore\` for an open-ended result set. Set \`compact\` when a known total should use a concise “Page X of Y” label. The shared \`variant\`, \`fill\`, and \`size\` props match Button and Dropdown Menu.
+
+### Accessibility
+
+- Renders a labelled \`nav\` landmark; customize it with \`ariaLabel\` when multiple pagers appear on a page.
+- Marks the selected page with \`aria-current="page"\`.
+- Supports Left, Right, Home, and End keyboard navigation.
+- Disables unavailable navigation controls at either boundary.
+        `,
+      },
+    },
+  },
   args: {
     page: 0,
     pageCount: 12,
     onPageChange: fn(),
+  },
+  argTypes: {
+    page: { description: "Current zero-indexed page." },
+    pageCount: { description: "Total page count when the result size is known." },
+    hasMore: { description: "Whether another page exists when pageCount is unknown." },
+    compact: { description: "Replace numbered pages with a Page X of Y label." },
+    siblingCount: { description: "Pages shown on each side of the current page." },
+    boundaryCount: { description: "Pages kept visible at the beginning and end." },
+    disabled: { description: "Disable every pagination action." },
+    ariaLabel: { description: "Accessible label for the navigation landmark." },
+    variant: { control: "select", options: VARIANTS },
+    fill: { control: "inline-radio", options: FILLS },
+    size: { control: "inline-radio", options: SIZES },
+    onPageChange: { description: "Called with the next zero-indexed page." },
   },
 } satisfies Meta<typeof Pagination>;
 

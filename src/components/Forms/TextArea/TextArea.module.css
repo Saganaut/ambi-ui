@@ -1,0 +1,55 @@
+/* TextArea — multi-line text entry that visually matches the single-line Input.
+   Lives in the .inputContainer shared with Input, so the label/info layout
+   matches form rows that mix the two.
+
+   `field-sizing: content` auto-grows the textarea to fit its contents (no
+   vertical scrollbar appears until `maxLength` or container limits kick in),
+   which is what we want inside compact author surfaces like MCQ option
+   cards. `min-height` keeps an empty field readable; we drop the fixed
+   width default to 300px to match the single-line Input. */
+
+.textarea {
+  position: relative;
+
+  /* DS field chrome (Figma 193-506): flat canvas surface lifted by
+     --shadow-xs; the transparent border keeps layout stable when the
+     focus tint swaps in. Mirrors the single-line Input in ../Input.module.css. */
+  textarea {
+    width: 300px;
+    font-family: var(--font-sans);
+    resize: none;
+    field-sizing: content;
+
+    /* Opt-out of auto-grow: textarea fills its container instead.
+       Hosts (e.g. the MCQ option card) pair this with `useFitText` so
+       the font shrinks as content lengthens rather than the field
+       growing. */
+    &.noAutoGrow {
+      field-sizing: fixed;
+      height: 100%;
+      resize: none;
+    }
+  }
+
+  /* One --space-6 step below the field, x-aligned with its --p-sm text inset. */
+  .message {
+    position: absolute;
+    bottom: calc(-1 * var(--space-6));
+    left: var(--space-3);
+  }
+}
+
+.fullWidth,
+.fullWidth textarea {
+  width: 100%;
+}
+
+/* When the textarea is in noAutoGrow mode, propagate height up the
+   wrapper chain so the textarea has a real 100% to fill. The
+   `inputContainer` propagation lives in the shared Input.module.css.
+   Attribute selector here avoids cross-module class-name lookups. */
+.textarea:has([data-auto-grow="false"]) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

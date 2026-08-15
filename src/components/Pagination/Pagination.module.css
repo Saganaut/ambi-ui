@@ -1,8 +1,18 @@
 .pagination {
+  /** Layout & Size **/
   --page-size: 2.5rem;
-  --page-font-size: var(--font-size-base);
-  --page-radius: var(--radius-md);
   --page-gap: var(--gap-xs);
+  --page-radius: var(--radius-md);
+
+  /** Styling **/
+  --page-font-family: var(--font-sans);
+  --page-font-size: var(--font-size-base);
+  --page-font-weight: var(--font-weight-medium);
+  --page-color: var(--color);
+  --page-bg-color: var(--bg-color);
+  --page-border-color: var(--border-color);
+  --page-shadow-size: var(--shadow-size);
+  --page-shadow-color: var(--shadow-color);
 
   display: inline-flex;
   align-items: center;
@@ -60,12 +70,12 @@
     height: var(--page-size);
     border: 0;
     border-radius: var(--page-radius);
-    background-color: var(--bg-color);
-    box-shadow: var(--shadow-size) var(--shadow-color);
-    color: var(--color);
-    font-family: var(--font-sans);
+    background-color: var(--page-bg-color);
+    box-shadow: var(--page-shadow-size) var(--page-shadow-color);
+    color: var(--page-color);
+    font-family: var(--page-font-family);
     font-size: var(--page-font-size);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--page-font-weight);
     user-select: none;
   }
 
@@ -100,7 +110,7 @@
 
   &[data-fill="bordered"] .pageBtn {
     border-width: 2px;
-    border-color: var(--border-color);
+    border-color: var(--page-border-color);
   }
 
   &[data-fill="ghost"] .pageBtn,
@@ -115,8 +125,8 @@
   }
 
   .compactLabel {
-    color: var(--color);
-    font-family: var(--font-sans);
+    color: var(--page-color);
+    font-family: var(--page-font-family);
     font-size: var(--page-font-size);
     padding: 0 var(--gap-sm);
   }

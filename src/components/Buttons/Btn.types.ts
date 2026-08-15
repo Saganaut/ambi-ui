@@ -9,7 +9,11 @@ export type BtnFill = "default" | "bordered" | "ghost";
 
 export type BtnShape = "default" | "pill" | "avatar";
 
-export type MenuPosition = "bottom-right" | "bottom-left" | "top-right" | "top-left";
+export type MenuPosition =
+  | "bottom-right"
+  | "bottom-left"
+  | "top-right"
+  | "top-left";
 
 export type IconBtnPosition = "left" | "right";
 

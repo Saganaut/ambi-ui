@@ -1,0 +1,15 @@
+/**
+
+* Currently not implemented but we can consider the following standards if 
+specificity becomes an issue
+
+* reset - css style resets
+* tokens - tokens.css
+* base - document wide styling
+* component - per component styling
+* modifiers - styling that modifies a component
+* state - hover, disabled, focus
+
+**/
+
+@layer reset, tokens, base, component, modifiers, state;

@@ -1,0 +1,185 @@
+.inputInfoMessage {
+  display: block;
+  line-height: var(--line-height-body);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+
+  &.errorMessage {
+    color: var(--text-error);
+  }
+}
+.inputContainer {
+  /* Row held free below the field so the info/error message has somewhere to
+     land without the field jumping when it appears. */
+  --message-reserve: var(--space-6);
+
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-lg);
+  display: flex;
+  width: 100%;
+
+  &.withBottomPadding {
+    padding-bottom: var(--message-reserve);
+  }
+
+  &.labelAbove {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--gap-sm);
+  }
+
+  label {
+    line-height: var(--line-height-body);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  /* fullWidth lets a host (e.g. an MCQ option card or a tight inspector cell)
+     stretch the field to its parent's width instead of the per-component
+     default. Each component module that wants to participate adds its own
+     `&.fullWidth .x { width: 100% }` rules — this one just stretches the
+     outer container. */
+  &.fullWidth {
+    width: 100%;
+  }
+
+  /* When a child input opts out of auto-grow (TextArea with
+     `autoGrow={false}`), the inputContainer fills its parent's height
+     so the field can size to a bounded slot rather than its content.
+     Pairs with the `padding-bottom: 0` override so the field actually
+     hits 100%. Hosts that want info/error messages below should keep
+     `autoGrow` on the default. */
+  &:has([data-auto-grow="false"]) {
+    height: 100%;
+    padding-bottom: 0;
+  }
+}
+
+/* DS field chrome (Figma 260-1552 / 260-1606). Native text inputs and
+   button-backed select triggers share this class instead of restating styles
+   through element selectors or inheriting action-button defaults. */
+.fieldControl {
+  --field-border-color: var(--border-subtle);
+  --field-color: var(--text-secondary);
+  --field-shadow: none;
+
+  display: flex;
+  width: 100%;
+  min-height: var(--space-10);
+  padding: var(--p-sm);
+  border: var(--border-size-sm) solid var(--field-border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--field-shadow);
+  font-size: var(--font-size-sm);
+  font-weight: normal;
+  color: var(--field-color);
+  background-color: var(--bg-surface-raised);
+  transition:
+    color var(--duration-base) ease-in-out,
+    border-color var(--duration-base) ease-in-out,
+    box-shadow var(--duration-base) ease-in-out;
+
+  &::placeholder {
+    color: var(--text-muted);
+  }
+
+  &.error {
+    --field-border-color: var(--border-error);
+    --field-color: var(--text-error);
+  }
+
+  &.success {
+    --field-border-color: var(--border-success);
+  }
+
+  &.warning {
+    --field-border-color: var(--border-warning);
+  }
+
+  &.info {
+    --field-border-color: var(--border-info);
+  }
+
+  &.noBorders {
+    --field-border-color: transparent;
+    --field-shadow: none;
+
+    background-color: transparent;
+  }
+
+  &:disabled,
+  &[aria-disabled="true"] {
+    border-color: var(--border-is-disabled);
+    background-color: var(--bg-is-disabled);
+    color: var(--text-is-disabled);
+    cursor: not-allowed;
+  }
+
+  &:focus,
+  &[aria-expanded="true"] {
+    --field-border-color: var(--border-focus);
+    --field-color: var(--text-primary);
+
+    outline: none;
+  }
+
+  &:focus:not(.noBorders),
+  &[aria-expanded="true"]:not(.noBorders) {
+    --field-shadow: var(--shadow-focus);
+  }
+
+  &:hover:not(
+      :disabled,
+      [aria-disabled="true"],
+      [aria-expanded="true"],
+      :focus,
+      .noBorders
+    ) {
+    --field-border-color: var(--border-default);
+  }
+}
+
+/* Field presentation options mirror Btn so action and form controls can share
+   the same size, fill, and shape vocabulary. */
+.xs {
+  min-height: 1.5rem;
+  padding: var(--p-pill-xs);
+  font-size: var(--font-size-xs);
+}
+
+.sm {
+  min-height: 1.75rem;
+  padding: var(--p-pill-xs);
+  font-size: var(--font-size-xs);
+}
+
+.md {
+  min-height: 2.5rem;
+  padding: var(--p-pill-md);
+  font-size: var(--font-size-base);
+}
+
+.lg {
+  min-height: 3.75rem;
+  padding: var(--p-pill-lg);
+  font-size: var(--font-size-lg);
+}
+
+.pill {
+  border-radius: var(--radius-full);
+}
+
+.fieldControl[data-fill="bordered"] {
+  border-width: 2px;
+  box-shadow: var(--shadow-xs-size) var(--shadow-xs-color);
+}
+
+.fieldControl[data-fill="ghost"] {
+  --field-border-color: transparent;
+  --field-shadow: none;
+
+  background-color: transparent;
+}

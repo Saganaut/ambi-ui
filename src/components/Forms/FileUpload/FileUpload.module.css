@@ -1,0 +1,142 @@
+/* FileUpload — drag-and-drop drop zone with a click-to-browse fallback,
+   plus a list of accepted files below the zone. */
+
+.fileUploadContainer {
+  /* Row held free below the zone so the absolutely positioned .message has
+     somewhere to land without overlapping whatever follows. */
+  --message-reserve: var(--space-6);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  padding-bottom: var(--message-reserve);
+  width: min(100%, 30rem);
+  position: relative;
+
+  & > label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .message {
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+  }
+}
+
+/* DS dropzone (Figma 125-288): open dashed outline on the page surface —
+   no fill of its own — with a centred icon + text stack. */
+.dropZone {
+  width: 100%;
+  min-height: 10rem;
+  border: var(--border-size-sm) dashed var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-md);
+  padding: var(--p-square-md);
+  cursor: pointer;
+  transition:
+    border-color var(--duration-base) ease-in-out,
+    background-color var(--duration-base) ease-in-out;
+
+  input[type="file"] {
+    display: none;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: var(--bg-brand);
+    background-color: var(--bg-secondary);
+    outline: none;
+  }
+
+  &.dragging {
+    border-color: var(--border-focus);
+    background-color: var(--bg-secondary);
+  }
+
+  .dropZoneIcon {
+    width: var(--space-8);
+    height: var(--space-8);
+    color: var(--text-secondary);
+    pointer-events: none;
+  }
+
+  .dropZoneText {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+    pointer-events: none;
+    text-align: center;
+  }
+
+  .dropZoneBrowse {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    pointer-events: none;
+    text-align: center;
+
+    .browseLink {
+      color: var(--text-brand);
+      text-decoration: underline;
+    }
+  }
+
+  .dropZoneHint {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    pointer-events: none;
+    text-align: center;
+  }
+}
+
+.fileList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  width: 100%;
+}
+
+.fileItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--gap-xs) var(--gap-sm);
+  border: var(--border-size-sm) solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+}
+
+.fileName {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.removeFile {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: var(--font-size-base);
+  padding: 0 var(--gap-xs);
+  line-height: 1;
+  flex-shrink: 0;
+  transition: color 300ms ease-in-out;
+
+  &:hover {
+    color: var(--text-error);
+    border-color: transparent;
+  }
+}

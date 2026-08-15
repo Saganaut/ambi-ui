@@ -44,6 +44,18 @@
   --bg-color: var(--bg-warning);
   --border-color: var(--border-warning);
 }
+
+[data-appearance="light"] {
+  .primary,
+  .secondary,
+  .brand,
+  .info,
+  .error,
+  .success,
+  .warning {
+    --border-color: var(--role-border);
+  }
+}
 [data-appearance="dark"] {
   --role-border: oklch(from var(--bg-color) calc(l + 0.2) calc(c - 0.01) h);
   .secondary {
