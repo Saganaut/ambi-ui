@@ -1,4 +1,5 @@
 import type { ComponentPropsWithRef, CSSProperties } from "react";
+import { jC } from "../../../utils/utils";
 import styles from "./FieldGroup.module.css";
 
 type FieldGroupProps = ComponentPropsWithRef<"div"> & {
@@ -9,7 +10,7 @@ type FieldGroupProps = ComponentPropsWithRef<"div"> & {
 const FieldGroup = ({ labelWidth, className, style, ...rest }: FieldGroupProps) => (
   <div
     {...rest}
-    className={[styles.fieldGroup, className].filter(Boolean).join(" ")}
+    className={jC([styles.fieldGroup, className])}
     style={
       labelWidth == null
         ? style

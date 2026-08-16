@@ -49,9 +49,7 @@ describe("Dropdown", () => {
       </div>,
     );
 
-    await user.click(
-      screen.getByRole("button", { name: "Accepted as correct" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Accepted as correct" }));
 
     const listbox = screen.getByRole("listbox");
     expect(listbox).toBeInTheDocument();
@@ -62,14 +60,12 @@ describe("Dropdown", () => {
     const user = userEvent.setup();
     render(<ControlledDropdown />);
 
-    await user.click(
-      screen.getByRole("button", { name: "Accepted as correct" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Accepted as correct" }));
     await user.click(screen.getByRole("option", { name: "A range of values" }));
 
-    expect(
-      screen.getByRole("button", { name: "Accepted as correct" }),
-    ).toHaveTextContent("A range of values");
+    expect(screen.getByRole("button", { name: "Accepted as correct" })).toHaveTextContent(
+      "A range of values",
+    );
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     expect(document.activeElement).toBe(
       screen.getByRole("button", { name: "Accepted as correct" }),
@@ -82,17 +78,10 @@ describe("Dropdown", () => {
 
     const trigger = screen.getByRole("button", { name: "Accepted as correct" });
     await user.click(trigger);
-    await user.type(
-      screen.getByRole("textbox", { name: "Search options" }),
-      "range",
-    );
+    await user.type(screen.getByRole("textbox", { name: "Search options" }), "range");
 
-    expect(
-      screen.queryByRole("option", { name: "An exact value" }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.getByRole("option", { name: "A range of values" }),
-    ).toBeInTheDocument();
+    expect(screen.queryByRole("option", { name: "An exact value" })).not.toBeInTheDocument();
+    expect(screen.getByRole("option", { name: "A range of values" })).toBeInTheDocument();
 
     await user.keyboard("{Escape}");
     await waitFor(() => {
@@ -100,9 +89,7 @@ describe("Dropdown", () => {
     });
 
     await user.click(trigger);
-    expect(
-      within(screen.getByRole("listbox")).getAllByRole("option"),
-    ).toHaveLength(2);
+    expect(within(screen.getByRole("listbox")).getAllByRole("option")).toHaveLength(2);
   });
 
   it("dismisses after an outside press", async () => {
@@ -116,9 +103,7 @@ describe("Dropdown", () => {
       </>,
     );
 
-    await user.click(
-      screen.getByRole("button", { name: "Accepted as correct" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Accepted as correct" }));
     await user.click(screen.getByRole("button", { name: "Outside" }));
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
@@ -132,13 +117,9 @@ describe("Dropdown", () => {
       </dialog>,
     );
 
-    await user.click(
-      screen.getByRole("button", { name: "Accepted as correct" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Accepted as correct" }));
 
-    expect(screen.getByRole("dialog")).toContainElement(
-      screen.getByRole("listbox"),
-    );
+    expect(screen.getByRole("dialog")).toContainElement(screen.getByRole("listbox"));
   });
 
   it("inherits custom theme properties from the trigger", async () => {
@@ -149,9 +130,7 @@ describe("Dropdown", () => {
       </div>,
     );
 
-    await user.click(
-      screen.getByRole("button", { name: "Accepted as correct" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Accepted as correct" }));
 
     const panel = screen.getByRole("listbox").parentElement;
     await waitFor(() => {
@@ -167,14 +146,10 @@ describe("Dropdown", () => {
     trigger.focus();
     await user.keyboard("{ArrowDown}");
 
-    expect(document.activeElement).toBe(
-      screen.getByRole("option", { name: "An exact value" }),
-    );
+    expect(document.activeElement).toBe(screen.getByRole("option", { name: "An exact value" }));
 
     await user.keyboard("{End}");
-    expect(document.activeElement).toBe(
-      screen.getByRole("option", { name: "A range of values" }),
-    );
+    expect(document.activeElement).toBe(screen.getByRole("option", { name: "A range of values" }));
 
     await user.keyboard("{Enter}");
     expect(trigger).toHaveTextContent("A range of values");
@@ -185,55 +160,44 @@ describe("Dropdown", () => {
     const user = userEvent.setup();
     render(<ControlledDropdown />);
 
-    await user.click(
-      screen.getByRole("button", { name: "Accepted as correct" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Accepted as correct" }));
     await user.keyboard("a");
 
-    expect(document.activeElement).toBe(
-      screen.getByRole("option", { name: "A range of values" }),
-    );
+    expect(document.activeElement).toBe(screen.getByRole("option", { name: "A range of values" }));
   });
 
   it("moves from a search field into the filtered options with ArrowDown", async () => {
     const user = userEvent.setup();
     render(<ControlledDropdown searchable />);
 
-    await user.click(
-      screen.getByRole("button", { name: "Accepted as correct" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Accepted as correct" }));
     const search = screen.getByRole("textbox", { name: "Search options" });
     expect(document.activeElement).toBe(search);
 
     await user.keyboard("{ArrowDown}");
 
-    expect(document.activeElement).toBe(
-      screen.getByRole("option", { name: "An exact value" }),
-    );
+    expect(document.activeElement).toBe(screen.getByRole("option", { name: "An exact value" }));
   });
 
   it("keeps a multiple listbox open while toggling options", async () => {
     const user = userEvent.setup();
     render(<ControlledDropdown multiple />);
 
-    await user.click(
-      screen.getByRole("button", { name: "Accepted as correct" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Accepted as correct" }));
     await user.click(screen.getByRole("option", { name: "An exact value" }));
 
     expect(screen.getByRole("listbox")).toBeInTheDocument();
-    expect(
-      screen.getByRole("option", { name: "An exact value" }),
-    ).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("option", { name: "An exact value" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
   });
 
   it("right-aligns a compact panel with its trigger", async () => {
     const user = userEvent.setup();
     render(<ControlledDropdown compact />);
 
-    await user.click(
-      screen.getByRole("button", { name: "Accepted as correct" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Accepted as correct" }));
 
     expect(screen.getByRole("listbox").parentElement).toHaveAttribute(
       "data-placement",
@@ -273,9 +237,7 @@ describe("Dropdown", () => {
     const user = userEvent.setup();
     const { rerender } = render(<ControlledDropdown />);
 
-    await user.click(
-      screen.getByRole("button", { name: "Accepted as correct" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Accepted as correct" }));
     expect(screen.getByRole("listbox")).toBeInTheDocument();
 
     rerender(<ControlledDropdown disabled />);

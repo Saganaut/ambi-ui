@@ -19,8 +19,6 @@ describe("Input", () => {
   it("uses the shared field chrome", () => {
     render(<Input ariaLabel="Deck name" />);
 
-    expect(screen.getByRole("textbox", { name: "Deck name" })).toHaveClass(
-      shared.field,
-    );
+    expect(screen.getByRole("textbox", { name: "Deck name" })).toHaveClass(shared.field);
   });
 });

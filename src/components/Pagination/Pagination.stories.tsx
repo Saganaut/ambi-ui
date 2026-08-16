@@ -47,11 +47,21 @@ Use \`pageCount\` for a known total, or omit it and provide \`hasMore\` for an o
   },
   argTypes: {
     page: { description: "Current zero-indexed page." },
-    pageCount: { description: "Total page count when the result size is known." },
-    hasMore: { description: "Whether another page exists when pageCount is unknown." },
-    compact: { description: "Replace numbered pages with a Page X of Y label." },
-    siblingCount: { description: "Pages shown on each side of the current page." },
-    boundaryCount: { description: "Pages kept visible at the beginning and end." },
+    pageCount: {
+      description: "Total page count when the result size is known.",
+    },
+    hasMore: {
+      description: "Whether another page exists when pageCount is unknown.",
+    },
+    compact: {
+      description: "Replace numbered pages with a Page X of Y label.",
+    },
+    siblingCount: {
+      description: "Pages shown on each side of the current page.",
+    },
+    boundaryCount: {
+      description: "Pages kept visible at the beginning and end.",
+    },
     disabled: { description: "Disable every pagination action." },
     ariaLabel: { description: "Accessible label for the navigation landmark." },
     variant: { control: "select", options: VARIANTS },
@@ -67,7 +77,14 @@ type Story = StoryObj<typeof meta>;
 const Row = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section style={{ display: "grid", gap: "0.75rem" }}>
     <h2 style={{ margin: 0, fontSize: "1rem" }}>{title}</h2>
-    <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: "1rem",
+      }}
+    >
       {children}
     </div>
   </section>

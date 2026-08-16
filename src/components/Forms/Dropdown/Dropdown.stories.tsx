@@ -51,20 +51,12 @@ export const Overview: Story = {
   render: (args) => {
     const [defaultValue, setDefaultValue] = useState<string[]>([]);
     const [selectedValue, setSelectedValue] = useState<string[]>(["gondor"]);
-    const [multipleValue, setMultipleValue] = useState<string[]>([
-      "history",
-      "science",
-    ]);
+    const [multipleValue, setMultipleValue] = useState<string[]>(["history", "science"]);
     const [searchableValue, setSearchableValue] = useState<string[]>([]);
 
     return (
       <div style={{ display: "grid", gap: "2rem", width: "min(48rem, 90vw)" }}>
-        <Dropdown
-          {...args}
-          label="Default"
-          value={defaultValue}
-          onChange={setDefaultValue}
-        />
+        <Dropdown {...args} label="Default" value={defaultValue} onChange={setDefaultValue} />
         <Dropdown
           {...args}
           label="With selection"
@@ -98,16 +90,8 @@ export const Overview: Story = {
           value={selectedValue}
           onChange={setSelectedValue}
         />
-        <Dropdown
-          {...args}
-          label="With info message"
-          infoMessage="Where the trivia is set."
-        />
-        <Dropdown
-          {...args}
-          label="With error"
-          errorMessage="A region is required."
-        />
+        <Dropdown {...args} label="With info message" infoMessage="Where the trivia is set." />
+        <Dropdown {...args} label="With error" errorMessage="A region is required." />
         <Dropdown {...args} label="Disabled" value={["gondor"]} disabled />
 
         <section style={{ display: "grid", gap: "1rem" }}>
@@ -160,11 +144,7 @@ export const Overview: Story = {
             }}
           >
             <Input label="Borderless input" isBordered={false} />
-            <Dropdown
-              label="Borderless dropdown"
-              options={REGION_OPTIONS}
-              isBordered={false}
-            />
+            <Dropdown label="Borderless dropdown" options={REGION_OPTIONS} isBordered={false} />
           </div>
         </section>
       </div>
@@ -172,9 +152,7 @@ export const Overview: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(
-      canvas.getByRole("textbox", { name: "Focused input" }),
-    );
+    await userEvent.click(canvas.getByRole("textbox", { name: "Focused input" }));
     const trigger = canvas.getByRole("button", { name: "Open dropdown" });
     await userEvent.click(trigger);
     await userEvent.hover(trigger);

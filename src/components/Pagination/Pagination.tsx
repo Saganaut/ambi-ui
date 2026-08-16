@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { type KeyboardEvent } from "react";
 import variantStyles from "../../styles/variants.module.css";
+import { jC } from "../../utils/utils";
 import { Btn } from "../Buttons/Btn";
 import styles from "./Pagination.module.css";
 import type { PageToken, PaginationProps } from "./Pagination.types";
@@ -58,15 +59,13 @@ const Pagination = (props: PaginationProps) => {
       aria-label={ariaLabel}
       onKeyDown={handleKeyDown}
       data-fill={fill === "default" ? undefined : fill}
-      className={[
+      className={jC([
         styles.pagination,
         variantStyles[variant],
         styles[size],
         compact ? styles.compact : null,
         className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      ])}
     >
       <Btn
         variant={variant}
@@ -104,9 +103,7 @@ const Pagination = (props: PaginationProps) => {
                   type="button"
                   variant={variant}
                   size={size}
-                  className={[styles.pageBtn, token === clampedPage ? styles.current : null]
-                    .filter(Boolean)
-                    .join(" ")}
+                  className={jC([styles.pageBtn, token === clampedPage ? styles.current : null])}
                   aria-current={token === clampedPage ? "page" : undefined}
                   aria-label={`Go to page ${String(token + 1)}`}
                   disabled={disabled}

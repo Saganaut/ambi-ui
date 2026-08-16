@@ -1,8 +1,11 @@
 // Text input fused with an action button, used for search or submit-inline patterns
-import { useId } from "react";
+import { Check, Loader, X } from "lucide-react";
+import variantStyles from "../../../styles/variants.module.css";
+import { jC } from "../../../utils/utils";
 import { Btn } from "../../Buttons/Btn";
 import shared from "../Field.module.css";
 import type { InputWithButtonProps } from "../Field.types";
+import { useField } from "../useField";
 import styles from "./InputWithButton.module.css";
 
 const InputWithButton = ({
@@ -14,50 +17,66 @@ const InputWithButton = ({
   disabled,
   label,
   labelPosition = "top",
+  extraLabelInfo,
   buttonLabel = "Submit",
   onButtonClick,
   errorMessage,
   infoMessage,
   reserveMessageSpace = true,
+  fullWidth = false,
+  className,
+  validationState,
+  variant = "primary",
   fill = "default",
   shape = "default",
   fieldSize = "md",
+  ref,
   ...rest
 }: InputWithButtonProps) => {
-  const generatedId = useId();
-  const inputId = id ?? generatedId;
-  const messageId = `${inputId}-message`;
-  const hasMessage = errorMessage != null || infoMessage != null;
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
+    id,
+    infoMessage,
+    errorMessage,
+    validationState,
+    variant,
+  });
   return (
     <div
-      className={[
+      data-fill={fill === "default" ? undefined : fill}
+      className={jC([
         shared.fieldContainer,
-        shared[fieldSize],
         shared[labelPosition],
+        fullWidth && shared.fullWidth,
+        className,
+        variantStyles[variant],
         reserveMessageSpace && shared.reserveMessageSpace,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+        shared[fieldSize],
+        inputVariant !== "brand" && shared[inputVariant],
+      ])}
     >
-      {label && <label htmlFor={inputId}>{label}</label>}
-      <div className={styles.inputWithButton}>
+      {label && (
+        <div className={shared.labelWrapper}>
+          <label htmlFor={inputId}>{label}</label>
+          {extraLabelInfo && <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>}
+        </div>
+      )}
+      <div
+        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth, styles.inputWithButton])}
+        data-status={dataStatus}
+      >
         <input
           {...rest}
           id={inputId}
+          ref={ref}
           value={value}
           onChange={onChange}
           maxLength={maxLength}
           placeholder={placeholder}
           disabled={disabled}
-          aria-invalid={errorMessage != null || undefined}
-          aria-describedby={hasMessage ? messageId : undefined}
-          className={[
-            shared.field,
-            shape === "pill" && shared.pill,
-            errorMessage ? shared.error : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
+          aria-invalid={aria.invalid}
+          aria-busy={aria.busy}
+          aria-describedby={aria.describedBy}
+          className={jC([shared.field, shape === "pill" && shared.pill])}
           data-fill={fill === "default" ? undefined : fill}
         />
         <Btn
@@ -73,17 +92,21 @@ const InputWithButton = ({
         {hasMessage && (
           <span
             id={messageId}
-            className={[
+            aria-live="polite"
+            className={jC([
               shared.inputInfoMessage,
-              styles.message,
+              shared.message,
               errorMessage && shared.errorMessage,
-            ]
-              .filter(Boolean)
-              .join(" ")}
+            ])}
           >
             {errorMessage ?? infoMessage}
           </span>
         )}
+        <div className={shared.statusIcon}>
+          {dataStatus === "valid" && <Check />}
+          {dataStatus === "validating" && <Loader />}
+          {dataStatus === "invalid" && <X />}
+        </div>
       </div>
     </div>
   );

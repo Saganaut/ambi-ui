@@ -72,7 +72,19 @@ export const Overview: Story = {
         label="With error"
         errorMessage="Name is required. Please enter a name. Are you sure you entered a name. If you don't know what a name is, well I can't help you."
       />
-      <Input {...args} id={`${args.id}-front`} label="Label in front" labelPosition="start" />
+      <Input
+        {...args}
+        id={`${args.id}-front`}
+        label="Label in front"
+        labelPosition="start"
+      />
+      <Input
+        {...args}
+        id={`${args.id}-front`}
+        label="Label in front"
+        labelPosition="start"
+        extraLabelInfo="Optional OptionalOptionalOptional OptionalOptional OptionalOptional"
+      />
       <Input
         {...args}
         id={`${args.id}-compact`}
@@ -81,7 +93,12 @@ export const Overview: Story = {
         fieldSize="sm"
         placeholder="km"
       />
-      <Input {...args} id={`${args.id}-full-width`} label="Full width" fullWidth />
+      <Input
+        {...args}
+        id={`${args.id}-full-width`}
+        label="Full width"
+        fullWidth
+      />
     </div>
   ),
 };
@@ -134,8 +151,18 @@ export const AppearanceVariants: Story = {
   render: (args) => (
     <div style={{ display: "grid", gap: "1.5rem", width: "min(30rem, 85vw)" }}>
       <Input {...args} id={`${args.id}-fill-default`} label="Default fill" />
-      <Input {...args} id={`${args.id}-fill-bordered`} label="Bordered" fill="bordered" />
-      <Input {...args} id={`${args.id}-fill-ghost`} label="Ghost" fill="ghost" />
+      <Input
+        {...args}
+        id={`${args.id}-fill-bordered`}
+        label="Bordered"
+        fill="bordered"
+      />
+      <Input
+        {...args}
+        id={`${args.id}-fill-ghost`}
+        label="Ghost"
+        fill="ghost"
+      />
       <Input {...args} id={`${args.id}-shape-pill`} label="Pill" shape="pill" />
       <Input
         {...args}

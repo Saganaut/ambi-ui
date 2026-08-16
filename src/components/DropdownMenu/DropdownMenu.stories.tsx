@@ -98,8 +98,14 @@ The trigger render function receives a toggle callback and the reference props r
       control: "boolean",
       description: "Position the menu at the pointer coordinates passed to toggle.",
     },
-    trigger: { control: false, description: "Render function for the menu trigger." },
-    children: { control: false, description: "Menu items and compound content primitives." },
+    trigger: {
+      control: false,
+      description: "Render function for the menu trigger.",
+    },
+    children: {
+      control: false,
+      description: "Menu items and compound content primitives.",
+    },
     className: { control: false },
     iconPosition: { control: false },
     isLoading: { control: false },

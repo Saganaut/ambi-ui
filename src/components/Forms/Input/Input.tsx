@@ -1,9 +1,9 @@
 import { Check, Loader, X } from "lucide-react";
-import { useId } from "react";
 import variantStyles from "../../../styles/variants.module.css";
-import type { BtnVariant } from "../../Buttons/Btn.types";
+import { jC } from "../../../utils/utils";
 import shared from "../Field.module.css";
 import type { InputProps } from "../Field.types";
+import { useField } from "../useField";
 
 const Input = ({
   variant = "primary",
@@ -23,59 +23,49 @@ const Input = ({
   ref,
   ...rest
 }: InputProps) => {
-  const generatedId = useId();
-  const inputId = id ?? generatedId;
-  const messageId = `${inputId}-message`;
-  const hasMessage = errorMessage != null || infoMessage != null;
-  const hasError = errorMessage != null || validationState === "invalid";
-  const dataStatus = hasError ? "invalid" : (validationState ?? "idle");
-  const inputVariant: BtnVariant = hasError ? "error" : variant;
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
+    id,
+    infoMessage,
+    errorMessage,
+    validationState,
+    variant,
+  });
 
   return (
     <div
       data-fill={fill === "default" ? undefined : fill}
-      className={[
+      className={jC([
         shared.fieldContainer,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
         variantStyles[variant],
-
         reserveMessageSpace && shared.reserveMessageSpace,
         shared[fieldSize],
-
         inputVariant !== "brand" && shared[inputVariant],
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      ])}
     >
       {/* Label Wrapper */}
       {label && (
-        <div className={[shared.labelWrapper].filter(Boolean).join(" ")}>
+        <div className={jC([shared.labelWrapper])}>
           <label htmlFor={inputId}>{label}</label>
-          {extraLabelInfo && (
-            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
-          )}
+          {extraLabelInfo && <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>}
         </div>
       )}
 
       {/* Field Wrapper */}
       <div
-        className={[shared.fieldWrapper, fullWidth && shared.fullWidth]
-          .filter(Boolean)
-          .join(" ")}
+        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth])}
         data-status={dataStatus}
       >
         <input
           {...rest}
           id={inputId}
           ref={ref}
-          aria-invalid={hasError ?? undefined}
-          aria-busy={validationState === "validating" || undefined}
-          aria-describedby={hasMessage ? messageId : undefined}
-          className={[shared.field, shape === "pill" && shared.pill]
-            .filter(Boolean)
-            .join(" ")}
+          aria-invalid={aria.invalid}
+          aria-busy={aria.busy}
+          aria-describedby={aria.describedBy}
+          className={jC([shared.field, shape === "pill" && shared.pill])}
           data-fill={fill === "default" ? undefined : fill}
         />
 
@@ -83,13 +73,11 @@ const Input = ({
           <span
             id={messageId}
             aria-live="polite"
-            className={[
+            className={jC([
               shared.inputInfoMessage,
               shared.message,
               errorMessage && shared.errorMessage,
-            ]
-              .filter(Boolean)
-              .join(" ")}
+            ])}
           >
             {errorMessage ?? infoMessage}
           </span>

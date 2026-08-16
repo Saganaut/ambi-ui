@@ -41,7 +41,10 @@ vi.mock("@floating-ui/react", () => {
     useFocus: floating.useFocus,
     useHover: floating.useHover,
     useInteractions: vi.fn(() => ({
-      getReferenceProps: (props = {}) => ({ ...props, "data-reference": "true" }),
+      getReferenceProps: (props = {}) => ({
+        ...props,
+        "data-reference": "true",
+      }),
       getFloatingProps: (props = {}) => ({ ...props, "data-floating": "true" }),
       getItemProps: (props = {}) => props,
     })),
@@ -131,7 +134,11 @@ describe("PopoverWrapper", () => {
 
     expect(floating.useClick).toHaveBeenCalledWith(
       expect.anything(),
-      expect.objectContaining({ enabled: true, ignoreMouse: true, toggle: false }),
+      expect.objectContaining({
+        enabled: true,
+        ignoreMouse: true,
+        toggle: false,
+      }),
     );
     expect(floating.useHover).toHaveBeenCalledWith(
       expect.anything(),
@@ -156,11 +163,18 @@ describe("PopoverWrapper", () => {
 
     expect(receivedContext?.styles).toEqual({ opacity: 0.5 });
     expect(receivedContext?.listNav).toEqual(
-      expect.objectContaining({ activeIndex: null, getItemProps: expect.any(Function) }),
+      expect.objectContaining({
+        activeIndex: null,
+        getItemProps: expect.any(Function),
+      }),
     );
     expect(floating.useListNavigation).toHaveBeenCalledWith(
       expect.anything(),
-      expect.objectContaining({ enabled: true, focusItemOnOpen: false, loop: true }),
+      expect.objectContaining({
+        enabled: true,
+        focusItemOnOpen: false,
+        loop: true,
+      }),
     );
   });
 

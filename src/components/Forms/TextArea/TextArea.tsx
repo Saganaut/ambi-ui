@@ -1,9 +1,12 @@
 // Common textarea component matching Input structure for multi-line text entry.
 // `fullWidth` stretches the field to its container (used inside tight editor
 // cells like MCQ option cards).
-import { useId } from "react";
+import { Check, Loader, X } from "lucide-react";
+import variantStyles from "../../../styles/variants.module.css";
+import { jC } from "../../../utils/utils";
 import shared from "../Field.module.css";
 import type { TextAreaProps } from "../Field.types";
+import { useField } from "../useField";
 import styles from "./TextArea.module.css";
 
 const TextArea = ({
@@ -22,31 +25,48 @@ const TextArea = ({
   infoMessage,
   label,
   labelPosition = "top",
+  extraLabelInfo,
   errorMessage,
   fullWidth = false,
+  className,
+  validationState,
+  reserveMessageSpace = true,
+  variant = "primary",
   fill = "default",
   shape = "default",
   fieldSize = "md",
   ...rest
 }: TextAreaProps) => {
-  const generatedId = useId();
-  const inputId = id ?? generatedId;
-  const messageId = `${inputId}-message`;
-  const hasMessage = errorMessage != null || infoMessage != null;
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
+    id,
+    infoMessage,
+    errorMessage,
+    validationState,
+    variant,
+  });
   return (
     <div
-      className={[
+      data-fill={fill === "default" ? undefined : fill}
+      className={jC([
         shared.fieldContainer,
-        shared[fieldSize],
         shared[labelPosition],
-        fullWidth ? shared.fullWidth : "",
-      ]
-        .filter(Boolean)
-        .join(" ")}
+        fullWidth && shared.fullWidth,
+        className,
+        variantStyles[variant],
+        reserveMessageSpace && shared.reserveMessageSpace,
+        shared[fieldSize],
+        inputVariant !== "brand" && shared[inputVariant],
+      ])}
     >
-      {label && <label htmlFor={inputId}>{label}</label>}
+      {label && (
+        <div className={shared.labelWrapper}>
+          <label htmlFor={inputId}>{label}</label>
+          {extraLabelInfo && <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>}
+        </div>
+      )}
       <div
-        className={[styles.textarea, fullWidth ? styles.fullWidth : ""].filter(Boolean).join(" ")}
+        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth, styles.textarea])}
+        data-status={dataStatus}
       >
         <textarea
           {...rest}
@@ -62,33 +82,35 @@ const TextArea = ({
           rows={rows}
           placeholder={placeholder}
           disabled={disabled}
-          aria-invalid={errorMessage != null || undefined}
-          aria-describedby={hasMessage ? messageId : undefined}
+          aria-invalid={aria.invalid}
+          aria-busy={aria.busy}
+          aria-describedby={aria.describedBy}
           data-auto-grow={fullWidth ? "true" : "false"}
-          className={[
+          className={jC([
             shared.field,
             shape === "pill" && shared.pill,
-            errorMessage ? shared.error : "",
             fullWidth ? "" : styles.noAutoGrow,
-          ]
-            .filter(Boolean)
-            .join(" ")}
+          ])}
           data-fill={fill === "default" ? undefined : fill}
         />
         {hasMessage && (
           <span
             id={messageId}
-            className={[
+            aria-live="polite"
+            className={jC([
               shared.inputInfoMessage,
-              styles.message,
+              shared.message,
               errorMessage && shared.errorMessage,
-            ]
-              .filter(Boolean)
-              .join(" ")}
+            ])}
           >
             {errorMessage ?? infoMessage}
           </span>
         )}
+        <div className={shared.statusIcon}>
+          {dataStatus === "valid" && <Check />}
+          {dataStatus === "validating" && <Loader />}
+          {dataStatus === "invalid" && <X />}
+        </div>
       </div>
     </div>
   );

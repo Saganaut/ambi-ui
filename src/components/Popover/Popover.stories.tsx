@@ -49,7 +49,10 @@ Pair it with \`PopoverWrapper\`, which owns positioning, open state, focus manag
       description: "ARIA role describing the floating surface.",
     },
     ariaLabel: { description: "Accessible name for the floating surface." },
-    children: { control: false, description: "Popover content and compound primitives." },
+    children: {
+      control: false,
+      description: "Popover content and compound primitives.",
+    },
     className: { control: false },
     style: {
       control: false,

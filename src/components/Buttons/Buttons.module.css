@@ -117,12 +117,8 @@
   &[data-fill="bordered"] {
     --btn-shadow-size: var(--shadow-xs-size);
     --btn-shadow-color: var(--shadow-xs-color);
-    --btn-border-color: oklch(
-      from var(--btn-bg-color) calc(l * 0.95) calc(c + 0.02) h
-    );
-    --hover-border-color: oklch(
-      from var(--btn-bg-color) calc(l + 0.5) calc(c - 0.02) h
-    );
+    --btn-border-color: oklch(from var(--btn-bg-color) calc(l * 0.95) calc(c + 0.02) h);
+    --hover-border-color: oklch(from var(--btn-bg-color) calc(l + 0.5) calc(c - 0.02) h);
 
     border-width: 2px;
   }
@@ -233,17 +229,11 @@
 [data-appearance="dark"] {
   /* stylelint-disable-next-line no-descending-specificity */
   .btn {
-    --btn-border-color: oklch(
-      from var(--btn-bg-color) calc(l + 0.1) calc(c - 0.02) h
-    );
+    --btn-border-color: oklch(from var(--btn-bg-color) calc(l + 0.1) calc(c - 0.02) h);
 
     &[data-fill="bordered"] {
-      --btn-border-color: oklch(
-        from var(--btn-bg-color) calc(l + 0.3) calc(c - 0.02) h
-      );
-      --hover-border-color: oklch(
-        from var(--btn-bg-color) calc(l + 0.5) calc(c - 0.02) h
-      );
+      --btn-border-color: oklch(from var(--btn-bg-color) calc(l + 0.3) calc(c - 0.02) h);
+      --hover-border-color: oklch(from var(--btn-bg-color) calc(l + 0.5) calc(c - 0.02) h);
     }
 
     &[data-fill="ghost"] {

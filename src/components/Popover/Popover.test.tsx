@@ -62,7 +62,10 @@ describe("Popover", () => {
   });
 
   it("registers a navigable button and applies roving focus props", () => {
-    const getItemProps = vi.fn((props) => ({ ...props, "data-navigable": "yes" }));
+    const getItemProps = vi.fn((props) => ({
+      ...props,
+      "data-navigable": "yes",
+    }));
     const markup = renderToStaticMarkup(
       <PopoverNavContext.Provider value={{ getItemProps, activeIndex: 1 }}>
         <Popover.Button aria-label="Move">Move</Popover.Button>

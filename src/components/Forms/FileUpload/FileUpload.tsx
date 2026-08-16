@@ -1,18 +1,31 @@
 // File upload component with drag-and-drop support and multi-file selection
-import { Btn } from "@saganaut/ambi-ui";
-import { Image, X } from "lucide-react";
+import { Check, Image, Loader, X } from "lucide-react";
+import variantStyles from "../../../styles/variants.module.css";
+import { jC } from "../../../utils/utils";
+import { Btn } from "../../Buttons/Btn";
 import shared from "../Field.module.css";
 import type { FileUploadProps } from "../Field.types";
+import { useField } from "../useField";
 import styles from "./FileUpload.module.css";
 import { useFileUpload } from "./useFileUpload";
 
 const FileUpload = ({
   label,
+  labelPosition = "top",
+  extraLabelInfo,
   accept,
   multiple = true,
   maxBytes,
   errorMessage,
   infoMessage,
+  fullWidth = false,
+  reserveMessageSpace = true,
+  className,
+  validationState,
+  variant = "primary",
+  fill = "default",
+  fieldSize = "md",
+  id,
   onChange,
   ref,
   ...rest
@@ -29,76 +42,125 @@ const FileUpload = ({
     handleDrop,
     openPicker,
   } = useFileUpload({ onChange, multiple, accept, maxBytes });
+  const displayedError = rejection ?? errorMessage;
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
+    id,
+    infoMessage,
+    errorMessage: displayedError,
+    validationState,
+    variant,
+  });
 
   return (
-    <div className={styles.fileUploadContainer}>
-      {label && <label>{label}</label>}
+    <div
+      data-fill={fill === "default" ? undefined : fill}
+      className={jC([
+        shared.fieldContainer,
+        shared[labelPosition],
+        fullWidth && shared.fullWidth,
+        className,
+        variantStyles[variant],
+        reserveMessageSpace && shared.reserveMessageSpace,
+        shared[fieldSize],
+        inputVariant !== "brand" && shared[inputVariant],
+      ])}
+    >
+      {label && (
+        <div className={shared.labelWrapper}>
+          <label htmlFor={inputId}>{label}</label>
+          {extraLabelInfo && <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>}
+        </div>
+      )}
       <div
-        className={[styles.dropZone, isDragging && styles.dragging].filter(Boolean).join(" ")}
-        onClick={openPicker}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") openPicker();
-        }}
+        className={jC([
+          shared.fieldWrapper,
+          fullWidth && shared.fullWidth,
+          styles.fileUploadContainer,
+        ])}
+        data-status={dataStatus}
       >
-        <input
-          {...rest}
-          ref={(node) => {
-            inputRef.current = node;
-            if (typeof ref === "function") ref(node);
-            else if (ref != null) ref.current = node;
+        <div
+          className={jC([styles.dropZone, isDragging && styles.dragging])}
+          onClick={openPicker}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") openPicker();
           }}
-          type="file"
-          multiple={multiple}
-          accept={accept}
-          onChange={(e) => {
-            addFiles(e.target.files);
-          }}
-        />
-        <Image className={styles.dropZoneIcon} aria-hidden="true" />
-        <span className={styles.dropZoneText}>
-          {isDragging ? "Drop files here" : "Drag & drop files"}
-        </span>
-        {!isDragging && (
-          <span className={styles.dropZoneBrowse}>
-            or <span className={styles.browseLink}>browse files</span>
+        >
+          <input
+            {...rest}
+            id={inputId}
+            ref={(node) => {
+              inputRef.current = node;
+              if (typeof ref === "function") ref(node);
+              else if (ref != null) ref.current = node;
+            }}
+            type="file"
+            multiple={multiple}
+            accept={accept}
+            aria-invalid={aria.invalid}
+            aria-busy={aria.busy}
+            aria-describedby={aria.describedBy}
+            onChange={(e) => {
+              addFiles(e.target.files);
+            }}
+          />
+          <Image className={styles.dropZoneIcon} aria-hidden="true" />
+          <span className={styles.dropZoneText}>
+            {isDragging ? "Drop files here" : "Drag & drop files"}
+          </span>
+          {!isDragging && (
+            <span className={styles.dropZoneBrowse}>
+              or <span className={styles.browseLink}>browse files</span>
+            </span>
+          )}
+        </div>
+        {files.length > 0 && (
+          <ul className={styles.fileList}>
+            {files.map((file, i) => (
+              <li
+                key={`${file.name}-${file.size}-${file.lastModified}`}
+                className={styles.fileItem}
+              >
+                <span className={styles.fileName}>{file.name}</span>
+
+                <Btn
+                  fill="ghost"
+                  icon={<X />}
+                  size="xs"
+                  className={styles.removeFile}
+                  onClick={() => {
+                    removeFile(i);
+                  }}
+                  aria-label={`Remove ${file.name}`}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+        {hasMessage && (
+          <span
+            id={messageId}
+            aria-live="polite"
+            className={jC([
+              shared.inputInfoMessage,
+              shared.message,
+              displayedError && shared.errorMessage,
+            ])}
+          >
+            {displayedError ?? infoMessage}
           </span>
         )}
-        {infoMessage != null && <span className={styles.dropZoneHint}>{infoMessage}</span>}
+        <div className={shared.statusIcon}>
+          {dataStatus === "valid" && <Check />}
+          {dataStatus === "validating" && <Loader />}
+          {dataStatus === "invalid" && <X />}
+        </div>
       </div>
-      {files.length > 0 && (
-        <ul className={styles.fileList}>
-          {files.map((file, i) => (
-            <li key={`${file.name}-${file.size}-${file.lastModified}`} className={styles.fileItem}>
-              <span className={styles.fileName}>{file.name}</span>
-
-              <Btn
-                fill="ghost"
-                icon={<X />}
-                size="xs"
-                className={styles.removeFile}
-                onClick={() => {
-                  removeFile(i);
-                }}
-                aria-label={`Remove ${file.name}`}
-              />
-            </li>
-          ))}
-        </ul>
-      )}
-      {(rejection != null || errorMessage != null) && (
-        <span
-          className={[shared.inputInfoMessage, styles.message, shared.errorMessage]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          {rejection ?? errorMessage}
-        </span>
-      )}
     </div>
   );
 };

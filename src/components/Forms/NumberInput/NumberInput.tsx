@@ -3,9 +3,12 @@
 // number spinners can't be styled to the design, so they're suppressed and a
 // custom two-button stepper drives min/max/step. The field grows to fill its
 // parent — the host dictates the width.
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Loader, X } from "lucide-react";
+import variantStyles from "../../../styles/variants.module.css";
+import { jC } from "../../../utils/utils";
 import shared from "../Field.module.css";
 import type { NumberInputProps } from "../Field.types";
+import { useField } from "../useField";
 import styles from "./NumberInput.module.css";
 
 const toNumber = (raw: string | number | undefined): number | undefined => {
@@ -22,9 +25,14 @@ const NumberInput = ({
   name,
   label,
   labelPosition = "top",
+  extraLabelInfo,
   infoMessage,
   errorMessage,
   fullWidth = false,
+  reserveMessageSpace = true,
+  className,
+  validationState,
+  variant = "primary",
   fieldSize = "md",
   fill = "default",
   shape = "default",
@@ -33,8 +41,16 @@ const NumberInput = ({
   max,
   step,
   placeholder,
+  ref,
   ...rest
 }: NumberInputProps) => {
+  const { inputId, messageId, hasMessage, hasError, dataStatus, inputVariant, aria } = useField({
+    id,
+    infoMessage,
+    errorMessage,
+    validationState,
+    variant,
+  });
   const minN = toNumber(min);
   const maxN = toNumber(max);
   const stepN = toNumber(step) ?? 1;
@@ -57,28 +73,43 @@ const NumberInput = ({
 
   return (
     <div
-      className={[shared.fieldContainer, shared[labelPosition], fullWidth ? shared.fullWidth : ""]
-        .filter(Boolean)
-        .join(" ")}
+      data-fill={fill === "default" ? undefined : fill}
+      className={jC([
+        shared.fieldContainer,
+        shared[labelPosition],
+        fullWidth && shared.fullWidth,
+        className,
+        variantStyles[variant],
+        reserveMessageSpace && shared.reserveMessageSpace,
+        shared[fieldSize],
+        inputVariant !== "brand" && shared[inputVariant],
+      ])}
     >
-      {label && <label htmlFor={id}>{label}</label>}
-      <div className={styles.wrapper}>
+      {label && (
+        <div className={shared.labelWrapper}>
+          <label htmlFor={inputId}>{label}</label>
+          {extraLabelInfo && <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>}
+        </div>
+      )}
+      <div
+        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth, styles.wrapper])}
+        data-status={dataStatus}
+      >
         <div
-          className={[
+          className={jC([
             styles.field,
             styles[fieldSize],
             shape === "pill" ? styles.pill : "",
             disabled ? styles.disabled : "",
-            errorMessage != null ? styles.error : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
+            hasError ? styles.error : "",
+          ])}
           data-fill={fill === "default" ? undefined : fill}
         >
           <input
             {...rest}
             type="number"
-            id={id}
+            id={inputId}
+            ref={ref}
             name={name}
             value={current}
             onChange={(event) => {
@@ -91,16 +122,17 @@ const NumberInput = ({
             max={max}
             step={step}
             placeholder={placeholder}
-            className={[styles.input, errorMessage != null ? styles.error : ""]
-              .filter(Boolean)
-              .join(" ")}
+            aria-invalid={aria.invalid}
+            aria-busy={aria.busy}
+            aria-describedby={aria.describedBy}
+            className={jC([styles.input, hasError ? styles.error : ""])}
           />
           <div className={styles.stepper}>
             <button
               type="button"
               tabIndex={-1}
               aria-label="Increase"
-              className={[styles.stepBtn, styles.stepUp].join(" ")}
+              className={jC([styles.stepBtn, styles.stepUp])}
               disabled={disabled || atMax}
               onClick={() => stepBy(stepN)}
             >
@@ -110,7 +142,7 @@ const NumberInput = ({
               type="button"
               tabIndex={-1}
               aria-label="Decrease"
-              className={[styles.stepBtn, styles.stepDown].join(" ")}
+              className={jC([styles.stepBtn, styles.stepDown])}
               disabled={disabled || atMin}
               onClick={() => stepBy(-stepN)}
             >
@@ -118,19 +150,24 @@ const NumberInput = ({
             </button>
           </div>
         </div>
-        {(errorMessage != null || infoMessage != null) && (
+        {hasMessage && (
           <span
-            className={[
+            id={messageId}
+            aria-live="polite"
+            className={jC([
               shared.inputInfoMessage,
-              styles.message,
+              shared.message,
               errorMessage && shared.errorMessage,
-            ]
-              .filter(Boolean)
-              .join(" ")}
+            ])}
           >
             {errorMessage ?? infoMessage}
           </span>
         )}
+        <div className={shared.statusIcon}>
+          {dataStatus === "valid" && <Check />}
+          {dataStatus === "validating" && <Loader />}
+          {dataStatus === "invalid" && <X />}
+        </div>
       </div>
     </div>
   );

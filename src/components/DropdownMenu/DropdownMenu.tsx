@@ -15,6 +15,7 @@ import {
   useTransitionStyles,
   type Placement,
 } from "@floating-ui/react";
+import { jC } from "../../utils/utils";
 import React, { createContext, use, useRef, useState } from "react";
 import variantStyles from "../../styles/variants.module.css";
 import type { MenuPosition } from "../Buttons/Btn.types";
@@ -136,7 +137,7 @@ const DropdownMenu = ({
         refs.setReference(node);
       }}
       data-icon-position={iconPosition ?? undefined}
-      className={[styles.wrapper].filter(Boolean).join(" ")}
+      className={jC([styles.wrapper])}
     >
       {trigger(toggle, {
         ...getReferenceProps(),
@@ -154,9 +155,7 @@ const DropdownMenu = ({
             >
               <div
                 data-fill={fill === "default" ? undefined : fill}
-                className={[styles.panel, variantStyles[variant], styles[size], className]
-                  .filter(Boolean)
-                  .join(" ")}
+                className={jC([styles.panel, variantStyles[variant], styles[size], className])}
                 style={transitionStyles}
               >
                 <DropdownMenuContext value={{ closeMenu, getItemProps, activeIndex }}>
@@ -184,7 +183,7 @@ const Item = ({
     <button
       type="button"
       ref={ref}
-      className={[styles.item, centered && styles.center, className].filter(Boolean).join(" ")}
+      className={jC([styles.item, centered && styles.center, className])}
       {...rest}
       {...getItemProps({
         onClick: (event) => {
@@ -206,7 +205,7 @@ const Link = ({ children, className }: DropdownMenuLinkProps) => {
   return (
     <div
       ref={ref}
-      className={[styles.item, className].filter(Boolean).join(" ")}
+      className={jC([styles.item, className])}
       {...getItemProps({
         onClick: () => {
           closeMenu();
@@ -230,7 +229,7 @@ const Link = ({ children, className }: DropdownMenuLinkProps) => {
 };
 
 const Label = ({ children, className }: DropdownMenuLabelProps) => (
-  <span className={[styles.label, className].filter(Boolean).join(" ")}>{children}</span>
+  <span className={jC([styles.label, className])}>{children}</span>
 );
 
 const Divider = () => <div className={styles.divider} />;

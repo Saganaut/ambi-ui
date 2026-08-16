@@ -1,11 +1,6 @@
 import type { ComponentPropsWithRef, ReactNode } from "react";
 import type { Prettify } from "../../utils/utils.types";
-import type {
-  BaseFills,
-  BaseShapes,
-  BaseSizes,
-  BaseVariants,
-} from "../Base.types";
+import type { BaseFills, BaseShapes, BaseSizes, BaseVariants } from "../Base.types";
 
 export type FieldFill = BaseFills;
 export type FieldShape = BaseShapes;
@@ -84,9 +79,7 @@ export type FileUploadProps = FieldBase &
     onChange?: (files: File[]) => void;
   };
 
-export type InputProps = FieldBase &
-  FieldStyle &
-  ComponentPropsWithRef<"input">;
+export type InputProps = FieldBase & FieldStyle & ComponentPropsWithRef<"input">;
 
 export type InputWithButtonProps = FieldBase &
   FieldStyle &
@@ -103,9 +96,7 @@ export type NumberInputProps = FieldBase &
     compact?: boolean;
   };
 
-export type RadioProps = FieldBase &
-  FieldStyle &
-  Omit<ComponentPropsWithRef<"input">, "type">;
+export type RadioProps = FieldBase & FieldStyle & Omit<ComponentPropsWithRef<"input">, "type">;
 
 export interface RadioGroupOption {
   value: string;
@@ -122,12 +113,8 @@ export type RadioGroupProps = FieldBase &
     isDisabled?: boolean;
   };
 
-export type TextAreaProps = FieldBase &
-  FieldStyle &
-  ComponentPropsWithRef<"textarea">;
+export type TextAreaProps = FieldBase & FieldStyle & ComponentPropsWithRef<"textarea">;
 
-export type ToggleProps = FieldBase &
-  FieldStyle &
-  Omit<ComponentPropsWithRef<"input">, "type">;
+export type ToggleProps = FieldBase & FieldStyle & Omit<ComponentPropsWithRef<"input">, "type">;
 
 export type PrettifiedDropdownProps = Prettify<DropdownProps>;

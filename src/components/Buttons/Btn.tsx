@@ -1,4 +1,5 @@
 import variantStyles from "../../styles/variants.module.css";
+import { jC } from "../../utils/utils";
 import type { BtnProps } from "./Btn.types";
 import styles from "./Buttons.module.css";
 const Btn = ({
@@ -25,16 +26,14 @@ const Btn = ({
       data-icon-position={icon ? iconPosition : undefined}
       {...rest}
       data-fill={fill === "default" ? undefined : fill}
-      className={[
+      className={jC([
         styles.btn,
         children == null && styles.iconBtn,
         variantStyles[variant],
         styles[size],
         shape !== "default" && styles[shape],
         className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      ])}
     >
       {icon != null && (
         <span className={styles.icon} aria-hidden="true">

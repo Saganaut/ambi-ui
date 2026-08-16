@@ -125,19 +125,11 @@
   --bg-canvas: var(--role-canvas);
   --bg-surface: var(--role-surface);
   --bg-surface-raised: var(--role-surface-raised);
-  --bg-secondary: color-mix(
-    in oklab,
-    var(--role-primary) 12%,
-    var(--role-surface)
-  );
+  --bg-secondary: color-mix(in oklab, var(--role-primary) 12%, var(--role-surface));
   --bg-subtle: var(--role-subtle);
   --bg-primary: var(--role-primary);
   --bg-brand: color-mix(in oklab, var(--role-primary) 78%, var(--role-canvas));
-  --bg-is-disabled: color-mix(
-    in oklab,
-    var(--role-muted-foreground) 28%,
-    var(--role-surface)
-  );
+  --bg-is-disabled: color-mix(in oklab, var(--role-muted-foreground) 28%, var(--role-surface));
   --bg-display-only: var(--role-canvas);
 
   /** Inverted Backgrounds — swap toward the foreground end so they read as the */
@@ -147,11 +139,7 @@
   /* opposite appearance without a second palette. */
 
   --bg-canvas-inverted: var(--role-foreground);
-  --bg-surface-inverted: color-mix(
-    in oklab,
-    var(--role-foreground) 88%,
-    var(--role-canvas)
-  );
+  --bg-surface-inverted: color-mix(in oklab, var(--role-foreground) 88%, var(--role-canvas));
   --bg-primary-inverted: var(--role-primary);
 
   /** Modal / dialog backdrop. Fixed across themes — its job is to dim whatever */
@@ -167,47 +155,27 @@
   --edge-tint: black;
   --edge-canvas: color-mix(in oklab, var(--bg-canvas) 92%, var(--edge-tint));
   --edge-surface: color-mix(in oklab, var(--bg-surface) 92%, var(--edge-tint));
-  --edge-surface-raised: color-mix(
-    in oklab,
-    var(--bg-surface-raised) 92%,
-    var(--edge-tint)
-  );
+  --edge-surface-raised: color-mix(in oklab, var(--bg-surface-raised) 92%, var(--edge-tint));
   --edge-subtle: color-mix(in oklab, var(--bg-subtle) 92%, var(--edge-tint));
-  --edge-secondary: color-mix(
-    in oklab,
-    var(--bg-secondary) 92%,
-    var(--edge-tint)
-  );
+  --edge-secondary: color-mix(in oklab, var(--bg-secondary) 92%, var(--edge-tint));
   --edge-primary: color-mix(in oklab, var(--bg-primary) 92%, var(--edge-tint));
   --edge-brand: color-mix(in oklab, var(--bg-brand) 92%, var(--edge-tint));
 
   /** Text Variants **/
   --text-primary: var(--role-foreground);
   --text-secondary: var(--role-muted-foreground);
-  --text-muted: color-mix(
-    in oklab,
-    var(--role-muted-foreground) 60%,
-    var(--role-canvas)
-  );
+  --text-muted: color-mix(in oklab, var(--role-muted-foreground) 60%, var(--role-canvas));
   --text-accent: var(--role-accent);
   --text-brand: var(--role-primary);
   --text-on-brand: var(--role-on-primary);
-  --text-is-disabled: color-mix(
-    in oklab,
-    var(--role-muted-foreground) 55%,
-    var(--role-canvas)
-  );
+  --text-is-disabled: color-mix(in oklab, var(--role-muted-foreground) 55%, var(--role-canvas));
   --line-height-control: 1;
   --line-height-body: 1.5;
 
   /** Inverted Text — swap toward the canvas end (mirrors inverted backgrounds). */
 
   --text-primary-inverted: var(--role-canvas);
-  --text-secondary-inverted: color-mix(
-    in oklab,
-    var(--role-canvas) 70%,
-    var(--role-foreground)
-  );
+  --text-secondary-inverted: color-mix(in oklab, var(--role-canvas) 70%, var(--role-foreground));
   --text-accent-inverted: var(--role-accent);
 
   /** Status Backgrounds — a canvas-tinted wash of each status role, so the wash */
@@ -221,64 +189,28 @@
   /** Status Text — the status role pulled toward foreground for legibility on  */
 
   /* its wash (darkens on light themes, lightens on dark themes). */
-  --text-error: color-mix(
-    in oklab,
-    var(--role-red) 72%,
-    var(--role-foreground)
-  );
-  --text-success: color-mix(
-    in oklab,
-    var(--role-green) 72%,
-    var(--role-foreground)
-  );
-  --text-warning: color-mix(
-    in oklab,
-    var(--role-yellow) 72%,
-    var(--role-foreground)
-  );
-  --text-info: color-mix(
-    in oklab,
-    var(--role-blue) 72%,
-    var(--role-foreground)
-  );
+  --text-error: color-mix(in oklab, var(--role-red) 72%, var(--role-foreground));
+  --text-success: color-mix(in oklab, var(--role-green) 72%, var(--role-foreground));
+  --text-warning: color-mix(in oklab, var(--role-yellow) 72%, var(--role-foreground));
+  --text-info: color-mix(in oklab, var(--role-blue) 72%, var(--role-foreground));
 
   /** Borders **/
   --border-default: var(--role-border);
   --border-subtle: var(--role-border-subtle);
   --border-focus: var(--role-accent);
   --border-brand: var(--role-accent-secondary);
-  --border-is-disabled: color-mix(
-    in oklab,
-    var(--role-muted-foreground) 45%,
-    var(--role-canvas)
-  );
+  --border-is-disabled: color-mix(in oklab, var(--role-muted-foreground) 45%, var(--role-canvas));
 
   /** Status Borders — a mid blend of the status role toward canvas. */
-  --border-success: color-mix(
-    in oklab,
-    var(--role-green) 55%,
-    var(--role-canvas)
-  );
-  --border-warning: color-mix(
-    in oklab,
-    var(--role-yellow) 55%,
-    var(--role-canvas)
-  );
+  --border-success: color-mix(in oklab, var(--role-green) 55%, var(--role-canvas));
+  --border-warning: color-mix(in oklab, var(--role-yellow) 55%, var(--role-canvas));
   --border-error: color-mix(in oklab, var(--role-red) 55%, var(--role-canvas));
   --border-info: color-mix(in oklab, var(--role-blue) 55%, var(--role-canvas));
 
   /** Action States — built on the secondary accent (the CTA colour). */
   --action-hover: var(--role-accent-secondary);
-  --action-active: color-mix(
-    in oklab,
-    var(--role-accent-secondary) 72%,
-    var(--role-foreground)
-  );
-  --action-is-disabled: color-mix(
-    in oklab,
-    var(--role-muted-foreground) 45%,
-    var(--role-surface)
-  );
+  --action-active: color-mix(in oklab, var(--role-accent-secondary) 72%, var(--role-foreground));
+  --action-is-disabled: color-mix(in oklab, var(--role-muted-foreground) 45%, var(--role-surface));
 
   /** --- Hover States - All should be derived from background and color --- **/
   --bg-fill: var(--bg-surface);
@@ -286,14 +218,13 @@
   --border-fill: var(--text-primary);
   --hover-color: oklch(from var(--color) calc(l - 0.1) calc(c + 0.01) h);
   --hover-bg-color: oklch(from var(--bg-fill) calc(l + 0.05) calc(c + 0.02) h);
-  --hover-border-color: oklch(
-    from var(--border-fill) calc(l - 0.1) calc(c + 0.02) h
-  );
+  --hover-border-color: oklch(from var(--border-fill) calc(l - 0.1) calc(c + 0.02) h);
 
   /* --- Typography (Expanded Scale) --- */
   --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
   --font-heading: "Poppins", system-ui, "Segoe UI", "Roboto", sans-serif;
   --font-sans: "Poppins", system-ui, sans-serif;
+  --font-size-2xs: 0.5rem;
   --font-size-xs: 0.75rem; /* 12px */
   --font-size-sm: 0.875rem; /* 14px */
   --font-size-base: 1rem; /* 16px */
@@ -406,22 +337,14 @@
 
   /* See rules/styling/spacing-hierarchy.md.                                   */
   --stack-sm: var(--space-4); /* 16px — cards in a dense grid, tile lists */
-  --stack-md: var(
-    --space-6
-  ); /* 24px — default card/panel grid gap, header-to-body */
+  --stack-md: var(--space-6); /* 24px — default card/panel grid gap, header-to-body */
 
-  --stack-lg: var(
-    --space-8
-  ); /* 32px — panel-to-panel, section breaks in app pages */
+  --stack-lg: var(--space-8); /* 32px — panel-to-panel, section breaks in app pages */
 
-  --stack-xl: var(
-    --space-12
-  ); /* 48px — page-section boundaries (marketing/doc pages) */
+  --stack-xl: var(--space-12); /* 48px — page-section boundaries (marketing/doc pages) */
 
   --gutter-sm: var(--space-4); /* 16px — inline inset of app pages, sidebars */
-  --gutter-md: var(
-    --space-6
-  ); /* 24px — cards, dialogs, marketing-page inline inset */
+  --gutter-md: var(--space-6); /* 24px — cards, dialogs, marketing-page inline inset */
 
   --gutter-lg: var(--space-8); /* 32px — block inset of app pages */
   --gutter-xl: var(--space-12); /* 48px — block inset of marketing/doc pages */
@@ -499,8 +422,7 @@
   --marker-badge-pad: var(--space-1);
   --marker-badge-pad-end: var(--space-2);
   --marker-badge-disc-inset: calc(
-    var(--marker-badge-border-size) + var(--marker-badge-pad) +
-      var(--marker-badge-disc-size) / 2
+    var(--marker-badge-border-size) + var(--marker-badge-pad) + var(--marker-badge-disc-size) / 2
   );
 
   /* --- Transitions & Timing --- */

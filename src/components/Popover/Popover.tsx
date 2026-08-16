@@ -4,17 +4,13 @@
 // Used in conjuction wiht PopverWrapper and PopoverNavContext to provide full utility
 import { useListItem } from "@floating-ui/react";
 import { useContext, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { jC } from "../../utils/utils";
 import styles from "./Popover.module.css";
 import type { PopoverProps } from "./Popover.types";
 import { PopoverNavContext } from "./PopoverNavContext";
 
 const Popover = ({ children, className, role = "dialog", ariaLabel, style }: PopoverProps) => (
-  <div
-    className={[styles.popover, className].filter(Boolean).join(" ")}
-    role={role}
-    aria-label={ariaLabel}
-    style={style}
-  >
+  <div className={jC([styles.popover, className])} role={role} aria-label={ariaLabel} style={style}>
     {children}
   </div>
 );
@@ -25,7 +21,7 @@ interface RowProps {
 }
 
 const Row = ({ children, className }: RowProps) => (
-  <div className={[styles.row, className].filter(Boolean).join(" ")}>{children}</div>
+  <div className={jC([styles.row, className])}>{children}</div>
 );
 
 const Button = ({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => {

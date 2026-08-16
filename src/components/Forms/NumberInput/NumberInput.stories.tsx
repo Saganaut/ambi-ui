@@ -69,12 +69,7 @@ export const Overview: Story = {
           value={value}
           onChange={setValue}
         />
-        <NumberInput
-          {...args}
-          id={`${args.id}-disabled`}
-          label="Disabled"
-          disabled
-        />
+        <NumberInput {...args} id={`${args.id}-disabled`} label="Disabled" disabled />
         <NumberInput
           {...args}
           id={`${args.id}-info`}

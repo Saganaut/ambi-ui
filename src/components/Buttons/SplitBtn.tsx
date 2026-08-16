@@ -1,4 +1,5 @@
 import { ChevronDownIcon } from "lucide-react";
+import { jC } from "../../utils/utils";
 import { DropdownMenu } from "../DropdownMenu/DropdownMenu";
 import { Btn } from "./Btn";
 import type { SplitBtnProps } from "./Btn.types";
@@ -21,7 +22,7 @@ const SplitBtn = ({
   ...rest
 }: SplitBtnProps) => {
   return (
-    <div className={[styles.splitBtn, className].filter(Boolean).join(" ")}>
+    <div className={jC([styles.splitBtn, className])}>
       <Btn
         variant={variant}
         fill={fill}

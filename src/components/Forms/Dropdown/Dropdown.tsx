@@ -19,11 +19,14 @@ import {
   useListNavigation,
   useTypeahead,
 } from "@floating-ui/react";
+import { Check, Loader, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
+import variantStyles from "../../../styles/variants.module.css";
+import { jC } from "../../../utils/utils";
 import { inheritTheme } from "../../../utils/inheritTheme";
-import type { BtnVariant } from "../../Buttons/Btn.types";
 import shared from "../Field.module.css";
 import type { DropdownOption, DropdownProps } from "../Field.types";
+import { useField } from "../useField";
 import styles from "./Dropdown.module.css";
 import { useDropdown } from "./useDropdown";
 
@@ -35,6 +38,7 @@ const Dropdown = ({
   searchable = false,
   label,
   labelPosition = "top",
+  extraLabelInfo,
   placeholder,
   errorMessage,
   infoMessage,
@@ -44,6 +48,7 @@ const Dropdown = ({
   className,
   disabled,
   ref,
+  validationState,
 
   variant = "primary",
   fill = "default",
@@ -56,11 +61,15 @@ const Dropdown = ({
     : selectedValue == null
       ? []
       : [selectedValue];
-  const generatedId = useId();
-  const dropdownId = id ?? generatedId;
   const listboxId = useId();
-  const messageId = `${dropdownId}-message`;
-  const inputVariant: BtnVariant = errorMessage != null ? "error" : variant;
+  const {
+    inputId: dropdownId,
+    messageId,
+    hasMessage,
+    dataStatus,
+    inputVariant,
+    aria,
+  } = useField({ id, infoMessage, errorMessage, validationState, variant });
   const { isOpen, query, setQuery, setOpen, filtered, toggle, removeChip, removeChipOnKey } =
     useDropdown({
       options,
@@ -174,19 +183,28 @@ const Dropdown = ({
 
   return (
     <div
-      className={[
+      data-fill={fill === "default" ? undefined : fill}
+      className={jC([
         shared.fieldContainer,
-        shared[fieldSize],
         shared[labelPosition],
         fullWidth && shared.fullWidth,
-        reserveMessageSpace && shared.reserveMessageSpace,
         className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+        variantStyles[variant],
+        reserveMessageSpace && shared.reserveMessageSpace,
+        shared[fieldSize],
+        inputVariant !== "brand" && shared[inputVariant],
+      ])}
     >
-      {label && <label htmlFor={dropdownId}>{label}</label>}
-      <div className={styles.dropdown}>
+      {label && (
+        <div className={shared.labelWrapper}>
+          <label htmlFor={dropdownId}>{label}</label>
+          {extraLabelInfo && <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>}
+        </div>
+      )}
+      <div
+        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth, styles.dropdown])}
+        data-status={dataStatus}
+      >
         <button
           {...rest}
           ref={(node) => {
@@ -196,18 +214,12 @@ const Dropdown = ({
           }}
           type="button"
           id={dropdownId}
-          className={[
-            shared.field,
-            shape === "pill" && shared.pill,
-            inputVariant !== "brand" && shared[inputVariant],
-            styles.dropdownTrigger,
-          ]
-            .filter(Boolean)
-            .join(" ")}
+          className={jC([shared.field, shape === "pill" && shared.pill, styles.dropdownTrigger])}
           data-fill={fill === "default" ? undefined : fill}
           disabled={disabled}
-          aria-invalid={errorMessage != null || undefined}
-          aria-describedby={errorMessage != null || infoMessage != null ? messageId : undefined}
+          aria-invalid={aria.invalid}
+          aria-busy={aria.busy}
+          aria-describedby={aria.describedBy}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
           aria-controls={isOpen ? listboxId : undefined}
@@ -215,7 +227,7 @@ const Dropdown = ({
         >
           {triggerContent}
           <svg
-            className={[styles.chevron, isOpen ? styles.chevronOpen : ""].filter(Boolean).join(" ")}
+            className={jC([styles.chevron, isOpen ? styles.chevronOpen : ""])}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -230,7 +242,7 @@ const Dropdown = ({
             <FloatingFocusManager context={context} modal={false}>
               <div
                 ref={refs.setFloating}
-                className={[styles.dropdownPanel].filter(Boolean).join(" ")}
+                className={jC([styles.dropdownPanel])}
                 data-placement={placement}
                 style={floatingStyles}
                 {...getFloatingProps()}
@@ -266,12 +278,10 @@ const Dropdown = ({
                         key={opt.value}
                         role="option"
                         aria-selected={selectedValues.includes(opt.value)}
-                        className={[
+                        className={jC([
                           styles.dropdownOption,
                           selectedValues.includes(opt.value) ? styles.selected : "",
-                        ]
-                          .filter(Boolean)
-                          .join(" ")}
+                        ])}
                         ref={(node) => {
                           optionRefs.current[index] = node;
                           optionLabels.current[index] = opt.label;
@@ -308,20 +318,24 @@ const Dropdown = ({
           </FloatingPortal>
         )}
 
-        {(errorMessage != null || infoMessage != null) && (
+        {hasMessage && (
           <span
             id={messageId}
-            className={[
+            aria-live="polite"
+            className={jC([
               shared.inputInfoMessage,
-              styles.message,
+              shared.message,
               errorMessage ? shared.errorMessage : "",
-            ]
-              .filter(Boolean)
-              .join(" ")}
+            ])}
           >
             {errorMessage ?? infoMessage}
           </span>
         )}
+        <div className={shared.statusIcon}>
+          {dataStatus === "valid" && <Check />}
+          {dataStatus === "validating" && <Loader />}
+          {dataStatus === "invalid" && <X />}
+        </div>
       </div>
     </div>
   );

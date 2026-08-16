@@ -182,8 +182,7 @@
   display: inline-flex;
 
   /* (2px, 8px) has no --p-pill-* equivalent — composed per axis on the gap tier */
-  padding: var(--dropdown-chip-padding-block)
-    var(--dropdown-chip-padding-inline);
+  padding: var(--dropdown-chip-padding-block) var(--dropdown-chip-padding-inline);
   color: var(--dropdown-chip-color);
   font-size: var(--dropdown-chip-font-size);
   align-items: center;

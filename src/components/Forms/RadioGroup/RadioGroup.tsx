@@ -1,52 +1,98 @@
 // RadioGroup — wraps Radio items into a named fieldset where exactly one option must be selected
+import { Check, Loader, X } from "lucide-react";
+import { jC } from "../../../utils/utils";
 import shared from "../Field.module.css";
 import type { RadioGroupProps } from "../Field.types";
 import { Radio } from "../Radio/Radio";
+import { useField } from "../useField";
 import styles from "./RadioGroup.module.css";
 
 const RadioGroup = ({
   name,
   legend,
+  label,
+  extraLabelInfo,
   options,
   value,
   onChange,
   disabled,
   errorMessage,
   infoMessage,
+  validationState,
+  className,
+  id,
   ...rest
 }: RadioGroupProps) => {
+  const {
+    inputId: groupId,
+    messageId,
+    hasMessage,
+    dataStatus,
+    aria,
+  } = useField({
+    id,
+    infoMessage,
+    errorMessage,
+    validationState,
+    variant: "primary",
+  });
+  const groupLabel = legend ?? label;
+
   return (
-    <fieldset {...rest} className={styles.radioGroupContainer}>
-      {legend && <legend className={styles.radioGroupLegend}>{legend}</legend>}
-      <div className={styles.radioGroupOptions}>
-        {options.map((option) => (
-          <Radio
-            key={option.value}
-            id={`${name}-${option.value}`}
-            name={name}
-            value={option.value}
-            label={option.label}
-            checked={value === option.value}
-            onChange={() => {
-              onChange(option.value);
-            }}
-            disabled={disabled}
-          />
-        ))}
-      </div>
-      {(errorMessage != null || infoMessage != null) && (
-        <span
-          className={[
-            shared.inputInfoMessage,
-            styles.message,
-            errorMessage ? shared.errorMessage : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          {errorMessage ?? infoMessage}
-        </span>
+    <fieldset
+      {...rest}
+      id={groupId}
+      disabled={disabled}
+      aria-invalid={aria.invalid}
+      aria-busy={aria.busy}
+      aria-describedby={aria.describedBy}
+      className={jC([shared.fieldContainer, shared.top, shared.md, className])}
+    >
+      {groupLabel && (
+        <legend className={jC([shared.labelWrapper, styles.radioGroupLegend])}>
+          {groupLabel}
+          {extraLabelInfo && <span className={shared.extraLabelInfo}>{extraLabelInfo}</span>}
+        </legend>
       )}
+      <div
+        className={jC([shared.fieldWrapper, styles.radioGroupContainer])}
+        data-status={dataStatus}
+      >
+        <div className={styles.radioGroupOptions}>
+          {options.map((option) => (
+            <Radio
+              key={option.value}
+              id={`${name}-${option.value}`}
+              name={name}
+              value={option.value}
+              label={option.label}
+              checked={value === option.value}
+              onChange={() => {
+                onChange(option.value);
+              }}
+              disabled={disabled}
+            />
+          ))}
+        </div>
+        {hasMessage && (
+          <span
+            id={messageId}
+            aria-live="polite"
+            className={jC([
+              shared.inputInfoMessage,
+              shared.message,
+              errorMessage ? shared.errorMessage : "",
+            ])}
+          >
+            {errorMessage ?? infoMessage}
+          </span>
+        )}
+        <div className={shared.statusIcon}>
+          {dataStatus === "valid" && <Check />}
+          {dataStatus === "validating" && <Loader />}
+          {dataStatus === "invalid" && <X />}
+        </div>
+      </div>
     </fieldset>
   );
 };

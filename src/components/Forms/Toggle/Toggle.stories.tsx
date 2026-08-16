@@ -15,7 +15,10 @@ const meta = {
     onChange: fn(),
   },
   argTypes: {
-    labelPosition: { control: "inline-radio", options: ["labelBefore", "labelAfter"] },
+    labelPosition: {
+      control: "inline-radio",
+      options: ["labelBefore", "labelAfter"],
+    },
   },
 } satisfies Meta<typeof Toggle>;
 
