@@ -1,0 +1,8 @@
+.fieldGroup {
+  --field-label-width: clamp(8rem, 30%, 14rem);
+
+  container-type: inline-size;
+  display: grid;
+  width: 100%;
+  gap: var(--gap-lg);
+}

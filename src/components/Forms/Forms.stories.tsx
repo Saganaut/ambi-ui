@@ -5,6 +5,7 @@ import { Checkbox } from "./Checkbox/Checkbox";
 import { Dropdown } from "./Dropdown/Dropdown";
 import { REGION_OPTIONS } from "./Dropdown/Dropdown.mocks";
 import { FileUpload } from "./FileUpload/FileUpload";
+import { FieldGroup } from "./FieldGroup/FieldGroup";
 import { Input } from "./Input/Input";
 import { InputWithButton } from "./InputWithButton/InputWithButton";
 import { NumberInput } from "./NumberInput/NumberInput";
@@ -87,6 +88,11 @@ export const Overview: Story = {
               maxBytes={5_000_000}
             />
             <InputWithButton label="Invite code" placeholder="Enter a code" buttonLabel="Apply" />
+
+            <FieldGroup>
+              <Input label="Short label" labelPosition="start" fullWidth />
+              <Input label="A longer aligned label" labelPosition="start" fullWidth />
+            </FieldGroup>
           </form>
         </section>
 

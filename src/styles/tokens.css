@@ -540,7 +540,7 @@
   --role-muted-foreground: var(--zinc-700);
   --role-primary: var(--violet-500);
   --role-on-primary: var(--violet-100);
-  --role-accent: var(--cyan-500);
+  --role-accent: var(--violet-400);
   --role-accent-secondary: var(--orange-500);
 
   /** Dark mode needs borders but light mode usually relies on shadows **/

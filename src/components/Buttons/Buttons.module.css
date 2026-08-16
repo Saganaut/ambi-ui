@@ -187,8 +187,8 @@
   }
 
   &:focus-visible:not(:disabled) {
-    outline: var(--border-size-md) solid var(--border-focus);
-    outline-offset: var(--space-1);
+    outline: var(--border-size-sm) solid var(--border-focus);
+    outline-offset: var(--space-half);
   }
 
   &.splitBtnSecondary {

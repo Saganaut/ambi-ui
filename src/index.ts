@@ -15,6 +15,9 @@ export { PopoverWrapper } from "./components/Popover/PopoverWrapper.tsx";
 
 export { DropdownMenu } from "./components/DropdownMenu/DropdownMenu.tsx";
 
+export { FieldGroup } from "./components/Forms/FieldGroup/FieldGroup.tsx";
+export type { FieldGroupProps } from "./components/Forms/FieldGroup/FieldGroup.tsx";
+
 export type {
   DropdownMenuItemProps,
   DropdownMenuLabelProps,
