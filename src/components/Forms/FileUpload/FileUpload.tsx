@@ -1,21 +1,10 @@
 // File upload component with drag-and-drop support and multi-file selection
+import { Btn } from "@saganaut/ambi-ui";
 import { Image, X } from "lucide-react";
-import shared from "../Input.module.css";
+import shared from "../Field.module.css";
+import type { FileUploadProps } from "../Field.types";
 import styles from "./FileUpload.module.css";
 import { useFileUpload } from "./useFileUpload";
-import { Btn } from "@saganaut/ambi-ui";
-
-interface FileUploadProps {
-  label?: string;
-  accept?: string;
-  /** Allow selecting more than one file. Default true. */
-  multiple?: boolean;
-  /** Reject files larger than this (bytes); also drives the rejection message. */
-  maxBytes?: number;
-  errorMessage?: string;
-  infoMessage?: string;
-  onChange?: (files: File[]) => void;
-}
 
 const FileUpload = ({
   label,
@@ -25,6 +14,8 @@ const FileUpload = ({
   errorMessage,
   infoMessage,
   onChange,
+  ref,
+  ...rest
 }: FileUploadProps) => {
   const {
     files,
@@ -43,28 +34,32 @@ const FileUpload = ({
     <div className={styles.fileUploadContainer}>
       {label && <label>{label}</label>}
       <div
-        className={[styles.dropZone, isDragging && styles.dragging]
-          .filter(Boolean)
-          .join(" ")}
+        className={[styles.dropZone, isDragging && styles.dragging].filter(Boolean).join(" ")}
         onClick={openPicker}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        role='button'
+        role="button"
         tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === "Enter") openPicker();
-        }}>
+        }}
+      >
         <input
-          ref={inputRef}
-          type='file'
+          {...rest}
+          ref={(node) => {
+            inputRef.current = node;
+            if (typeof ref === "function") ref(node);
+            else if (ref != null) ref.current = node;
+          }}
+          type="file"
           multiple={multiple}
           accept={accept}
           onChange={(e) => {
             addFiles(e.target.files);
           }}
         />
-        <Image className={styles.dropZoneIcon} aria-hidden='true' />
+        <Image className={styles.dropZoneIcon} aria-hidden="true" />
         <span className={styles.dropZoneText}>
           {isDragging ? "Drop files here" : "Drag & drop files"}
         </span>
@@ -73,22 +68,18 @@ const FileUpload = ({
             or <span className={styles.browseLink}>browse files</span>
           </span>
         )}
-        {infoMessage != null && (
-          <span className={styles.dropZoneHint}>{infoMessage}</span>
-        )}
+        {infoMessage != null && <span className={styles.dropZoneHint}>{infoMessage}</span>}
       </div>
       {files.length > 0 && (
         <ul className={styles.fileList}>
           {files.map((file, i) => (
-            <li
-              key={`${file.name}-${file.size}-${file.lastModified}`}
-              className={styles.fileItem}>
+            <li key={`${file.name}-${file.size}-${file.lastModified}`} className={styles.fileItem}>
               <span className={styles.fileName}>{file.name}</span>
 
               <Btn
-                fill='ghost'
+                fill="ghost"
                 icon={<X />}
-                size='xs'
+                size="xs"
                 className={styles.removeFile}
                 onClick={() => {
                   removeFile(i);
@@ -103,7 +94,8 @@ const FileUpload = ({
         <span
           className={[shared.inputInfoMessage, styles.message, shared.errorMessage]
             .filter(Boolean)
-            .join(" ")}>
+            .join(" ")}
+        >
           {rejection ?? errorMessage}
         </span>
       )}

@@ -1,19 +1,14 @@
 import type { ReactNode, Ref } from "react";
-import type { BaseSizes, BaseVariants } from "../Base.types";
+import type { BaseFills, BaseShapes, BaseSizes, BaseVariants, MenuPosition } from "../Base.types";
 
 export type BtnSize = Exclude<BaseSizes, "xl">;
 
 export type BtnVariant = BaseVariants;
 
-export type BtnFill = "default" | "bordered" | "ghost";
+export type BtnFill = BaseFills;
 
-export type BtnShape = "default" | "pill" | "avatar";
-
-export type MenuPosition =
-  | "bottom-right"
-  | "bottom-left"
-  | "top-right"
-  | "top-left";
+//TODO: Remove avatar as its just a pill icon shape
+export type BtnShape = BaseShapes | "avatar";
 
 export type IconBtnPosition = "left" | "right";
 

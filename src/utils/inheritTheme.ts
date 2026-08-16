@@ -13,10 +13,7 @@ export const inheritTheme = (source: Element, target: HTMLElement) => {
   for (const ancestor of ancestors) {
     for (const property of ancestor.style) {
       if (property.startsWith("--")) {
-        target.style.setProperty(
-          property,
-          ancestor.style.getPropertyValue(property),
-        );
+        target.style.setProperty(property, ancestor.style.getPropertyValue(property));
       }
     }
   }

@@ -5,27 +5,9 @@
  * options count as inside the field.
  */
 import { useState } from "react";
+import type { UseDropdownArgs } from "../Field.types";
 
-interface DropdownOption {
-  value: string;
-  label: string;
-}
-
-interface UseDropdownArgs {
-  options: DropdownOption[];
-  value: string[];
-  multiple: boolean;
-  searchable: boolean;
-  onChange?: (values: string[]) => void;
-}
-
-const useDropdown = ({
-  options,
-  value,
-  multiple,
-  searchable,
-  onChange,
-}: UseDropdownArgs) => {
+const useDropdown = ({ options, value, multiple, searchable, onChange }: UseDropdownArgs) => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
 
@@ -41,9 +23,7 @@ const useDropdown = ({
   const toggle = (optValue: string) => {
     let next: string[];
     if (multiple) {
-      next = value.includes(optValue)
-        ? value.filter((v) => v !== optValue)
-        : [...value, optValue];
+      next = value.includes(optValue) ? value.filter((v) => v !== optValue) : [...value, optValue];
     } else {
       next = [optValue];
       setOpen(false);
@@ -76,4 +56,3 @@ const useDropdown = ({
 };
 
 export { useDropdown };
-export type { DropdownOption };

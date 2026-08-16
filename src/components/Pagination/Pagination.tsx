@@ -100,8 +100,10 @@ const Pagination = (props: PaginationProps) => {
               className={styles.item}
             >
               {typeof token === "number" ? (
-                <button
+                <Btn
                   type="button"
+                  variant={variant}
+                  size={size}
                   className={[styles.pageBtn, token === clampedPage ? styles.current : null]
                     .filter(Boolean)
                     .join(" ")}
@@ -113,11 +115,11 @@ const Pagination = (props: PaginationProps) => {
                   }}
                 >
                   {token + 1}
-                </button>
+                </Btn>
               ) : (
-                <span className={styles.ellipsis} aria-hidden="true">
+                <Btn variant={variant} size={size} className={styles.ellipsis} aria-hidden="true">
                   …
-                </span>
+                </Btn>
               )}
             </li>
           ))}

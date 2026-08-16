@@ -3,6 +3,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { fn } from "storybook/test";
+import "../../../styles/variants.module.css";
 import { RadioGroup } from "./RadioGroup";
 import { difficultyOptions, visibilityOptions } from "./RadioGroup.mocks";
 

@@ -3,7 +3,7 @@ import { playwright } from "@vitest/browser-playwright";
 
 export default defineConfig({
   pack: {
-    entry: ["src/index.ts", "src/styles/tokens.css"],
+    entry: ["src/styles/reset.css", "src/index.ts"],
     dts: {
       tsgo: true,
     },

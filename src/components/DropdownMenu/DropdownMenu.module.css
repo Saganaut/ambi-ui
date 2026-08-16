@@ -19,14 +19,14 @@
   /** Layout & Size **/
   --dropdown-menu-gap: var(--space-2);
   --dropdown-menu-padding: var(--gap-md) var(--gap-lg);
-  --dropdown-menu-radius: var(--radius-md);
-  --dropdown-menu-min-height: 2.5rem;
+  --dropdown-menu-radius: var(--control-radius-md);
+  --dropdown-menu-min-height: var(--control-height-md);
   --dropdown-menu-min-width: 11.25rem;
 
   /** Styling **/
   --dropdown-menu-font-family: var(--font-sans);
   --dropdown-menu-font-weight: var(--font-weight-semibold);
-  --dropdown-menu-font-size: var(--font-size-md);
+  --dropdown-menu-font-size: var(--control-font-md);
   --dropdown-menu-color: var(--color);
   --dropdown-menu-bg-color: var(--bg-color);
   --dropdown-menu-border-color: var(--border-color);
@@ -37,56 +37,51 @@
   flex-direction: column;
   min-width: var(--dropdown-menu-min-width);
   font-size: var(--dropdown-menu-font-size);
-
   border: var(--border-size-xs) solid var(--dropdown-menu-border-color);
   border-radius: var(--dropdown-menu-radius);
-
   background: var(--dropdown-menu-bg-color);
   box-shadow: var(--dropdown-menu-shadow);
-
   overflow: hidden;
   will-change: opacity, transform;
 
   &.xs {
     --dropdown-menu-padding: var(--gap-sm) var(--gap-md);
-    --dropdown-menu-font-size: var(--font-size-xs);
-    --dropdown-menu-radius: var(--radius-sm);
+    --dropdown-menu-font-size: var(--control-font-xs);
+    --dropdown-menu-radius: var(--control-radius-xs);
     --dropdown-menu-gap: var(--space-1);
-    --dropdown-menu-min-height: 1.5rem;
+    --dropdown-menu-min-height: var(--control-height-xs);
     --dropdown-menu-min-width: 6.25rem;
   }
 
   &.sm {
     --dropdown-menu-padding: var(--gap-sm) var(--gap-md);
-    --dropdown-menu-font-size: var(--font-size-xs);
-    --dropdown-menu-radius: var(--radius-md);
+    --dropdown-menu-font-size: var(--control-font-sm);
+    --dropdown-menu-radius: var(--control-radius-sm);
     --dropdown-menu-gap: 0;
-    --dropdown-menu-min-height: 1.75rem;
+    --dropdown-menu-min-height: var(--control-height-sm);
     --dropdown-menu-min-width: 7.5rem;
   }
 
   &.md {
     --dropdown-menu-padding: var(--gap-md) var(--gap-xl);
-    --dropdown-menu-font-size: var(--font-size-base);
-    --dropdown-menu-radius: var(--radius-md);
+    --dropdown-menu-font-size: var(--control-font-md);
+    --dropdown-menu-radius: var(--control-radius-md);
     --dropdown-menu-gap: var(--space-3);
-    --dropdown-menu-min-height: 2.5rem;
+    --dropdown-menu-min-height: var(--control-height-md);
     --dropdown-menu-min-width: 11.25rem;
   }
 
   &.lg {
     --dropdown-menu-padding: var(--gap-lg) var(--gap-xl);
-    --dropdown-menu-font-size: var(--font-size-lg);
-    --dropdown-menu-radius: var(--radius-lg);
+    --dropdown-menu-font-size: var(--control-font-lg);
+    --dropdown-menu-radius: var(--control-radius-lg);
     --dropdown-menu-gap: var(--space-4);
-    --dropdown-menu-min-height: 3.75rem;
+    --dropdown-menu-min-height: var(--control-height-lg);
     --dropdown-menu-min-width: 13.75rem;
   }
 
   .item {
-    --dropdown-menu-item-hover-color: oklch(
-      from var(--dropdown-menu-color) calc(l + 0) c h
-    );
+    --dropdown-menu-item-hover-color: oklch(from var(--dropdown-menu-color) calc(l + 0) c h);
     --dropdown-menu-item-hover-bg-color: oklch(
       from var(--dropdown-menu-bg-color) calc(l + 0.05) c h
     );
@@ -138,8 +133,7 @@
 
     padding: var(--dropdown-menu-label-padding);
     color: var(--dropdown-menu-label-color);
-    border-bottom: var(--border-size-sm) solid
-      var(--dropdown-menu-label-border-color);
+    border-bottom: var(--border-size-sm) solid var(--dropdown-menu-label-border-color);
   }
 
   .divider {
@@ -164,10 +158,9 @@
     --dropdown-menu-border-color: oklch(
       from var(--dropdown-menu-bg-color) calc(l + 0.1) calc(c - 0.02) h
     );
+
     .item:not(disabled):hover {
-      --dropdown-menu-item-hover-color: oklch(
-        from var(--dropdown-menu-color) calc(l + 0.9) c h
-      );
+      --dropdown-menu-item-hover-color: oklch(from var(--dropdown-menu-color) calc(l + 0.9) c h);
       --dropdown-menu-item-hover-bg-color: oklch(
         from var(--dropdown-menu-bg-color) calc(l - 0.1) c h
       );

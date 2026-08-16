@@ -8,13 +8,7 @@ import styles from "./Popover.module.css";
 import type { PopoverProps } from "./Popover.types";
 import { PopoverNavContext } from "./PopoverNavContext";
 
-const Popover = ({
-  children,
-  className,
-  role = "dialog",
-  ariaLabel,
-  style,
-}: PopoverProps) => (
+const Popover = ({ children, className, role = "dialog", ariaLabel, style }: PopoverProps) => (
   <div
     className={[styles.popover, className].filter(Boolean).join(" ")}
     role={role}
@@ -31,15 +25,10 @@ interface RowProps {
 }
 
 const Row = ({ children, className }: RowProps) => (
-  <div className={[styles.row, className].filter(Boolean).join(" ")}>
-    {children}
-  </div>
+  <div className={[styles.row, className].filter(Boolean).join(" ")}>{children}</div>
 );
 
-const Button = ({
-  children,
-  ...props
-}: ButtonHTMLAttributes<HTMLButtonElement>) => {
+const Button = ({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => {
   const nav = useContext(PopoverNavContext);
   const { ref, index } = useListItem();
 

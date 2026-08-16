@@ -1,17 +1,18 @@
 .btn {
   composes: hoverable from "../../styles/utilities.module.css";
 
-  /**Layout & Size **/
+  /** Layout & Size **/
+
   --btn-gap: var(--space-2);
   --btn-padding: var(--p-md);
-  --btn-radius: var(--radius-lg);
-  --btn-min-height: 2.5rem;
+  --btn-radius: var(--control-radius-md);
+  --btn-min-height: var(--control-height-md);
 
   /** Styling **/
+
   --btn-font-family: var(--font-sans);
   --btn-font-weight: var(--font-weight-semibold);
-  --btn-font-size: var(--font-size-md);
-
+  --btn-font-size: var(--control-font-md);
   --btn-color: var(--color);
   --btn-bg-color: var(--bg-color);
   --btn-border-color: var(--border-color);
@@ -20,27 +21,21 @@
   --btn-icon-size: 1em;
 
   display: flex;
+  padding: var(--btn-padding);
+  color: var(--btn-color);
+  font-size: var(--btn-font-size);
   align-items: center;
   justify-content: center;
-
   min-height: var(--btn-min-height);
   line-height: var(--line-height-control);
-
   gap: var(--btn-gap);
-  padding: var(--btn-padding);
-
   font-family: var(--btn-font-family);
-  font-size: var(--btn-font-size);
   font-weight: var(--btn-font-weight);
   text-transform: capitalize;
-
-  color: var(--btn-color);
   background-color: var(--btn-bg-color);
-
   border-radius: var(--btn-radius);
   border: var(--border-size-xs) solid var(--btn-border-color);
   box-shadow: var(--btn-shadow-size) var(--btn-shadow-color);
-
   cursor: pointer;
   transition:
     background-color var(--duration-base) ease-in-out,
@@ -60,6 +55,7 @@
     inline-size: var(--btn-icon-size);
     block-size: var(--btn-icon-size);
     align-items: center;
+
     svg,
     img {
       display: block;
@@ -73,42 +69,49 @@
   /* ─── Sizes ─────────────────────────────────────────────────── */
   &.xs {
     --btn-padding: var(--p-pill-xs);
-    --btn-font-size: var(--font-size-xs);
-    --btn-radius: var(--radius-sm);
+    --btn-font-size: var(--control-font-xs);
+    --btn-radius: var(--control-radius-xs);
     --btn-gap: var(--space-1);
-    --btn-min-height: 1.5rem;
+    --btn-min-height: var(--control-height-xs);
   }
 
   &.sm {
     --btn-padding: var(--p-pill-xs);
-    --btn-font-size: var(--font-size-xs);
-    --btn-radius: var(--radius-md);
+    --btn-font-size: var(--control-font-sm);
+    --btn-radius: var(--control-radius-sm);
     --btn-gap: 0;
-    --btn-min-height: 1.75rem;
+    --btn-min-height: var(--control-height-sm);
   }
 
   &.md {
     --btn-padding: var(--p-pill-md);
-    --btn-font-size: var(--font-size-base);
-    --btn-radius: var(--radius-md);
+    --btn-font-size: var(--control-font-md);
+    --btn-radius: var(--control-radius-md);
     --btn-gap: var(--space-3);
-    --btn-min-height: 2.5rem;
+    --btn-min-height: var(--control-height-md);
   }
 
   &.lg {
     --btn-padding: var(--p-pill-lg);
-    --btn-font-size: var(--font-size-lg);
-    --btn-radius: var(--radius-lg);
+    --btn-font-size: var(--control-font-lg);
+    --btn-radius: var(--control-radius-lg);
     --btn-gap: var(--space-4);
-    --btn-min-height: 3.75rem;
+    --btn-min-height: var(--control-height-lg);
   }
 
   &.pill,
   &.avatar {
     border-radius: var(--radius-full);
   }
+
   &.avatar {
     border: none;
+    padding: 0;
+    border-width: var(--border-size-md);
+
+    img {
+      border-radius: var(--radius-full);
+    }
   }
 
   &[data-fill="bordered"] {
@@ -120,6 +123,7 @@
     --hover-border-color: oklch(
       from var(--btn-bg-color) calc(l + 0.5) calc(c - 0.02) h
     );
+
     border-width: 2px;
   }
 
@@ -135,8 +139,7 @@
     --btn-color: var(--text-is-disabled);
     --btn-bg-color: var(--bg-is-disabled);
     --btn-border-color: var(--border-is-disabled);
-    --btn-shadow-size: 0 0;
-    --btn-shadow-color: transparent;
+
     opacity: 0.5;
     color: var(--btn-color);
     background-color: var(--btn-bg-color);
@@ -144,13 +147,14 @@
     cursor: not-allowed;
   }
 
-  &:not([data-fill="ghost"]):not(:disabled):hover {
+  &:not([data-fill="ghost"], :disabled):hover {
     --btn-shadow-size: var(--shadow-sm-size);
     --btn-shadow-color: var(--shadow-hover-color);
   }
 
   &.iconBtn {
     --btn-icon-size: var(--space-7);
+
     gap: 0;
     aspect-ratio: 1;
 
@@ -158,26 +162,21 @@
       --btn-icon-size: var(--space-4);
       --btn-padding: var(--space-half);
     }
+
     &.sm {
       --btn-icon-size: var(--space-5);
       --btn-padding: var(--space-1);
     }
+
     &.md {
       --btn-icon-size: var(--space-8);
       --btn-padding: var(--space-1);
     }
+
     &.lg {
       --btn-icon-size: var(--space-10);
       --btn-padding: var(--space-2);
       --btn-min-height: 3.5rem;
-    }
-  }
-
-  &.avatar {
-    padding: 0;
-    border-width: var(--border-size-md);
-    img {
-      border-radius: var(--radius-full);
     }
   }
 
@@ -195,6 +194,7 @@
   &.splitBtnSecondary {
     --split-btn-shadow-size: 2px 2px 3px 1px;
     --split-btn-shadow-color: var(--shadow-xs-color);
+
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     box-shadow: var(--split-btn-shadow-size) var(--split-btn-shadow-color);
@@ -208,9 +208,9 @@
 }
 
 .splitBtn {
+  position: relative;
   display: inline-flex;
   align-items: stretch;
-  position: relative;
 
   .primaryBtn {
     border-top-right-radius: 0;
@@ -231,10 +231,12 @@
 }
 
 [data-appearance="dark"] {
+  /* stylelint-disable-next-line no-descending-specificity */
   .btn {
     --btn-border-color: oklch(
       from var(--btn-bg-color) calc(l + 0.1) calc(c - 0.02) h
     );
+
     &[data-fill="bordered"] {
       --btn-border-color: oklch(
         from var(--btn-bg-color) calc(l + 0.3) calc(c - 0.02) h
@@ -255,6 +257,7 @@
 @media (prefers-reduced-motion: reduce) {
   .btn {
     transition: none;
+
     .chevronIcon {
       transition: none;
     }

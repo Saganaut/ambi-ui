@@ -3,6 +3,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { fn } from "storybook/test";
+import "../../../styles/variants.module.css";
 import { NumberInput } from "./NumberInput";
 
 // NumberInput is a controlled numeric field (value/onChange typed as number).
@@ -23,13 +24,16 @@ const meta = {
   argTypes: {
     labelPosition: {
       control: "inline-radio",
-      options: ["labelAbove", "labelInFront"],
+      options: ["top", "start"],
     },
     size: {
       control: "inline-radio",
       options: ["xs", "sm", "md", "lg"],
     },
-    fill: { control: "inline-radio", options: ["default", "bordered", "ghost"] },
+    fill: {
+      control: "inline-radio",
+      options: ["default", "bordered", "ghost"],
+    },
     shape: { control: "inline-radio", options: ["default", "pill"] },
     value: { control: false },
     onChange: { control: false },
@@ -61,11 +65,16 @@ export const Overview: Story = {
           {...args}
           id={`${args.id}-front`}
           label="Label in front"
-          labelPosition="labelInFront"
+          labelPosition="start"
           value={value}
           onChange={setValue}
         />
-        <NumberInput {...args} id={`${args.id}-disabled`} label="Disabled" disabled />
+        <NumberInput
+          {...args}
+          id={`${args.id}-disabled`}
+          label="Disabled"
+          disabled
+        />
         <NumberInput
           {...args}
           id={`${args.id}-info`}
@@ -102,7 +111,7 @@ export const Overview: Story = {
           {...args}
           id={`${args.id}-compact`}
           label="Compact"
-          labelPosition="labelInFront"
+          labelPosition="start"
           compact
           value={value}
           onChange={setValue}

@@ -1,6 +1,6 @@
 /* Input — single-line text input chrome (border, variants, checkmark icon,
    absolute-positioned info/error message under the field).
-   Sits alongside the shared label-container styles in ../Input.module.css. */
+   Sits alongside the shared label-container styles in ../Field.module.css. */
 
 .input {
   position: relative;

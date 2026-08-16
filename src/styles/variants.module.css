@@ -14,31 +14,37 @@
   --bg-color: var(--bg-secondary);
   --border-color: var(--role-border);
 }
+
 .secondary {
   --color: var(--text-on-brand);
   --bg-color: var(--bg-brand);
   --border-color: var(--role-border);
 }
+
 .brand {
   --color: var(--text-on-brand);
   --bg-color: var(--role-accent-secondary);
   --border-color: var(--role-border);
 }
+
 .info {
   --color: var(--text-info);
   --bg-color: var(--bg-info);
   --border-color: var(--border-info);
 }
+
 .error {
   --color: var(--text-error);
   --bg-color: var(--bg-error);
   --border-color: var(--border-error);
 }
+
 .success {
   --color: var(--text-success);
   --bg-color: var(--bg-success);
   --border-color: var(--border-success);
 }
+
 .warning {
   --color: var(--text-warning);
   --bg-color: var(--bg-warning);
@@ -56,8 +62,10 @@
     --border-color: var(--role-border);
   }
 }
+
 [data-appearance="dark"] {
   --role-border: oklch(from var(--bg-color) calc(l + 0.2) calc(c - 0.01) h);
+
   .secondary {
     --color: var(--text-primary);
     --bg-color: var(--bg-brand);

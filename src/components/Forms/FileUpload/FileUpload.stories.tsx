@@ -2,6 +2,7 @@
 /* oxlint-disable react-x/rules-of-hooks, no-console */
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
+import "../../../styles/variants.module.css";
 import { FileUpload } from "./FileUpload";
 
 const meta = {

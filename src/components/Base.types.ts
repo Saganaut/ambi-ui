@@ -13,3 +13,9 @@ export interface CursorAnchor {
   clientX: number;
   clientY: number;
 }
+
+export type BaseFills = "default" | "bordered" | "ghost";
+
+export type BaseShapes = "default" | "pill";
+
+export type MenuPosition = "bottom-right" | "bottom-left" | "top-right" | "top-left";

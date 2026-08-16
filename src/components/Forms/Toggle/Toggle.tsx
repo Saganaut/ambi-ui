@@ -1,38 +1,32 @@
 // Toggle switch built on a visually-hidden checkbox; CSS :has() drives all visual state
-import React, { useId } from "react";
-import type { InputBaseProps } from "../InputBaseProps";
-import shared from "../Input.module.css";
+import { useId } from "react";
+import shared from "../Field.module.css";
+import type { ToggleProps } from "../Field.types";
 import styles from "./Toggle.module.css";
-
-interface ToggleProps
-  extends InputBaseProps,
-    React.InputHTMLAttributes<HTMLInputElement> {
-  labelPosition?: "labelBefore" | "labelAfter";
-}
 
 const Toggle = ({
   id,
   label,
-  labelPosition = "labelAfter",
+  labelPosition = "start",
   checked,
   onChange,
   disabled,
   errorMessage,
   infoMessage,
+  ...rest
 }: ToggleProps) => {
   const generatedId = useId();
   const inputId = id ?? generatedId;
 
   return (
     <div
-      className={[
-        styles.toggleContainer,
-        labelPosition === "labelBefore" ? styles.labelBefore : "",
-      ]
+      className={[styles.toggleContainer, labelPosition === "start" ? styles.labelBefore : ""]
         .filter(Boolean)
-        .join(" ")}>
+        .join(" ")}
+    >
       <input
-        type='checkbox'
+        {...rest}
+        type="checkbox"
         id={inputId}
         className={styles.toggleInput}
         checked={checked}
@@ -53,7 +47,8 @@ const Toggle = ({
             errorMessage ? shared.errorMessage : "",
           ]
             .filter(Boolean)
-            .join(" ")}>
+            .join(" ")}
+        >
           {errorMessage ?? infoMessage}
         </span>
       )}

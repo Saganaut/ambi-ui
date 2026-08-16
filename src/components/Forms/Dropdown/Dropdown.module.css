@@ -1,5 +1,5 @@
 /* Dropdown-specific trigger layout and portalled option panel structure.
-   Shared field chrome and states come from Forms/Input/Input.module.css. */
+   Shared field chrome and states come from Forms/Input/Field.module.css. */
 
 .dropdown {
   /** Layout & Size **/
@@ -23,7 +23,7 @@
 }
 
 /* The select affordance is local; dimensions and interaction states are shared
-   with native text fields through .fieldControl. */
+   with native text fields through .field. */
 .dropdownTrigger {
   --dropdown-trigger-gap: var(--gap-sm);
 
@@ -120,12 +120,12 @@
   --dropdown-option-selected-color: var(--text-primary);
 
   display: flex;
+  padding: var(--dropdown-option-padding);
+  color: var(--dropdown-option-color);
+  font-size: var(--dropdown-option-font-size);
   align-items: center;
   gap: var(--dropdown-option-gap);
-  padding: var(--dropdown-option-padding);
   cursor: pointer;
-  font-size: var(--dropdown-option-font-size);
-  color: var(--dropdown-option-color);
   transition: background-color var(--duration-fast) ease-in-out;
   text-align: start;
 
@@ -155,8 +155,8 @@
   --dropdown-empty-color: var(--text-muted);
 
   padding: var(--dropdown-empty-padding);
-  font-size: var(--dropdown-empty-font-size);
   color: var(--dropdown-empty-color);
+  font-size: var(--dropdown-empty-font-size);
   text-align: center;
 }
 
@@ -180,15 +180,16 @@
   --dropdown-chip-color: var(--text-secondary);
 
   display: inline-flex;
-  align-items: center;
-  gap: var(--dropdown-chip-gap);
 
   /* (2px, 8px) has no --p-pill-* equivalent — composed per axis on the gap tier */
-  padding: var(--dropdown-chip-padding-block) var(--dropdown-chip-padding-inline);
+  padding: var(--dropdown-chip-padding-block)
+    var(--dropdown-chip-padding-inline);
+  color: var(--dropdown-chip-color);
+  font-size: var(--dropdown-chip-font-size);
+  align-items: center;
+  gap: var(--dropdown-chip-gap);
   background-color: var(--dropdown-chip-bg-color);
   border-radius: var(--dropdown-chip-radius);
-  font-size: var(--dropdown-chip-font-size);
-  color: var(--dropdown-chip-color);
   white-space: nowrap;
 }
 
@@ -196,10 +197,10 @@
   --dropdown-chip-remove-color: var(--text-muted);
   --dropdown-chip-remove-hover-color: var(--text-error);
 
-  cursor: pointer;
-  color: var(--dropdown-chip-remove-color);
-  line-height: 1;
   display: flex;
+  color: var(--dropdown-chip-remove-color);
+  cursor: pointer;
+  line-height: 1;
   align-items: center;
 
   &:hover {

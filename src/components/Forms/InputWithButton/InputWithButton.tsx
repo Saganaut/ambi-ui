@@ -1,21 +1,9 @@
 // Text input fused with an action button, used for search or submit-inline patterns
-import React, { useId } from "react";
-import type { ReactNode } from "react";
-import type { InputBaseProps } from "../InputBaseProps";
-import shared from "../Input.module.css";
+import { useId } from "react";
+import { Btn } from "../../Buttons/Btn";
+import shared from "../Field.module.css";
+import type { InputWithButtonProps } from "../Field.types";
 import styles from "./InputWithButton.module.css";
-import { Btn } from "@saganaut/ambi-ui";
-import type { FieldStyleProps } from "../Field.types";
-
-interface InputWithButtonProps
-  extends
-    InputBaseProps,
-    FieldStyleProps,
-    Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
-  labelPosition?: "labelAbove" | "labelInFront";
-  buttonLabel?: ReactNode;
-  onButtonClick?: () => void;
-}
 
 const InputWithButton = ({
   id,
@@ -25,16 +13,15 @@ const InputWithButton = ({
   placeholder,
   disabled,
   label,
-  labelPosition = "labelAbove",
+  labelPosition = "top",
   buttonLabel = "Submit",
   onButtonClick,
   errorMessage,
   infoMessage,
-  ariaLabel,
-  isBordered = true,
+  reserveMessageSpace = true,
   fill = "default",
   shape = "default",
-  size = "md",
+  fieldSize = "md",
   ...rest
 }: InputWithButtonProps) => {
   const generatedId = useId();
@@ -43,7 +30,14 @@ const InputWithButton = ({
   const hasMessage = errorMessage != null || infoMessage != null;
   return (
     <div
-      className={[shared.inputContainer, shared[labelPosition], shared.withBottomPadding].join(" ")}
+      className={[
+        shared.fieldContainer,
+        shared[fieldSize],
+        shared[labelPosition],
+        reserveMessageSpace && shared.reserveMessageSpace,
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
       {label && <label htmlFor={inputId}>{label}</label>}
       <div className={styles.inputWithButton}>
@@ -55,15 +49,12 @@ const InputWithButton = ({
           maxLength={maxLength}
           placeholder={placeholder}
           disabled={disabled}
-          aria-label={ariaLabel}
           aria-invalid={errorMessage != null || undefined}
           aria-describedby={hasMessage ? messageId : undefined}
           className={[
-            shared.fieldControl,
-            shared[size],
+            shared.field,
             shape === "pill" && shared.pill,
             errorMessage ? shared.error : "",
-            isBordered ? "" : shared.noBorders,
           ]
             .filter(Boolean)
             .join(" ")}
@@ -75,7 +66,7 @@ const InputWithButton = ({
           isDisabled={disabled}
           fill={fill}
           shape={shape}
-          size={size}
+          size={fieldSize}
         >
           {buttonLabel}
         </Btn>

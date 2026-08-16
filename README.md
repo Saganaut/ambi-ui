@@ -25,7 +25,7 @@ My custom component library used in new projects
 
 - Tokens.css has primitives + roles. Always use roles never primitives in components.
 - Some styles are exposed as data-attributes they are:
--- fill
+  -- fill
 
 ## Running Storybook with Docker
 

@@ -2,6 +2,7 @@
 /* oxlint-disable react-x/rules-of-hooks, no-console */
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
+import "../../../styles/variants.module.css";
 import { InputWithButton } from "./InputWithButton";
 
 const meta = {
@@ -17,8 +18,14 @@ const meta = {
     onButtonClick: fn(),
   },
   argTypes: {
-    labelPosition: { control: "inline-radio", options: ["labelAbove", "labelInFront"] },
-    fill: { control: "inline-radio", options: ["default", "bordered", "ghost"] },
+    labelPosition: {
+      control: "inline-radio",
+      options: ["top", "start"],
+    },
+    fill: {
+      control: "inline-radio",
+      options: ["default", "bordered", "ghost"],
+    },
     shape: { control: "inline-radio", options: ["default", "pill"] },
     size: { control: "inline-radio", options: ["xs", "sm", "md", "lg"] },
   },
@@ -48,7 +55,7 @@ export const Overview: Story = {
         {...args}
         id={`${args.id}-front`}
         label="Label in front"
-        labelPosition="labelInFront"
+        labelPosition="start"
       />
       <InputWithButton
         {...args}

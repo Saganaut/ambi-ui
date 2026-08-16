@@ -141,9 +141,14 @@ const PopoverWrapperImpl = ({
     loop: true,
   });
 
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [click, hover, focus, dismiss, role, listNav],
-  );
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
+    click,
+    hover,
+    focus,
+    dismiss,
+    role,
+    listNav,
+  ]);
   const triggerProps = {
     ref: refs.setReference,
     ...getReferenceProps(),
@@ -192,9 +197,7 @@ const PopoverWrapperImpl = ({
                   styles, and — when opted in — the list-navigation handles). List
                   items register through `FloatingList`, so wrap when enabled. */}
               {listNavigation ? (
-                <FloatingList elementsRef={elementsRef}>
-                  {renderChildren()}
-                </FloatingList>
+                <FloatingList elementsRef={elementsRef}>{renderChildren()}</FloatingList>
               ) : (
                 renderChildren()
               )}

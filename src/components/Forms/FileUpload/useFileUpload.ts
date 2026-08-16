@@ -35,12 +35,7 @@ const matchesAccept = (file: File, accept: string | undefined): boolean => {
   });
 };
 
-const useFileUpload = ({
-  onChange,
-  multiple = true,
-  accept,
-  maxBytes,
-}: UseFileUploadArgs) => {
+const useFileUpload = ({ onChange, multiple = true, accept, maxBytes }: UseFileUploadArgs) => {
   const [files, setFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [rejection, setRejection] = useState<string | null>(null);

@@ -1,90 +1,79 @@
-// Text input wrapped with label + helper/error message slot. Variant maps to a
-// className on the <input>; `errorMessage` (when set) forces variant="error" so
-// the input border tint and helper text tint together. `fullWidth` lets the
-// input fill its container instead of the default 300px (used inside tight
-// editor cells like MCQ option cards). `className` merges onto the outer
-// wrapper (matches RichTextInput); `ariaLabel` is forwarded to the underlying
-// <input>. All other native input attributes flow through via `...rest`.
-import React, { useId } from "react";
-import type { InputBaseProps } from "../InputBaseProps";
-import shared from "../Input.module.css";
-import styles from "./Input.module.css";
+import { Check, Loader, X } from "lucide-react";
+import { useId } from "react";
+import variantStyles from "../../../styles/variants.module.css";
 import type { BtnVariant } from "../../Buttons/Btn.types";
-import type { FieldStyleProps } from "../Field.types";
+import shared from "../Field.module.css";
+import type { InputProps } from "../Field.types";
 
-export interface InputProps
-  extends
-    InputBaseProps,
-    FieldStyleProps,
-    Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
-  variant?: BtnVariant;
-  labelPosition?: "labelAbove" | "labelInFront";
-  fullWidth?: boolean;
-  compact?: boolean;
-  withPadding?: boolean;
-  ref?: React.RefObject<HTMLInputElement | null>;
-}
-
-/** We can optionally display some information below the input field, if an error message is relevant it will temporary replace the info **/
 const Input = ({
   variant = "primary",
   infoMessage,
   label,
-  labelPosition = "labelAbove",
+  labelPosition = "top",
   errorMessage,
-  checked = false,
   fullWidth = false,
-  compact = false,
-  isBordered = true,
+  extraLabelInfo,
   className,
-  ariaLabel,
   id,
-  withPadding = true,
+  validationState,
+  reserveMessageSpace = true,
   fill = "default",
   shape = "default",
-  size = "md",
+  fieldSize = "md",
   ref,
   ...rest
 }: InputProps) => {
-  const inputVariant: BtnVariant = errorMessage != null ? "error" : variant;
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const messageId = `${inputId}-message`;
   const hasMessage = errorMessage != null || infoMessage != null;
+  const hasError = errorMessage != null || validationState === "invalid";
+  const dataStatus = hasError ? "invalid" : (validationState ?? "idle");
+  const inputVariant: BtnVariant = hasError ? "error" : variant;
 
   return (
     <div
+      data-fill={fill === "default" ? undefined : fill}
       className={[
-        shared.inputContainer,
+        shared.fieldContainer,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
+        variantStyles[variant],
 
-        withPadding && shared.withBottomPadding,
+        reserveMessageSpace && shared.reserveMessageSpace,
+        shared[fieldSize],
+
+        inputVariant !== "brand" && shared[inputVariant],
       ]
         .filter(Boolean)
         .join(" ")}
     >
-      {label && <label htmlFor={inputId}>{label}</label>}
+      {/* Label Wrapper */}
+      {label && (
+        <div className={[shared.labelWrapper].filter(Boolean).join(" ")}>
+          <label htmlFor={inputId}>{label}</label>
+          {extraLabelInfo && (
+            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
+          )}
+        </div>
+      )}
+
+      {/* Field Wrapper */}
       <div
-        className={[styles.input, fullWidth && styles.fullWidth, compact && styles.compact]
+        className={[shared.fieldWrapper, fullWidth && shared.fullWidth]
           .filter(Boolean)
           .join(" ")}
+        data-status={dataStatus}
       >
         <input
           {...rest}
           id={inputId}
           ref={ref}
-          aria-label={ariaLabel}
-          aria-invalid={errorMessage != null || undefined}
+          aria-invalid={hasError ?? undefined}
+          aria-busy={validationState === "validating" || undefined}
           aria-describedby={hasMessage ? messageId : undefined}
-          className={[
-            shared.fieldControl,
-            shared[size],
-            shape === "pill" && shared.pill,
-            inputVariant !== "brand" && shared[inputVariant],
-            !isBordered && shared.noBorders,
-          ]
+          className={[shared.field, shape === "pill" && shared.pill]
             .filter(Boolean)
             .join(" ")}
           data-fill={fill === "default" ? undefined : fill}
@@ -93,9 +82,10 @@ const Input = ({
         {hasMessage && (
           <span
             id={messageId}
+            aria-live="polite"
             className={[
               shared.inputInfoMessage,
-              styles.message,
+              shared.message,
               errorMessage && shared.errorMessage,
             ]
               .filter(Boolean)
@@ -105,18 +95,11 @@ const Input = ({
           </span>
         )}
 
-        {checked && (
-          <span className={styles.checked}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-            </svg>
-          </span>
-        )}
+        <div className={shared.statusIcon}>
+          {dataStatus === "valid" && <Check />}
+          {dataStatus === "validating" && <Loader />}
+          {dataStatus === "invalid" && <X />}
+        </div>
       </div>
     </div>
   );

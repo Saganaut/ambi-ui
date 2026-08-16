@@ -4,23 +4,9 @@
 // custom two-button stepper drives min/max/step. The field grows to fill its
 // parent — the host dictates the width.
 import { ChevronDown, ChevronUp } from "lucide-react";
-import React from "react";
-import shared from "../Input.module.css";
-import type { InputBaseProps } from "../InputBaseProps";
+import shared from "../Field.module.css";
+import type { NumberInputProps } from "../Field.types";
 import styles from "./NumberInput.module.css";
-import type { FieldStyleProps } from "../Field.types";
-
-export interface NumberInputProps
-  extends
-    InputBaseProps,
-    FieldStyleProps,
-    Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "type" | "size"> {
-  value: number;
-  onChange: (value: number) => void;
-  labelPosition?: "labelAbove" | "labelInFront";
-  fullWidth?: boolean;
-  compact?: boolean;
-}
 
 const toNumber = (raw: string | number | undefined): number | undefined => {
   if (raw == null || raw === "") return undefined;
@@ -35,12 +21,11 @@ const NumberInput = ({
   id,
   name,
   label,
-  labelPosition = "labelAbove",
+  labelPosition = "top",
   infoMessage,
   errorMessage,
   fullWidth = false,
-  compact = false,
-  size = "md",
+  fieldSize = "md",
   fill = "default",
   shape = "default",
   disabled,
@@ -48,6 +33,7 @@ const NumberInput = ({
   max,
   step,
   placeholder,
+  ...rest
 }: NumberInputProps) => {
   const minN = toNumber(min);
   const maxN = toNumber(max);
@@ -71,18 +57,17 @@ const NumberInput = ({
 
   return (
     <div
-      className={[shared.inputContainer, shared[labelPosition], fullWidth ? shared.fullWidth : ""]
+      className={[shared.fieldContainer, shared[labelPosition], fullWidth ? shared.fullWidth : ""]
         .filter(Boolean)
         .join(" ")}
     >
       {label && <label htmlFor={id}>{label}</label>}
-      <div className={[styles.wrapper, compact ? styles.compact : ""].filter(Boolean).join(" ")}>
+      <div className={styles.wrapper}>
         <div
           className={[
             styles.field,
-            styles[size],
+            styles[fieldSize],
             shape === "pill" ? styles.pill : "",
-            compact ? styles.compact : "",
             disabled ? styles.disabled : "",
             errorMessage != null ? styles.error : "",
           ]
@@ -91,6 +76,7 @@ const NumberInput = ({
           data-fill={fill === "default" ? undefined : fill}
         >
           <input
+            {...rest}
             type="number"
             id={id}
             name={name}

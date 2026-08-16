@@ -1,0 +1,140 @@
+@import url("./tokens.css");
+
+:root {
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  font: 18px / 145% var(--font-sans);
+  letter-spacing: 0.18px;
+  font-synthesis: none;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-subtle) transparent;
+}
+
+#root {
+  display: flex;
+  width: var(--max-screen-width);
+  margin: 0;
+  max-width: 100%;
+  min-height: 100svh;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--font-size-3xl);
+}
+
+h2 {
+  font-size: var(--font-size-xl);
+}
+
+h3 {
+  font-size: var(--font-size-lg);
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  display: inline-block;
+  margin: 0;
+  color: var(--text-primary);
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  font-weight: 700;
+  border: none;
+  background-color: transparent;
+  transition:
+    color var(--duration-base) ease-in-out,
+    border-color var(--duration-base) ease-in-out;
+}
+
+code,
+.counter {
+  display: inline-flex;
+  border-radius: var(--radius-sm);
+}
+
+code {
+  padding: var(--p-md);
+  background: var(--bg-canvas);
+  font-size: var(--font-size-sm);
+  line-height: 135%;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  -webkit-user-drag: none;
+}
+
+input {
+  border: none;
+  padding: var(--p-sm);
+  background-color: transparent;
+  transition:
+    color var(--duration-base) ease-in-out,
+    border-color var(--duration-base) ease-in-out;
+}
+
+/* Default scrollbar styling — applies to every scrollable surface. */
+
+/* Firefox */
+
+*:hover {
+  scrollbar-color: var(--action-hover) transparent;
+}
+
+/* WebKit / Blink */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--action-hover);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

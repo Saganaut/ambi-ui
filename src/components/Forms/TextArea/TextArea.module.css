@@ -1,5 +1,5 @@
 /* TextArea — multi-line text entry that visually matches the single-line Input.
-   Lives in the .inputContainer shared with Input, so the label/info layout
+   Lives in the .fieldContainer shared with Input, so the label/info layout
    matches form rows that mix the two.
 
    `field-sizing: content` auto-grows the textarea to fit its contents (no
@@ -13,7 +13,7 @@
 
   /* DS field chrome (Figma 193-506): flat canvas surface lifted by
      --shadow-xs; the transparent border keeps layout stable when the
-     focus tint swaps in. Mirrors the single-line Input in ../Input.module.css. */
+     focus tint swaps in. Mirrors the single-line Input in ../Field.module.css. */
   textarea {
     width: 300px;
     font-family: var(--font-sans);
@@ -46,7 +46,7 @@
 
 /* When the textarea is in noAutoGrow mode, propagate height up the
    wrapper chain so the textarea has a real 100% to fill. The
-   `inputContainer` propagation lives in the shared Input.module.css.
+   `fieldContainer` propagation lives in the shared Field.module.css.
    Attribute selector here avoids cross-module class-name lookups. */
 .textarea:has([data-auto-grow="false"]) {
   display: flex;

@@ -1,19 +1,13 @@
 // Common radio input component used in form option groups throughout the app
-import React, { useId } from "react";
-import type { InputBaseProps } from "../InputBaseProps";
-import shared from "../Input.module.css";
+import { useId } from "react";
+import shared from "../Field.module.css";
+import type { RadioProps } from "../Field.types";
 import styles from "./Radio.module.css";
-
-interface RadioProps
-  extends InputBaseProps,
-    React.InputHTMLAttributes<HTMLInputElement> {
-  labelPosition?: "labelBefore" | "labelAfter";
-}
 
 const Radio = ({
   id,
   label,
-  labelPosition = "labelAfter",
+  labelPosition = "start",
   checked,
   onChange,
   name,
@@ -21,20 +15,20 @@ const Radio = ({
   disabled,
   errorMessage,
   infoMessage,
+  ...rest
 }: RadioProps) => {
   const generatedId = useId();
   const inputId = id ?? generatedId;
 
   return (
     <div
-      className={[
-        styles.radioContainer,
-        labelPosition === "labelBefore" ? styles.labelBefore : "",
-      ]
+      className={[styles.radioContainer, labelPosition === "start" ? styles.labelBefore : ""]
         .filter(Boolean)
-        .join(" ")}>
+        .join(" ")}
+    >
       <input
-        type='radio'
+        {...rest}
+        type="radio"
         id={inputId}
         className={styles.radioInput}
         name={name}
@@ -55,7 +49,8 @@ const Radio = ({
             errorMessage ? shared.errorMessage : "",
           ]
             .filter(Boolean)
-            .join(" ")}>
+            .join(" ")}
+        >
           {errorMessage ?? infoMessage}
         </span>
       )}

@@ -3,12 +3,30 @@ export default {
   plugins: [
     "stylelint-value-no-unknown-custom-properties",
     "stylelint-declaration-strict-value",
+    "stylelint-order",
   ],
   rules: {
+    "order/properties-order": [
+      "composes",
+      "position",
+      "inset",
+      "display",
+      "width",
+      "height",
+      "margin",
+      "padding",
+      "background",
+      "color",
+      "font-size",
+    ],
     "csstools/value-no-unknown-custom-properties": [
       true,
       {
-        importFrom: ["./src/styles/tokens.css"],
+        importFrom: [
+          "./src/styles/tokens.css",
+          "./src/styles/variants.module.css",
+          "./src/styles/utilities.module.css",
+        ],
       },
     ],
     "scale-unlimited/declaration-strict-value": [

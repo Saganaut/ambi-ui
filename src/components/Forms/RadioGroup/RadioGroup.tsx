@@ -1,23 +1,8 @@
 // RadioGroup — wraps Radio items into a named fieldset where exactly one option must be selected
-import shared from "../Input.module.css";
-import styles from "./RadioGroup.module.css";
+import shared from "../Field.module.css";
+import type { RadioGroupProps } from "../Field.types";
 import { Radio } from "../Radio/Radio";
-
-interface RadioGroupOption {
-  value: string;
-  label: string;
-}
-
-interface RadioGroupProps {
-  name: string;
-  legend?: string;
-  options: RadioGroupOption[];
-  value: string;
-  onChange: (value: string) => void;
-  disabled?: boolean;
-  errorMessage?: string;
-  infoMessage?: string;
-}
+import styles from "./RadioGroup.module.css";
 
 const RadioGroup = ({
   name,
@@ -28,9 +13,10 @@ const RadioGroup = ({
   disabled,
   errorMessage,
   infoMessage,
+  ...rest
 }: RadioGroupProps) => {
   return (
-    <fieldset className={styles.radioGroupContainer}>
+    <fieldset {...rest} className={styles.radioGroupContainer}>
       {legend && <legend className={styles.radioGroupLegend}>{legend}</legend>}
       <div className={styles.radioGroupOptions}>
         {options.map((option) => (
@@ -56,7 +42,8 @@ const RadioGroup = ({
             errorMessage ? shared.errorMessage : "",
           ]
             .filter(Boolean)
-            .join(" ")}>
+            .join(" ")}
+        >
           {errorMessage ?? infoMessage}
         </span>
       )}

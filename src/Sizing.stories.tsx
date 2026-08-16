@@ -190,12 +190,7 @@ export const VariantsComparison: Story = {
             </DropdownMenu>
           </div>
           <div style={columnStyle}>
-            <Pagination
-              page={1}
-              pageCount={3}
-              variant={variant}
-              onPageChange={() => undefined}
-            />
+            <Pagination page={1} pageCount={3} variant={variant} onPageChange={() => undefined} />
           </div>
         </div>
       ))}

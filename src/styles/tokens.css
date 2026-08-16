@@ -141,8 +141,11 @@
   --bg-display-only: var(--role-canvas);
 
   /** Inverted Backgrounds — swap toward the foreground end so they read as the */
-  /**TODO: still using inverted? **/
+
+  /** TODO: still using inverted? **/
+
   /* opposite appearance without a second palette. */
+
   --bg-canvas-inverted: var(--role-foreground);
   --bg-surface-inverted: color-mix(
     in oklab,
@@ -196,7 +199,9 @@
   );
   --line-height-control: 1;
   --line-height-body: 1.5;
+
   /** Inverted Text — swap toward the canvas end (mirrors inverted backgrounds). */
+
   --text-primary-inverted: var(--role-canvas);
   --text-secondary-inverted: color-mix(
     in oklab,
@@ -404,16 +409,20 @@
   --stack-md: var(
     --space-6
   ); /* 24px — default card/panel grid gap, header-to-body */
+
   --stack-lg: var(
     --space-8
   ); /* 32px — panel-to-panel, section breaks in app pages */
+
   --stack-xl: var(
     --space-12
   ); /* 48px — page-section boundaries (marketing/doc pages) */
+
   --gutter-sm: var(--space-4); /* 16px — inline inset of app pages, sidebars */
   --gutter-md: var(
     --space-6
   ); /* 24px — cards, dialogs, marketing-page inline inset */
+
   --gutter-lg: var(--space-8); /* 32px — block inset of app pages */
   --gutter-xl: var(--space-12); /* 48px — block inset of marketing/doc pages */
 
@@ -432,7 +441,6 @@
 
   /* ---- Border Sizes ---- */
   --border-size-xs: 1px;
-
   --border-size-sm: 2px;
   --border-size-md: 4px;
   --border-size-lg: 6px;
@@ -448,21 +456,24 @@
   --shadow-sm-size: 0 3px 10px;
   --shadow-md-size: 0 8px 24px;
   --shadow-lg-size: 0 16px 40px;
-  --shadow-xs-color: rgb(20 20 20 / 0.3);
-  --shadow-sm-color: rgb(20 20 20 / 0.3);
-  --shadow-md-color: rgb(20 20 20 / 0.3);
-  --shadow-lg-color: rgb(20 20 20 / 0.3);
+  --shadow-color: rgb(20 20 20 / 30%);
+  --shadow-xs-color: rgb(20 20 20 / 30%);
+  --shadow-sm-color: rgb(20 20 20 / 30%);
+  --shadow-md-color: rgb(20 20 20 / 30%);
+  --shadow-lg-color: rgb(20 20 20 / 30%);
   --shadow-xs: var(--shadow-xs-size) var(--shadow-xs-color);
   --shadow-sm: var(--shadow-sm-size) var(--shadow-sm-color);
   --shadow-md: var(--shadow-md-size) var(--shadow-md-color);
   --shadow-lg: var(--shadow-lg-size) var(--shadow-lg-color);
   --shadow: var(--shadow-md);
-  --shadow-hover-color: rgb(20 20 20 / 0.5);
+  --shadow-hover-color: rgb(20 20 20 / 50%);
+  --shadow-hover: var(--shadow-sm-size) var(--shadow-hover-color);
 
   /* Brand-tinted hover glow (DS shadow/hover) — the one non-neutral shadow;    */
 
   /* derives from the theme's primary so per-deck themes recolor it.            */
-  --shadow-hover: 0 1px 1.5px oklch(from var(--role-primary) l c h / 25%);
+
+  /* --shadow-hover: 0 1px 1.5px oklch(from var(--role-primary) l c h / 25%); */
 
   /* Brand-tinted focus glow (DS shadow/focus) — same geometry as shadow/hover  */
 
@@ -480,7 +491,7 @@
   /* --- component sizes * --- */
   --navbar-height: 80px;
 
-  /* MarkerBadge's geometry.*/
+  /* MarkerBadge's geometry. */
   --marker-badge-disc-size: 1.375rem;
   --marker-badge-border-size: var(--border-size-sm);
 
@@ -500,6 +511,21 @@
 
   /* ---- MAX SIZES ---- */
   --max-screen-width: 2440px;
+
+  /* ----- Sizing variants mapping ---- */
+
+  --control-height-xs: 1.5rem;
+  --control-height-sm: 1.75rem;
+  --control-height-md: 2.5rem;
+  --control-height-lg: 3.75rem;
+  --control-font-xs: var(--font-size-xs);
+  --control-font-sm: var(--font-size-xs);
+  --control-font-md: var(--font-size-base);
+  --control-font-lg: var(--font-size-lg);
+  --control-radius-xs: var(--radius-sm);
+  --control-radius-sm: var(--radius-md);
+  --control-radius-md: var(--radius-md);
+  --control-radius-lg: var(--radius-lg);
 }
 
 /* ─── Appearance Overrides ──────────────────────────────────────────────────── */
@@ -516,6 +542,7 @@
   --role-on-primary: var(--violet-100);
   --role-accent: var(--cyan-500);
   --role-accent-secondary: var(--orange-500);
+
   /** Dark mode needs borders but light mode usually relies on shadows **/
 
   --role-border: transparent;

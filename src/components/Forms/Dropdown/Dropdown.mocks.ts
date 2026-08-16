@@ -1,5 +1,5 @@
 // Sample option lists for the Dropdown stories.
-import type { DropdownOption } from "./useDropdown";
+import type { DropdownOption } from "../Field.types";
 
 export const REGION_OPTIONS: DropdownOption[] = [
   { value: "shire", label: "The Shire" },

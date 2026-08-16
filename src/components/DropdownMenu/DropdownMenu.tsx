@@ -67,12 +67,7 @@ const DropdownMenu = ({
     onOpenChange: setOpen,
     placement: placementMap[position],
     strategy: "fixed",
-    middleware: [
-      offset(8),
-      flip(),
-      shift({ padding: 8 }),
-      inheritThemeMiddleware,
-    ],
+    middleware: [offset(8), flip(), shift({ padding: 8 }), inheritThemeMiddleware],
     whileElementsMounted: autoUpdate,
   });
   const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
@@ -99,9 +94,11 @@ const DropdownMenu = ({
     onNavigate: setActiveIndex,
     loop: true,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [role, dismiss, listNavigation],
-  );
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
+    role,
+    dismiss,
+    listNavigation,
+  ]);
 
   const toggle: ToggleFn = (anchor) => {
     if (anchorToCursor && anchor) {
@@ -157,22 +154,13 @@ const DropdownMenu = ({
             >
               <div
                 data-fill={fill === "default" ? undefined : fill}
-                className={[
-                  styles.panel,
-                  variantStyles[variant],
-                  styles[size],
-                  className,
-                ]
+                className={[styles.panel, variantStyles[variant], styles[size], className]
                   .filter(Boolean)
                   .join(" ")}
                 style={transitionStyles}
               >
-                <DropdownMenuContext
-                  value={{ closeMenu, getItemProps, activeIndex }}
-                >
-                  <FloatingList elementsRef={elementsRef}>
-                    {children}
-                  </FloatingList>
+                <DropdownMenuContext value={{ closeMenu, getItemProps, activeIndex }}>
+                  <FloatingList elementsRef={elementsRef}>{children}</FloatingList>
                 </DropdownMenuContext>
               </div>
             </div>
@@ -196,9 +184,7 @@ const Item = ({
     <button
       type="button"
       ref={ref}
-      className={[styles.item, centered && styles.center, className]
-        .filter(Boolean)
-        .join(" ")}
+      className={[styles.item, centered && styles.center, className].filter(Boolean).join(" ")}
       {...rest}
       {...getItemProps({
         onClick: (event) => {
@@ -244,9 +230,7 @@ const Link = ({ children, className }: DropdownMenuLinkProps) => {
 };
 
 const Label = ({ children, className }: DropdownMenuLabelProps) => (
-  <span className={[styles.label, className].filter(Boolean).join(" ")}>
-    {children}
-  </span>
+  <span className={[styles.label, className].filter(Boolean).join(" ")}>{children}</span>
 );
 
 const Divider = () => <div className={styles.divider} />;

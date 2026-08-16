@@ -1,28 +1,20 @@
 // Common checkbox input component used in forms throughout the app
-import React, { useId } from "react";
-import type { InputBaseProps } from "../InputBaseProps";
-import shared from "../Input.module.css";
+import { useId } from "react";
+import shared from "../Field.module.css";
+import type { CheckboxProps } from "../Field.types";
 import styles from "./Checkbox.module.css";
-
-interface CheckboxProps
-  extends InputBaseProps,
-    React.InputHTMLAttributes<HTMLInputElement> {
-  labelPosition?: "labelBefore" | "labelAfter";
-  /** Fill the row width so the label sits left and the control pins to the
-      opposite edge (label and box are spaced apart). */
-  stretch?: boolean;
-}
 
 const Checkbox = ({
   id,
   label,
-  labelPosition = "labelAfter",
-  stretch = false,
+  labelPosition = "start",
+  spaceBetween = false,
   checked,
   onChange,
   disabled,
   errorMessage,
   infoMessage,
+  ...rest
 }: CheckboxProps) => {
   const generatedId = useId();
   const inputId = id ?? generatedId;
@@ -31,13 +23,15 @@ const Checkbox = ({
     <div
       className={[
         styles.checkboxContainer,
-        labelPosition === "labelBefore" ? styles.labelBefore : "",
-        stretch ? styles.stretch : "",
+        labelPosition === "start" ? styles.labelBefore : "",
+        spaceBetween ? styles.stretch : "",
       ]
         .filter(Boolean)
-        .join(" ")}>
+        .join(" ")}
+    >
       <input
-        type='checkbox'
+        {...rest}
+        type="checkbox"
         id={inputId}
         className={styles.checkboxInput}
         checked={checked}
@@ -56,7 +50,8 @@ const Checkbox = ({
             errorMessage ? shared.errorMessage : "",
           ]
             .filter(Boolean)
-            .join(" ")}>
+            .join(" ")}
+        >
           {errorMessage ?? infoMessage}
         </span>
       )}

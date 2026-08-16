@@ -22,78 +22,67 @@ import {
 import { useEffect, useId, useRef, useState } from "react";
 import { inheritTheme } from "../../../utils/inheritTheme";
 import type { BtnVariant } from "../../Buttons/Btn.types";
-import type { FieldStyleProps } from "../Field.types";
-import shared from "../Input.module.css";
-import type { InputBaseProps } from "../InputBaseProps";
+import shared from "../Field.module.css";
+import type { DropdownOption, DropdownProps } from "../Field.types";
 import styles from "./Dropdown.module.css";
-import { useDropdown, type DropdownOption } from "./useDropdown";
-
-export interface DropdownProps extends InputBaseProps, FieldStyleProps {
-  options: DropdownOption[];
-  value?: string[];
-  onChange?: (values: string[]) => void;
-  multiple?: boolean;
-  searchable?: boolean;
-  labelPosition?: "labelAbove" | "labelInFront";
-  compact?: boolean;
-  placeholder?: string;
-  id?: string;
-  disabled?: boolean;
-  fullWidth?: boolean;
-  withPadding?: boolean;
-  className?: string;
-  variant?: BtnVariant;
-}
+import { useDropdown } from "./useDropdown";
 
 const Dropdown = ({
   options,
-  value = [],
+  value: selectedValue,
   onChange,
   multiple = false,
   searchable = false,
   label,
-  labelPosition = "labelAbove",
-  compact = false,
-  placeholder = "Select...",
+  labelPosition = "top",
+  placeholder,
   errorMessage,
   infoMessage,
   id,
-  disabled = false,
   fullWidth = false,
-  withPadding = true,
+  reserveMessageSpace = true,
   className,
-  ariaLabel,
-  isBordered = true,
+  disabled,
+  ref,
+
   variant = "primary",
   fill = "default",
   shape = "default",
-  size: fieldSize = "md",
+  fieldSize = "md",
+  ...rest
 }: DropdownProps) => {
+  const selectedValues = Array.isArray(selectedValue)
+    ? selectedValue
+    : selectedValue == null
+      ? []
+      : [selectedValue];
   const generatedId = useId();
   const dropdownId = id ?? generatedId;
   const listboxId = useId();
   const messageId = `${dropdownId}-message`;
   const inputVariant: BtnVariant = errorMessage != null ? "error" : variant;
-  const {
-    isOpen,
-    query,
-    setQuery,
-    setOpen,
-    filtered,
-    toggle,
-    removeChip,
-    removeChipOnKey,
-  } = useDropdown({ options, value, multiple, searchable, onChange });
+  const { isOpen, query, setQuery, setOpen, filtered, toggle, removeChip, removeChipOnKey } =
+    useDropdown({
+      options,
+      value: selectedValues,
+      multiple,
+      searchable,
+      onChange: (values) => {
+        if (multiple) {
+          (onChange as ((value: string[]) => void) | undefined)?.(values);
+        } else {
+          (onChange as ((value: string) => void) | undefined)?.(values[0] ?? "");
+        }
+      },
+    });
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const optionRefs = useRef<(HTMLElement | null)[]>([]);
   const optionLabels = useRef<(string | null)[]>([]);
-  const selectedIndex = filtered.findIndex((option) =>
-    value.includes(option.value),
-  );
+  const selectedIndex = filtered.findIndex((option) => selectedValues.includes(option.value));
   const { refs, floatingStyles, context, placement } = useFloating({
     open: isOpen,
     onOpenChange: setOpen,
-    placement: compact ? "bottom-end" : "bottom-start",
+    placement: "bottom-start",
     strategy: "fixed",
     whileElementsMounted: autoUpdate,
     middleware: [
@@ -143,19 +132,20 @@ const Dropdown = ({
     onMatch: setActiveIndex,
     enabled: !searchable,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [click, dismiss, listNavigation, typeahead],
-  );
-  const portalRoot = refs.domReference.current?.closest(
-    "dialog",
-  ) as HTMLElement | null;
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
+    click,
+    dismiss,
+    listNavigation,
+    typeahead,
+  ]);
+  const portalRoot = refs.domReference.current?.closest("dialog") as HTMLElement | null;
 
   const triggerContent =
-    value.length === 0 ? (
+    selectedValues.length === 0 ? (
       <span className={styles.dropdownPlaceholder}>{placeholder}</span>
     ) : multiple ? (
       <span className={styles.chipList}>
-        {value.map((v) => {
+        {selectedValues.map((v) => {
           const opt = options.find((o) => o.value === v);
           return (
             <span key={v} className={styles.chip}>
@@ -179,50 +169,45 @@ const Dropdown = ({
         })}
       </span>
     ) : (
-      <span>
-        {options.find((o) => o.value === value[0])?.label ?? placeholder}
-      </span>
+      <span>{options.find((o) => o.value === selectedValues[0])?.label ?? placeholder}</span>
     );
 
   return (
     <div
       className={[
-        shared.inputContainer,
+        shared.fieldContainer,
+        shared[fieldSize],
         shared[labelPosition],
         fullWidth && shared.fullWidth,
-        withPadding && shared.withBottomPadding,
+        reserveMessageSpace && shared.reserveMessageSpace,
         className,
       ]
         .filter(Boolean)
         .join(" ")}
     >
       {label && <label htmlFor={dropdownId}>{label}</label>}
-      <div
-        className={[styles.dropdown, compact ? styles.compact : ""]
-          .filter(Boolean)
-          .join(" ")}
-      >
+      <div className={styles.dropdown}>
         <button
-          ref={refs.setReference}
+          {...rest}
+          ref={(node) => {
+            refs.setReference(node);
+            if (typeof ref === "function") ref(node);
+            else if (ref != null) ref.current = node;
+          }}
           type="button"
           id={dropdownId}
           className={[
-            shared.fieldControl,
-            shared[fieldSize],
+            shared.field,
             shape === "pill" && shared.pill,
             inputVariant !== "brand" && shared[inputVariant],
-            !isBordered && shared.noBorders,
             styles.dropdownTrigger,
           ]
             .filter(Boolean)
             .join(" ")}
           data-fill={fill === "default" ? undefined : fill}
           disabled={disabled}
-          aria-label={ariaLabel}
           aria-invalid={errorMessage != null || undefined}
-          aria-describedby={
-            errorMessage != null || infoMessage != null ? messageId : undefined
-          }
+          aria-describedby={errorMessage != null || infoMessage != null ? messageId : undefined}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
           aria-controls={isOpen ? listboxId : undefined}
@@ -230,19 +215,13 @@ const Dropdown = ({
         >
           {triggerContent}
           <svg
-            className={[styles.chevron, isOpen ? styles.chevronOpen : ""]
-              .filter(Boolean)
-              .join(" ")}
+            className={[styles.chevron, isOpen ? styles.chevronOpen : ""].filter(Boolean).join(" ")}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={2}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m19.5 8.25-7.5 7.5-7.5-7.5"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
         </button>
 
@@ -251,12 +230,7 @@ const Dropdown = ({
             <FloatingFocusManager context={context} modal={false}>
               <div
                 ref={refs.setFloating}
-                className={[
-                  styles.dropdownPanel,
-                  compact ? styles.compactPanel : "",
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
+                className={[styles.dropdownPanel].filter(Boolean).join(" ")}
                 data-placement={placement}
                 style={floatingStyles}
                 {...getFloatingProps()}
@@ -291,10 +265,10 @@ const Dropdown = ({
                       <li
                         key={opt.value}
                         role="option"
-                        aria-selected={value.includes(opt.value)}
+                        aria-selected={selectedValues.includes(opt.value)}
                         className={[
                           styles.dropdownOption,
-                          value.includes(opt.value) ? styles.selected : "",
+                          selectedValues.includes(opt.value) ? styles.selected : "",
                         ]
                           .filter(Boolean)
                           .join(" ")}
@@ -319,7 +293,7 @@ const Dropdown = ({
                           <input
                             type="checkbox"
                             readOnly
-                            checked={value.includes(opt.value)}
+                            checked={selectedValues.includes(opt.value)}
                             tabIndex={-1}
                             aria-hidden="true"
                           />
