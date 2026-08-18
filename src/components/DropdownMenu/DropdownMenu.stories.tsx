@@ -71,6 +71,24 @@ Dropdown Menu presents a keyboard-navigable action list anchored to a trigger or
 
 The trigger render function receives a toggle callback and the reference props required for positioning and interaction. Compose menus with \`DropdownMenu.Item\`, \`Label\`, \`Divider\`, and \`Link\`. Its \`variant\`, \`fill\`, and \`size\` props use the same appearance vocabulary as Button and Pagination.
 
+### How to use
+
+~~~tsx
+import { Btn, DropdownMenu } from "@saganaut/ambi-ui";
+
+<DropdownMenu trigger={(toggle, triggerProps) => (
+  <Btn {...triggerProps} onClick={toggle}>Actions</Btn>
+)}>
+  <DropdownMenu.Item onClick={duplicate}>Duplicate</DropdownMenu.Item>
+  <DropdownMenu.Divider />
+  <DropdownMenu.Item disabled>Delete</DropdownMenu.Item>
+</DropdownMenu>
+~~~
+
+### Types and styles
+
+The API table is generated from \`DropdownMenuProps\`; compound items use \`DropdownMenuItemProps\`, \`DropdownMenuLabelProps\`, and \`DropdownMenuLinkProps\`. Prefer \`variant\`, \`fill\`, \`size\`, \`shape\`, and \`position\`; scoped custom properties include \`--dropdown-menu-bg-color\`, \`--dropdown-menu-radius\`, \`--dropdown-menu-shadow\`, and \`--dropdown-menu-item-hover-bg-color\`.
+
 ### Accessibility
 
 - Provides menu semantics, focus management, dismissal, and arrow-key list navigation.

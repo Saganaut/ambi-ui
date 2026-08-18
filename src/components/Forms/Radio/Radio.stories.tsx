@@ -2,6 +2,7 @@
 /* oxlint-disable react-x/rules-of-hooks, no-console */
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
+import { componentDocs } from "../../../storybookDocs";
 import "../../../styles/variants.module.css";
 import { Radio } from "./Radio";
 
@@ -9,6 +10,28 @@ const meta = {
   title: "Common/Input/Radio",
   component: Radio,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: componentDocs({
+          summary:
+            "Radio represents one choice within a mutually exclusive set. Prefer RadioGroup for standard forms so related radios receive a clear group label.",
+          typeName: "RadioProps",
+          example: `import { Radio } from "@saganaut/ambi-ui";
+
+<Radio
+  name="difficulty"
+  value="easy"
+  label="Easy"
+  checked={difficulty === "easy"}
+  onChange={() => setDifficulty("easy")}
+/>`,
+          styles:
+            "Radio follows the shared field label, message, validation, and disabled styles. Use semantic props and design tokens first; `className` and `style` are available for local layout overrides.",
+        }),
+      },
+    },
+  },
   args: {
     name: "example",
     value: "option-1",
@@ -19,7 +42,7 @@ const meta = {
   argTypes: {
     labelPosition: {
       control: "inline-radio",
-      options: ["labelBefore", "labelAfter"],
+      options: ["top", "start"],
     },
   },
 } satisfies Meta<typeof Radio>;
@@ -33,12 +56,7 @@ export const Overview: Story = {
     <div style={{ display: "grid", gap: "1.5rem" }}>
       <Radio {...args} name={`${args.name}-default`} label="Default" />
       <Radio {...args} name={`${args.name}-unchecked`} label="Unchecked" checked={false} />
-      <Radio
-        {...args}
-        name={`${args.name}-before`}
-        label="Label before"
-        labelPosition="labelBefore"
-      />
+      <Radio {...args} name={`${args.name}-before`} label="Label before" labelPosition="top" />
       <Radio {...args} name={`${args.name}-disabled`} label="Disabled" disabled />
       <Radio
         {...args}

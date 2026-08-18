@@ -1,14 +1,55 @@
 /* oxlint-disable react-hooks/rules-of-hooks, no-console */
 /* oxlint-disable react-x/rules-of-hooks, no-console */
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { ReactNode } from "react";
 import { fn } from "storybook/test";
+import { componentDocs } from "../../../storybookDocs";
 import "../../../styles/variants.module.css";
 import { Checkbox } from "./Checkbox";
+
+const SIZES = ["xs", "sm", "md", "lg"] as const;
+const VARIANTS = ["primary", "secondary", "brand", "info", "error", "success", "warning"] as const;
+const Section = ({ title, children }: { title: string; children: ReactNode }) => (
+  <section style={{ display: "grid", gap: ".75rem" }}>
+    <h2 style={{ margin: 0, fontSize: "1rem" }}>{title}</h2>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 18rem), 1fr))",
+        gap: "1rem 2rem",
+        alignItems: "start",
+      }}
+    >
+      {children}
+    </div>
+  </section>
+);
 
 const meta = {
   title: "Common/Input/Checkbox",
   component: Checkbox,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: componentDocs({
+          summary:
+            "Checkbox lets a person select one or more independent options. Use RadioGroup when exactly one choice is required and Toggle when a preference takes effect immediately.",
+          typeName: "CheckboxProps",
+          example: `import { Checkbox } from "@saganaut/ambi-ui";
+
+<Checkbox
+  id="email-updates"
+  label="Send email updates"
+  checked={subscribed}
+  onChange={(event) => setSubscribed(event.target.checked)}
+/>`,
+          styles:
+            "Use `variant`, `fill`, `fieldSize`, and `shape` first. The overview covers checked, indeterminate, disabled, validation, labels, and constrained layouts. Scoped custom properties include `--checkbox-bg-color`, `--checkbox-border-color`, `--checkbox-radius`, and `--checkbox-gap`.",
+        }),
+      },
+    },
+  },
   args: {
     label: "Allow guests to join",
     id: "allow-guests",
@@ -16,645 +57,164 @@ const meta = {
     onChange: fn(),
   },
   argTypes: {
-    labelPosition: {
+    labelPosition: { control: "inline-radio", options: ["labelBefore", "labelAfter"] },
+    fieldSize: { control: "inline-radio", options: SIZES },
+    variant: { control: "select", options: VARIANTS },
+    fill: { control: "inline-radio", options: ["default", "bordered", "ghost"] },
+    shape: { control: "inline-radio", options: ["default", "pill", "squircle"] },
+    validationState: {
       control: "inline-radio",
-      options: ["labelBefore", "labelAfter"],
-    },
-    checked: { control: "boolean" },
-    shape: {
-      control: "inline-radio",
-      options: ["default", "squircle"],
+      options: ["idle", "validating", "valid", "invalid"],
     },
   },
 } satisfies Meta<typeof Checkbox>;
-
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** All checkbox variants and states on a single canvas. */
+/** Checkbox appearance, state, layout, message, validation, and content coverage. */
 export const Overview: Story = {
   render: (args) => (
-    <div style={{ display: "grid", gap: "1.5rem" }}>
-      <Checkbox {...args} id={`${args.id}-default`} label="Default" />
-      <Checkbox {...args} id={`${args.id}-checked`} label="Checked" checked />
-      <Checkbox
-        {...args}
-        id={`${args.id}-before`}
-        label="Label before"
-        labelPosition="labelBefore"
-        checked
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-disabled`}
-        label="Disabled"
-        checked
-        disabled
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-info`}
-        label="With info message"
-        infoMessage="Guests can play without an account."
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-error`}
-        label="With error"
-        errorMessage="You must accept the rules."
-      />
-    </div>
-  ),
-};
-
-export const LabelPositions: Story = {
-  render: (args) => (
-    <div style={{ display: "grid", gap: "1.5rem", width: "22rem" }}>
-      <Checkbox
-        {...args}
-        id={`${args.id}-label-after`}
-        label="Label after the control"
-        labelPosition="labelAfter"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-label-before`}
-        label="Label before the control"
-        labelPosition="labelBefore"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-spaced-after`}
-        label="Label after, spaced"
-        labelPosition="labelAfter"
-        fullWidth
-        spaceBetween
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-spaced-before`}
-        label="Label before, spaced"
-        labelPosition="labelBefore"
-        fullWidth
-        spaceBetween
-      />
-    </div>
-  ),
-};
-
-export const Messages: Story = {
-  render: (args) => (
-    <div style={{ display: "grid", gap: "2rem", width: "22rem" }}>
-      <Checkbox
-        {...args}
-        id={`${args.id}-after-info`}
-        label="Label after"
-        infoMessage="Helpful information stays below the row."
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-before-info`}
-        label="Label before"
-        labelPosition="labelBefore"
-        infoMessage="This message is below the label and control."
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-after-error`}
-        label="Label after with error"
-        errorMessage="This option is required."
-        validationState="invalid"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-spaced-error`}
-        label="Full-width row with error"
-        labelPosition="labelBefore"
-        errorMessage="The error remains beneath the full row."
-        fullWidth
-        spaceBetween
-      />
-    </div>
-  ),
-};
-
-export const States: Story = {
-  render: (args) => (
-    <div style={{ display: "grid", gap: "1.5rem" }}>
-      <Checkbox {...args} id={`${args.id}-unchecked`} label="Unchecked" />
-      <Checkbox
-        {...args}
-        id={`${args.id}-checked-state`}
-        label="Checked"
-        checked
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-disabled-state`}
-        label="Disabled"
-        disabled
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-checked-disabled`}
-        label="Checked and disabled"
-        checked
-        disabled
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-extra-label`}
-        label="With extra label information"
-        extraLabelInfo="Optional setting"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-no-label`}
-        label={undefined}
-        aria-label="No label"
-      />
-    </div>
-  ),
-};
-
-export const Sizes: Story = {
-  render: (args) => (
-    <div style={{ display: "grid", gap: "1.5rem" }}>
-      <Checkbox
-        {...args}
-        id={`${args.id}-xs`}
-        label="Extra small"
-        fieldSize="xs"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-sm`}
-        label="Small"
-        fieldSize="sm"
-        checked
-      />
-      <Checkbox {...args} id={`${args.id}-md`} label="Medium" fieldSize="md" />
-      <Checkbox
-        {...args}
-        id={`${args.id}-lg`}
-        label="Large"
-        fieldSize="lg"
-        checked
-      />
-    </div>
-  ),
-};
-
-export const Shapes: Story = {
-  render: (args) => (
-    <div style={{ display: "grid", gap: "1.5rem" }}>
-      {(["xs", "sm", "md", "lg"] as const).map((fieldSize) => (
-        <div
-          key={fieldSize}
-          style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}
-        >
+    <div style={{ display: "grid", gap: "2.5rem", width: "min(68rem, 92vw)" }}>
+      <Section title="Playground and selection">
+        <Checkbox {...args} id={`${args.id}-playground`} />
+        <Checkbox {...args} id={`${args.id}-checked`} label="Checked" checked />
+        <Checkbox {...args} id={`${args.id}-disabled`} label="Disabled" disabled />
+        <Checkbox
+          {...args}
+          id={`${args.id}-checked-disabled`}
+          label="Checked and disabled"
+          checked
+          disabled
+        />
+      </Section>
+      <Section title="Label position and spacing">
+        <Checkbox {...args} id={`${args.id}-after`} label="Label after" />
+        <Checkbox
+          {...args}
+          id={`${args.id}-before`}
+          label="Label before"
+          labelPosition="labelBefore"
+        />
+        <Checkbox
+          {...args}
+          id={`${args.id}-spaced`}
+          label="Opposite ends of the row"
+          labelPosition="labelBefore"
+          fullWidth
+          spaceBetween
+        />
+        <Checkbox
+          {...args}
+          id={`${args.id}-extra`}
+          label="Additional context"
+          extraLabelInfo="Optional"
+        />
+      </Section>
+      <Section title="Sizes">
+        {SIZES.map((fieldSize, index) => (
           <Checkbox
             {...args}
-            id={`${args.id}-${fieldSize}-default`}
-            label={`${fieldSize} default`}
+            key={fieldSize}
+            id={`${args.id}-${fieldSize}`}
+            label={fieldSize.toUpperCase()}
             fieldSize={fieldSize}
-            shape="default"
+            checked={index % 2 === 1}
+          />
+        ))}
+      </Section>
+      <Section title="Shapes and fills">
+        {(["default", "pill", "squircle"] as const).map((shape) => (
+          <Checkbox
+            {...args}
+            key={shape}
+            id={`${args.id}-shape-${shape}`}
+            label={shape}
+            shape={shape}
             checked
           />
+        ))}
+        {(["default", "bordered", "ghost"] as const).map((fill) => (
           <Checkbox
             {...args}
-            id={`${args.id}-${fieldSize}-squircle`}
-            label={`${fieldSize} squircle`}
-            fieldSize={fieldSize}
-            shape="squircle"
+            key={fill}
+            id={`${args.id}-fill-${fill}`}
+            label={`${fill} fill`}
+            fill={fill}
             checked
+          />
+        ))}
+      </Section>
+      <Section title="Variants">
+        {VARIANTS.map((variant) => (
+          <Checkbox
+            {...args}
+            key={variant}
+            id={`${args.id}-${variant}`}
+            label={variant}
+            variant={variant}
+            checked
+          />
+        ))}
+      </Section>
+      <Section title="Messages and validation">
+        <Checkbox
+          {...args}
+          id={`${args.id}-info`}
+          label="Supporting information"
+          infoMessage="Guests can participate without creating an account."
+        />
+        <Checkbox
+          {...args}
+          id={`${args.id}-invalid`}
+          label="Required agreement"
+          validationState="invalid"
+          errorMessage="Accept the rules to continue."
+        />
+        <Checkbox
+          {...args}
+          id={`${args.id}-validating`}
+          label="Checking setting"
+          validationState="validating"
+        />
+        <Checkbox
+          {...args}
+          id={`${args.id}-valid`}
+          label="Setting accepted"
+          validationState="valid"
+          checked
+        />
+      </Section>
+      <Section title="Space and long content">
+        <div style={{ width: "14rem" }}>
+          <Checkbox
+            {...args}
+            id={`${args.id}-narrow`}
+            label="A deliberately long checkbox label that wraps in narrow space"
+            infoMessage="Supporting text also wraps cleanly."
+            fullWidth
           />
         </div>
-      ))}
-    </div>
-  ),
-};
-
-export const ValidationStates: Story = {
-  render: (args) => (
-    <div style={{ display: "grid", gap: "2rem" }}>
-      <Checkbox
-        {...args}
-        id={`${args.id}-idle`}
-        label="Idle"
-        validationState="idle"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-validating`}
-        label="Validating"
-        validationState="validating"
-        infoMessage="Checking this selection…"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-valid`}
-        label="Valid"
-        validationState="valid"
-        checked
-        infoMessage="Selection accepted."
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-invalid`}
-        label="Invalid"
-        validationState="invalid"
-        errorMessage="Please select this option."
-      />
-    </div>
-  ),
-};
-
-export const ColorVariants: Story = {
-  render: (args) => (
-    <>
-      {" "}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))",
-          gap: "1.5rem",
-        }}
-      >
         <Checkbox
           {...args}
-          id={`${args.id}-primary`}
-          label="Primary"
-          variant="primary"
+          id={`${args.id}-long-row`}
+          label="A long full-width settings-row label keeps the control aligned at the far edge"
+          labelPosition="labelBefore"
+          fullWidth
+          spaceBetween
         />
         <Checkbox
           {...args}
-          id={`${args.id}-secondary`}
-          label="Secondary"
-          variant="secondary"
+          id={`${args.id}-no-reserve`}
+          label="No reserved message space"
+          reserveMessageSpace={false}
         />
         <Checkbox
           {...args}
-          id={`${args.id}-brand`}
-          label="Brand"
-          variant="brand"
+          id={`${args.id}-aria`}
+          label={undefined}
+          aria-label="Unlabelled example"
         />
-        <Checkbox
-          {...args}
-          id={`${args.id}-info-variant`}
-          label="Info"
-          variant="info"
-        />
-        <Checkbox
-          {...args}
-          id={`${args.id}-error-variant`}
-          label="Error"
-          variant="error"
-        />
-        <Checkbox
-          {...args}
-          id={`${args.id}-success-variant`}
-          label="Success"
-          variant="success"
-        />
-        <Checkbox
-          {...args}
-          id={`${args.id}-warning-variant`}
-          label="Warning"
-          variant="warning"
-        />
-      </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))",
-          gap: "1.5rem",
-        }}
-      >
-        <Checkbox
-          {...args}
-          id={`${args.id}-primary`}
-          label="Primary"
-          variant="primary"
-          checked
-        />
-        <Checkbox
-          {...args}
-          id={`${args.id}-secondary`}
-          label="Secondary"
-          variant="secondary"
-          checked
-        />
-        <Checkbox
-          {...args}
-          id={`${args.id}-brand`}
-          label="Brand"
-          variant="brand"
-          checked
-        />
-        <Checkbox
-          {...args}
-          id={`${args.id}-info-variant`}
-          label="Info"
-          variant="info"
-          checked
-        />
-        <Checkbox
-          {...args}
-          id={`${args.id}-error-variant`}
-          label="Error"
-          variant="error"
-          checked
-        />
-        <Checkbox
-          {...args}
-          id={`${args.id}-success-variant`}
-          label="Success"
-          variant="success"
-          checked
-        />
-        <Checkbox
-          {...args}
-          id={`${args.id}-warning-variant`}
-          label="Warning"
-          variant="warning"
-          checked
-        />
-      </div>
-    </>
-  ),
-};
-
-export const FillVariants: Story = {
-  render: (args) => (
-    <div style={{ display: "grid", gap: "1.5rem" }}>
-      <Checkbox
-        {...args}
-        id={`${args.id}-fill-default`}
-        label="Default fill"
-        fill="default"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-fill-bordered`}
-        label="Bordered fill"
-        fill="bordered"
-        checked
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-fill-ghost`}
-        label="Ghost fill"
-        fill="ghost"
-      />
-    </div>
-  ),
-};
-
-export const CheckedByLabelPosition: Story = {
-  render: (args) => (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(2, minmax(12rem, 1fr))",
-        gap: "1.5rem 2.5rem",
-        maxWidth: "36rem",
-      }}
-    >
-      <Checkbox
-        {...args}
-        id={`${args.id}-after-unchecked`}
-        label="After, unchecked"
-        labelPosition="labelAfter"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-after-checked`}
-        label="After, checked"
-        labelPosition="labelAfter"
-        checked
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-before-unchecked`}
-        label="Before, unchecked"
-        labelPosition="labelBefore"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-before-checked`}
-        label="Before, checked"
-        labelPosition="labelBefore"
-        checked
-      />
-    </div>
-  ),
-};
-
-export const FullWidthRows: Story = {
-  render: (args) => (
-    <div style={{ display: "grid", gap: "1.5rem", width: "min(100%, 36rem)" }}>
-      <Checkbox
-        {...args}
-        id={`${args.id}-full-after`}
-        label="Control and label grouped at the start"
-        labelPosition="labelAfter"
-        fullWidth
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-full-after-spaced`}
-        label="Control left, label right"
-        labelPosition="labelAfter"
-        fullWidth
-        spaceBetween
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-full-before`}
-        label="Label and control grouped at the start"
-        labelPosition="labelBefore"
-        fullWidth
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-full-before-spaced`}
-        label="Label left, control right"
-        labelPosition="labelBefore"
-        fullWidth
-        spaceBetween
-        checked
-      />
-    </div>
-  ),
-};
-
-export const MessageReservation: Story = {
-  render: (args) => (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(2, minmax(14rem, 1fr))",
-        gap: "2rem",
-        maxWidth: "40rem",
-      }}
-    >
-      <Checkbox
-        {...args}
-        id={`${args.id}-reserved-empty`}
-        label="Reserved, no message"
-        reserveMessageSpace
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-unreserved-empty`}
-        label="Not reserved, no message"
-        reserveMessageSpace={false}
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-reserved-info`}
-        label="Reserved with info"
-        reserveMessageSpace
-        infoMessage="Information below the content."
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-unreserved-error`}
-        label="Not reserved with error"
-        reserveMessageSpace={false}
-        errorMessage="Error below the content."
-      />
-    </div>
-  ),
-};
-
-export const LongContent: Story = {
-  render: (args) => (
-    <div style={{ display: "grid", gap: "2rem", width: "min(100%, 28rem)" }}>
-      <Checkbox
-        {...args}
-        id={`${args.id}-long-after`}
-        label="Send me occasional product announcements, research invitations, and account recommendations"
-        labelPosition="labelAfter"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-long-before`}
-        label="I agree that this longer label can wrap across multiple lines before the checkbox control"
-        labelPosition="labelBefore"
-        checked
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-long-extra`}
-        label="Advanced notifications"
-        extraLabelInfo="Includes weekly summaries and alerts about unusual activity across every connected workspace."
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-long-message`}
-        label="Terms and conditions"
-        errorMessage="You must accept the terms and conditions before you can continue to the next step."
-        validationState="invalid"
-      />
-    </div>
-  ),
-};
-
-export const NativeAttributes: Story = {
-  render: (args) => (
-    <div style={{ display: "grid", gap: "1.5rem" }}>
-      <Checkbox
-        {...args}
-        id={`${args.id}-required`}
-        label="Required"
-        required
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-named`}
-        label="With name and value"
-        name="preferences"
-        value="updates"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-readonly`}
-        label="Read only"
-        checked
-        readOnly
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-aria`}
-        label={undefined}
-        aria-label="Enable notifications"
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-tab-order`}
-        label="Removed from tab order"
-        tabIndex={-1}
-      />
-    </div>
-  ),
-};
-
-export const DenseSettingsList: Story = {
-  render: (args) => (
-    <div
-      style={{
-        display: "grid",
-        width: "min(100%, 34rem)",
-        padding: "1rem",
-        border: "1px solid currentColor",
-        borderRadius: "0.5rem",
-      }}
-    >
-      <Checkbox
-        {...args}
-        id={`${args.id}-email`}
-        label="Email notifications"
-        extraLabelInfo="Product and account updates"
-        labelPosition="labelBefore"
-        fullWidth
-        spaceBetween
-        checked
-        reserveMessageSpace={false}
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-email`}
-        label="Email notifications"
-        extraLabelInfo="Product and account updates"
-        labelPosition="labelAfter"
-        fullWidth
-        spaceBetween
-        checked
-        reserveMessageSpace={false}
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-push`}
-        label="Push notifications"
-        extraLabelInfo="Alerts on signed-in devices"
-        labelPosition="labelBefore"
-        fullWidth
-        spaceBetween
-        reserveMessageSpace={false}
-      />
-      <Checkbox
-        {...args}
-        id={`${args.id}-sms`}
-        label="SMS notifications"
-        extraLabelInfo="Important security alerts only"
-        labelPosition="labelBefore"
-        fullWidth
-        spaceBetween
-        disabled
-        reserveMessageSpace={false}
-      />
+      </Section>
     </div>
   ),
 };

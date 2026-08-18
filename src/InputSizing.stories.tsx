@@ -7,6 +7,7 @@ import { Input } from "./components/Forms/Input/Input";
 import { InputWithButton } from "./components/Forms/InputWithButton/InputWithButton";
 import { NumberInput } from "./components/Forms/NumberInput/NumberInput";
 import { TextArea } from "./components/Forms/TextArea/TextArea";
+import { referenceDocs } from "./storybookDocs";
 import "./styles/variants.module.css";
 
 const SIZES: FieldSize[] = ["xs", "sm", "md", "lg"];
@@ -19,26 +20,14 @@ const sizeGridStyle = {
   width: "100%",
 } as const;
 
-const ComparisonSection = ({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) => (
+const ComparisonSection = ({ title, children }: { title: string; children: ReactNode }) => (
   <section style={{ display: "grid", gap: "var(--stack-sm)", minWidth: 0 }}>
     <h2 style={{ margin: 0 }}>{title}</h2>
     <div style={sizeGridStyle}>{children}</div>
   </section>
 );
 
-const SizeCell = ({
-  size,
-  children,
-}: {
-  size: FieldSize;
-  children: ReactNode;
-}) => (
+const SizeCell = ({ size, children }: { size: FieldSize; children: ReactNode }) => (
   <div style={{ display: "grid", gap: "var(--gap-xs)", minWidth: 0 }}>
     <strong>{size}</strong>
     <div style={{ minWidth: 0 }}>{children}</div>
@@ -46,14 +35,20 @@ const SizeCell = ({
 );
 
 const meta = {
-  title: "Comparisons",
+  title: "Comparisons/Input sizing",
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
     controls: { disable: true },
     docs: {
       description: {
-        component:
-          "Field component sizes displayed side by side for visual alignment.",
+        component: referenceDocs({
+          summary: "Field component sizes displayed side by side for visual alignment.",
+          usage:
+            "Use this reference to choose one `fieldSize` for a row or form containing different field types. Component pages contain the controlled/uncontrolled usage examples and full prop types.",
+          styles:
+            "Every column uses the same `FieldSize` value (`xs`, `sm`, `md`, or `lg`) so control height, typography, padding, labels, and validation affordances can be reviewed together.",
+        }),
       },
     },
   },

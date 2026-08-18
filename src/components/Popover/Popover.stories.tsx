@@ -30,6 +30,24 @@ Popover provides the visual surface and composable content primitives for floati
 
 Pair it with \`PopoverWrapper\`, which owns positioning, open state, focus management, dismissal, and optional list navigation. Compose content with \`Popover.row\`, \`Popover.Button\`, \`Popover.divider\`, and \`Popover.groupLabel\`.
 
+### How to use
+
+~~~tsx
+import { Popover, PopoverWrapper } from "@saganaut/ambi-ui";
+
+<PopoverWrapper renderTrigger={(props) => <button {...props}>Format</button>}>
+  {({ ctx }) => (
+    <Popover role="toolbar" ariaLabel="Formatting" style={ctx.styles}>
+      <Popover.Button aria-label="Bold"><Bold /></Popover.Button>
+    </Popover>
+  )}
+</PopoverWrapper>
+~~~
+
+### Types and styles
+
+The surface uses \`PopoverProps\`; positioning and interaction use \`PopoverWrapperProps\`. Use \`shape\` for the supported surface form and the wrapper for position styles. Scoped custom properties include \`--popover-bg-color\`, \`--popover-radius\`, \`--popover-shadow\`, \`--popover-btn-color\`, and \`--popover-btn-hover-bg-color\`.
+
 ### Accessibility
 
 - Choose \`role="dialog"\`, \`"toolbar"\`, or \`"menu"\` to match the interaction.
@@ -68,75 +86,71 @@ Pair it with \`PopoverWrapper\`, which owns positioning, open state, focus manag
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const FormattingMenu: Story = {
+/** Popover composition, roles, shapes, navigation, and short or long action content. */
+export const Overview: Story = {
   render: (args) => (
-    <PopoverWrapper
-      placement="bottom-start"
-      listNavigation
-      renderTrigger={(triggerProps) => (
-        <button
-          style={triggerStyle}
-          {...(triggerProps as ButtonHTMLAttributes<HTMLButtonElement>)}
-          type="button"
-        >
-          Format text
-        </button>
-      )}
-    >
-      {({ ctx }) => (
-        <PopoverNavContext.Provider value={ctx.listNav ?? null}>
-          <Popover {...args} style={ctx.styles}>
-            <Popover.groupLabel>Style</Popover.groupLabel>
-            <Popover.row>
-              <Popover.Button aria-label="Bold">
-                <Bold />
-              </Popover.Button>
-              <Popover.Button aria-label="Italic">
-                <Italic />
-              </Popover.Button>
-              <Popover.Button aria-label="Underline">
-                <Underline />
-              </Popover.Button>
-              <Popover.divider />
-              <Popover.Button aria-label="Add link">
-                <Link />
-              </Popover.Button>
-            </Popover.row>
-          </Popover>
-        </PopoverNavContext.Provider>
-      )}
-    </PopoverWrapper>
-  ),
-};
-
-export const Actions: Story = {
-  args: {
-    ariaLabel: "Document actions",
-  },
-  render: (args) => (
-    <PopoverWrapper
-      placement="bottom"
-      listNavigation
-      renderTrigger={(triggerProps) => (
-        <button
-          style={triggerStyle}
-          {...(triggerProps as ButtonHTMLAttributes<HTMLButtonElement>)}
-          type="button"
-        >
-          Open actions
-        </button>
-      )}
-    >
-      {({ ctx }) => (
-        <PopoverNavContext.Provider value={ctx.listNav ?? null}>
-          <Popover {...args} style={ctx.styles}>
-            <Popover.groupLabel>Document</Popover.groupLabel>
-            <Popover.Button>Rename</Popover.Button>
-            <Popover.Button>Duplicate</Popover.Button>
-            <Popover.Button onClick={ctx.close}>Close menu</Popover.Button>
-          </Popover>
-        </PopoverNavContext.Provider>
-      )}
-    </PopoverWrapper>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "start" }}>
+      <PopoverWrapper
+        placement="bottom-start"
+        listNavigation
+        renderTrigger={(triggerProps) => (
+          <button
+            style={triggerStyle}
+            {...(triggerProps as ButtonHTMLAttributes<HTMLButtonElement>)}
+            type="button"
+          >
+            Format text
+          </button>
+        )}
+      >
+        {({ ctx }) => (
+          <PopoverNavContext.Provider value={ctx.listNav ?? null}>
+            <Popover {...args} style={ctx.styles}>
+              <Popover.groupLabel>Style</Popover.groupLabel>
+              <Popover.row>
+                <Popover.Button aria-label="Bold">
+                  <Bold />
+                </Popover.Button>
+                <Popover.Button aria-label="Italic">
+                  <Italic />
+                </Popover.Button>
+                <Popover.Button aria-label="Underline">
+                  <Underline />
+                </Popover.Button>
+                <Popover.divider />
+                <Popover.Button aria-label="Add link">
+                  <Link />
+                </Popover.Button>
+              </Popover.row>
+            </Popover>
+          </PopoverNavContext.Provider>
+        )}
+      </PopoverWrapper>
+      <PopoverWrapper
+        placement="bottom"
+        listNavigation
+        renderTrigger={(triggerProps) => (
+          <button
+            style={triggerStyle}
+            {...(triggerProps as ButtonHTMLAttributes<HTMLButtonElement>)}
+            type="button"
+          >
+            Open actions
+          </button>
+        )}
+      >
+        {({ ctx }) => (
+          <PopoverNavContext.Provider value={ctx.listNav ?? null}>
+            <Popover {...args} ariaLabel="Document actions" style={ctx.styles}>
+              <Popover.groupLabel>Document</Popover.groupLabel>
+              <Popover.Button>Rename</Popover.Button>
+              <Popover.Button>Duplicate</Popover.Button>
+              <Popover.Button>A deliberately long action label</Popover.Button>
+              <Popover.Button onClick={ctx.close}>Close menu</Popover.Button>
+            </Popover>
+          </PopoverNavContext.Provider>
+        )}
+      </PopoverWrapper>
+    </div>
   ),
 };

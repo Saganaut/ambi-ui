@@ -3,6 +3,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { fn } from "storybook/test";
+import { componentDocs } from "../../../storybookDocs";
 import "../../../styles/variants.module.css";
 import { NumberInput } from "./NumberInput";
 
@@ -12,6 +13,29 @@ const meta = {
   title: "Common/Input/NumberInput",
   component: NumberInput,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: componentDocs({
+          summary:
+            "NumberInput provides a controlled numeric field with step controls and optional minimum, maximum, and step constraints.",
+          typeName: "NumberInputProps",
+          example: `import { NumberInput } from "@saganaut/ambi-ui";
+
+<NumberInput
+  label="Round timer"
+  value={seconds}
+  min={5}
+  max={120}
+  step={5}
+  onChange={setSeconds}
+/>`,
+          styles:
+            "Use shared field appearance and width props first. Stepper-specific custom properties include `--stepper-width`, `--icon-size`, `--input-padding`, and `--font-size`; the shared field tokens control labels and messages.",
+        }),
+      },
+    },
+  },
   args: {
     label: "Round timer (seconds)",
     id: "round-timer",
@@ -26,7 +50,7 @@ const meta = {
       control: "inline-radio",
       options: ["top", "start"],
     },
-    size: {
+    fieldSize: {
       control: "inline-radio",
       options: ["xs", "sm", "md", "lg"],
     },
@@ -95,7 +119,7 @@ export const Overview: Story = {
               key={size}
               id={`${args.id}-${size}`}
               label={`Round timer (${size})`}
-              size={size}
+              fieldSize={size}
               value={value}
               onChange={setValue}
             />

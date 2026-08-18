@@ -3,6 +3,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { fn, userEvent, within } from "storybook/test";
+import { componentDocs } from "../../../storybookDocs";
 import "../../../styles/variants.module.css";
 import { Input } from "../Input/Input";
 import { Dropdown } from "./Dropdown";
@@ -15,6 +16,28 @@ const meta = {
   title: "Common/Input/Dropdown",
   component: Dropdown,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: componentDocs({
+          summary:
+            "Dropdown selects one option, or several when `multiple` is enabled. Search is useful for longer option sets; keep option labels concise and use a visible field label.",
+          typeName: "DropdownProps (with DropdownOption for options)",
+          example: `import { Dropdown } from "@saganaut/ambi-ui";
+
+<Dropdown
+  label="Region"
+  options={regions}
+  value={region}
+  onChange={setRegion}
+  multiple={false}
+/>`,
+          styles:
+            "Use shared field `variant`, `fill`, `fieldSize`, `shape`, and width props first. Panel-specific custom properties include `--dropdown-panel-bg-color`, `--dropdown-panel-radius`, `--dropdown-option-hover-bg-color`, and `--dropdown-list-max-height`.",
+        }),
+      },
+    },
+  },
   args: {
     label: "Region",
     options: REGION_OPTIONS,
@@ -33,13 +56,9 @@ const meta = {
       options: ["default", "bordered", "ghost"],
     },
     shape: { control: "inline-radio", options: ["default", "pill"] },
-    size: { control: "inline-radio", options: ["xs", "sm", "md", "lg"] },
+    fieldSize: { control: "inline-radio", options: ["xs", "sm", "md", "lg"] },
     value: { control: false },
     onChange: { control: false },
-  },
-  render: (args) => {
-    const [value, setValue] = useState<string[]>(args.value ?? []);
-    return <Dropdown {...args} value={value} onChange={setValue} />;
   },
 } satisfies Meta<typeof Dropdown>;
 
@@ -49,22 +68,29 @@ type Story = StoryObj<typeof meta>;
 /** All dropdown variants, states, and parity examples on a single canvas. */
 export const Overview: Story = {
   render: (args) => {
-    const [defaultValue, setDefaultValue] = useState<string[]>([]);
-    const [selectedValue, setSelectedValue] = useState<string[]>(["gondor"]);
+    const { multiple: _multiple, value: _value, onChange: _onChange, ...sharedArgs } = args;
+    const [defaultValue, setDefaultValue] = useState("");
+    const [selectedValue, setSelectedValue] = useState("gondor");
     const [multipleValue, setMultipleValue] = useState<string[]>(["history", "science"]);
     const [searchableValue, setSearchableValue] = useState<string[]>([]);
 
     return (
       <div style={{ display: "grid", gap: "2rem", width: "min(48rem, 90vw)" }}>
-        <Dropdown {...args} label="Default" value={defaultValue} onChange={setDefaultValue} />
         <Dropdown
-          {...args}
+          {...sharedArgs}
+          multiple={false}
+          label="Default"
+          value={defaultValue}
+          onChange={setDefaultValue}
+        />
+        <Dropdown
+          {...sharedArgs}
+          multiple={false}
           label="With selection"
           value={selectedValue}
           onChange={setSelectedValue}
         />
         <Dropdown
-          {...args}
           label="Multiple"
           options={CATEGORY_OPTIONS}
           multiple
@@ -73,7 +99,6 @@ export const Overview: Story = {
           onChange={setMultipleValue}
         />
         <Dropdown
-          {...args}
           label="Searchable"
           options={CATEGORY_OPTIONS}
           searchable
@@ -83,16 +108,26 @@ export const Overview: Story = {
           onChange={setSearchableValue}
         />
         <Dropdown
-          {...args}
+          {...sharedArgs}
+          multiple={false}
           label="Compact"
           labelPosition="start"
-          compact
           value={selectedValue}
           onChange={setSelectedValue}
         />
-        <Dropdown {...args} label="With info message" infoMessage="Where the trivia is set." />
-        <Dropdown {...args} label="With error" errorMessage="A region is required." />
-        <Dropdown {...args} label="Disabled" value={["gondor"]} disabled />
+        <Dropdown
+          {...sharedArgs}
+          multiple={false}
+          label="With info message"
+          infoMessage="Where the trivia is set."
+        />
+        <Dropdown
+          {...sharedArgs}
+          multiple={false}
+          label="With error"
+          errorMessage="A region is required."
+        />
+        <Dropdown {...sharedArgs} multiple={false} label="Disabled" value="gondor" disabled />
 
         <section style={{ display: "grid", gap: "1rem" }}>
           <h3 style={{ margin: 0 }}>Field parity matrix</h3>
@@ -117,12 +152,7 @@ export const Overview: Story = {
               errorMessage="Choose a known region."
             />
             <Input label="Disabled input" defaultValue="Gondor" disabled />
-            <Dropdown
-              label="Disabled dropdown"
-              options={REGION_OPTIONS}
-              value={["gondor"]}
-              disabled
-            />
+            <Dropdown label="Disabled dropdown" options={REGION_OPTIONS} value="gondor" disabled />
           </div>
         </section>
 
@@ -130,22 +160,6 @@ export const Overview: Story = {
           <h3 style={{ margin: 0 }}>Focus and open parity</h3>
           <Input label="Focused input" />
           <Dropdown label="Open dropdown" options={REGION_OPTIONS} />
-        </section>
-
-        <section style={{ display: "grid", gap: "1rem" }}>
-          <h3 style={{ margin: 0 }}>Borderless on raised surface</h3>
-          <div
-            style={{
-              display: "grid",
-              gap: "1rem",
-              maxWidth: "24rem",
-              padding: "1rem",
-              background: "var(--bg-surface-raised)",
-            }}
-          >
-            <Input label="Borderless input" isBordered={false} />
-            <Dropdown label="Borderless dropdown" options={REGION_OPTIONS} isBordered={false} />
-          </div>
         </section>
       </div>
     );

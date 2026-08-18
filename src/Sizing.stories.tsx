@@ -6,6 +6,7 @@ import type { BtnSize, BtnVariant } from "./components/Buttons/Btn.types";
 import { SplitBtn } from "./components/Buttons/SplitBtn";
 import { DropdownMenu } from "./components/DropdownMenu/DropdownMenu";
 import { Pagination } from "./components/Pagination/Pagination";
+import { referenceDocs } from "./storybookDocs";
 
 const SIZES: BtnSize[] = ["xs", "sm", "md", "lg"];
 const VARIANTS: BtnVariant[] = [
@@ -42,14 +43,21 @@ const columnStyle = {
 } as const;
 
 const meta = {
-  title: "Comparisons",
+  title: "Comparisons/Buttons and navigation",
+  tags: ["autodocs"],
   parameters: {
     layout: "padded",
     controls: { disable: true },
     docs: {
       description: {
-        component:
-          "Shared component sizes displayed side by side. Add size-aware components here to keep the system aligned.",
+        component: referenceDocs({
+          summary:
+            "Shared button-like component sizes and semantic variants displayed side by side.",
+          usage:
+            "Use these canvases to verify that adjacent actions share a `size` and that a semantic `variant` communicates the same intent across Button, SplitBtn, DropdownMenu, and Pagination.",
+          styles:
+            "The sizing story compares `BtnSize`; the variant story compares `BtnVariant`. Each component page documents additional fills, shapes, states, CSS custom properties, and its public props type.",
+        }),
       },
     },
   },

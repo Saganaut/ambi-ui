@@ -32,6 +32,23 @@ Pagination moves through zero-indexed pages and supports both known and unknown 
 
 Use \`pageCount\` for a known total, or omit it and provide \`hasMore\` for an open-ended result set. Set \`compact\` when a known total should use a concise “Page X of Y” label. The shared \`variant\`, \`fill\`, and \`size\` props match Button and Dropdown Menu.
 
+### How to use
+
+~~~tsx
+import { Pagination } from "@saganaut/ambi-ui";
+
+<Pagination
+  page={page}
+  pageCount={12}
+  onPageChange={setPage}
+  ariaLabel="Search results"
+/>
+~~~
+
+### Types and styles
+
+\`PaginationProps\` is a discriminated union for known totals (\`pageCount\`) and unknown totals (\`hasMore\`). The API table below documents both forms. Use \`variant\`, \`fill\`, \`size\`, and \`shape\` first; scoped custom properties include \`--page-bg-color\`, \`--page-color\`, \`--page-radius\`, \`--page-size\`, and \`--page-gap\`.
+
 ### Accessibility
 
 - Renders a labelled \`nav\` landmark; customize it with \`ariaLabel\` when multiple pagers appear on a page.

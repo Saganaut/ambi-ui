@@ -4,6 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { fn } from "storybook/test";
+import { componentDocs } from "../../../storybookDocs";
 import "../../../styles/variants.module.css";
 import type { FieldVariant } from "../Field.types";
 import { InputWithButton } from "./InputWithButton";
@@ -41,6 +42,28 @@ const meta = {
   title: "Common/Input/InputWithButton",
   component: InputWithButton,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: componentDocs({
+          summary:
+            "InputWithButton combines a single-line field with an immediately related action, such as joining with a code or submitting a search.",
+          typeName: "InputWithButtonProps",
+          example: `import { InputWithButton } from "@saganaut/ambi-ui";
+
+<InputWithButton
+  label="Join code"
+  value={code}
+  onChange={(event) => setCode(event.target.value)}
+  buttonLabel="Join"
+  onButtonClick={joinSession}
+/>`,
+          styles:
+            "The input and action share `variant`, `fill`, `fieldSize`, and `shape`. Shared `--field-*` and `--btn-*` custom properties provide scoped overrides; keep validation guidance attached to the field.",
+        }),
+      },
+    },
+  },
   args: {
     label: "Join code",
     placeholder: "Enter session code",

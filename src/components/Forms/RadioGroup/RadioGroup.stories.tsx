@@ -3,6 +3,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { fn } from "storybook/test";
+import { componentDocs } from "../../../storybookDocs";
 import "../../../styles/variants.module.css";
 import { RadioGroup } from "./RadioGroup";
 import { difficultyOptions, visibilityOptions } from "./RadioGroup.mocks";
@@ -11,6 +12,28 @@ const meta = {
   title: "Common/Input/RadioGroup",
   component: RadioGroup,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: componentDocs({
+          summary:
+            "RadioGroup presents a labelled set of mutually exclusive choices and manages the selected string value. Use Checkbox for independent choices.",
+          typeName: "RadioGroupProps (with RadioGroupOption for options)",
+          example: `import { RadioGroup } from "@saganaut/ambi-ui";
+
+<RadioGroup
+  name="difficulty"
+  legend="Difficulty"
+  options={difficultyOptions}
+  value={difficulty}
+  onChange={setDifficulty}
+/>`,
+          styles:
+            "RadioGroup uses native fieldset/legend structure and shared field messages. Layout tokens include `--gap-sm`, `--gap-xs`, and `--gutter-sm`; use `className` or `style` when a page needs a different local arrangement.",
+        }),
+      },
+    },
+  },
   args: {
     name: "difficulty",
     legend: "Difficulty",

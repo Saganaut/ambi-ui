@@ -16,7 +16,27 @@ import { Toggle } from "./Toggle/Toggle";
 
 const meta = {
   title: "Common/Input/Form showcase",
-  parameters: { layout: "centered" },
+  tags: ["autodocs"],
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component: `A composed form showing how field components align, share available space, and communicate validation together.
+
+### How to use
+
+Copy the source from the Overview story as a composition example, then use each component's docs page for focused examples and its complete API. Controlled fields keep their value in React state and pass the matching setter (or an event adapter) to \`onChange\`.
+
+### Types
+
+There is no aggregate form props type: this story composes \`InputProps\`, \`TextAreaProps\`, \`DropdownProps\`, \`NumberInputProps\`, \`RadioGroupProps\`, \`CheckboxProps\`, \`ToggleProps\`, \`FileUploadProps\`, \`InputWithButtonProps\`, and \`FieldGroupProps\`.
+
+### Styles
+
+Use \`FieldGroup\` to align start-positioned labels and \`fullWidth\` for controls that should fill a grid column. The canvas uses spacing and surface tokens rather than component internals; appearance props and scoped custom properties are documented on each component page.`,
+      },
+    },
+  },
 } satisfies Meta;
 
 export default meta;
@@ -25,7 +45,7 @@ type Story = StoryObj<typeof meta>;
 /** Complete form and validation states on a single canvas. */
 export const Overview: Story = {
   render: () => {
-    const [region, setRegion] = useState<string[]>(["gondor"]);
+    const [region, setRegion] = useState("gondor");
     const [duration, setDuration] = useState(30);
     const [difficulty, setDifficulty] = useState("medium");
     const [guests, setGuests] = useState(true);
@@ -45,16 +65,8 @@ export const Overview: Story = {
               background: "var(--bg-surface)",
             }}
           >
-            <Input
-              label="Deck name"
-              placeholder="Friday night trivia"
-              fullWidth
-            />
-            <TextArea
-              label="Description"
-              placeholder="What should players expect?"
-              fullWidth
-            />
+            <Input label="Deck name" placeholder="Friday night trivia" fullWidth />
+            <TextArea label="Description" placeholder="What should players expect?" fullWidth />
             <Dropdown
               label="Region"
               options={REGION_OPTIONS}
@@ -96,11 +108,7 @@ export const Overview: Story = {
               infoMessage="PNG or JPEG, up to 5 MB."
               maxBytes={5_000_000}
             />
-            <InputWithButton
-              label="Invite code"
-              placeholder="Enter a code"
-              buttonLabel="Apply"
-            />
+            <InputWithButton label="Invite code" placeholder="Enter a code" buttonLabel="Apply" />
 
             <FieldGroup labelWidth="clamp(8rem, 30%, 14rem)">
               <Input
@@ -122,21 +130,10 @@ export const Overview: Story = {
 
         <section style={{ display: "grid", gap: "1rem" }}>
           <h2 style={{ margin: 0 }}>Validation states</h2>
-          <div
-            style={{ display: "grid", gap: "var(--space-6)", width: "30rem" }}
-          >
+          <div style={{ display: "grid", gap: "var(--space-6)", width: "30rem" }}>
             <Input label="Default" placeholder="Type something…" fullWidth />
-            <Input
-              label="With guidance"
-              infoMessage="Helpful supporting copy."
-              fullWidth
-            />
-            <Input
-              label="Invalid"
-              value="Bad value"
-              errorMessage="Please try again."
-              fullWidth
-            />
+            <Input label="With guidance" infoMessage="Helpful supporting copy." fullWidth />
+            <Input label="Invalid" value="Bad value" errorMessage="Please try again." fullWidth />
             <Input label="Disabled" value="Unavailable" disabled fullWidth />
           </div>
         </section>
