@@ -1,3 +1,4 @@
+import type { BaseShapes } from "../Base.types";
 import type { BtnFill, BtnSize, BtnVariant } from "../Buttons/Btn.types";
 
 export interface PaginationBaseProps {
@@ -6,6 +7,7 @@ export interface PaginationBaseProps {
   variant?: BtnVariant;
   fill?: BtnFill;
   size?: BtnSize;
+  shape?: BaseShapes;
   siblingCount?: number;
   boundaryCount?: number;
   disabled?: boolean;

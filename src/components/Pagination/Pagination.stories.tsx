@@ -3,6 +3,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { fn } from "storybook/test";
+import type { BaseShapes } from "../Base.types";
 import type { BtnFill, BtnSize, BtnVariant } from "../Buttons/Btn.types";
 import { Pagination } from "./Pagination";
 
@@ -17,6 +18,7 @@ const VARIANTS: BtnVariant[] = [
 ];
 const FILLS: BtnFill[] = ["default", "bordered", "ghost"];
 const SIZES: BtnSize[] = ["xs", "sm", "md", "lg"];
+const SHAPES: BaseShapes[] = ["default", "pill", "squircle"];
 
 const meta = {
   title: "Common/Pagination",
@@ -67,6 +69,7 @@ Use \`pageCount\` for a known total, or omit it and provide \`hasMore\` for an o
     variant: { control: "select", options: VARIANTS },
     fill: { control: "inline-radio", options: FILLS },
     size: { control: "inline-radio", options: SIZES },
+    shape: { control: "select", options: SHAPES },
     onPageChange: { description: "Called with the next zero-indexed page." },
   },
 } satisfies Meta<typeof Pagination>;
@@ -109,6 +112,7 @@ const appearanceProps = (args: React.ComponentProps<typeof Pagination>) => ({
   variant: args.variant,
   fill: args.fill,
   size: args.size,
+  shape: args.shape,
 });
 
 /** Every pagination form and appearance option on one canvas. */
@@ -195,6 +199,19 @@ export const Overview: Story = {
           disabled
           onPageChange={fn()}
         />
+      </Row>
+
+      <Row title="Shapes">
+        {SHAPES.map((shape) => (
+          <ControlledPagination
+            key={shape}
+            {...appearanceProps(args)}
+            page={0}
+            pageCount={5}
+            shape={shape}
+            onPageChange={fn()}
+          />
+        ))}
       </Row>
     </div>
   ),

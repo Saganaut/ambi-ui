@@ -44,6 +44,17 @@
   overflow: hidden;
   will-change: opacity, transform;
 
+  &.pill {
+    border-radius: var(--radius-full);
+  }
+
+  &.squircle {
+    @supports (corner-shape: squircle) {
+      corner-shape: squircle;
+      border-radius: var(--radius-full);
+    }
+  }
+
   &.xs {
     --dropdown-menu-padding: var(--gap-sm) var(--gap-md);
     --dropdown-menu-font-size: var(--control-font-xs);

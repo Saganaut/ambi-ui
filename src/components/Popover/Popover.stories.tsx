@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Bold, Italic, Link, Underline } from "lucide-react";
 import type { ButtonHTMLAttributes } from "react";
+import type { BaseShapes } from "../Base.types";
 import { Popover } from "./Popover";
 import { PopoverNavContext } from "./PopoverNavContext";
 import { PopoverWrapper } from "./PopoverWrapper";
@@ -13,6 +14,8 @@ const triggerStyle = {
   color: "var(--text-primary)",
   cursor: "pointer",
 } as const;
+
+const SHAPES: BaseShapes[] = ["default", "pill", "squircle"];
 
 const meta = {
   title: "Common/Popover",
@@ -49,6 +52,7 @@ Pair it with \`PopoverWrapper\`, which owns positioning, open state, focus manag
       description: "ARIA role describing the floating surface.",
     },
     ariaLabel: { description: "Accessible name for the floating surface." },
+    shape: { control: "select", options: SHAPES },
     children: {
       control: false,
       description: "Popover content and compound primitives.",

@@ -18,14 +18,76 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** All file-upload variants and states on a single canvas. */
+const sectionStyle = {
+  display: "grid",
+  gap: "1rem",
+} as const;
+
+const gridStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(18rem, 100%), 1fr))",
+  gap: "1rem",
+  alignItems: "start",
+} as const;
+
+/** All file-upload shapes, sizes, and variants on a single canvas. */
 export const Overview: Story = {
   render: (args) => (
-    <div style={{ display: "grid", gap: "1.5rem", width: "min(30rem, 85vw)" }}>
-      <FileUpload {...args} label="Default" />
-      <FileUpload {...args} label="Images only" accept="image/*" />
-      <FileUpload {...args} label="With info message" infoMessage="PNG or JPG, up to 5 MB each." />
-      <FileUpload {...args} label="With error" errorMessage="At least one file is required." />
+    <div style={{ display: "grid", gap: "2.5rem", width: "min(72rem, 90vw)" }}>
+      <section style={sectionStyle}>
+        <h2 style={{ margin: 0 }}>Shapes</h2>
+        <div style={gridStyle}>
+          {(["default", "pill", "squircle"] as const).map((shape) => (
+            <FileUpload
+              {...args}
+              key={shape}
+              id={`file-upload-shape-${shape}`}
+              label={shape[0].toUpperCase() + shape.slice(1)}
+              shape={shape}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section style={sectionStyle}>
+        <h2 style={{ margin: 0 }}>Sizes</h2>
+        <div style={gridStyle}>
+          {(["xs", "sm", "md", "lg"] as const).map((fieldSize) => (
+            <FileUpload
+              {...args}
+              key={fieldSize}
+              id={`file-upload-size-${fieldSize}`}
+              label={fieldSize.toUpperCase()}
+              fieldSize={fieldSize}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section style={sectionStyle}>
+        <h2 style={{ margin: 0 }}>Variants</h2>
+        <div style={gridStyle}>
+          {(
+            [
+              "primary",
+              "secondary",
+              "brand",
+              "info",
+              "error",
+              "success",
+              "warning",
+            ] as const
+          ).map((variant) => (
+            <FileUpload
+              {...args}
+              key={variant}
+              id={`file-upload-variant-${variant}`}
+              label={variant[0].toUpperCase() + variant.slice(1)}
+              variant={variant}
+            />
+          ))}
+        </div>
+      </section>
     </div>
   ),
 };

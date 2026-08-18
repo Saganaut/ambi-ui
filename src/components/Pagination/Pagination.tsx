@@ -13,6 +13,7 @@ const Pagination = (props: PaginationProps) => {
     variant = "primary",
     fill = "default",
     size = "md",
+    shape = "default",
     siblingCount = 1,
     boundaryCount = 1,
     disabled = false,
@@ -71,6 +72,7 @@ const Pagination = (props: PaginationProps) => {
         variant={variant}
         fill={fill}
         size={size}
+        shape={shape}
         className={styles.navBtn}
         icon={<ChevronLeft />}
         isDisabled={!canGoPrev}
@@ -103,6 +105,7 @@ const Pagination = (props: PaginationProps) => {
                   type="button"
                   variant={variant}
                   size={size}
+                  shape={shape}
                   className={jC([styles.pageBtn, token === clampedPage ? styles.current : null])}
                   aria-current={token === clampedPage ? "page" : undefined}
                   aria-label={`Go to page ${String(token + 1)}`}
@@ -114,7 +117,13 @@ const Pagination = (props: PaginationProps) => {
                   {token + 1}
                 </Btn>
               ) : (
-                <Btn variant={variant} size={size} className={styles.ellipsis} aria-hidden="true">
+                <Btn
+                  variant={variant}
+                  size={size}
+                  shape={shape}
+                  className={styles.ellipsis}
+                  aria-hidden="true"
+                >
                   …
                 </Btn>
               )}
@@ -127,6 +136,7 @@ const Pagination = (props: PaginationProps) => {
         variant={variant}
         fill={fill}
         size={size}
+        shape={shape}
         className={styles.navBtn}
         icon={<ChevronRight />}
         isDisabled={!canGoNext}

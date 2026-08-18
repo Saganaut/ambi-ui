@@ -15,6 +15,17 @@
   background-color: var(--popover-bg-color);
   border-radius: var(--popover-radius);
   box-shadow: var(--popover-shadow);
+
+  &.pill {
+    border-radius: var(--radius-full);
+  }
+
+  &.squircle {
+    @supports (corner-shape: squircle) {
+      corner-shape: squircle;
+      border-radius: var(--radius-full);
+    }
+  }
 }
 
 .row {

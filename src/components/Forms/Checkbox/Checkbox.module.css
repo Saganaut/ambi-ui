@@ -114,7 +114,8 @@
       background-color: var(--checkbox-bg-color);
       align-items: center;
       justify-content: center;
-      transition: background-color var(--duration-base) var(--ease-out),
+      transition:
+        background-color var(--duration-base) var(--ease-out),
         border-color var(--duration-base) var(--ease-out);
 
       &.squircle {
@@ -179,6 +180,7 @@
     }
   }
 
+  /* stylelint-disable-next-line no-descending-specificity */
   &:has(.checkboxInput:disabled) .checkboxLabelText {
     color: var(--text-is-disabled);
   }

@@ -5,14 +5,17 @@
 
   &:not(:disabled, [data-fill="ghost"]):hover {
     background-color: var(--hover-bg-color);
-    color: var(--hover-color);
+
+    /* color: var(--hover-color); */
   }
 }
 
 [data-appearance="dark"] {
   .hoverable {
     &:not(:disabled, [data-fill="ghost"]):hover {
-      --hover-border-color: oklch(from var(--bg-color) calc(l + 0.3) calc(c - 0.02) h);
+      --hover-border-color: oklch(
+        from var(--bg-color) calc(l + 0.3) calc(c - 0.02) h
+      );
 
       border-color: var(--hover-border-color);
     }

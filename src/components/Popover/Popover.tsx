@@ -9,8 +9,20 @@ import styles from "./Popover.module.css";
 import type { PopoverProps } from "./Popover.types";
 import { PopoverNavContext } from "./PopoverNavContext";
 
-const Popover = ({ children, className, role = "dialog", ariaLabel, style }: PopoverProps) => (
-  <div className={jC([styles.popover, className])} role={role} aria-label={ariaLabel} style={style}>
+const Popover = ({
+  children,
+  className,
+  role = "dialog",
+  ariaLabel,
+  style,
+  shape = "default",
+}: PopoverProps) => (
+  <div
+    className={jC([styles.popover, shape !== "default" && styles[shape], className])}
+    role={role}
+    aria-label={ariaLabel}
+    style={style}
+  >
     {children}
   </div>
 );

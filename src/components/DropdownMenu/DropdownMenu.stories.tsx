@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Check, ChevronDown, Copy, ExternalLink, Pencil, Trash2 } from "lucide-react";
+import type { BaseShapes, MenuPosition } from "../Base.types";
 import { Btn } from "../Buttons/Btn";
-import type { BtnFill, BtnSize, BtnVariant, MenuPosition } from "../Buttons/Btn.types";
+import type { BtnFill, BtnSize, BtnVariant } from "../Buttons/Btn.types";
 import { DropdownMenu } from "./DropdownMenu";
 
 const POSITIONS: MenuPosition[] = ["top-left", "top-right", "bottom-left", "bottom-right"];
@@ -16,6 +17,7 @@ const VARIANTS: BtnVariant[] = [
 ];
 const FILLS: BtnFill[] = ["default", "bordered", "ghost"];
 const SIZES: BtnSize[] = ["xs", "sm", "md", "lg"];
+const SHAPES: BaseShapes[] = ["default", "pill", "squircle"];
 
 const menuContent = (
   <>
@@ -89,6 +91,7 @@ The trigger render function receives a toggle callback and the reference props r
     variant: { control: "select", options: VARIANTS },
     fill: { control: "inline-radio", options: FILLS },
     size: { control: "inline-radio", options: SIZES },
+    shape: { control: "select", options: SHAPES },
     position: {
       control: "select",
       options: POSITIONS,

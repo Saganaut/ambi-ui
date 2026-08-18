@@ -20,6 +20,9 @@ My custom component library used in new projects
 - Pagination
 - Popover & utility PopoverWrapper
 - Dropdown Menu (need to decide on hover effect here, unfinished)
+- Form components:
+-- Input
+-- Checkbox
 
 ## Styling
 

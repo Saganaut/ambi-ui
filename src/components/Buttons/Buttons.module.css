@@ -37,11 +37,14 @@
   border: var(--border-size-xs) solid var(--btn-border-color);
   box-shadow: var(--btn-shadow-size) var(--btn-shadow-color);
   cursor: pointer;
+  outline: var(--border-size-sm) solid transparent;
+  outline-offset: var(--space-half);
   transition:
     background-color var(--duration-base) ease-in-out,
     color var(--duration-base) ease-in-out,
     border-color var(--duration-base) ease-in-out,
-    box-shadow var(--duration-base) ease-in-out;
+    box-shadow var(--duration-base) ease-in-out,
+    outline var(--duration-base) ease-in-out;
 
   .label {
     display: inline-flex;
@@ -194,18 +197,18 @@
   }
 
   &:focus-visible:not(:disabled) {
-    outline: var(--border-size-sm) solid var(--border-focus);
-    outline-offset: var(--space-half);
+    outline-color: var(--border-focus);
+    box-shadow: none;
   }
 
-  &.squircle:focus-visible:not(:disabled) {
+  /* &.squircle:focus-visible:not(:disabled) {
     @supports (corner-shape: squircle) {
       outline: none;
       box-shadow:
         var(--btn-shadow-size) var(--btn-shadow-color),
         0 0 0 var(--border-size-sm) var(--border-focus);
     }
-  }
+  } */
 
   &.splitBtnSecondary {
     --split-btn-shadow-size: 2px 2px 3px 1px;

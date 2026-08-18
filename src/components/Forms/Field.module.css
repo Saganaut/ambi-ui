@@ -195,9 +195,14 @@
       box-shadow: var(--input-shadow);
       font-weight: var(--input-font-weight);
       background-color: var(--field-bg-color);
-      transition: color var(--duration-base) ease-in-out,
+      outline: var(--border-size-sm) solid transparent;
+      outline-offset: var(--space-half);
+      transition:
+        background-color var(--duration-base) ease-in-out,
+        color var(--duration-base) ease-in-out,
         border-color var(--duration-base) ease-in-out,
-        box-shadow var(--duration-base) ease-in-out;
+        box-shadow var(--duration-base) ease-in-out,
+        outline var(--duration-base) ease-in-out;
 
       &:not([data-fill="ghost"], :disabled):hover {
         --input-shadow: var(--shadow-hover);
@@ -244,23 +249,11 @@
         cursor: not-allowed;
       }
 
-      &:focus-visible:not(:disabled),
-      &:focus {
-        outline: var(--border-size-sm) solid var(--border-focus);
-        outline-offset: var(--space-half);
+      &:focus-visible:not(:disabled) {
+        outline-color: var(--border-focus);
+        box-shadow: none;
       }
 
-      &.squircle:focus,
-      &.squircle:focus-visible:not(:disabled) {
-        @supports (corner-shape: squircle) {
-          outline: none;
-          box-shadow:
-            var(--input-shadow),
-            0 0 0 var(--border-size-sm) var(--border-focus);
-        }
-      }
-
-      &:focus:not(.noBorders),
       &[aria-expanded="true"]:not(.noBorders) {
         --field-shadow: var(--shadow-focus);
       }

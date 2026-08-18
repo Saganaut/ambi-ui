@@ -1,5 +1,5 @@
 // File upload component with drag-and-drop support and multi-file selection
-import { Check, Image, Loader, X } from "lucide-react";
+import { Image, X } from "lucide-react";
 import variantStyles from "../../../styles/variants.module.css";
 import { jC } from "../../../utils/utils";
 import { Btn } from "../../Buttons/Btn";
@@ -24,6 +24,7 @@ const FileUpload = ({
   validationState,
   variant = "primary",
   fill = "default",
+  shape = "default",
   fieldSize = "md",
   id,
   onChange,
@@ -60,7 +61,7 @@ const FileUpload = ({
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
-        variantStyles[variant],
+        variantStyles[inputVariant],
         reserveMessageSpace && shared.reserveMessageSpace,
         shared[fieldSize],
         inputVariant !== "brand" && shared[inputVariant],
@@ -79,11 +80,16 @@ const FileUpload = ({
           shared.fieldWrapper,
           fullWidth && shared.fullWidth,
           styles.fileUploadContainer,
+          styles[fieldSize],
         ])}
         data-status={dataStatus}
       >
         <div
-          className={jC([styles.dropZone, isDragging && styles.dragging])}
+          className={jC([
+            styles.dropZone,
+            shape !== "default" && styles[shape],
+            isDragging && styles.dragging,
+          ])}
           onClick={openPicker}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -158,11 +164,11 @@ const FileUpload = ({
             {displayedError ?? infoMessage}
           </span>
         )}
-        <div className={shared.statusIcon}>
+        {/* <div className={shared.statusIcon}>
           {dataStatus === "valid" && <Check />}
           {dataStatus === "validating" && <Loader />}
           {dataStatus === "invalid" && <X />}
-        </div>
+        </div> */}
       </div>
     </div>
   );

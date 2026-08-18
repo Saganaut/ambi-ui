@@ -1,5 +1,6 @@
 import type { Placement, UseInteractionsReturn } from "@floating-ui/react";
 import type { HTMLProps, ReactNode } from "react";
+import type { BaseShapes } from "../Base.types";
 
 interface ListNavContext {
   getItemProps: UseInteractionsReturn["getItemProps"];
@@ -68,4 +69,5 @@ export interface PopoverProps {
   role?: "dialog" | "toolbar" | "menu";
   ariaLabel?: string;
   style?: React.CSSProperties;
+  shape?: BaseShapes;
 }
