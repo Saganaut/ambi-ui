@@ -22,7 +22,9 @@ My custom component library used in new projects
 - Dropdown Menu (need to decide on hover effect here, unfinished)
 - Form components:
 -- Input
+-- Input with button
 -- Checkbox
+-- File upload
 
 ## Styling
 

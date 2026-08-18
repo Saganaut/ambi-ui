@@ -87,6 +87,12 @@ export type InputWithButtonProps = FieldBase &
   FieldStyle &
   ComponentPropsWithRef<"input"> & {
     buttonLabel?: ReactNode;
+    /** Icon rendered inside the action button. Omit buttonLabel for an icon-only button. */
+    buttonIcon?: ReactNode;
+    /** Position of buttonIcon when the action button also has a label. */
+    buttonIconPosition?: "left" | "right";
+    /** Accessible name for the action button. Required when it is icon-only. */
+    buttonAriaLabel?: string;
     onButtonClick?: () => void;
   };
 

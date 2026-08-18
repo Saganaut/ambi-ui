@@ -22,4 +22,8 @@
     bottom: calc(-1 * var(--space-6));
     left: var(--space-3);
   }
+
+  .relative {
+    position: relative;
+  }
 }

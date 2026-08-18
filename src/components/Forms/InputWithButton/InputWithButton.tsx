@@ -1,10 +1,10 @@
 // Text input fused with an action button, used for search or submit-inline patterns
-import { Check, Loader, X } from "lucide-react";
 import variantStyles from "../../../styles/variants.module.css";
 import { jC } from "../../../utils/utils";
 import { Btn } from "../../Buttons/Btn";
 import shared from "../Field.module.css";
 import type { InputWithButtonProps } from "../Field.types";
+import { StatusIcon } from "../StatusIcon";
 import { useField } from "../useField";
 import styles from "./InputWithButton.module.css";
 
@@ -18,7 +18,10 @@ const InputWithButton = ({
   label,
   labelPosition = "top",
   extraLabelInfo,
-  buttonLabel = "Submit",
+  buttonLabel,
+  buttonIcon,
+  buttonIconPosition = "left",
+  buttonAriaLabel,
   onButtonClick,
   errorMessage,
   infoMessage,
@@ -64,38 +67,52 @@ const InputWithButton = ({
         </div>
       )}
       <div
-        className={jC([
-          shared.fieldWrapper,
-          fullWidth && shared.fullWidth,
-          styles.inputWithButton,
-        ])}
+        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth])}
         data-status={dataStatus}
       >
-        <input
-          {...rest}
-          id={inputId}
-          ref={ref}
-          value={value}
-          onChange={onChange}
-          maxLength={maxLength}
-          placeholder={placeholder}
-          disabled={disabled}
-          aria-invalid={aria.invalid}
-          aria-busy={aria.busy}
-          aria-describedby={aria.describedBy}
-          className={jC([shared.field, shape === "pill" && shared.pill])}
-          data-fill={fill === "default" ? undefined : fill}
-        />
-        <Btn
-          type="button"
-          onClick={onButtonClick}
-          isDisabled={disabled}
-          fill={fill}
-          shape={shape}
-          size={fieldSize}
+        <div
+          className={jC([
+            shared.fieldWrapper,
+            fullWidth && shared.fullWidth,
+            styles.inputWithButton,
+          ])}
+          data-status={dataStatus}
         >
-          {buttonLabel}
-        </Btn>
+          <div className={styles.relative}>
+            <input
+              {...rest}
+              id={inputId}
+              ref={ref}
+              value={value}
+              onChange={onChange}
+              maxLength={maxLength}
+              placeholder={placeholder}
+              disabled={disabled}
+              aria-invalid={aria.invalid}
+              aria-busy={aria.busy}
+              aria-describedby={aria.describedBy}
+              className={jC([
+                shared.field,
+                shape !== "default" && shared[shape],
+              ])}
+              data-fill={fill === "default" ? undefined : fill}
+            />
+            <StatusIcon className={shared.statusIcon} dataStatus={dataStatus} />
+          </div>
+          <Btn
+            type="button"
+            onClick={onButtonClick}
+            isDisabled={disabled}
+            fill={fill}
+            shape={shape}
+            size={fieldSize}
+            icon={buttonIcon}
+            iconPosition={buttonIconPosition}
+            aria-label={buttonAriaLabel}
+          >
+            {buttonLabel ?? (buttonIcon == null ? "Submit" : undefined)}
+          </Btn>
+        </div>
         {hasMessage && (
           <span
             id={messageId}
@@ -109,11 +126,6 @@ const InputWithButton = ({
             {errorMessage ?? infoMessage}
           </span>
         )}
-        <div className={shared.statusIcon}>
-          {dataStatus === "valid" && <Check />}
-          {dataStatus === "validating" && <Loader />}
-          {dataStatus === "invalid" && <X />}
-        </div>
       </div>
     </div>
   );

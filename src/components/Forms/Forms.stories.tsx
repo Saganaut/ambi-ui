@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Checkbox } from "./Checkbox/Checkbox";
 import { Dropdown } from "./Dropdown/Dropdown";
 import { REGION_OPTIONS } from "./Dropdown/Dropdown.mocks";
-import { FileUpload } from "./FileUpload/FileUpload";
 import { FieldGroup } from "./FieldGroup/FieldGroup";
+import { FileUpload } from "./FileUpload/FileUpload";
 import { Input } from "./Input/Input";
 import { InputWithButton } from "./InputWithButton/InputWithButton";
 import { NumberInput } from "./NumberInput/NumberInput";
@@ -45,14 +45,23 @@ export const Overview: Story = {
               background: "var(--bg-surface)",
             }}
           >
-            <Input label="Deck name" placeholder="Friday night trivia" fullWidth />
-            <TextArea label="Description" placeholder="What should players expect?" fullWidth />
+            <Input
+              label="Deck name"
+              placeholder="Friday night trivia"
+              fullWidth
+            />
+            <TextArea
+              label="Description"
+              placeholder="What should players expect?"
+              fullWidth
+            />
             <Dropdown
               label="Region"
               options={REGION_OPTIONS}
               value={region}
               onChange={setRegion}
               fullWidth
+              multiple={false}
             />
             <NumberInput
               label="Round timer (seconds)"
@@ -87,7 +96,11 @@ export const Overview: Story = {
               infoMessage="PNG or JPEG, up to 5 MB."
               maxBytes={5_000_000}
             />
-            <InputWithButton label="Invite code" placeholder="Enter a code" buttonLabel="Apply" />
+            <InputWithButton
+              label="Invite code"
+              placeholder="Enter a code"
+              buttonLabel="Apply"
+            />
 
             <FieldGroup labelWidth="clamp(8rem, 30%, 14rem)">
               <Input
@@ -109,10 +122,21 @@ export const Overview: Story = {
 
         <section style={{ display: "grid", gap: "1rem" }}>
           <h2 style={{ margin: 0 }}>Validation states</h2>
-          <div style={{ display: "grid", gap: "var(--space-6)", width: "30rem" }}>
+          <div
+            style={{ display: "grid", gap: "var(--space-6)", width: "30rem" }}
+          >
             <Input label="Default" placeholder="Type something…" fullWidth />
-            <Input label="With guidance" infoMessage="Helpful supporting copy." fullWidth />
-            <Input label="Invalid" value="Bad value" errorMessage="Please try again." fullWidth />
+            <Input
+              label="With guidance"
+              infoMessage="Helpful supporting copy."
+              fullWidth
+            />
+            <Input
+              label="Invalid"
+              value="Bad value"
+              errorMessage="Please try again."
+              fullWidth
+            />
             <Input label="Disabled" value="Unavailable" disabled fullWidth />
           </div>
         </section>

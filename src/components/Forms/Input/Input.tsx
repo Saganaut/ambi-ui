@@ -1,8 +1,8 @@
-import { Check, Loader, X } from "lucide-react";
 import variantStyles from "../../../styles/variants.module.css";
 import { jC } from "../../../utils/utils";
 import shared from "../Field.module.css";
 import type { InputProps } from "../Field.types";
+import { StatusIcon } from "../StatusIcon";
 import { useField } from "../useField";
 
 const Input = ({
@@ -86,12 +86,7 @@ const Input = ({
             {errorMessage ?? infoMessage}
           </span>
         )}
-
-        <div className={shared.statusIcon}>
-          {dataStatus === "valid" && <Check />}
-          {dataStatus === "validating" && <Loader />}
-          {dataStatus === "invalid" && <X />}
-        </div>
+        <StatusIcon className={shared.statusIcon} dataStatus={dataStatus} />
       </div>
     </div>
   );

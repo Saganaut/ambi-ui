@@ -105,15 +105,6 @@ const Checkbox = ({
             {errorMessage ?? infoMessage}
           </span>
         )}
-        {/*
-        
-          Likely not needed for Checkbox
-          
-          <div className={shared.statusIcon}>
-          {dataStatus === "valid" && <Check />}
-          {dataStatus === "validating" && <Loader />}
-          {dataStatus === "invalid" && <X />}
-        </div> */}
       </div>
     </div>
   );
