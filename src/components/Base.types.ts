@@ -16,6 +16,10 @@ export interface CursorAnchor {
 
 export type BaseFills = "default" | "bordered" | "ghost";
 
-export type BaseShapes = "default" | "pill";
+export type BaseShapes = "default" | "pill" | "squircle";
 
-export type MenuPosition = "bottom-right" | "bottom-left" | "top-right" | "top-left";
+export type MenuPosition =
+  | "bottom-right"
+  | "bottom-left"
+  | "top-right"
+  | "top-left";

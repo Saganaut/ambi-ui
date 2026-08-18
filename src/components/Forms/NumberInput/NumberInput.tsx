@@ -44,7 +44,15 @@ const NumberInput = ({
   ref,
   ...rest
 }: NumberInputProps) => {
-  const { inputId, messageId, hasMessage, hasError, dataStatus, inputVariant, aria } = useField({
+  const {
+    inputId,
+    messageId,
+    hasMessage,
+    hasError,
+    dataStatus,
+    inputVariant,
+    aria,
+  } = useField({
     id,
     infoMessage,
     errorMessage,
@@ -75,7 +83,7 @@ const NumberInput = ({
     <div
       data-fill={fill === "default" ? undefined : fill}
       className={jC([
-        shared.fieldContainer,
+        shared.fieldBlock,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
@@ -88,11 +96,17 @@ const NumberInput = ({
       {label && (
         <div className={shared.labelWrapper}>
           <label htmlFor={inputId}>{label}</label>
-          {extraLabelInfo && <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>}
+          {extraLabelInfo && (
+            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
+          )}
         </div>
       )}
       <div
-        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth, styles.wrapper])}
+        className={jC([
+          shared.fieldWrapper,
+          fullWidth && shared.fullWidth,
+          styles.wrapper,
+        ])}
         data-status={dataStatus}
       >
         <div

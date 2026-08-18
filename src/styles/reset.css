@@ -3,7 +3,7 @@
 :root {
   background: var(--bg-canvas);
   color: var(--text-primary);
-  font: 18px / 145% var(--font-sans);
+  font: 16px / 145% var(--font-sans);
   letter-spacing: 0.18px;
   font-synthesis: none;
   text-rendering: optimizelegibility;
@@ -107,10 +107,7 @@ input {
     border-color var(--duration-base) ease-in-out;
 }
 
-/* Default scrollbar styling — applies to every scrollable surface. */
-
 /* Firefox */
-
 *:hover {
   scrollbar-color: var(--action-hover) transparent;
 }
@@ -137,4 +134,12 @@ input {
 
 ::-webkit-scrollbar-corner {
   background: transparent;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  input,
+  button {
+    transition: none;
+  }
 }

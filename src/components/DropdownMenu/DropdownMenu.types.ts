@@ -1,7 +1,7 @@
 import type { UseInteractionsReturn } from "@floating-ui/react";
 import type { ReactElement, ReactNode } from "react";
-import type { BaseVariants, CursorAnchor } from "../Base.types";
-import type { BtnFill, BtnSize, IconBtnPosition, MenuPosition } from "../Buttons/Btn.types";
+import type { BaseVariants, CursorAnchor, MenuPosition } from "../Base.types";
+import type { BtnFill, BtnSize, IconBtnPosition } from "../Buttons/Btn.types";
 
 export interface DropdownMenuContextValue {
   closeMenu: () => void;
@@ -16,7 +16,10 @@ export type ToggleFn = (anchor?: CursorAnchor) => void;
 
 export interface DropdownMenuProps {
   children: ReactNode;
-  trigger: (toggle: ToggleFn, referenceProps?: Record<string, any>) => ReactElement;
+  trigger: (
+    toggle: ToggleFn,
+    referenceProps?: Record<string, any>,
+  ) => ReactElement;
 
   variant?: BaseVariants;
   fill?: BtnFill;

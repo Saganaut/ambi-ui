@@ -43,19 +43,20 @@ const FileUpload = ({
     openPicker,
   } = useFileUpload({ onChange, multiple, accept, maxBytes });
   const displayedError = rejection ?? errorMessage;
-  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
-    id,
-    infoMessage,
-    errorMessage: displayedError,
-    validationState,
-    variant,
-  });
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } =
+    useField({
+      id,
+      infoMessage,
+      errorMessage: displayedError,
+      validationState,
+      variant,
+    });
 
   return (
     <div
       data-fill={fill === "default" ? undefined : fill}
       className={jC([
-        shared.fieldContainer,
+        shared.fieldBlock,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
@@ -68,7 +69,9 @@ const FileUpload = ({
       {label && (
         <div className={shared.labelWrapper}>
           <label htmlFor={inputId}>{label}</label>
-          {extraLabelInfo && <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>}
+          {extraLabelInfo && (
+            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
+          )}
         </div>
       )}
       <div

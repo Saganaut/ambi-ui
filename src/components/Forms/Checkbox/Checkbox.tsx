@@ -1,5 +1,4 @@
 // Common checkbox input component used in forms throughout the app
-import { Check, Loader, X } from "lucide-react";
 import variantStyles from "../../../styles/variants.module.css";
 import { jC } from "../../../utils/utils";
 import shared from "../Field.module.css";
@@ -10,7 +9,7 @@ import styles from "./Checkbox.module.css";
 const Checkbox = ({
   id,
   label,
-  labelPosition = "start",
+  labelPosition = "labelAfter",
   extraLabelInfo,
   spaceBetween = false,
   checked,
@@ -24,39 +23,41 @@ const Checkbox = ({
   validationState,
   variant = "primary",
   fill = "default",
+  shape = "default",
   fieldSize = "md",
   ref,
   ...rest
 }: CheckboxProps) => {
-  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
-    id,
-    infoMessage,
-    errorMessage,
-    validationState,
-    variant,
-  });
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } =
+    useField({
+      id,
+      infoMessage,
+      errorMessage,
+      validationState,
+      variant,
+    });
 
   return (
     <div
       data-fill={fill === "default" ? undefined : fill}
       className={jC([
-        shared.fieldContainer,
-        shared[labelPosition],
+        shared.fieldBlock,
         fullWidth && shared.fullWidth,
+        styles.checkboxBlock,
         className,
-        variantStyles[variant],
+        variantStyles[inputVariant],
         reserveMessageSpace && shared.reserveMessageSpace,
         shared[fieldSize],
-        inputVariant !== "brand" && shared[inputVariant],
+        styles[fieldSize],
       ])}
     >
       <div
         className={jC([
           shared.fieldWrapper,
           fullWidth && shared.fullWidth,
-          styles.checkboxContainer,
-          labelPosition === "start" && styles.labelBefore,
+          labelPosition === "labelBefore" && styles.labelBefore,
           spaceBetween && styles.stretch,
+          reserveMessageSpace && !hasMessage && styles.reserveMessageSpace,
         ])}
         data-status={dataStatus}
       >
@@ -74,11 +75,20 @@ const Checkbox = ({
           aria-describedby={aria.describedBy}
         />
         <label htmlFor={inputId} className={styles.checkboxWrap}>
-          <span className={styles.checkboxControl} />
+          <span
+            className={jC([
+              styles.checkboxControl,
+              shape !== "default" && styles[shape],
+            ])}
+          />
           {label && (
-            <span className={shared.labelWrapper}>
+            <span
+              className={jC([shared.labelWrapper, styles.checkboxLabelWrapper])}
+            >
               <span className={styles.checkboxLabelText}>{label}</span>
-              {extraLabelInfo && <span className={shared.extraLabelInfo}>{extraLabelInfo}</span>}
+              {extraLabelInfo && (
+                <span className={shared.extraLabelInfo}>{extraLabelInfo}</span>
+              )}
             </span>
           )}
         </label>
@@ -95,11 +105,15 @@ const Checkbox = ({
             {errorMessage ?? infoMessage}
           </span>
         )}
-        <div className={shared.statusIcon}>
+        {/*
+        
+          Likely not needed for Checkbox
+          
+          <div className={shared.statusIcon}>
           {dataStatus === "valid" && <Check />}
           {dataStatus === "validating" && <Loader />}
           {dataStatus === "invalid" && <X />}
-        </div>
+        </div> */}
       </div>
     </div>
   );

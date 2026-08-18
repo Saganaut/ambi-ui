@@ -17,12 +17,14 @@
 
 .secondary {
   --color: var(--text-on-brand);
+  --alt-color: var(--text-primary);
   --bg-color: var(--bg-brand);
   --border-color: var(--role-border);
 }
 
 .brand {
   --color: var(--text-on-brand);
+  --alt-color: var(--text-primary);
   --bg-color: var(--role-accent-secondary);
   --border-color: var(--role-border);
 }

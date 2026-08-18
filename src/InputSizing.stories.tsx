@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactNode } from "react";
-import "./styles/variants.module.css";
-import type { FieldSize } from "./components/Forms/Field.types";
 import { Dropdown } from "./components/Forms/Dropdown/Dropdown";
 import { REGION_OPTIONS } from "./components/Forms/Dropdown/Dropdown.mocks";
+import type { FieldSize } from "./components/Forms/Field.types";
 import { Input } from "./components/Forms/Input/Input";
 import { InputWithButton } from "./components/Forms/InputWithButton/InputWithButton";
 import { NumberInput } from "./components/Forms/NumberInput/NumberInput";
 import { TextArea } from "./components/Forms/TextArea/TextArea";
+import "./styles/variants.module.css";
 
 const SIZES: FieldSize[] = ["xs", "sm", "md", "lg"];
 
@@ -19,14 +19,26 @@ const sizeGridStyle = {
   width: "100%",
 } as const;
 
-const ComparisonSection = ({ title, children }: { title: string; children: ReactNode }) => (
+const ComparisonSection = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) => (
   <section style={{ display: "grid", gap: "var(--stack-sm)", minWidth: 0 }}>
     <h2 style={{ margin: 0 }}>{title}</h2>
     <div style={sizeGridStyle}>{children}</div>
   </section>
 );
 
-const SizeCell = ({ size, children }: { size: FieldSize; children: ReactNode }) => (
+const SizeCell = ({
+  size,
+  children,
+}: {
+  size: FieldSize;
+  children: ReactNode;
+}) => (
   <div style={{ display: "grid", gap: "var(--gap-xs)", minWidth: 0 }}>
     <strong>{size}</strong>
     <div style={{ minWidth: 0 }}>{children}</div>
@@ -40,7 +52,8 @@ const meta = {
     controls: { disable: true },
     docs: {
       description: {
-        component: "Field component sizes displayed side by side for visual alignment.",
+        component:
+          "Field component sizes displayed side by side for visual alignment.",
       },
     },
   },
@@ -70,6 +83,7 @@ export const InputSizing: Story = {
               labelPosition="start"
               placeholder="Value"
               fullWidth
+              validationState="validating"
             />
           </SizeCell>
         ))}

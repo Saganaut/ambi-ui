@@ -20,7 +20,7 @@ const VARIANTS: BtnVariant[] = [
 ];
 const FILLS: BtnFill[] = ["default", "bordered", "ghost"];
 const SIZES: BtnSize[] = ["xs", "sm", "md", "lg"];
-const SHAPES: BtnShape[] = ["default", "pill"];
+const SHAPES: BtnShape[] = ["default", "pill", "squircle"];
 
 const menuItems = (
   <>
@@ -42,7 +42,13 @@ const Row = ({ children }: { children: ReactNode }) => (
   </div>
 );
 
-const StoryRow = ({ label, children }: { label: string; children: ReactNode }) => (
+const StoryRow = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) => (
   <div style={{ display: "grid", gap: "0.5rem" }}>
     <strong>{label}</strong>
     <Row>{children}</Row>
@@ -103,7 +109,7 @@ Pass component CSS variables through \`style\` for a local override. Because oth
     size: { control: "inline-radio", options: SIZES },
     shape: {
       control: "select",
-      options: ["default", "pill", "avatar"],
+      options: SHAPES,
     },
   },
 } satisfies Meta<typeof Btn>;
@@ -149,6 +155,9 @@ export const Regular: Story = {
         <Btn {...args} shape="pill">
           Pill
         </Btn>
+        <Btn {...args} shape="squircle">
+          Squircle
+        </Btn>
       </StoryRow>
 
       <StoryRow label="With icon">
@@ -172,6 +181,29 @@ export const Regular: Story = {
   ),
 };
 
+export const SquircleSizes: Story = {
+  name: "Squircle sizes",
+  render: (args) => (
+    <div style={{ display: "grid", gap: "1.5rem" }}>
+      {SIZES.map((size) => (
+        <StoryRow key={size} label={size}>
+          {VARIANTS.map((variant) => (
+            <Btn
+              key={variant}
+              {...args}
+              size={size}
+              variant={variant}
+              shape="squircle"
+            >
+              {variant}
+            </Btn>
+          ))}
+        </StoryRow>
+      ))}
+    </div>
+  ),
+};
+
 export const IconOnly: Story = {
   name: "Icon only",
   render: (args) => (
@@ -182,19 +214,37 @@ export const IconOnly: Story = {
 
       <StoryRow label="Variants">
         {VARIANTS.map((variant) => (
-          <Btn key={variant} {...args} icon={<PlusIcon />} variant={variant} aria-label={variant} />
+          <Btn
+            key={variant}
+            {...args}
+            icon={<PlusIcon />}
+            variant={variant}
+            aria-label={variant}
+          />
         ))}
       </StoryRow>
 
       <StoryRow label="Fills">
         {FILLS.map((fill) => (
-          <Btn key={fill} {...args} icon={<PlusIcon />} fill={fill} aria-label={fill} />
+          <Btn
+            key={fill}
+            {...args}
+            icon={<PlusIcon />}
+            fill={fill}
+            aria-label={fill}
+          />
         ))}
       </StoryRow>
 
       <StoryRow label="Sizes">
         {SIZES.map((size) => (
-          <Btn key={size} {...args} icon={<PlusIcon />} size={size} aria-label={size} />
+          <Btn
+            key={size}
+            {...args}
+            icon={<PlusIcon />}
+            size={size}
+            aria-label={size}
+          />
         ))}
       </StoryRow>
     </div>
@@ -250,7 +300,12 @@ export const Split: Story = {
       </StoryRow>
       <StoryRow label="Variants">
         {VARIANTS.map((variant) => (
-          <SplitBtn key={variant} {...args} menuItems={menuItems} variant={variant}>
+          <SplitBtn
+            key={variant}
+            {...args}
+            menuItems={menuItems}
+            variant={variant}
+          >
             {variant}
           </SplitBtn>
         ))}
@@ -280,7 +335,12 @@ export const Split: Story = {
         <SplitBtn {...args} menuItems={menuItems} icon={<CirclePlus />}>
           Add deck
         </SplitBtn>
-        <SplitBtn {...args} menuItems={menuItems} icon={<CirclePlus />} iconPosition="right">
+        <SplitBtn
+          {...args}
+          menuItems={menuItems}
+          icon={<CirclePlus />}
+          iconPosition="right"
+        >
           Add deck
         </SplitBtn>
       </StoryRow>

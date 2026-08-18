@@ -1,5 +1,5 @@
 /* TextArea — multi-line text entry that visually matches the single-line Input.
-   Lives in the .fieldContainer shared with Input, so the label/info layout
+   Lives in the .fieldBlock shared with Input, so the label/info layout
    matches form rows that mix the two.
 
    `field-sizing: content` auto-grows the textarea to fit its contents (no

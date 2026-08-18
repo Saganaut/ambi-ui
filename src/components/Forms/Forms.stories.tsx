@@ -89,9 +89,20 @@ export const Overview: Story = {
             />
             <InputWithButton label="Invite code" placeholder="Enter a code" buttonLabel="Apply" />
 
-            <FieldGroup>
-              <Input label="Short label" labelPosition="start" fullWidth />
-              <Input label="A longer aligned label" labelPosition="start" fullWidth />
+            <FieldGroup labelWidth="clamp(8rem, 30%, 14rem)">
+              <Input
+                label="Short label"
+                labelPosition="start"
+                placeholder="Shared label column"
+                fullWidth
+              />
+              <Input
+                label="A longer aligned label"
+                labelPosition="start"
+                extraLabelInfo="Optional OptionalOptionalOptional OptionalOptional OptionalOptional"
+                placeholder="Long label info wraps"
+                fullWidth
+              />
             </FieldGroup>
           </form>
         </section>

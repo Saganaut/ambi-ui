@@ -7,6 +7,13 @@ const config = {
     name: "@storybook/react-vite",
     options: {},
   },
+  viteFinal: async (viteConfig) => ({
+    ...viteConfig,
+    css: {
+      ...viteConfig.css,
+      devSourcemap: true,
+    },
+  }),
 } satisfies StorybookConfig;
 
 export default config;

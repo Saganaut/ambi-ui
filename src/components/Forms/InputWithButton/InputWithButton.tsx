@@ -33,18 +33,19 @@ const InputWithButton = ({
   ref,
   ...rest
 }: InputWithButtonProps) => {
-  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
-    id,
-    infoMessage,
-    errorMessage,
-    validationState,
-    variant,
-  });
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } =
+    useField({
+      id,
+      infoMessage,
+      errorMessage,
+      validationState,
+      variant,
+    });
   return (
     <div
       data-fill={fill === "default" ? undefined : fill}
       className={jC([
-        shared.fieldContainer,
+        shared.fieldBlock,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
@@ -57,11 +58,17 @@ const InputWithButton = ({
       {label && (
         <div className={shared.labelWrapper}>
           <label htmlFor={inputId}>{label}</label>
-          {extraLabelInfo && <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>}
+          {extraLabelInfo && (
+            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
+          )}
         </div>
       )}
       <div
-        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth, styles.inputWithButton])}
+        className={jC([
+          shared.fieldWrapper,
+          fullWidth && shared.fullWidth,
+          styles.inputWithButton,
+        ])}
         data-status={dataStatus}
       >
         <input

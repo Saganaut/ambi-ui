@@ -46,12 +46,14 @@ const RadioGroup = ({
       aria-invalid={aria.invalid}
       aria-busy={aria.busy}
       aria-describedby={aria.describedBy}
-      className={jC([shared.fieldContainer, shared.top, shared.md, className])}
+      className={jC([shared.fieldBlock, shared.top, shared.md, className])}
     >
       {groupLabel && (
         <legend className={jC([shared.labelWrapper, styles.radioGroupLegend])}>
           {groupLabel}
-          {extraLabelInfo && <span className={shared.extraLabelInfo}>{extraLabelInfo}</span>}
+          {extraLabelInfo && (
+            <span className={shared.extraLabelInfo}>{extraLabelInfo}</span>
+          )}
         </legend>
       )}
       <div

@@ -15,13 +15,13 @@ import {
   useTransitionStyles,
   type Placement,
 } from "@floating-ui/react";
-import { jC } from "../../utils/utils";
 import React, { createContext, use, useRef, useState } from "react";
 import variantStyles from "../../styles/variants.module.css";
-import type { MenuPosition } from "../Buttons/Btn.types";
+import { jC } from "../../utils/utils";
 import styles from "./DropdownMenu.module.css";
 
 import { inheritThemeMiddleware } from "../../utils/inheritTheme";
+import type { MenuPosition } from "../Base.types";
 import type {
   DropdownMenuContextValue,
   DropdownMenuItemProps,
@@ -68,7 +68,12 @@ const DropdownMenu = ({
     onOpenChange: setOpen,
     placement: placementMap[position],
     strategy: "fixed",
-    middleware: [offset(8), flip(), shift({ padding: 8 }), inheritThemeMiddleware],
+    middleware: [
+      offset(8),
+      flip(),
+      shift({ padding: 8 }),
+      inheritThemeMiddleware,
+    ],
     whileElementsMounted: autoUpdate,
   });
   const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
@@ -95,11 +100,9 @@ const DropdownMenu = ({
     onNavigate: setActiveIndex,
     loop: true,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
-    role,
-    dismiss,
-    listNavigation,
-  ]);
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
+    [role, dismiss, listNavigation],
+  );
 
   const toggle: ToggleFn = (anchor) => {
     if (anchorToCursor && anchor) {
@@ -121,16 +124,12 @@ const DropdownMenu = ({
       setOpen(true);
       return;
     }
-    // Non-cursor menus never set a position reference, so floating-ui anchors
-    // to the wrapper element. (Calling setPositionReference(null) here would
-    // wipe the wrapper reference and pin the panel to the viewport origin.)
     setOpen((prev) => !prev);
   };
 
   const closeMenu = () => {
     setOpen(false);
   };
-  console.log("sizing", size);
   return (
     <div
       ref={(node) => {
@@ -155,11 +154,20 @@ const DropdownMenu = ({
             >
               <div
                 data-fill={fill === "default" ? undefined : fill}
-                className={jC([styles.panel, variantStyles[variant], styles[size], className])}
+                className={jC([
+                  styles.panel,
+                  variantStyles[variant],
+                  styles[size],
+                  className,
+                ])}
                 style={transitionStyles}
               >
-                <DropdownMenuContext value={{ closeMenu, getItemProps, activeIndex }}>
-                  <FloatingList elementsRef={elementsRef}>{children}</FloatingList>
+                <DropdownMenuContext
+                  value={{ closeMenu, getItemProps, activeIndex }}
+                >
+                  <FloatingList elementsRef={elementsRef}>
+                    {children}
+                  </FloatingList>
                 </DropdownMenuContext>
               </div>
             </div>

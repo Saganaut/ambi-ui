@@ -4,7 +4,7 @@
   }
 }
 
-.fieldContainer {
+.fieldBlock {
   --field-message-reserve: var(--space-6);
   --field-gap: var(--space-half);
   --input-padding: var(--p-md);
@@ -29,17 +29,11 @@
 
   display: flex;
   width: 100%;
-
-  /* padding: var(--input-padding); */
   color: var(--field-color);
   font-size: var(--field-font-size);
   font-family: var(--field-font-family);
   font-weight: var(--field-font-weight);
-
-  /* background-color: var(--field-bg-color); */
   border-color: var(--field-border-color);
-
-  /* box-shadow: var(--field-shadow-size) var(--field-shadow-color); */
   border-radius: var(--field-radius);
   flex-direction: row;
   align-items: center;
@@ -80,6 +74,8 @@
     --input-font-size: var(--font-size-xs);
     --input-info-font-size: var(--font-size-2xs);
     --field-wrapper-min-width: 100px;
+    --checkbox-box-height: 14px;
+    --checkbox-box-width: 14px;
   }
 
   &.sm {
@@ -93,6 +89,8 @@
     --input-font-size: var(--font-size-xs);
     --input-info-font-size: var(--font-size-2xs);
     --field-wrapper-min-width: 200px;
+    --checkbox-box-height: 16px;
+    --checkbox-box-width: 16px;
   }
 
   &.md {
@@ -106,6 +104,8 @@
     --input-font-size: var(--font-size-sm);
     --input-info-font-size: var(--font-size-xs);
     --field-wrapper-min-width: 300px;
+    --checkbox-box-height: 20px;
+    --checkbox-box-width: 20px;
   }
 
   &.lg {
@@ -119,6 +119,8 @@
     --input-font-size: var(--font-size-lg);
     --input-info-font-size: var(--font-size-xs);
     --field-wrapper-min-width: 300px;
+    --checkbox-box-height: 24px;
+    --checkbox-box-width: 24px;
   }
 
   .labelWrapper {
@@ -135,7 +137,7 @@
       display: flex;
       width: 100%;
       height: 100%;
-      color: var(--field-color);
+      color: var(--alt-color);
       font-size: var(--field-font-size);
       line-height: var(--line-height-body);
       font-weight: 600;
@@ -149,6 +151,7 @@
       font-size: var(--font-size-xs);
       line-height: var(--line-height-body);
       font-weight: normal;
+      overflow-wrap: anywhere;
     }
   }
 
@@ -162,10 +165,6 @@
     width: var(--field-wrapper-width, 100%);
     min-width: var(--field-wrapper-min-width, auto);
     height: 100%;
-
-    &:not([data-status="idle"]) {
-      --input-padding-right: 40px;
-    }
 
     &[data-status="validating"] {
       --status-animation: spin 1.5s linear infinite;
@@ -188,7 +187,6 @@
       display: flex;
       width: 100%;
       padding: var(--input-padding);
-      padding-right: var(--input-padding-right);
       color: var(--input-color);
       font-size: var(--input-font-size);
       min-height: var(--field-min-height);
@@ -197,8 +195,7 @@
       box-shadow: var(--input-shadow);
       font-weight: var(--input-font-weight);
       background-color: var(--field-bg-color);
-      transition:
-        color var(--duration-base) ease-in-out,
+      transition: color var(--duration-base) ease-in-out,
         border-color var(--duration-base) ease-in-out,
         box-shadow var(--duration-base) ease-in-out;
 
@@ -212,6 +209,13 @@
 
       &.pill {
         border-radius: var(--radius-full);
+      }
+
+      &.squircle {
+        @supports (corner-shape: squircle) {
+          border-radius: var(--radius-full);
+          corner-shape: squircle;
+        }
       }
 
       &[data-fill="ghost"] {
@@ -246,9 +250,26 @@
         outline-offset: var(--space-half);
       }
 
+      &.squircle:focus,
+      &.squircle:focus-visible:not(:disabled) {
+        @supports (corner-shape: squircle) {
+          outline: none;
+          box-shadow:
+            var(--input-shadow),
+            0 0 0 var(--border-size-sm) var(--border-focus);
+        }
+      }
+
       &:focus:not(.noBorders),
       &[aria-expanded="true"]:not(.noBorders) {
         --field-shadow: var(--shadow-focus);
+      }
+    }
+
+    &:not([data-status="idle"]) {
+      .field {
+        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+        padding-right: 2em;
       }
     }
 
@@ -256,9 +277,14 @@
       position: absolute;
       right: 0;
       top: 0;
-      translate: -50% +30%;
+      translate: -30% 0%;
+      min-height: var(--field-min-height);
+      display: flex;
+      align-items: center;
 
       svg {
+        width: 1.2em;
+        height: 1.2em;
         stroke: var(--status-stroke);
         animation: var(--status-animation);
       }
@@ -286,8 +312,8 @@
   }
 }
 
-@container (width < 32rem) {
-  .fieldContainer.start {
+@container field-group (width < 32rem) {
+  .fieldBlock.start {
     --label-container-flex: initial;
     --label-container-width: 100%;
     --field-wrapper-flex: initial;

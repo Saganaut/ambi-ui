@@ -22,7 +22,10 @@ const meta = {
       control: "inline-radio",
       options: ["default", "bordered", "ghost"],
     },
-    shape: { control: "inline-radio", options: ["default", "pill"] },
+    shape: {
+      control: "inline-radio",
+      options: ["default", "pill", "squircle"],
+    },
     fieldSize: {
       control: "inline-radio",
       options: ["xs", "sm", "md", "lg"],
@@ -166,11 +169,49 @@ export const AppearanceVariants: Story = {
       <Input {...args} id={`${args.id}-shape-pill`} label="Pill" shape="pill" />
       <Input
         {...args}
+        id={`${args.id}-shape-squircle`}
+        label="Squircle"
+        shape="squircle"
+      />
+      <Input
+        {...args}
         id={`${args.id}-bordered-pill`}
         label="Bordered pill"
         fill="bordered"
         shape="pill"
       />
+    </div>
+  ),
+};
+
+export const SquircleSizes: Story = {
+  name: "Squircle sizes",
+  render: (args) => (
+    <div style={{ display: "grid", gap: "1.5rem", width: "min(40rem, 85vw)" }}>
+      {(["xs", "sm", "md", "lg"] as const).map((fieldSize) => (
+        <div
+          key={fieldSize}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gap: "1rem",
+            alignItems: "end",
+          }}
+        >
+          {(["default", "bordered", "ghost"] as const).map((fill) => (
+            <Input
+              {...args}
+              key={fill}
+              id={`${args.id}-squircle-${fieldSize}-${fill}`}
+              label={`${fieldSize} ${fill}`}
+              placeholder="Squircle input"
+              fieldSize={fieldSize}
+              fill={fill}
+              shape="squircle"
+            />
+          ))}
+        </div>
+      ))}
     </div>
   ),
 };

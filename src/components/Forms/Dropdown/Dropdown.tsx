@@ -22,8 +22,8 @@ import {
 import { Check, Loader, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import variantStyles from "../../../styles/variants.module.css";
-import { jC } from "../../../utils/utils";
 import { inheritTheme } from "../../../utils/inheritTheme";
+import { jC } from "../../../utils/utils";
 import shared from "../Field.module.css";
 import type { DropdownOption, DropdownProps } from "../Field.types";
 import { useField } from "../useField";
@@ -70,24 +70,34 @@ const Dropdown = ({
     inputVariant,
     aria,
   } = useField({ id, infoMessage, errorMessage, validationState, variant });
-  const { isOpen, query, setQuery, setOpen, filtered, toggle, removeChip, removeChipOnKey } =
-    useDropdown({
-      options,
-      value: selectedValues,
-      multiple,
-      searchable,
-      onChange: (values) => {
-        if (multiple) {
-          (onChange as ((value: string[]) => void) | undefined)?.(values);
-        } else {
-          (onChange as ((value: string) => void) | undefined)?.(values[0] ?? "");
-        }
-      },
-    });
+  const {
+    isOpen,
+    query,
+    setQuery,
+    setOpen,
+    filtered,
+    toggle,
+    removeChip,
+    removeChipOnKey,
+  } = useDropdown({
+    options,
+    value: selectedValues,
+    multiple,
+    searchable,
+    onChange: (values) => {
+      if (multiple) {
+        (onChange as ((value: string[]) => void) | undefined)?.(values);
+      } else {
+        (onChange as ((value: string) => void) | undefined)?.(values[0] ?? "");
+      }
+    },
+  });
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const optionRefs = useRef<(HTMLElement | null)[]>([]);
   const optionLabels = useRef<(string | null)[]>([]);
-  const selectedIndex = filtered.findIndex((option) => selectedValues.includes(option.value));
+  const selectedIndex = filtered.findIndex((option) =>
+    selectedValues.includes(option.value),
+  );
   const { refs, floatingStyles, context, placement } = useFloating({
     open: isOpen,
     onOpenChange: setOpen,
@@ -141,13 +151,12 @@ const Dropdown = ({
     onMatch: setActiveIndex,
     enabled: !searchable,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
-    click,
-    dismiss,
-    listNavigation,
-    typeahead,
-  ]);
-  const portalRoot = refs.domReference.current?.closest("dialog") as HTMLElement | null;
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
+    [click, dismiss, listNavigation, typeahead],
+  );
+  const portalRoot = refs.domReference.current?.closest(
+    "dialog",
+  ) as HTMLElement | null;
 
   const triggerContent =
     selectedValues.length === 0 ? (
@@ -178,14 +187,17 @@ const Dropdown = ({
         })}
       </span>
     ) : (
-      <span>{options.find((o) => o.value === selectedValues[0])?.label ?? placeholder}</span>
+      <span>
+        {options.find((o) => o.value === selectedValues[0])?.label ??
+          placeholder}
+      </span>
     );
 
   return (
     <div
       data-fill={fill === "default" ? undefined : fill}
       className={jC([
-        shared.fieldContainer,
+        shared.fieldBlock,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
@@ -198,11 +210,17 @@ const Dropdown = ({
       {label && (
         <div className={shared.labelWrapper}>
           <label htmlFor={dropdownId}>{label}</label>
-          {extraLabelInfo && <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>}
+          {extraLabelInfo && (
+            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
+          )}
         </div>
       )}
       <div
-        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth, styles.dropdown])}
+        className={jC([
+          shared.fieldWrapper,
+          fullWidth && shared.fullWidth,
+          styles.dropdown,
+        ])}
         data-status={dataStatus}
       >
         <button
@@ -214,7 +232,11 @@ const Dropdown = ({
           }}
           type="button"
           id={dropdownId}
-          className={jC([shared.field, shape === "pill" && shared.pill, styles.dropdownTrigger])}
+          className={jC([
+            shared.field,
+            shape === "pill" && shared.pill,
+            styles.dropdownTrigger,
+          ])}
           data-fill={fill === "default" ? undefined : fill}
           disabled={disabled}
           aria-invalid={aria.invalid}
@@ -233,7 +255,11 @@ const Dropdown = ({
             viewBox="0 0 24 24"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m19.5 8.25-7.5 7.5-7.5-7.5"
+            />
           </svg>
         </button>
 
@@ -280,7 +306,9 @@ const Dropdown = ({
                         aria-selected={selectedValues.includes(opt.value)}
                         className={jC([
                           styles.dropdownOption,
-                          selectedValues.includes(opt.value) ? styles.selected : "",
+                          selectedValues.includes(opt.value)
+                            ? styles.selected
+                            : "",
                         ])}
                         ref={(node) => {
                           optionRefs.current[index] = node;

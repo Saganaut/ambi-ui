@@ -23,19 +23,21 @@ const Input = ({
   ref,
   ...rest
 }: InputProps) => {
-  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
-    id,
-    infoMessage,
-    errorMessage,
-    validationState,
-    variant,
-  });
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } =
+    useField({
+      id,
+      infoMessage,
+      errorMessage,
+      validationState,
+      variant,
+    });
 
   return (
     <div
       data-fill={fill === "default" ? undefined : fill}
+      data-label-position={labelPosition}
       className={jC([
-        shared.fieldContainer,
+        shared.fieldBlock,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
@@ -49,7 +51,9 @@ const Input = ({
       {label && (
         <div className={jC([shared.labelWrapper])}>
           <label htmlFor={inputId}>{label}</label>
-          {extraLabelInfo && <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>}
+          {extraLabelInfo && (
+            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
+          )}
         </div>
       )}
 
@@ -65,7 +69,7 @@ const Input = ({
           aria-invalid={aria.invalid}
           aria-busy={aria.busy}
           aria-describedby={aria.describedBy}
-          className={jC([shared.field, shape === "pill" && shared.pill])}
+          className={jC([shared.field, shape !== "default" && shared[shape]])}
           data-fill={fill === "default" ? undefined : fill}
         />
 

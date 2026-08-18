@@ -62,9 +62,11 @@ export interface UseDropdownArgs {
   onChange?: (values: string[]) => void;
 }
 
-export type CheckboxProps = FieldBase &
+export type CheckboxProps = Omit<FieldBase, "labelPosition"> &
   FieldStyle &
   Omit<ComponentPropsWithRef<"input">, "type"> & {
+    /** Place the label before or after the checkbox control. */
+    labelPosition?: "labelBefore" | "labelAfter";
     /** Place the label and control at opposite ends of a full-width row. */
     spaceBetween?: boolean;
   };

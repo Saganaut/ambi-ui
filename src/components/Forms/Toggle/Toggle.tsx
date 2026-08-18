@@ -27,19 +27,20 @@ const Toggle = ({
   ref,
   ...rest
 }: ToggleProps) => {
-  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
-    id,
-    infoMessage,
-    errorMessage,
-    validationState,
-    variant,
-  });
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } =
+    useField({
+      id,
+      infoMessage,
+      errorMessage,
+      validationState,
+      variant,
+    });
 
   return (
     <div
       data-fill={fill === "default" ? undefined : fill}
       className={jC([
-        shared.fieldContainer,
+        shared.fieldBlock,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
@@ -78,7 +79,9 @@ const Toggle = ({
           {label && (
             <span className={shared.labelWrapper}>
               <span className={styles.toggleLabelText}>{label}</span>
-              {extraLabelInfo && <span className={shared.extraLabelInfo}>{extraLabelInfo}</span>}
+              {extraLabelInfo && (
+                <span className={shared.extraLabelInfo}>{extraLabelInfo}</span>
+              )}
             </span>
           )}
         </label>
