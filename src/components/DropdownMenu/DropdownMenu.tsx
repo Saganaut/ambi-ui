@@ -30,6 +30,7 @@ import type {
   DropdownMenuProps,
   ToggleFn,
 } from "./DropdownMenu.types";
+
 const DropdownMenuContext = createContext<DropdownMenuContextValue>({
   closeMenu: () => undefined,
   getItemProps: () => ({}),
@@ -69,7 +70,12 @@ const DropdownMenu = ({
     onOpenChange: setOpen,
     placement: placementMap[position],
     strategy: "fixed",
-    middleware: [offset(8), flip(), shift({ padding: 8 }), inheritThemeMiddleware],
+    middleware: [
+      offset(8),
+      flip(),
+      shift({ padding: 8 }),
+      inheritThemeMiddleware,
+    ],
     whileElementsMounted: autoUpdate,
   });
   const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
@@ -96,11 +102,9 @@ const DropdownMenu = ({
     onNavigate: setActiveIndex,
     loop: true,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
-    role,
-    dismiss,
-    listNavigation,
-  ]);
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
+    [role, dismiss, listNavigation],
+  );
 
   const toggle: ToggleFn = (anchor) => {
     if (anchorToCursor && anchor) {
@@ -161,8 +165,12 @@ const DropdownMenu = ({
                 ])}
                 style={transitionStyles}
               >
-                <DropdownMenuContext value={{ closeMenu, getItemProps, activeIndex }}>
-                  <FloatingList elementsRef={elementsRef}>{children}</FloatingList>
+                <DropdownMenuContext
+                  value={{ closeMenu, getItemProps, activeIndex }}
+                >
+                  <FloatingList elementsRef={elementsRef}>
+                    {children}
+                  </FloatingList>
                 </DropdownMenuContext>
               </div>
             </div>

@@ -7,7 +7,7 @@ import {
 } from "../../utils/utils";
 import type { FieldVariant, ValidationState } from "./Field.types";
 
-interface UseFieldProps {
+export interface UseFieldProps {
   id?: string;
   infoMessage?: string | string[];
   errorMessage?: string | string[];

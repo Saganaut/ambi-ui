@@ -4,29 +4,12 @@
  * The option panel is portalled and positioned by Floating UI so scroll and
  * overflow ancestors cannot clip it.
  */
-import {
-  autoUpdate,
-  flip,
-  FloatingFocusManager,
-  FloatingPortal,
-  offset,
-  shift,
-  size,
-  useClick,
-  useDismiss,
-  useFloating,
-  useInteractions,
-  useListNavigation,
-  useTypeahead,
-} from "@floating-ui/react";
-import { Check, Loader, X } from "lucide-react";
-import { useEffect, useId, useRef, useState } from "react";
+import { FloatingFocusManager, FloatingPortal } from "@floating-ui/react";
+import { ChevronDownIcon } from "lucide-react";
 import variantStyles from "../../../styles/variants.module.css";
-import { inheritTheme } from "../../../utils/inheritTheme";
 import { jC } from "../../../utils/utils";
 import shared from "../Field.module.css";
 import type { DropdownOption, DropdownProps } from "../Field.types";
-import { useField } from "../useField";
 import styles from "./Dropdown.module.css";
 import { useDropdown } from "./useDropdown";
 
@@ -49,40 +32,44 @@ const Dropdown = ({
   disabled,
   ref,
   validationState,
-
   variant = "primary",
   fill = "default",
   shape = "default",
   fieldSize = "md",
   ...rest
 }: DropdownProps) => {
-  const selectedValues = Array.isArray(selectedValue)
-    ? selectedValue
-    : selectedValue == null
-      ? []
-      : [selectedValue];
-  const listboxId = useId();
   const {
-    inputId: dropdownId,
+    isOpen,
+    query,
+    setQuery,
+    getItemProps,
+    activeIndex,
+    optionLabels,
+    floatingStyles,
+    portalRoot,
+    context,
+    placement,
+    getReferenceProps,
+    getFloatingProps,
+    optionRefs,
+    refs,
+    filtered,
+    toggle,
+    removeChip,
+    removeChipOnKey,
+    inputId,
     messageId,
     hasMessage,
     dataStatus,
     inputVariant,
     aria,
-  } = useField({ id, infoMessage, errorMessage, validationState, variant });
-  const {
-    isOpen,
-    query,
-    setQuery,
-    setOpen,
-    filtered,
-    toggle,
-    removeChip,
-    removeChipOnKey,
+    selectedValues,
   } = useDropdown({
+    useFieldProps: { id, infoMessage, errorMessage, validationState, variant },
     options,
-    value: selectedValues,
+    selectedValue,
     multiple,
+    disabled,
     searchable,
     onChange: (values) => {
       if (multiple) {
@@ -92,71 +79,6 @@ const Dropdown = ({
       }
     },
   });
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const optionRefs = useRef<(HTMLElement | null)[]>([]);
-  const optionLabels = useRef<(string | null)[]>([]);
-  const selectedIndex = filtered.findIndex((option) =>
-    selectedValues.includes(option.value),
-  );
-  const { refs, floatingStyles, context, placement } = useFloating({
-    open: isOpen,
-    onOpenChange: setOpen,
-    placement: "bottom-start",
-    strategy: "fixed",
-    whileElementsMounted: autoUpdate,
-    middleware: [
-      offset(4),
-      flip(),
-      shift({ padding: 8 }),
-      size({
-        apply({ rects, elements }) {
-          if (elements.reference instanceof Element) {
-            inheritTheme(elements.reference, elements.floating);
-          }
-          elements.floating.style.setProperty(
-            "--dropdown-reference-width",
-            `${rects.reference.width.toString()}px`,
-          );
-        },
-      }),
-    ],
-  });
-  useEffect(() => {
-    if (!isOpen) {
-      setActiveIndex(null);
-    } else if (!searchable && activeIndex != null) {
-      optionRefs.current[activeIndex]?.focus();
-    }
-  }, [activeIndex, isOpen, searchable]);
-  useEffect(() => {
-    if (disabled && isOpen) {
-      setOpen(false);
-    }
-  }, [disabled, isOpen, setOpen]);
-
-  const click = useClick(context);
-  const dismiss = useDismiss(context);
-  const listNavigation = useListNavigation(context, {
-    listRef: optionRefs,
-    activeIndex,
-    selectedIndex: selectedIndex < 0 ? null : selectedIndex,
-    onNavigate: setActiveIndex,
-    focusItemOnOpen: !searchable,
-    loop: true,
-  });
-  const typeahead = useTypeahead(context, {
-    listRef: optionLabels,
-    activeIndex,
-    selectedIndex: selectedIndex < 0 ? null : selectedIndex,
-    onMatch: setActiveIndex,
-    enabled: !searchable,
-  });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [click, dismiss, listNavigation, typeahead],
-  );
-  const portalRoot = refs.domReference.current?.closest(
-    "dialog",
-  ) as HTMLElement | null;
 
   const triggerContent =
     selectedValues.length === 0 ? (
@@ -209,7 +131,7 @@ const Dropdown = ({
     >
       {label && (
         <div className={shared.labelWrapper}>
-          <label htmlFor={dropdownId}>{label}</label>
+          <label htmlFor={inputId}>{label}</label>
           {extraLabelInfo && (
             <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
           )}
@@ -231,7 +153,7 @@ const Dropdown = ({
             else if (ref != null) ref.current = node;
           }}
           type="button"
-          id={dropdownId}
+          id={inputId}
           className={jC([
             shared.field,
             shape === "pill" && shared.pill,
@@ -244,23 +166,14 @@ const Dropdown = ({
           aria-describedby={aria.describedBy}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
-          aria-controls={isOpen ? listboxId : undefined}
+          aria-controls={isOpen ? inputId : undefined}
           {...getReferenceProps()}
         >
           {triggerContent}
-          <svg
+
+          <ChevronDownIcon
             className={jC([styles.chevron, isOpen ? styles.chevronOpen : ""])}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m19.5 8.25-7.5 7.5-7.5-7.5"
-            />
-          </svg>
+          />
         </button>
 
         {isOpen && (
@@ -291,7 +204,7 @@ const Dropdown = ({
                   </div>
                 )}
                 <ul
-                  id={listboxId}
+                  id={inputId}
                   role="listbox"
                   aria-multiselectable={multiple}
                   className={styles.dropdownList}
@@ -359,11 +272,6 @@ const Dropdown = ({
             {errorMessage ?? infoMessage}
           </span>
         )}
-        <div className={shared.statusIcon}>
-          {dataStatus === "valid" && <Check />}
-          {dataStatus === "validating" && <Loader />}
-          {dataStatus === "invalid" && <X />}
-        </div>
       </div>
     </div>
   );
