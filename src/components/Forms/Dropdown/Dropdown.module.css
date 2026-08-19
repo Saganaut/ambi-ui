@@ -34,7 +34,7 @@
 }
 
 .dropdownPlaceholder {
-  --dropdown-placeholder-color: var(--text-muted);
+  --dropdown-placeholder-color: var(--color);
 
   color: var(--dropdown-placeholder-color);
 }

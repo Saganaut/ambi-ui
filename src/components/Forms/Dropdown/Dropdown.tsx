@@ -10,6 +10,7 @@ import variantStyles from "../../../styles/variants.module.css";
 import { jC } from "../../../utils/utils";
 import shared from "../Field.module.css";
 import type { DropdownOption, DropdownProps } from "../Field.types";
+import { Chip } from "./Chip";
 import styles from "./Dropdown.module.css";
 import { useDropdown } from "./useDropdown";
 
@@ -88,23 +89,13 @@ const Dropdown = ({
         {selectedValues.map((v) => {
           const opt = options.find((o) => o.value === v);
           return (
-            <span key={v} className={styles.chip}>
-              {opt?.label}
-              <span
-                role="button"
-                tabIndex={0}
-                aria-label={`Remove ${opt?.label ?? v}`}
-                className={styles.chipRemove}
-                onClick={(e) => {
-                  removeChip(e, v);
-                }}
-                onKeyDown={(e) => {
-                  removeChipOnKey(e, v);
-                }}
-              >
-                &times;
-              </span>
-            </span>
+            <Chip
+              key={v}
+              value={v}
+              label={opt?.label ?? v}
+              removeChip={removeChip}
+              removeChipOnKey={removeChipOnKey}
+            />
           );
         })}
       </span>
@@ -156,7 +147,7 @@ const Dropdown = ({
           id={inputId}
           className={jC([
             shared.field,
-            shape === "pill" && shared.pill,
+            shape !== "default" && shared[shape],
             styles.dropdownTrigger,
           ])}
           data-fill={fill === "default" ? undefined : fill}
@@ -204,7 +195,7 @@ const Dropdown = ({
                   </div>
                 )}
                 <ul
-                  id={inputId}
+                  id={`${inputId}-inputId`}
                   role="listbox"
                   aria-multiselectable={multiple}
                   className={styles.dropdownList}

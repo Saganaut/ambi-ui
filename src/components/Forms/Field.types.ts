@@ -24,10 +24,6 @@ export interface FieldBase {
   infoMessage?: string | string[];
   errorMessage?: string | string[];
   validationState?: ValidationState;
-
-  /**if true grows grows to fill entire width of parent container
-  otherwise sticks to variants sizing. **/
-
   "aria-label"?: string;
   isDisabled?: boolean;
 }
@@ -57,7 +53,14 @@ export type DropdownProps = FieldBase &
     | { multiple: true; value?: string[]; onChange?: (value: string[]) => void }
   );
 
-export interface ComboboxProps {}
+export type ComboboxProps = FieldBase &
+  FieldStyle & {
+    options: DropdownOption[];
+    value?: string;
+    onChange?: (value: string) => void;
+    onInputValueChange?: (value: string) => void;
+    noOptionsMessage?: string;
+  } & Omit<ComponentPropsWithRef<"input">, "value" | "onChange">;
 
 export interface UseDropdownArgs {
   useFieldProps: UseFieldProps;
@@ -73,18 +76,14 @@ export interface UseDropdownArgs {
 export type CheckboxProps = Omit<FieldBase, "labelPosition"> &
   FieldStyle &
   Omit<ComponentPropsWithRef<"input">, "type"> & {
-    /** Place the label before or after the checkbox control. */
     labelPosition?: "labelBefore" | "labelAfter";
-    /** Place the label and control at opposite ends of a full-width row. */
     spaceBetween?: boolean;
   };
 
 export type FileUploadProps = FieldBase &
   FieldStyle &
   Omit<ComponentPropsWithRef<"input">, "type" | "multiple" | "onChange"> & {
-    /** Allow selecting more than one file. Defaults to true. */
     multiple?: boolean;
-    /** Reject files larger than this number of bytes. */
     maxBytes?: number;
     onChange?: (files: File[]) => void;
   };
@@ -97,11 +96,8 @@ export type InputWithButtonProps = FieldBase &
   FieldStyle &
   ComponentPropsWithRef<"input"> & {
     buttonLabel?: ReactNode;
-    /** Icon rendered inside the action button. Omit buttonLabel for an icon-only button. */
     buttonIcon?: ReactNode;
-    /** Position of buttonIcon when the action button also has a label. */
     buttonIconPosition?: "left" | "right";
-    /** Accessible name for the action button. Required when it is icon-only. */
     buttonAriaLabel?: string;
     onButtonClick?: () => void;
   };

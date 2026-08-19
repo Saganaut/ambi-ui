@@ -4,6 +4,11 @@
  * Dismissal belongs to the Floating UI boundary in Dropdown so portalled
  * options count as inside the field.
  */
+import type {
+  FloatingContext,
+  UseFloatingReturn,
+  UseInteractionsReturn,
+} from "@floating-ui/react";
 import {
   autoUpdate,
   flip,
@@ -18,18 +23,13 @@ import {
   useTypeahead,
 } from "@floating-ui/react";
 import type {
-  FloatingContext,
-  UseFloatingReturn,
-  UseInteractionsReturn,
-} from "@floating-ui/react";
-import { useEffect, useRef, useState } from "react";
-import type {
   Dispatch,
   KeyboardEvent,
   MouseEvent,
   RefObject,
   SetStateAction,
 } from "react";
+import { useEffect, useRef, useState } from "react";
 import { inheritTheme } from "../../../utils/inheritTheme";
 import type { DropdownOption, UseDropdownArgs } from "../Field.types";
 import { useField } from "../useField";
@@ -68,6 +68,12 @@ const useDropdown = ({
   disabled,
   useFieldProps,
 }: UseDropdownArgs): UseDropdownReturn => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [query, setQuery] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const optionRefs = useRef<(HTMLElement | null)[]>([]);
+  const optionLabels = useRef<(string | null)[]>([]);
+
   const selectedValues = Array.isArray(selectedValue)
     ? selectedValue
     : selectedValue == null
@@ -83,11 +89,6 @@ const useDropdown = ({
     aria,
   } = useField({ ...useFieldProps });
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const optionRefs = useRef<(HTMLElement | null)[]>([]);
-  const optionLabels = useRef<(string | null)[]>([]);
   const filtered = searchable
     ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()))
     : options;
@@ -126,41 +127,31 @@ const useDropdown = ({
     }
   };
 
-  const { refs, floatingStyles, context, placement } = useFloating<HTMLElement>({
-    open: isOpen,
-    onOpenChange: setOpen,
-    placement: "bottom-start",
-    strategy: "fixed",
-    whileElementsMounted: autoUpdate,
-    middleware: [
-      offset(4),
-      flip(),
-      shift({ padding: 8 }),
-      size({
-        apply({ rects, elements }) {
-          if (elements.reference instanceof Element) {
-            inheritTheme(elements.reference, elements.floating);
-          }
-          elements.floating.style.setProperty(
-            "--dropdown-reference-width",
-            `${rects.reference.width.toString()}px`,
-          );
-        },
-      }),
-    ],
-  });
-  useEffect(() => {
-    if (!isOpen) {
-      setActiveIndex(null);
-    } else if (!searchable && activeIndex != null) {
-      optionRefs.current[activeIndex]?.focus();
-    }
-  }, [activeIndex, isOpen, searchable]);
-  useEffect(() => {
-    if (disabled && isOpen) {
-      setOpen(false);
-    }
-  }, [disabled, isOpen, setOpen]);
+  const { refs, floatingStyles, context, placement } = useFloating<HTMLElement>(
+    {
+      open: isOpen,
+      onOpenChange: setOpen,
+      placement: "bottom-start",
+      strategy: "fixed",
+      whileElementsMounted: autoUpdate,
+      middleware: [
+        offset(4),
+        flip(),
+        shift({ padding: 8 }),
+        size({
+          apply({ rects, elements }) {
+            if (elements.reference instanceof Element) {
+              inheritTheme(elements.reference, elements.floating);
+            }
+            elements.floating.style.setProperty(
+              "--dropdown-reference-width",
+              `${rects.reference.width.toString()}px`,
+            );
+          },
+        }),
+      ],
+    },
+  );
 
   const click = useClick(context);
   const dismiss = useDismiss(context);
@@ -172,6 +163,7 @@ const useDropdown = ({
     focusItemOnOpen: !searchable,
     loop: true,
   });
+
   const typeahead = useTypeahead(context, {
     listRef: optionLabels,
     activeIndex,
@@ -179,12 +171,28 @@ const useDropdown = ({
     onMatch: setActiveIndex,
     enabled: !searchable,
   });
+
   const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
     [click, dismiss, listNavigation, typeahead],
   );
+
   const portalRoot = refs.domReference.current?.closest(
     "dialog",
   ) as HTMLElement | null;
+
+  useEffect(() => {
+    if (!isOpen) {
+      setActiveIndex(null);
+    } else if (!searchable && activeIndex != null) {
+      optionRefs.current[activeIndex]?.focus();
+    }
+  }, [activeIndex, isOpen, searchable]);
+
+  useEffect(() => {
+    if (disabled && isOpen) {
+      setOpen(false);
+    }
+  }, [disabled, isOpen, setOpen]);
 
   return {
     refs,

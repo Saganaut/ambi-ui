@@ -2,10 +2,10 @@
    :has() drives all visual state so no JS class toggling is needed. */
 
 .toggleContainer {
-  display: flex;
-  align-items: center;
   position: relative;
+  display: flex;
   width: 100%;
+  align-items: center;
 
   /* One --space-6 step below the control (flush left — no field text inset). */
   .message {
@@ -20,8 +20,8 @@
   position: absolute;
   width: 1px;
   height: 1px;
-  padding: 0;
   margin: -1px;
+  padding: 0;
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
@@ -90,9 +90,9 @@
 }
 
 .toggleLabelText {
+  color: var(--text-secondary);
   font-size: var(--font-size-sm);
   font-weight: 500;
-  color: var(--text-secondary);
   cursor: pointer;
   text-align: start;
 }

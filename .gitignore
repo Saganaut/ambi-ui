@@ -1,3 +1,75 @@
 node_modules/
 dist/
 storybook-static/
+
+
+
+# Generated .gitignore file for: Node, JavaScript, TypeScript, React, VSCode, Linux, npm, Vite, Docker
+# Created with FOSSA's DevOps Tools
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.env
+.DS_Store
+dist/
+.cache/
+coverage/
+
+# JavaScript
+# Add JavaScript-specific ignores here
+
+# TypeScript
+# Add TypeScript-specific ignores here
+
+# React
+node_modules/
+build/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Linux
+# Add Linux-specific ignores here
+
+# npm
+# Add npm-specific ignores here
+
+# Vite
+# Add Vite-specific ignores here
+
+# Docker
+docker-compose.override.yml
+Dockerfile.override
+.dockerignore
+
+# Common
+.DS_Store
+Thumbs.db
+*.log
+*.bak
+*.tmp
+*.swp
+*~
+
+# IDE and editor generated files
+.idea/
+*.sublime-*
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+
+
+# Test Artifacts
+.vitest-attachments/

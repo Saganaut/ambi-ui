@@ -30,6 +30,7 @@ export { type SplitBtnProps } from "./components/Buttons/Btn.types.ts";
 export { SplitBtn } from "./components/Buttons/SplitBtn.tsx";
 
 export { Checkbox } from "./components/Forms/Checkbox/Checkbox.tsx";
+export { Combobox } from "./components/Forms/Combobox/Combobox.tsx";
 export { Dropdown } from "./components/Forms/Dropdown/Dropdown.tsx";
 export { FileUpload } from "./components/Forms/FileUpload/FileUpload.tsx";
 export { Input } from "./components/Forms/Input/Input.tsx";
@@ -41,6 +42,7 @@ export { TextArea } from "./components/Forms/TextArea/TextArea.tsx";
 export { Toggle } from "./components/Forms/Toggle/Toggle.tsx";
 export type {
   CheckboxProps,
+  ComboboxProps,
   DropdownOption,
   DropdownProps,
   FieldFill,

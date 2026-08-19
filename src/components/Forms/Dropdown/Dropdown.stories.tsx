@@ -1,6 +1,7 @@
 /* oxlint-disable react-hooks/rules-of-hooks, no-console */
 /* oxlint-disable react-x/rules-of-hooks, no-console */
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { ReactNode } from "react";
 import { useState } from "react";
 import { fn, userEvent, within } from "storybook/test";
 import { componentDocs } from "../../../storybookDocs";
@@ -8,6 +9,23 @@ import "../../../styles/variants.module.css";
 import { Input } from "../Input/Input";
 import { Dropdown } from "./Dropdown";
 import { CATEGORY_OPTIONS, REGION_OPTIONS } from "./Dropdown.mocks";
+
+const VARIANTS = ["primary", "secondary", "brand", "info", "error", "success", "warning"] as const;
+const SHAPES = ["default", "pill", "squircle"] as const;
+const Section = ({ title, children }: { title: string; children: ReactNode }) => (
+  <section style={{ display: "grid", gap: "1rem" }}>
+    <h2 style={{ margin: 0, fontSize: "1rem" }}>{title}</h2>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 22rem), 1fr))",
+        gap: "1.5rem",
+      }}
+    >
+      {children}
+    </div>
+  </section>
+);
 
 // Dropdown is a controlled select (value is a string[] even in single mode).
 // The stories wrap it in a stateful host so selecting / deselecting and chip
@@ -55,8 +73,9 @@ const meta = {
       control: "inline-radio",
       options: ["default", "bordered", "ghost"],
     },
-    shape: { control: "inline-radio", options: ["default", "pill"] },
+    shape: { control: "inline-radio", options: SHAPES },
     fieldSize: { control: "inline-radio", options: ["xs", "sm", "md", "lg"] },
+    variant: { control: "select", options: VARIANTS },
     value: { control: false },
     onChange: { control: false },
   },
@@ -128,6 +147,32 @@ export const Overview: Story = {
           errorMessage="A region is required."
         />
         <Dropdown {...sharedArgs} multiple={false} label="Disabled" value="gondor" disabled />
+
+        <Section title="Color variants">
+          {VARIANTS.map((variant) => (
+            <Dropdown
+              {...sharedArgs}
+              key={variant}
+              id={`dropdown-variant-${variant}`}
+              multiple={false}
+              label={variant}
+              variant={variant}
+            />
+          ))}
+        </Section>
+
+        <Section title="Shapes">
+          {SHAPES.map((shape) => (
+            <Dropdown
+              {...sharedArgs}
+              key={shape}
+              id={`dropdown-shape-${shape}`}
+              multiple={false}
+              label={`${shape} shape`}
+              shape={shape}
+            />
+          ))}
+        </Section>
 
         <section style={{ display: "grid", gap: "1rem" }}>
           <h3 style={{ margin: 0 }}>Field parity matrix</h3>
