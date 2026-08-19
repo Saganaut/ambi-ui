@@ -1,3 +1,4 @@
+import type { UseFloatingReturn, UseInteractionsReturn } from "@floating-ui/react";
 import {
   autoUpdate,
   flip,
@@ -8,9 +9,8 @@ import {
   useFloating,
   useInteractions,
 } from "@floating-ui/react";
-import type { UseFloatingReturn, UseInteractionsReturn } from "@floating-ui/react";
-import { useEffect, useMemo, useRef, useState } from "react";
 import type { Dispatch, RefObject, SetStateAction } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { DropdownOption, FieldVariant, ValidationState } from "../Field.types";
 import { useField } from "../useField";
 
@@ -43,7 +43,7 @@ interface UseComboBoxReturn
     busy: true | undefined;
     invalid: boolean | undefined;
   };
-  setOpen: (next: boolean) => void;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   setActiveIndex: Dispatch<SetStateAction<number>>;
   filtered: DropdownOption[];
   isOpen: boolean;
@@ -85,11 +85,17 @@ export function useComboBox({
     return options.filter((option) => option.label.toLocaleLowerCase().includes(query));
   }, [inputValue, options, selectedLabel]);
 
-  const setOpen = (next: boolean) => {
-    setIsOpen(next);
-    if (!next) setActiveIndex(-1);
+  // const setOpen = (next: boolean) => {
+  //   setIsOpen(next);
+  //   if (!next) setActiveIndex(-1);
+  // };
+  const setOpen = (next: boolean | ((prev: boolean) => boolean)) => {
+    setIsOpen((prev) => {
+      const nextState = typeof next === "function" ? next(prev) : next;
+      if (!nextState) setActiveIndex(-1);
+      return nextState;
+    });
   };
-
   const { refs, floatingStyles, context } = useFloating<HTMLInputElement>({
     open: isOpen,
     onOpenChange: setOpen,
@@ -110,7 +116,10 @@ export function useComboBox({
       }),
     ],
   });
-  const dismiss = useDismiss(context);
+  const dismiss = useDismiss(context, {
+    outsidePress: (event) =>
+      !(event.target instanceof Element && event.target.closest("[data-combobox-toggle]")),
+  });
   const { getReferenceProps, getFloatingProps } = useInteractions([dismiss]);
   const portalRoot = refs.domReference.current?.closest("dialog") as HTMLElement | null;
 

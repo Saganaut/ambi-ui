@@ -16,11 +16,12 @@ import {
   useFloating,
   useInteractions,
   useListNavigation,
+  useTransitionStyles,
   useTypeahead,
 } from "@floating-ui/react";
-import type { Dispatch, RefObject, SetStateAction } from "react";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { inheritTheme } from "@utils/inheritTheme";
+import type { CSSProperties, Dispatch, RefObject, SetStateAction } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { DropdownOption, UseDropdownArgs } from "../Field.types";
 import { useField } from "../useField";
 
@@ -41,6 +42,8 @@ type UseDropdownReturn = DropdownFloatingReturn &
     isTypingRef: RefObject<boolean>;
     portalRoot: HTMLElement | null;
     isOpen: boolean;
+    isMounted: boolean;
+    transitionStyles: CSSProperties;
     setOpen: (next: boolean) => void;
     query: string;
     setQuery: Dispatch<SetStateAction<string>>;
@@ -162,6 +165,22 @@ const useDropdown = ({
     ],
   });
 
+  const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
+    duration: { open: 150, close: 100 },
+    initial: ({ side }) => ({
+      opacity: 0,
+      transform: `translateY(${side === "top" ? "4px" : "-4px"}) scale(0.98)`,
+    }),
+    open: {
+      opacity: 1,
+      transform: "translateY(0) scale(1)",
+    },
+    close: ({ side }) => ({
+      opacity: 0,
+      transform: `translateY(${side === "top" ? "4px" : "-4px"}) scale(0.98)`,
+    }),
+  });
+
   const click = useClick(context);
   const dismiss = useDismiss(context);
   const listNavigation = useListNavigation(context, {
@@ -240,6 +259,8 @@ const useDropdown = ({
     portalRoot,
     placement,
     isOpen,
+    isMounted,
+    transitionStyles,
     setOpen,
     context,
     query,

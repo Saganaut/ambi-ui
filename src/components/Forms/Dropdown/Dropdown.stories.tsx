@@ -212,7 +212,7 @@ export const Overview: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole("textbox", { name: "Focused input" }));
-    const trigger = canvas.getByRole("button", { name: "Open dropdown" });
+    const trigger = canvas.getByRole("combobox", { name: /^Open dropdown/ });
     await userEvent.click(trigger);
     await userEvent.hover(trigger);
   },

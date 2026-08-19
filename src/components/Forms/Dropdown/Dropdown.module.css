@@ -56,22 +56,33 @@
   transform: rotate(180deg);
 }
 
+.dropdownPositioner {
+  --dropdown-reference-width: 0px;
+  --dropdown-panel-z-index: var(--z-dropdown);
+
+  z-index: var(--dropdown-panel-z-index);
+}
+
 .dropdownPanel {
   /** Layout & Size **/
-  --dropdown-reference-width: 0px;
   --dropdown-panel-radius: var(--radius-md);
 
   /** Styling **/
   --dropdown-panel-bg-color: var(--bg-surface-raised);
   --dropdown-panel-shadow: var(--shadow-sm);
-  --dropdown-panel-z-index: var(--z-dropdown);
 
   width: var(--dropdown-reference-width);
   background-color: var(--dropdown-panel-bg-color);
   border-radius: var(--dropdown-panel-radius);
-  z-index: var(--dropdown-panel-z-index);
   overflow: hidden;
   box-shadow: var(--dropdown-panel-shadow);
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdownPanel {
+    transition-duration: 0ms !important;
+  }
 }
 
 /* compact — for label-left settings rows: the trigger hugs its content instead
@@ -179,8 +190,7 @@
   display: inline-flex;
 
   /* (2px, 8px) has no --p-pill-* equivalent — composed per axis on the gap tier */
-  padding: var(--dropdown-chip-padding-block)
-    var(--dropdown-chip-padding-inline);
+  padding: var(--dropdown-chip-padding-block) var(--dropdown-chip-padding-inline);
   color: var(--dropdown-chip-color);
   font-size: var(--dropdown-chip-font-size);
   align-items: center;
@@ -206,3 +216,7 @@
     color: var(--dropdown-chip-remove-hover-color);
   }
 }
+
+/* .optionCheck {
+  cursor: pointer;
+} */

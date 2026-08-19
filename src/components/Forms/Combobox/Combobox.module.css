@@ -1,22 +1,44 @@
+/*
+  TODO: 
+  * Refactor this with proper nesting
+  * Change padding right var for input
+*/
+
 .combobox {
   position: relative;
   width: 100%;
 }
 
 .input {
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value, declaration-property-value-disallowed-list, csstools/value-no-unknown-custom-properties */
   padding-right: calc(var(--input-padding) + var(--space-5));
 }
 
-.chevron {
+.chevronButton {
   position: absolute;
+  display: flex;
+  padding: 0;
+  background: none;
+  color: var(--text-brand);
   top: 50%;
   right: var(--space-3);
+  border: 0;
+  translate: 0 -50%;
+  cursor: pointer;
+}
+
+.chevronButton:disabled {
+  cursor: default;
+}
+
+.chevron {
   width: 1.125rem;
   height: 1.125rem;
-  color: var(--text-brand);
-  pointer-events: none;
-  translate: 0 -50%;
   transition: transform var(--duration-base) var(--ease-out);
+
+  &:hover {
+    stroke: var(--text-accent);
+  }
 }
 
 .chevronOpen {

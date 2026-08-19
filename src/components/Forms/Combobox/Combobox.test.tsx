@@ -76,4 +76,23 @@ describe("Combobox", () => {
       screen.getByRole("option", { name: "Gondor" }).id,
     );
   });
+
+  it("toggles the options from the chevron without taking input focus", async () => {
+    const user = userEvent.setup();
+    render(<ControlledCombobox />);
+
+    const input = screen.getByRole("combobox", { name: "Region" });
+    const toggle = screen.getByRole("button", { name: "Open options" });
+
+    await user.click(input);
+    expect(input).toHaveAttribute("aria-expanded", "true");
+
+    await user.click(screen.getByRole("button", { name: "Close options" }));
+    expect(input).toHaveAttribute("aria-expanded", "false");
+    expect(document.activeElement).toBe(input);
+
+    await user.click(toggle);
+    expect(input).toHaveAttribute("aria-expanded", "true");
+    expect(document.activeElement).toBe(input);
+  });
 });

@@ -1,10 +1,10 @@
 import { FloatingFocusManager, FloatingPortal } from "@floating-ui/react";
-import { CheckIcon, ChevronDownIcon } from "lucide-react";
-import type { KeyboardEvent } from "react";
-import { useRef } from "react";
 import utilities from "@styles/utilities.module.css";
 import variantStyles from "@styles/variants.module.css";
 import { jC } from "@utils/utils";
+import { CheckIcon, ChevronDownIcon } from "lucide-react";
+import type { KeyboardEvent } from "react";
+import { useRef } from "react";
 import { ChipList } from "../Chip/ChipList";
 import shared from "../Field.module.css";
 import type { DropdownOption, DropdownProps } from "../Field.types";
@@ -42,6 +42,8 @@ const Dropdown = ({
   const searchRef = useRef<HTMLInputElement>(null);
   const {
     isOpen,
+    isMounted,
+    transitionStyles,
     query,
     setQuery,
     getItemProps,
@@ -96,13 +98,14 @@ const Dropdown = ({
       ? placeholder
       : multiple
         ? `${selectedValues.length.toString()} selected`
-        : (options.find((option) => option.value === selectedValues[0])?.label ??
-          selectedValues[0]);
+        : (options.find((option) => option.value === selectedValues[0])
+            ?.label ?? selectedValues[0]);
 
   /** Enter always selects; Space only when typeahead is not mid-word. */
   const selectOnKey = (event: KeyboardEvent) => {
     if (!isOpen) return;
-    const isSelectKey = event.key === "Enter" || (event.key === " " && !isTypingRef.current);
+    const isSelectKey =
+      event.key === "Enter" || (event.key === " " && !isTypingRef.current);
     if (isSelectKey && selectActive()) event.preventDefault();
   };
 
@@ -121,7 +124,11 @@ const Dropdown = ({
       ])}
     >
       {label ? (
-        <FieldLabel id={labelId} label={label} extraLabelInfo={extraLabelInfo} />
+        <FieldLabel
+          id={labelId}
+          label={label}
+          extraLabelInfo={extraLabelInfo}
+        />
       ) : (
         ariaLabel && (
           <span id={labelId} className={utilities.visuallyHidden}>
@@ -130,7 +137,11 @@ const Dropdown = ({
         )
       )}
       <div
-        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth, styles.dropdown])}
+        className={jC([
+          shared.fieldWrapper,
+          fullWidth && shared.fullWidth,
+          styles.dropdown,
+        ])}
         data-status={dataStatus}
       >
         <button
@@ -153,7 +164,10 @@ const Dropdown = ({
           aria-busy={aria.busy}
           aria-describedby={aria.describedBy}
           role="combobox"
-          aria-labelledby={labelText ? `${labelId} ${valueId}` : valueId}
+          aria-labelledby={labelText ? `${labelId} ${valueId}` : undefined}
+          aria-label={
+            labelText ? `${labelText}-dropdown` : `${valueId}-dropdown`
+          }
           aria-haspopup="listbox"
           aria-expanded={isOpen}
           aria-controls={isOpen ? listboxId : undefined}
@@ -161,20 +175,30 @@ const Dropdown = ({
         >
           <span
             id={valueId}
-            className={selectedValues.length === 0 ? styles.dropdownPlaceholder : undefined}
+            className={
+              selectedValues.length === 0
+                ? styles.dropdownPlaceholder
+                : undefined
+            }
           >
             {triggerLabel}
           </span>
 
-          <ChevronDownIcon className={jC([styles.chevron, isOpen ? styles.chevronOpen : ""])} />
+          <ChevronDownIcon
+            className={jC([styles.chevron, isOpen ? styles.chevronOpen : ""])}
+          />
         </button>
 
         {multiple && selectedValues.length > 0 && (
           <ChipList
-            aria-label={labelText ? `Selected ${labelText}` : "Selected options"}
+            aria-label={
+              labelText ? `Selected ${labelText}` : "Selected options"
+            }
             chips={selectedValues.map((value, index) => ({
               value,
-              label: options.find((option) => option.value === value)?.label ?? value,
+              label:
+                options.find((option) => option.value === value)?.label ??
+                value,
               ref: (node) => {
                 chipRefs.current[index] = node;
               },
@@ -183,7 +207,7 @@ const Dropdown = ({
           />
         )}
 
-        {isOpen && (
+        {(isOpen || isMounted) && (
           <FloatingPortal root={portalRoot ?? undefined}>
             <FloatingFocusManager
               context={context}
@@ -192,83 +216,94 @@ const Dropdown = ({
             >
               <div
                 ref={refs.setFloating}
-                className={jC([styles.dropdownPanel])}
+                className={styles.dropdownPositioner}
                 data-placement={placement}
                 style={floatingStyles}
                 {...getFloatingProps()}
                 aria-activedescendant={undefined}
               >
-                {searchable && (
-                  <div className={styles.dropdownSearch}>
-                    <input
-                      ref={searchRef}
-                      type="text"
-                      value={query}
-                      onChange={(e) => {
-                        setQuery(e.target.value);
-                      }}
-                      onKeyDown={selectOnKey}
-                      placeholder="Search..."
-                      aria-label="Search options"
-                      role="combobox"
-                      aria-expanded
-                      aria-controls={listboxId}
-                      aria-activedescendant={activeId}
-                      aria-autocomplete="list"
-                      autoComplete="off"
-                      className={shared.noBorders}
-                    />
-                  </div>
-                )}
-                <ul
-                  id={listboxId}
-                  role="listbox"
-                  aria-labelledby={labelText ? labelId : undefined}
-                  aria-label={labelText ? undefined : "Options"}
-                  aria-multiselectable={multiple}
-                  className={styles.dropdownList}
-                >
-                  {filtered.map((opt, index) => (
-                    <li
-                      key={opt.value}
-                      id={optionId(index)}
-                      role="option"
-                      aria-selected={selectedValues.includes(opt.value)}
-                      data-active={activeIndex === index}
-                      className={jC([
-                        styles.dropdownOption,
-                        selectedValues.includes(opt.value) ? styles.selected : "",
-                      ])}
-                      ref={(node) => {
-                        optionRefs.current[index] = node;
-                        optionLabels.current[index] = opt.label;
-                      }}
-                      {...getItemProps({
-                        onClick: () => {
-                          toggle(opt.value);
-                        },
-                      })}
+                <div className={styles.dropdownPanel} style={transitionStyles}>
+                  {searchable && (
+                    <div className={styles.dropdownSearch}>
+                      <input
+                        ref={searchRef}
+                        type="text"
+                        value={query}
+                        onChange={(e) => {
+                          setQuery(e.target.value);
+                        }}
+                        onKeyDown={selectOnKey}
+                        placeholder="Search..."
+                        aria-label="Search options"
+                        role="combobox"
+                        aria-expanded={isOpen}
+                        aria-controls={listboxId}
+                        aria-activedescendant={activeId}
+                        aria-autocomplete="list"
+                        autoComplete="off"
+                        className={shared.noBorders}
+                      />
+                    </div>
+                  )}
+                  <ul
+                    id={listboxId}
+                    role="listbox"
+                    aria-labelledby={labelText ? labelId : undefined}
+                    aria-label={labelText ? undefined : "Options"}
+                    aria-multiselectable={multiple}
+                    className={styles.dropdownList}
+                  >
+                    {filtered.map((opt, index) => (
+                      <li
+                        key={opt.value}
+                        id={optionId(index)}
+                        role="option"
+                        aria-selected={selectedValues.includes(opt.value)}
+                        data-active={activeIndex === index}
+                        className={jC([
+                          styles.dropdownOption,
+                          selectedValues.includes(opt.value)
+                            ? styles.selected
+                            : "",
+                        ])}
+                        ref={(node) => {
+                          optionRefs.current[index] = node;
+                          optionLabels.current[index] = opt.label;
+                        }}
+                        {...getItemProps({
+                          onClick: () => {
+                            toggle(opt.value);
+                          },
+                        })}
+                      >
+                        {multiple && (
+                          <CheckIcon
+                            aria-hidden="true"
+                            className={jC([
+                              styles.optionCheck,
+                              selectedValues.includes(opt.value)
+                                ? styles.optionCheckOn
+                                : "",
+                            ])}
+                          />
+                        )}
+                        {opt.label}
+                      </li>
+                    ))}
+                  </ul>
+                  {/* Outside the <ul>: a listbox may only own `option` children. */}
+                  {filtered.length === 0 && (
+                    <div className={styles.dropdownEmpty}>No options</div>
+                  )}
+                  {searchable && (
+                    <span
+                      aria-live="polite"
+                      className={utilities.visuallyHidden}
                     >
-                      {multiple && (
-                        <CheckIcon
-                          aria-hidden="true"
-                          className={jC([
-                            styles.optionCheck,
-                            selectedValues.includes(opt.value) ? styles.optionCheckOn : "",
-                          ])}
-                        />
-                      )}
-                      {opt.label}
-                    </li>
-                  ))}
-                </ul>
-                {/* Outside the <ul>: a listbox may only own `option` children. */}
-                {filtered.length === 0 && <div className={styles.dropdownEmpty}>No options</div>}
-                {searchable && (
-                  <span aria-live="polite" className={utilities.visuallyHidden}>
-                    {`${filtered.length.toString()} options available`}
-                  </span>
-                )}
+                      {`${filtered.length.toString()} options available`}
+                    </span>
+                  )}
+                </div>
               </div>
             </FloatingFocusManager>
           </FloatingPortal>
@@ -276,7 +311,11 @@ const Dropdown = ({
 
         {/* Mounted unconditionally: a live region inserted at the same moment as
             its text is not announced. */}
-        <FeedbackMessage id={messageId} errorMessage={errorMessage} infoMessage={infoMessage} />
+        <FeedbackMessage
+          id={messageId}
+          errorMessage={errorMessage}
+          infoMessage={infoMessage}
+        />
       </div>
     </div>
   );

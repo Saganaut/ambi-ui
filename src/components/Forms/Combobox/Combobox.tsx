@@ -1,7 +1,7 @@
 import { FloatingPortal } from "@floating-ui/react";
-import { ChevronDownIcon } from "lucide-react";
 import variantStyles from "@styles/variants.module.css";
 import { jC } from "@utils/utils";
+import { ChevronDownIcon } from "lucide-react";
 import shared from "../Field.module.css";
 import type { ComboboxProps } from "../Field.types";
 import { FeedbackMessage } from "../_shared/FeedbackMessage";
@@ -133,9 +133,24 @@ const Combobox = ({
               Combobox.setOpen(true);
             }}
           />
-          <ChevronDownIcon
-            className={jC([styles.chevron, Combobox.isOpen && styles.chevronOpen])}
-          />
+          <button
+            type="button"
+            data-combobox-toggle
+            className={styles.chevronButton}
+            aria-label={Combobox.isOpen ? "Close options" : "Open options"}
+            aria-controls={Combobox.listboxId}
+            aria-expanded={Combobox.isOpen}
+            disabled={disabled}
+            onPointerDown={(event) => {
+              event.preventDefault();
+            }}
+            onClick={() => Combobox.setOpen((prev) => !prev)}
+          >
+            <ChevronDownIcon
+              aria-hidden="true"
+              className={jC([styles.chevron, Combobox.isOpen && styles.chevronOpen])}
+            />
+          </button>
         </div>
 
         {Combobox.isOpen && (
