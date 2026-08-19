@@ -45,7 +45,7 @@ My custom component library used in new project.
 - Some styles are exposed as data-attributes they are:
   -- fill
 - Each component has their own derived custom properties that can be overwritten
-- A new design system can be implemented by replacing tokens.css
+- A new design system can be implemented by replacing tokens
 
 ## CSS patterns
 
