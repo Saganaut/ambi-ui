@@ -4,11 +4,7 @@
  * Dismissal belongs to the Floating UI boundary in Dropdown so portalled
  * options count as inside the field.
  */
-import type {
-  FloatingContext,
-  UseFloatingReturn,
-  UseInteractionsReturn,
-} from "@floating-ui/react";
+import type { FloatingContext, UseFloatingReturn, UseInteractionsReturn } from "@floating-ui/react";
 import {
   autoUpdate,
   flip,
@@ -22,15 +18,9 @@ import {
   useListNavigation,
   useTypeahead,
 } from "@floating-ui/react";
-import type {
-  Dispatch,
-  KeyboardEvent,
-  MouseEvent,
-  RefObject,
-  SetStateAction,
-} from "react";
-import { useEffect, useRef, useState } from "react";
-import { inheritTheme } from "../../../utils/inheritTheme";
+import type { Dispatch, RefObject, SetStateAction } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { inheritTheme } from "@utils/inheritTheme";
 import type { DropdownOption, UseDropdownArgs } from "../Field.types";
 import { useField } from "../useField";
 
@@ -47,6 +37,8 @@ type UseDropdownReturn = DropdownFloatingReturn &
     activeIndex: number | null;
     optionLabels: RefObject<(string | null)[]>;
     optionRefs: RefObject<(HTMLElement | null)[]>;
+    chipRefs: RefObject<(HTMLButtonElement | null)[]>;
+    isTypingRef: RefObject<boolean>;
     portalRoot: HTMLElement | null;
     isOpen: boolean;
     setOpen: (next: boolean) => void;
@@ -54,9 +46,16 @@ type UseDropdownReturn = DropdownFloatingReturn &
     setQuery: Dispatch<SetStateAction<string>>;
     filtered: DropdownOption[];
     toggle: (optValue: string) => void;
-    removeChip: (event: MouseEvent, value: string) => void;
-    removeChipOnKey: (event: KeyboardEvent, value: string) => void;
+    /** Selects the virtually focused option. Returns false when none is active. */
+    selectActive: () => boolean;
+    removeChip: (value: string) => void;
     selectedValues: string[];
+    /** Ids wiring the trigger, its label, its value, and the portalled listbox. */
+    listboxId: string;
+    labelId: string;
+    valueId: string;
+    optionId: (index: number) => string;
+    activeId: string | undefined;
   };
 
 const useDropdown = ({
@@ -73,6 +72,13 @@ const useDropdown = ({
   const [isOpen, setIsOpen] = useState(false);
   const optionRefs = useRef<(HTMLElement | null)[]>([]);
   const optionLabels = useRef<(string | null)[]>([]);
+  const chipRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  // Index of the chip that was just removed, so focus can land on its successor
+  // once the shortened list has rendered.
+  const removedChipIndex = useRef<number | null>(null);
+  // Typeahead owns Space mid-word, so selection keys have to stand down while a
+  // label is being typed.
+  const isTypingRef = useRef(false);
 
   const selectedValues = Array.isArray(selectedValue)
     ? selectedValue
@@ -89,13 +95,17 @@ const useDropdown = ({
     aria,
   } = useField({ ...useFieldProps });
 
+  const listboxId = `${dropdownId}-listbox`;
+  const labelId = `${dropdownId}-label`;
+  const valueId = `${dropdownId}-value`;
+  const optionId = (index: number) => `${listboxId}-option-${index.toString()}`;
+  const activeId = activeIndex == null ? undefined : optionId(activeIndex);
+
   const filtered = searchable
     ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()))
     : options;
 
-  const selectedIndex = filtered.findIndex((option) =>
-    selectedValues.includes(option.value),
-  );
+  const selectedIndex = filtered.findIndex((option) => selectedValues.includes(option.value));
 
   const setOpen = (next: boolean) => {
     setIsOpen(next);
@@ -115,43 +125,42 @@ const useDropdown = ({
     onChange?.(next);
   };
 
-  const removeChip = (e: React.MouseEvent, v: string) => {
-    e.stopPropagation();
-    onChange?.(selectedValues.filter((x) => x !== v));
+  const selectActive = () => {
+    if (activeIndex == null) return false;
+    const option = filtered[activeIndex];
+    if (!option) return false;
+    toggle(option.value);
+    return true;
   };
 
-  const removeChipOnKey = (e: React.KeyboardEvent, v: string) => {
-    if (e.key === "Enter") {
-      e.stopPropagation();
-      onChange?.(selectedValues.filter((x) => x !== v));
-    }
+  const removeChip = (value: string) => {
+    removedChipIndex.current = selectedValues.indexOf(value);
+    onChange?.(selectedValues.filter((x) => x !== value));
   };
 
-  const { refs, floatingStyles, context, placement } = useFloating<HTMLElement>(
-    {
-      open: isOpen,
-      onOpenChange: setOpen,
-      placement: "bottom-start",
-      strategy: "fixed",
-      whileElementsMounted: autoUpdate,
-      middleware: [
-        offset(4),
-        flip(),
-        shift({ padding: 8 }),
-        size({
-          apply({ rects, elements }) {
-            if (elements.reference instanceof Element) {
-              inheritTheme(elements.reference, elements.floating);
-            }
-            elements.floating.style.setProperty(
-              "--dropdown-reference-width",
-              `${rects.reference.width.toString()}px`,
-            );
-          },
-        }),
-      ],
-    },
-  );
+  const { refs, floatingStyles, context, placement } = useFloating<HTMLElement>({
+    open: isOpen,
+    onOpenChange: setOpen,
+    placement: "bottom-start",
+    strategy: "fixed",
+    whileElementsMounted: autoUpdate,
+    middleware: [
+      offset(4),
+      flip(),
+      shift({ padding: 8 }),
+      size({
+        apply({ rects, elements }) {
+          if (elements.reference instanceof Element) {
+            inheritTheme(elements.reference, elements.floating);
+          }
+          elements.floating.style.setProperty(
+            "--dropdown-reference-width",
+            `${rects.reference.width.toString()}px`,
+          );
+        },
+      }),
+    ],
+  });
 
   const click = useClick(context);
   const dismiss = useDismiss(context);
@@ -162,6 +171,10 @@ const useDropdown = ({
     onNavigate: setActiveIndex,
     focusItemOnOpen: !searchable,
     loop: true,
+    // Virtual focus: DOM focus stays on the trigger (or the search box) and the
+    // active option is pointed at with aria-activedescendant, so the search box
+    // never loses focus to an option while filtering.
+    virtual: true,
   });
 
   const typeahead = useTypeahead(context, {
@@ -170,23 +183,42 @@ const useDropdown = ({
     selectedIndex: selectedIndex < 0 ? null : selectedIndex,
     onMatch: setActiveIndex,
     enabled: !searchable,
+    onTypingChange: (typing) => {
+      isTypingRef.current = typing;
+    },
   });
 
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [click, dismiss, listNavigation, typeahead],
-  );
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
+    click,
+    dismiss,
+    listNavigation,
+    typeahead,
+  ]);
 
-  const portalRoot = refs.domReference.current?.closest(
-    "dialog",
-  ) as HTMLElement | null;
+  const portalRoot = refs.domReference.current?.closest("dialog") as HTMLElement | null;
 
   useEffect(() => {
     if (!isOpen) {
       setActiveIndex(null);
-    } else if (!searchable && activeIndex != null) {
-      optionRefs.current[activeIndex]?.focus();
+    } else if (activeIndex != null) {
+      optionRefs.current[activeIndex]?.scrollIntoView({ block: "nearest" });
     }
-  }, [activeIndex, isOpen, searchable]);
+  }, [activeIndex, isOpen]);
+
+  // A removed chip takes its button out of the DOM, so hand focus to the chip
+  // that slid into its place — or back to the trigger once none are left.
+  useLayoutEffect(() => {
+    const index = removedChipIndex.current;
+    if (index == null) return;
+    removedChipIndex.current = null;
+
+    const next =
+      selectedValues.length === 0
+        ? null
+        : (chipRefs.current[Math.min(index, selectedValues.length - 1)] ?? null);
+
+    (next ?? refs.domReference.current)?.focus();
+  }, [refs.domReference, selectedValues.length]);
 
   useEffect(() => {
     if (disabled && isOpen) {
@@ -201,6 +233,8 @@ const useDropdown = ({
     getReferenceProps,
     optionLabels,
     optionRefs,
+    chipRefs,
+    isTypingRef,
     getFloatingProps,
     getItemProps,
     portalRoot,
@@ -212,9 +246,14 @@ const useDropdown = ({
     setQuery,
     filtered,
     toggle,
+    selectActive,
     removeChip,
-    removeChipOnKey,
     inputId: dropdownId,
+    listboxId,
+    labelId,
+    valueId,
+    optionId,
+    activeId,
     messageId,
     hasMessage,
     dataStatus,

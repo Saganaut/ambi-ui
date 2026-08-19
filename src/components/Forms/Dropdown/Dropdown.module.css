@@ -165,16 +165,6 @@
   text-align: center;
 }
 
-.chipList {
-  --dropdown-chip-list-gap: var(--gap-xs);
-
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--dropdown-chip-list-gap);
-  flex: 1;
-  min-width: 0;
-}
-
 .chip {
   --dropdown-chip-gap: var(--gap-xs);
   --dropdown-chip-padding-block: var(--gap-xxs);
@@ -187,8 +177,7 @@
   display: inline-flex;
 
   /* (2px, 8px) has no --p-pill-* equivalent — composed per axis on the gap tier */
-  padding: var(--dropdown-chip-padding-block)
-    var(--dropdown-chip-padding-inline);
+  padding: var(--dropdown-chip-padding-block) var(--dropdown-chip-padding-inline);
   color: var(--dropdown-chip-color);
   font-size: var(--dropdown-chip-font-size);
   align-items: center;
@@ -203,9 +192,11 @@
   --dropdown-chip-remove-hover-color: var(--text-error);
 
   display: flex;
+  width: 1em;
+  height: 1em;
   color: var(--dropdown-chip-remove-color);
   cursor: pointer;
-  line-height: 1;
+  line-height: 1em;
   align-items: center;
 
   &:hover {

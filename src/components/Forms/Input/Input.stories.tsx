@@ -3,7 +3,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactNode } from "react";
 import { componentDocs } from "../../../storybookDocs";
-import "../../../styles/variants.module.css";
+import "@styles/variants.module.css";
 import { Input } from "./Input";
 
 const SIZES = ["xs", "sm", "md", "lg"] as const;

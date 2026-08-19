@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { fn } from "storybook/test";
 import { componentDocs } from "../../../storybookDocs";
-import "../../../styles/variants.module.css";
+import "@styles/variants.module.css";
 import { NumberInput } from "./NumberInput";
 
 // NumberInput is a controlled numeric field (value/onChange typed as number).

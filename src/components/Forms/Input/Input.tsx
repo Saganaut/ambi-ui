@@ -1,8 +1,10 @@
-import variantStyles from "../../../styles/variants.module.css";
-import { jC } from "../../../utils/utils";
+import variantStyles from "@styles/variants.module.css";
+import { jC } from "@utils/utils";
 import shared from "../Field.module.css";
 import type { InputProps } from "../Field.types";
-import { StatusIcon } from "../StatusIcon";
+import { FeedbackMessage } from "../_shared/FeedbackMessage";
+import { FieldLabel } from "../_shared/FieldLabel";
+import { StatusIcon } from "../_shared/StatusIcon";
 import { useField } from "../useField";
 
 const Input = ({
@@ -49,12 +51,11 @@ const Input = ({
     >
       {/* Label Wrapper */}
       {label && (
-        <div className={jC([shared.labelWrapper])}>
-          <label htmlFor={inputId}>{label}</label>
-          {extraLabelInfo && (
-            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
-          )}
-        </div>
+        <FieldLabel
+          id={inputId}
+          label={label}
+          extraLabelInfo={extraLabelInfo}
+        />
       )}
 
       {/* Field Wrapper */}
@@ -74,19 +75,13 @@ const Input = ({
         />
 
         {hasMessage && (
-          <span
+          <FeedbackMessage
             id={messageId}
-            aria-live="polite"
-            className={jC([
-              shared.inputInfoMessage,
-              shared.message,
-              errorMessage && shared.errorMessage,
-            ])}
-          >
-            {errorMessage ?? infoMessage}
-          </span>
+            errorMessage={errorMessage}
+            infoMessage={infoMessage}
+          />
         )}
-        <StatusIcon className={shared.statusIcon} dataStatus={dataStatus} />
+        <StatusIcon dataStatus={dataStatus} />
       </div>
     </div>
   );

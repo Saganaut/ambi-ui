@@ -8,17 +8,10 @@ import {
   useFloating,
   useInteractions,
 } from "@floating-ui/react";
-import type {
-  UseFloatingReturn,
-  UseInteractionsReturn,
-} from "@floating-ui/react";
+import type { UseFloatingReturn, UseInteractionsReturn } from "@floating-ui/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Dispatch, RefObject, SetStateAction } from "react";
-import type {
-  DropdownOption,
-  FieldVariant,
-  ValidationState,
-} from "../Field.types";
+import type { DropdownOption, FieldVariant, ValidationState } from "../Field.types";
 import { useField } from "../useField";
 
 interface UseComboBoxProps {
@@ -34,7 +27,8 @@ interface UseComboBoxProps {
 }
 
 interface UseComboBoxReturn
-  extends Pick<UseFloatingReturn<HTMLInputElement>, "floatingStyles" | "refs">,
+  extends
+    Pick<UseFloatingReturn<HTMLInputElement>, "floatingStyles" | "refs">,
     Pick<UseInteractionsReturn, "getReferenceProps" | "getFloatingProps"> {
   select: (index: number) => void;
   listboxId: string;
@@ -71,28 +65,24 @@ export function useComboBox({
   validationState,
   variant,
 }: UseComboBoxProps): UseComboBoxReturn {
-  const selectedLabel =
-    options.find((option) => option.value === value)?.label ?? "";
+  const selectedLabel = options.find((option) => option.value === value)?.label ?? "";
   const [inputValue, setInputValue] = useState(selectedLabel);
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const optionRefs = useRef<(HTMLLIElement | null)[]>([]);
 
-  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } =
-    useField({
-      id,
-      infoMessage,
-      errorMessage,
-      validationState,
-      variant,
-    });
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
+    id,
+    infoMessage,
+    errorMessage,
+    validationState,
+    variant,
+  });
   const listboxId = `${id ?? inputId}-listbox`;
   const filtered = useMemo(() => {
     const query = inputValue.trim().toLocaleLowerCase();
     if (!query || inputValue === selectedLabel) return options;
-    return options.filter((option) =>
-      option.label.toLocaleLowerCase().includes(query)
-    );
+    return options.filter((option) => option.label.toLocaleLowerCase().includes(query));
   }, [inputValue, options, selectedLabel]);
 
   const setOpen = (next: boolean) => {
@@ -114,7 +104,7 @@ export function useComboBox({
         apply({ rects, elements }) {
           elements.floating.style.setProperty(
             "--combobox-reference-width",
-            `${rects.reference.width.toString()}px`
+            `${rects.reference.width.toString()}px`,
           );
         },
       }),
@@ -122,14 +112,11 @@ export function useComboBox({
   });
   const dismiss = useDismiss(context);
   const { getReferenceProps, getFloatingProps } = useInteractions([dismiss]);
-  const portalRoot = refs.domReference.current?.closest(
-    "dialog"
-  ) as HTMLElement | null;
+  const portalRoot = refs.domReference.current?.closest("dialog") as HTMLElement | null;
 
   useEffect(() => setInputValue(selectedLabel), [selectedLabel]);
   useEffect(() => {
-    if (activeIndex >= 0)
-      optionRefs.current[activeIndex]?.scrollIntoView({ block: "nearest" });
+    if (activeIndex >= 0) optionRefs.current[activeIndex]?.scrollIntoView({ block: "nearest" });
   }, [activeIndex]);
   useEffect(() => {
     if (disabled) setOpen(false);

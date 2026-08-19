@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactNode } from "react";
-import "./styles/variants.module.css";
-import { Btn } from "./components/Buttons/Btn";
-import type { BtnFill, BtnSize, BtnVariant } from "./components/Buttons/Btn.types";
-import { Checkbox } from "./components/Forms/Checkbox/Checkbox";
-import { Input } from "./components/Forms/Input/Input";
+import "@styles/variants.module.css";
+import { Btn } from "@components/Buttons/Btn";
+import type { BtnFill, BtnSize, BtnVariant } from "@components/Buttons/Btn.types";
+import { Checkbox } from "@components/Forms/Checkbox/Checkbox";
+import { Input } from "@components/Forms/Input/Input";
 import { referenceDocs } from "./storybookDocs";
 
 const SIZES: BtnSize[] = ["xs", "sm", "md", "lg"];

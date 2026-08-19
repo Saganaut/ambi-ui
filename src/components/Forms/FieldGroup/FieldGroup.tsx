@@ -1,5 +1,5 @@
 import type { ComponentPropsWithRef, CSSProperties } from "react";
-import { jC } from "../../../utils/utils";
+import { jC } from "@utils/utils";
 import styles from "./FieldGroup.module.css";
 
 type FieldGroupProps = ComponentPropsWithRef<"div"> & {

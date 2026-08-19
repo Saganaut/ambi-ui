@@ -3,7 +3,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
 import { componentDocs } from "../../../storybookDocs";
-import "../../../styles/variants.module.css";
+import "@styles/variants.module.css";
 import { Radio } from "./Radio";
 
 const meta = {

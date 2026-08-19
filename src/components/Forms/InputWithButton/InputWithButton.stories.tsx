@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { fn } from "storybook/test";
 import { componentDocs } from "../../../storybookDocs";
-import "../../../styles/variants.module.css";
+import "@styles/variants.module.css";
 import type { FieldVariant } from "../Field.types";
 import { InputWithButton } from "./InputWithButton";
 

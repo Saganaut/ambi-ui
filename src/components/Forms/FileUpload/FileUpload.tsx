@@ -1,10 +1,12 @@
 // File upload component with drag-and-drop support and multi-file selection
+import variantStyles from "@styles/variants.module.css";
+import { jC } from "@utils/utils";
 import { Image, X } from "lucide-react";
-import variantStyles from "../../../styles/variants.module.css";
-import { jC } from "../../../utils/utils";
 import { Btn } from "../../Buttons/Btn";
 import shared from "../Field.module.css";
 import type { FileUploadProps } from "../Field.types";
+import { FeedbackMessage } from "../_shared/FeedbackMessage";
+import { FieldLabel } from "../_shared/FieldLabel";
 import { useField } from "../useField";
 import styles from "./FileUpload.module.css";
 import { useFileUpload } from "./useFileUpload";
@@ -44,14 +46,13 @@ const FileUpload = ({
     openPicker,
   } = useFileUpload({ onChange, multiple, accept, maxBytes });
   const displayedError = rejection ?? errorMessage;
-  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } =
-    useField({
-      id,
-      infoMessage,
-      errorMessage: displayedError,
-      validationState,
-      variant,
-    });
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
+    id,
+    infoMessage,
+    errorMessage: displayedError,
+    validationState,
+    variant,
+  });
 
   return (
     <div
@@ -67,14 +68,7 @@ const FileUpload = ({
         inputVariant !== "brand" && shared[inputVariant],
       ])}
     >
-      {label && (
-        <div className={shared.labelWrapper}>
-          <label htmlFor={inputId}>{label}</label>
-          {extraLabelInfo && (
-            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
-          )}
-        </div>
-      )}
+      {label && <FieldLabel id={inputId} label={label} extraLabelInfo={extraLabelInfo} />}
       <div
         className={jC([
           shared.fieldWrapper,
@@ -152,17 +146,7 @@ const FileUpload = ({
           </ul>
         )}
         {hasMessage && (
-          <span
-            id={messageId}
-            aria-live="polite"
-            className={jC([
-              shared.inputInfoMessage,
-              shared.message,
-              displayedError && shared.errorMessage,
-            ])}
-          >
-            {displayedError ?? infoMessage}
-          </span>
+          <FeedbackMessage id={messageId} errorMessage={displayedError} infoMessage={infoMessage} />
         )}
         {/* <div className={shared.statusIcon}>
           {dataStatus === "valid" && <Check />}

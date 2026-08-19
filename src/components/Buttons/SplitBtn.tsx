@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from "lucide-react";
-import { jC } from "../../utils/utils";
+import { jC } from "@utils/utils";
 import { DropdownMenu } from "../DropdownMenu/DropdownMenu";
 import { Btn } from "./Btn";
 import type { SplitBtnProps } from "./Btn.types";

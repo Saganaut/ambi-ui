@@ -1,11 +1,11 @@
 /* oxlint-disable react-hooks/rules-of-hooks, no-console */
 /* oxlint-disable react-x/rules-of-hooks, no-console */
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import "@styles/variants.module.css";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { fn, userEvent, within } from "storybook/test";
 import { componentDocs } from "../../../storybookDocs";
-import "../../../styles/variants.module.css";
 import { Input } from "../Input/Input";
 import { Dropdown } from "./Dropdown";
 import { CATEGORY_OPTIONS, REGION_OPTIONS } from "./Dropdown.mocks";

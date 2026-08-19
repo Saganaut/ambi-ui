@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactNode } from "react";
-import { Dropdown } from "./components/Forms/Dropdown/Dropdown";
-import { REGION_OPTIONS } from "./components/Forms/Dropdown/Dropdown.mocks";
-import type { FieldSize } from "./components/Forms/Field.types";
-import { Input } from "./components/Forms/Input/Input";
-import { InputWithButton } from "./components/Forms/InputWithButton/InputWithButton";
-import { NumberInput } from "./components/Forms/NumberInput/NumberInput";
-import { TextArea } from "./components/Forms/TextArea/TextArea";
+import { Dropdown } from "@components/Forms/Dropdown/Dropdown";
+import { REGION_OPTIONS } from "@components/Forms/Dropdown/Dropdown.mocks";
+import type { FieldSize } from "@components/Forms/Field.types";
+import { Input } from "@components/Forms/Input/Input";
+import { InputWithButton } from "@components/Forms/InputWithButton/InputWithButton";
+import { NumberInput } from "@components/Forms/NumberInput/NumberInput";
+import { TextArea } from "@components/Forms/TextArea/TextArea";
 import { referenceDocs } from "./storybookDocs";
-import "./styles/variants.module.css";
+import "@styles/variants.module.css";
 
 const SIZES: FieldSize[] = ["xs", "sm", "md", "lg"];
 

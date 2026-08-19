@@ -1,10 +1,11 @@
 import { FloatingPortal } from "@floating-ui/react";
 import { ChevronDownIcon } from "lucide-react";
-import variantStyles from "../../../styles/variants.module.css";
-import { jC } from "../../../utils/utils";
-import { FeedbackMessage } from "../FeedbackMessage";
+import variantStyles from "@styles/variants.module.css";
+import { jC } from "@utils/utils";
 import shared from "../Field.module.css";
 import type { ComboboxProps } from "../Field.types";
+import { FeedbackMessage } from "../_shared/FeedbackMessage";
+import { FieldLabel } from "../_shared/FieldLabel";
 import styles from "./Combobox.module.css";
 import { useComboBox } from "./useComboBox";
 
@@ -35,7 +36,7 @@ const Combobox = ({
   onKeyDown,
   ...rest
 }: ComboboxProps) => {
-  const Comboxbox = useComboBox({
+  const Combobox = useComboBox({
     disabled,
     onChange,
     id,
@@ -57,27 +58,20 @@ const Combobox = ({
         variantStyles[variant],
         reserveMessageSpace && shared.reserveMessageSpace,
         shared[fieldSize],
-        Comboxbox.inputVariant !== "brand" && shared[Comboxbox.inputVariant],
+        Combobox.inputVariant !== "brand" && shared[Combobox.inputVariant],
       ])}
     >
-      {label && (
-        <div className={shared.labelWrapper}>
-          <label htmlFor={Comboxbox.inputId}>{label}</label>
-          {extraLabelInfo && (
-            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
-          )}
-        </div>
-      )}
+      {label && <FieldLabel id={Combobox.inputId} label={label} extraLabelInfo={extraLabelInfo} />}
       <div
         className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth])}
-        data-status={Comboxbox.dataStatus}
+        data-status={Combobox.dataStatus}
       >
         <div className={styles.combobox}>
           <input
             {...rest}
-            {...Comboxbox.getReferenceProps({
+            {...Combobox.getReferenceProps({
               onFocus: (event) => {
-                Comboxbox.setOpen(true);
+                Combobox.setOpen(true);
                 onFocus?.(event as React.FocusEvent<HTMLInputElement>);
               },
               onKeyDown: (event) => {
@@ -85,111 +79,94 @@ const Combobox = ({
                 if (event.defaultPrevented) return;
                 if (event.key === "ArrowDown" || event.key === "ArrowUp") {
                   event.preventDefault();
-                  Comboxbox.setOpen(true);
+                  Combobox.setOpen(true);
                   const direction = event.key === "ArrowDown" ? 1 : -1;
-                  Comboxbox.setActiveIndex((current) => {
-                    if (Comboxbox.filtered.length === 0) return -1;
-                    if (current < 0)
-                      return direction === 1
-                        ? 0
-                        : Comboxbox.filtered.length - 1;
+                  Combobox.setActiveIndex((current) => {
+                    if (Combobox.filtered.length === 0) return -1;
+                    if (current < 0) return direction === 1 ? 0 : Combobox.filtered.length - 1;
                     return (
-                      (current + direction + Comboxbox.filtered.length) %
-                      Comboxbox.filtered.length
+                      (current + direction + Combobox.filtered.length) % Combobox.filtered.length
                     );
                   });
                 } else if (
                   event.key === "Enter" &&
-                  Comboxbox.isOpen &&
-                  Comboxbox.filtered.length > 0
+                  Combobox.isOpen &&
+                  Combobox.filtered.length > 0
                 ) {
                   event.preventDefault();
-                  Comboxbox.select(
-                    Comboxbox.activeIndex >= 0 ? Comboxbox.activeIndex : 0,
-                  );
+                  Combobox.select(Combobox.activeIndex >= 0 ? Combobox.activeIndex : 0);
                 } else if (event.key === "Escape") {
-                  Comboxbox.setInputValue(Comboxbox.selectedLabel);
-                  Comboxbox.setOpen(false);
+                  Combobox.setInputValue(Combobox.selectedLabel);
+                  Combobox.setOpen(false);
                 }
               },
             })}
             ref={(node) => {
-              Comboxbox.refs.setReference(node);
+              Combobox.refs.setReference(node);
               if (typeof ref === "function") ref(node);
               else if (ref != null) ref.current = node;
             }}
-            id={Comboxbox.inputId}
+            id={Combobox.inputId}
             type="text"
             role="combobox"
-            value={Comboxbox.inputValue}
+            value={Combobox.inputValue}
             placeholder={placeholder}
             disabled={disabled}
             autoComplete="off"
             aria-autocomplete="list"
-            aria-expanded={Comboxbox.isOpen}
-            aria-controls={Comboxbox.listboxId}
+            aria-expanded={Combobox.isOpen}
+            aria-controls={Combobox.listboxId}
             aria-activedescendant={
-              Comboxbox.activeIndex >= 0
-                ? `${Comboxbox.listboxId}-option-${Comboxbox.activeIndex}`
+              Combobox.activeIndex >= 0
+                ? `${Combobox.listboxId}-option-${Combobox.activeIndex}`
                 : undefined
             }
-            aria-invalid={Comboxbox.aria.invalid}
-            aria-busy={Comboxbox.aria.busy}
-            aria-describedby={Comboxbox.aria.describedBy}
-            className={jC([
-              shared.field,
-              styles.input,
-              shape !== "default" && shared[shape],
-            ])}
+            aria-invalid={Combobox.aria.invalid}
+            aria-busy={Combobox.aria.busy}
+            aria-describedby={Combobox.aria.describedBy}
+            className={jC([shared.field, styles.input, shape !== "default" && shared[shape]])}
             data-fill={fill === "default" ? undefined : fill}
             onChange={(event) => {
-              Comboxbox.setInputValue(event.target.value);
+              Combobox.setInputValue(event.target.value);
               onInputValueChange?.(event.target.value);
-              Comboxbox.setActiveIndex(-1);
-              Comboxbox.setOpen(true);
+              Combobox.setActiveIndex(-1);
+              Combobox.setOpen(true);
             }}
           />
           <ChevronDownIcon
-            className={jC([
-              styles.chevron,
-              Comboxbox.isOpen && styles.chevronOpen,
-            ])}
+            className={jC([styles.chevron, Combobox.isOpen && styles.chevronOpen])}
           />
         </div>
 
-        {Comboxbox.isOpen && (
-          <FloatingPortal root={Comboxbox.portalRoot ?? undefined}>
+        {Combobox.isOpen && (
+          <FloatingPortal root={Combobox.portalRoot ?? undefined}>
             <div
-              ref={Comboxbox.refs.setFloating}
-              style={Comboxbox.floatingStyles}
+              ref={Combobox.refs.setFloating}
+              style={Combobox.floatingStyles}
               className={styles.panel}
-              {...Comboxbox.getFloatingProps()}
+              {...Combobox.getFloatingProps()}
             >
-              <ul
-                id={Comboxbox.listboxId}
-                role="listbox"
-                className={styles.list}
-              >
-                {Comboxbox.filtered.length === 0 ? (
+              <ul id={Combobox.listboxId} role="listbox" className={styles.list}>
+                {Combobox.filtered.length === 0 ? (
                   <li className={styles.empty}>{noOptionsMessage}</li>
                 ) : (
-                  Comboxbox.filtered.map((option, index) => (
+                  Combobox.filtered.map((option, index) => (
                     <li
                       key={option.value}
-                      id={`${Comboxbox.listboxId}-option-${index}`}
+                      id={`${Combobox.listboxId}-option-${index}`}
                       ref={(node) => {
-                        Comboxbox.optionRefs.current[index] = node;
+                        Combobox.optionRefs.current[index] = node;
                       }}
                       role="option"
                       aria-selected={option.value === value}
                       className={jC([
                         styles.option,
-                        index === Comboxbox.activeIndex && styles.active,
+                        index === Combobox.activeIndex && styles.active,
                         option.value === value && styles.selected,
                       ])}
                       onMouseDown={(event) => event.preventDefault()}
-                      onMouseEnter={() => Comboxbox.setActiveIndex(index)}
-                      onClick={() => Comboxbox.select(index)}
+                      onMouseEnter={() => Combobox.setActiveIndex(index)}
+                      onClick={() => Combobox.select(index)}
                     >
                       {option.label}
                     </li>
@@ -200,7 +177,7 @@ const Combobox = ({
           </FloatingPortal>
         )}
 
-        {Comboxbox.hasMessage && (
+        {Combobox.hasMessage && (
           <FeedbackMessage
             id={Combobox.messageId}
             errorMessage={errorMessage}

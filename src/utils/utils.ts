@@ -1,4 +1,4 @@
-import type { FieldVariant, ValidationState } from "../components/Forms/Field.types";
+import type { FieldVariant, ValidationState } from "@components/Forms/Field.types";
 
 type jcType = string | boolean | null | undefined;
 

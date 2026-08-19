@@ -1,7 +1,8 @@
 // Common radio input component used in form option groups throughout the app
+import variantStyles from "@styles/variants.module.css";
+import { jC } from "@utils/utils";
 import { Check, Loader, X } from "lucide-react";
-import variantStyles from "../../../styles/variants.module.css";
-import { jC } from "../../../utils/utils";
+import { FeedbackMessage } from "../_shared/FeedbackMessage";
 import shared from "../Field.module.css";
 import type { RadioProps } from "../Field.types";
 import { useField } from "../useField";
@@ -76,6 +77,8 @@ const Radio = ({
           aria-busy={aria.busy}
           aria-describedby={aria.describedBy}
         />
+        {/* Leave as is, do not replace with FieldLabel component otherwise we ll have nested labels*/}
+
         <label htmlFor={inputId} className={styles.radioWrap}>
           <span className={styles.radioControl} />
           {label && (
@@ -88,17 +91,11 @@ const Radio = ({
           )}
         </label>
         {hasMessage && (
-          <span
+          <FeedbackMessage
             id={messageId}
-            aria-live="polite"
-            className={jC([
-              shared.inputInfoMessage,
-              shared.message,
-              errorMessage ? shared.errorMessage : "",
-            ])}
-          >
-            {errorMessage ?? infoMessage}
-          </span>
+            errorMessage={errorMessage}
+            infoMessage={infoMessage}
+          />
         )}
         <div className={shared.statusIcon}>
           {dataStatus === "valid" && <Check />}

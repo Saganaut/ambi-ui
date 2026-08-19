@@ -32,12 +32,12 @@ My custom component library used in new project.
 - Popover & utility PopoverWrapper
 - Dropdown Menu (need to decide on hover effect here, unfinished)
 - Form components:
--- Input
--- Input with button
--- Checkbox
--- File upload
--- Combobox
--- Dropdown
+  -- Input
+  -- Input with button
+  -- Checkbox
+  -- File upload
+  -- Combobox
+  -- Dropdown
 
 ## Styling
 
@@ -56,7 +56,7 @@ My custom component library used in new project.
 ## Accessibility
 
 - All the components aim to fully abide by accessibility best practices
-- Color contrasts are evaluated according to the APCA contrast checker instead of WCAG so may fail some automatic accessibility checks, but APCA should be sufficient.  If not problematic colors can be overwritten by modifying tokens.css or overriding specific custom properties.
+- Color contrasts are evaluated according to the APCA contrast checker instead of WCAG so may fail some automatic accessibility checks, but APCA should be sufficient. If not problematic colors can be overwritten by modifying tokens.css or overriding specific custom properties.
 
 ## Testing
 

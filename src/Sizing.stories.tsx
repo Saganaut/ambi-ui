@@ -1,11 +1,11 @@
+import userAvatar from "@assets/user-avatar.svg";
+import { Btn } from "@components/Buttons/Btn";
+import type { BtnSize, BtnVariant } from "@components/Buttons/Btn.types";
+import { SplitBtn } from "@components/Buttons/SplitBtn";
+import { DropdownMenu } from "@components/DropdownMenu/DropdownMenu";
+import { Pagination } from "@components/Pagination/Pagination";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ChevronDown, PlusIcon } from "lucide-react";
-import userAvatar from "./assets/user-avatar.svg";
-import { Btn } from "./components/Buttons/Btn";
-import type { BtnSize, BtnVariant } from "./components/Buttons/Btn.types";
-import { SplitBtn } from "./components/Buttons/SplitBtn";
-import { DropdownMenu } from "./components/DropdownMenu/DropdownMenu";
-import { Pagination } from "./components/Pagination/Pagination";
 import { referenceDocs } from "./storybookDocs";
 
 const SIZES: BtnSize[] = ["xs", "sm", "md", "lg"];
@@ -103,7 +103,11 @@ export const AllComponents: Story = {
             <Btn size={size}>Button</Btn>
           </div>
           <div style={columnStyle}>
-            <SplitBtn size={size} menuAriaLabel={`More options (${size})`} menuItems={menuItems}>
+            <SplitBtn
+              size={size}
+              menuAriaLabel={`More options (${size})`}
+              menuItems={menuItems}
+            >
               Button
             </SplitBtn>
           </div>
@@ -126,7 +130,12 @@ export const AllComponents: Story = {
             </DropdownMenu>
           </div>
           <div style={columnStyle}>
-            <Pagination page={1} pageCount={3} size={size} onPageChange={() => undefined} />
+            <Pagination
+              page={1}
+              pageCount={3}
+              size={size}
+              onPageChange={() => undefined}
+            />
           </div>
         </div>
       ))}
@@ -157,7 +166,11 @@ export const VariantsComparison: Story = {
         <div key={variant} style={{ display: "contents" }}>
           <strong>{variant}</strong>
           <div style={columnStyle}>
-            <Btn icon={<PlusIcon />} variant={variant} aria-label={`Add (${variant})`} />
+            <Btn
+              icon={<PlusIcon />}
+              variant={variant}
+              aria-label={`Add (${variant})`}
+            />
           </div>
           <div style={columnStyle}>
             <Btn
@@ -198,7 +211,12 @@ export const VariantsComparison: Story = {
             </DropdownMenu>
           </div>
           <div style={columnStyle}>
-            <Pagination page={1} pageCount={3} variant={variant} onPageChange={() => undefined} />
+            <Pagination
+              page={1}
+              pageCount={3}
+              variant={variant}
+              onPageChange={() => undefined}
+            />
           </div>
         </div>
       ))}

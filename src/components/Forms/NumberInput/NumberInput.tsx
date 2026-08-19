@@ -1,13 +1,11 @@
-// Numeric input: same labelled-container layout as Input, but the value/onChange
-// API is typed as `number` so callers skip the parse-fallback dance. The native
-// number spinners can't be styled to the design, so they're suppressed and a
-// custom two-button stepper drives min/max/step. The field grows to fill its
-// parent — the host dictates the width.
-import { Check, ChevronDown, ChevronUp, Loader, X } from "lucide-react";
-import variantStyles from "../../../styles/variants.module.css";
-import { jC } from "../../../utils/utils";
+import variantStyles from "@styles/variants.module.css";
+import { jC } from "@utils/utils";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import shared from "../Field.module.css";
 import type { NumberInputProps } from "../Field.types";
+import { FeedbackMessage } from "../_shared/FeedbackMessage";
+import { FieldLabel } from "../_shared/FieldLabel";
+import { StatusIcon } from "../_shared/StatusIcon";
 import { useField } from "../useField";
 import styles from "./NumberInput.module.css";
 
@@ -94,12 +92,11 @@ const NumberInput = ({
       ])}
     >
       {label && (
-        <div className={shared.labelWrapper}>
-          <label htmlFor={inputId}>{label}</label>
-          {extraLabelInfo && (
-            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
-          )}
-        </div>
+        <FieldLabel
+          id={inputId}
+          label={label}
+          extraLabelInfo={extraLabelInfo}
+        />
       )}
       <div
         className={jC([
@@ -165,23 +162,13 @@ const NumberInput = ({
           </div>
         </div>
         {hasMessage && (
-          <span
+          <FeedbackMessage
             id={messageId}
-            aria-live="polite"
-            className={jC([
-              shared.inputInfoMessage,
-              shared.message,
-              errorMessage && shared.errorMessage,
-            ])}
-          >
-            {errorMessage ?? infoMessage}
-          </span>
+            errorMessage={errorMessage}
+            infoMessage={infoMessage}
+          />
         )}
-        <div className={shared.statusIcon}>
-          {dataStatus === "valid" && <Check />}
-          {dataStatus === "validating" && <Loader />}
-          {dataStatus === "invalid" && <X />}
-        </div>
+        <StatusIcon dataStatus={dataStatus} />
       </div>
     </div>
   );

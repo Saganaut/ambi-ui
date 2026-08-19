@@ -1,6 +1,7 @@
 // RadioGroup — wraps Radio items into a named fieldset where exactly one option must be selected
+import { jC } from "@utils/utils";
 import { Check, Loader, X } from "lucide-react";
-import { jC } from "../../../utils/utils";
+import { FeedbackMessage } from "../_shared/FeedbackMessage";
 import shared from "../Field.module.css";
 import type { RadioGroupProps } from "../Field.types";
 import { Radio } from "../Radio/Radio";
@@ -48,6 +49,8 @@ const RadioGroup = ({
       aria-describedby={aria.describedBy}
       className={jC([shared.fieldBlock, shared.top, shared.md, className])}
     >
+      {/* Leave as is, do not replace with FieldLabel component otherwise we ll have nested labels*/}
+
       {groupLabel && (
         <legend className={jC([shared.labelWrapper, styles.radioGroupLegend])}>
           {groupLabel}
@@ -77,17 +80,11 @@ const RadioGroup = ({
           ))}
         </div>
         {hasMessage && (
-          <span
+          <FeedbackMessage
             id={messageId}
-            aria-live="polite"
-            className={jC([
-              shared.inputInfoMessage,
-              shared.message,
-              errorMessage ? shared.errorMessage : "",
-            ])}
-          >
-            {errorMessage ?? infoMessage}
-          </span>
+            errorMessage={errorMessage}
+            infoMessage={infoMessage}
+          />
         )}
         <div className={shared.statusIcon}>
           {dataStatus === "valid" && <Check />}

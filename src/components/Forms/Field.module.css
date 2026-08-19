@@ -236,9 +236,7 @@
         border-width: 2px;
         box-shadow: var(--shadow-xs-size) var(--shadow-xs-color);
 
-        --field-border-color: oklch(
-          from var(--field-bg-color) calc(l * 0.95) calc(c + 0.02) h
-        );
+        --field-border-color: oklch(from var(--field-bg-color) calc(l * 0.95) calc(c + 0.02) h);
       }
 
       &:disabled,
@@ -321,13 +319,7 @@
 [data-appearance="light"] {
   .fieldWrapper {
     .field {
-      &:hover:not(
-          :disabled,
-          [aria-disabled="true"],
-          [aria-expanded="true"],
-          :focus,
-          .noBorders
-        ) {
+      &:hover:not(:disabled, [aria-disabled="true"], [aria-expanded="true"], :focus, .noBorders) {
         --field-border-color: var(--border-default);
       }
     }
@@ -336,31 +328,17 @@
 
 [data-appearance="dark"] {
   .fieldWrapper {
-    --field-border-color: oklch(
-      from var(--bg-color) calc(l + 0.1) calc(c - 0.02) h
-    );
+    --field-border-color: oklch(from var(--bg-color) calc(l + 0.1) calc(c - 0.02) h);
 
     .field {
       /* stylelint-disable-next-line no-descending-specificity */
       &[data-fill="bordered"] {
-        --field-border-color: oklch(
-          from var(--field-bg-color) calc(l + 0.3) calc(c - 0.02) h
-        );
-        --hover-field-color: oklch(
-          from var(--field-bg-color) calc(l + 0.5) calc(c - 0.02) h
-        );
+        --field-border-color: oklch(from var(--field-bg-color) calc(l + 0.3) calc(c - 0.02) h);
+        --hover-field-color: oklch(from var(--field-bg-color) calc(l + 0.5) calc(c - 0.02) h);
       }
 
-      &:hover:not(
-          :disabled,
-          [aria-disabled="true"],
-          [aria-expanded="true"],
-          :focus,
-          .noBorders
-        ) {
-        --field-border-color: oklch(
-          from var(--field-bg-color) calc(l + 0.3) calc(c - 0.02) h
-        );
+      &:hover:not(:disabled, [aria-disabled="true"], [aria-expanded="true"], :focus, .noBorders) {
+        --field-border-color: oklch(from var(--field-bg-color) calc(l + 0.3) calc(c - 0.02) h);
       }
     }
   }

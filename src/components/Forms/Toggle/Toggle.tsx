@@ -1,7 +1,9 @@
 // Toggle switch built on a visually-hidden checkbox; CSS :has() drives all visual state
+import variantStyles from "@styles/variants.module.css";
+import { jC } from "@utils/utils";
 import { Check, Loader, X } from "lucide-react";
-import variantStyles from "../../../styles/variants.module.css";
-import { jC } from "../../../utils/utils";
+import { FeedbackMessage } from "../_shared/FeedbackMessage";
+import { FieldLabel } from "../_shared/FieldLabel";
 import shared from "../Field.module.css";
 import type { ToggleProps } from "../Field.types";
 import { useField } from "../useField";
@@ -27,14 +29,13 @@ const Toggle = ({
   ref,
   ...rest
 }: ToggleProps) => {
-  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } =
-    useField({
-      id,
-      infoMessage,
-      errorMessage,
-      validationState,
-      variant,
-    });
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
+    id,
+    infoMessage,
+    errorMessage,
+    validationState,
+    variant,
+  });
 
   return (
     <div
@@ -77,26 +78,11 @@ const Toggle = ({
             <span className={styles.toggleThumb} />
           </span>
           {label && (
-            <span className={shared.labelWrapper}>
-              <span className={styles.toggleLabelText}>{label}</span>
-              {extraLabelInfo && (
-                <span className={shared.extraLabelInfo}>{extraLabelInfo}</span>
-              )}
-            </span>
+            <FieldLabel id={`${inputId}Label`} extraLabelInfo={extraLabelInfo} label={label} />
           )}
         </label>
         {hasMessage && (
-          <span
-            id={messageId}
-            aria-live="polite"
-            className={jC([
-              shared.inputInfoMessage,
-              shared.message,
-              errorMessage ? shared.errorMessage : "",
-            ])}
-          >
-            {errorMessage ?? infoMessage}
-          </span>
+          <FeedbackMessage id={messageId} errorMessage={errorMessage} infoMessage={infoMessage} />
         )}
         <div className={shared.statusIcon}>
           {dataStatus === "valid" && <Check />}

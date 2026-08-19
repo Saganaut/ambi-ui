@@ -1,11 +1,13 @@
 // Common textarea component matching Input structure for multi-line text entry.
 // `fullWidth` stretches the field to its container (used inside tight editor
 // cells like MCQ option cards).
+import variantStyles from "@styles/variants.module.css";
+import { jC } from "@utils/utils";
 import { Check, Loader, X } from "lucide-react";
-import variantStyles from "../../../styles/variants.module.css";
-import { jC } from "../../../utils/utils";
 import shared from "../Field.module.css";
 import type { TextAreaProps } from "../Field.types";
+import { FeedbackMessage } from "../_shared/FeedbackMessage";
+import { FieldLabel } from "../_shared/FieldLabel";
 import { useField } from "../useField";
 import styles from "./TextArea.module.css";
 
@@ -37,14 +39,13 @@ const TextArea = ({
   fieldSize = "md",
   ...rest
 }: TextAreaProps) => {
-  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } =
-    useField({
-      id,
-      infoMessage,
-      errorMessage,
-      validationState,
-      variant,
-    });
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
+    id,
+    infoMessage,
+    errorMessage,
+    validationState,
+    variant,
+  });
   return (
     <div
       data-fill={fill === "default" ? undefined : fill}
@@ -59,20 +60,9 @@ const TextArea = ({
         inputVariant !== "brand" && shared[inputVariant],
       ])}
     >
-      {label && (
-        <div className={shared.labelWrapper}>
-          <label htmlFor={inputId}>{label}</label>
-          {extraLabelInfo && (
-            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
-          )}
-        </div>
-      )}
+      {label && <FieldLabel id={inputId} label={label} extraLabelInfo={extraLabelInfo} />}
       <div
-        className={jC([
-          shared.fieldWrapper,
-          fullWidth && shared.fullWidth,
-          styles.textarea,
-        ])}
+        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth, styles.textarea])}
         data-status={dataStatus}
       >
         <textarea
@@ -101,17 +91,7 @@ const TextArea = ({
           data-fill={fill === "default" ? undefined : fill}
         />
         {hasMessage && (
-          <span
-            id={messageId}
-            aria-live="polite"
-            className={jC([
-              shared.inputInfoMessage,
-              shared.message,
-              errorMessage && shared.errorMessage,
-            ])}
-          >
-            {errorMessage ?? infoMessage}
-          </span>
+          <FeedbackMessage id={messageId} errorMessage={errorMessage} infoMessage={infoMessage} />
         )}
         <div className={shared.statusIcon}>
           {dataStatus === "valid" && <Check />}

@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactNode } from "react";
 import { fn } from "storybook/test";
 import { componentDocs } from "../../../storybookDocs";
-import "../../../styles/variants.module.css";
+import "@styles/variants.module.css";
 import { TextArea } from "./TextArea";
 
 const SIZES = ["xs", "sm", "md", "lg"] as const;

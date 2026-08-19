@@ -1,5 +1,5 @@
-import variantStyles from "../../styles/variants.module.css";
-import { jC } from "../../utils/utils";
+import variantStyles from "@styles/variants.module.css";
+import { jC } from "@utils/utils";
 import type { BtnProps } from "./Btn.types";
 import styles from "./Buttons.module.css";
 const Btn = ({

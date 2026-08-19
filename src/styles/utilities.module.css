@@ -1,3 +1,17 @@
+/* Removed from the visual layer but kept in the accessibility tree — for names
+   and live-region announcements that have no on-screen counterpart. */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .hoverable {
   --hover-color: oklch(from var(--color) calc(l - 0.1) calc(c + 0.01) h);
   --hover-bg-color: oklch(from var(--bg-color) calc(l + 0.03) calc(c + 0.02) h);
@@ -13,9 +27,7 @@
 [data-appearance="dark"] {
   .hoverable {
     &:not(:disabled, [data-fill="ghost"]):hover {
-      --hover-border-color: oklch(
-        from var(--bg-color) calc(l + 0.3) calc(c - 0.02) h
-      );
+      --hover-border-color: oklch(from var(--bg-color) calc(l + 0.3) calc(c - 0.02) h);
 
       border-color: var(--hover-border-color);
     }

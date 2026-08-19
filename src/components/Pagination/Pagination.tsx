@@ -1,12 +1,12 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { type KeyboardEvent } from "react";
-import variantStyles from "../../styles/variants.module.css";
-import { jC } from "../../utils/utils";
+import variantStyles from "@styles/variants.module.css";
+import { jC } from "@utils/utils";
 import { Btn } from "../Buttons/Btn";
 import styles from "./Pagination.module.css";
 import type { PageToken, PaginationProps } from "./Pagination.types";
 
-/*TODO: 
+/*TODO:
 * Compact version needs to deal with variable number length.
 Either a min width or use the grid area trick with highest value 
 (e.g if there are 50 pages, Page 50 of 50 or Page 50)
@@ -34,18 +34,13 @@ const Pagination = (props: PaginationProps) => {
 
   if (knownTotal && pageCount <= 1) return null;
 
-  const clampedPage = knownTotal
-    ? Math.max(0, Math.min(page, pageCount - 1))
-    : Math.max(0, page);
+  const clampedPage = knownTotal ? Math.max(0, Math.min(page, pageCount - 1)) : Math.max(0, page);
   const canGoPrev = !disabled && clampedPage > 0;
-  const canGoNext =
-    !disabled && (knownTotal ? clampedPage < pageCount - 1 : props.hasMore);
+  const canGoNext = !disabled && (knownTotal ? clampedPage < pageCount - 1 : props.hasMore);
 
   const goTo = (next: number) => {
     if (disabled) return;
-    const bounded = knownTotal
-      ? Math.max(0, Math.min(next, pageCount - 1))
-      : Math.max(0, next);
+    const bounded = knownTotal ? Math.max(0, Math.min(next, pageCount - 1)) : Math.max(0, next);
     if (bounded !== clampedPage) onPageChange(bounded);
   };
 
@@ -109,11 +104,7 @@ const Pagination = (props: PaginationProps) => {
             boundaryCount,
           }).map((token, idx) => (
             <li
-              key={
-                typeof token === "number"
-                  ? `p-${String(token)}`
-                  : `${token}-${String(idx)}`
-              }
+              key={typeof token === "number" ? `p-${String(token)}` : `${token}-${String(idx)}`}
               className={styles.item}
             >
               {typeof token === "number" ? (
@@ -122,10 +113,7 @@ const Pagination = (props: PaginationProps) => {
                   variant={variant}
                   size={size}
                   shape={shape}
-                  className={jC([
-                    styles.pageBtn,
-                    token === clampedPage ? styles.current : null,
-                  ])}
+                  className={jC([styles.pageBtn, token === clampedPage ? styles.current : null])}
                   aria-current={token === clampedPage ? "page" : undefined}
                   aria-label={`Go to page ${String(token + 1)}`}
                   disabled={disabled}
@@ -218,8 +206,7 @@ const buildPages = ({
   const firstMiddlePage = leadingEnd + 1;
   const lastMiddleStart = trailingStart - windowSize;
   const groupStart = Math.min(
-    firstMiddlePage +
-      Math.floor((page - firstMiddlePage) / windowSize) * windowSize,
+    firstMiddlePage + Math.floor((page - firstMiddlePage) / windowSize) * windowSize,
     lastMiddleStart,
   );
 

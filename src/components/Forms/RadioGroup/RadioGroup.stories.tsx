@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { fn } from "storybook/test";
 import { componentDocs } from "../../../storybookDocs";
-import "../../../styles/variants.module.css";
+import "@styles/variants.module.css";
 import { RadioGroup } from "./RadioGroup";
 import { difficultyOptions, visibilityOptions } from "./RadioGroup.mocks";
 

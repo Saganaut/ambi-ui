@@ -1,16 +1,15 @@
-/**
- * Renders a controlled select field with optional search and multi-selection.
- *
- * The option panel is portalled and positioned by Floating UI so scroll and
- * overflow ancestors cannot clip it.
- */
 import { FloatingFocusManager, FloatingPortal } from "@floating-ui/react";
-import { ChevronDownIcon } from "lucide-react";
-import variantStyles from "../../../styles/variants.module.css";
-import { jC } from "../../../utils/utils";
+import { CheckIcon, ChevronDownIcon } from "lucide-react";
+import type { KeyboardEvent } from "react";
+import { useRef } from "react";
+import utilities from "@styles/utilities.module.css";
+import variantStyles from "@styles/variants.module.css";
+import { jC } from "@utils/utils";
+import { ChipList } from "../Chip/ChipList";
 import shared from "../Field.module.css";
 import type { DropdownOption, DropdownProps } from "../Field.types";
-import { Chip } from "./Chip";
+import { FeedbackMessage } from "../_shared/FeedbackMessage";
+import { FieldLabel } from "../_shared/FieldLabel";
 import styles from "./Dropdown.module.css";
 import { useDropdown } from "./useDropdown";
 
@@ -37,8 +36,10 @@ const Dropdown = ({
   fill = "default",
   shape = "default",
   fieldSize = "md",
+  "aria-label": ariaLabel,
   ...rest
 }: DropdownProps) => {
+  const searchRef = useRef<HTMLInputElement>(null);
   const {
     isOpen,
     query,
@@ -53,14 +54,20 @@ const Dropdown = ({
     getReferenceProps,
     getFloatingProps,
     optionRefs,
+    chipRefs,
+    isTypingRef,
     refs,
     filtered,
     toggle,
+    selectActive,
     removeChip,
-    removeChipOnKey,
     inputId,
+    listboxId,
+    labelId,
+    valueId,
+    optionId,
+    activeId,
     messageId,
-    hasMessage,
     dataStatus,
     inputVariant,
     aria,
@@ -81,30 +88,23 @@ const Dropdown = ({
     },
   });
 
-  const triggerContent =
-    selectedValues.length === 0 ? (
-      <span className={styles.dropdownPlaceholder}>{placeholder}</span>
-    ) : multiple ? (
-      <span className={styles.chipList}>
-        {selectedValues.map((v) => {
-          const opt = options.find((o) => o.value === v);
-          return (
-            <Chip
-              key={v}
-              value={v}
-              label={opt?.label ?? v}
-              removeChip={removeChip}
-              removeChipOnKey={removeChipOnKey}
-            />
-          );
-        })}
-      </span>
-    ) : (
-      <span>
-        {options.find((o) => o.value === selectedValues[0])?.label ??
-          placeholder}
-      </span>
-    );
+  const labelText = label ?? ariaLabel;
+  // Multiple selections are summarised here and spelled out by the chip list
+  // below, so the trigger stays a <button> with no interactive descendants.
+  const triggerLabel =
+    selectedValues.length === 0
+      ? placeholder
+      : multiple
+        ? `${selectedValues.length.toString()} selected`
+        : (options.find((option) => option.value === selectedValues[0])?.label ??
+          selectedValues[0]);
+
+  /** Enter always selects; Space only when typeahead is not mid-word. */
+  const selectOnKey = (event: KeyboardEvent) => {
+    if (!isOpen) return;
+    const isSelectKey = event.key === "Enter" || (event.key === " " && !isTypingRef.current);
+    if (isSelectKey && selectActive()) event.preventDefault();
+  };
 
   return (
     <div
@@ -120,20 +120,17 @@ const Dropdown = ({
         inputVariant !== "brand" && shared[inputVariant],
       ])}
     >
-      {label && (
-        <div className={shared.labelWrapper}>
-          <label htmlFor={inputId}>{label}</label>
-          {extraLabelInfo && (
-            <div className={shared.extraLabelInfo}>{extraLabelInfo}</div>
-          )}
-        </div>
+      {label ? (
+        <FieldLabel id={labelId} label={label} extraLabelInfo={extraLabelInfo} />
+      ) : (
+        ariaLabel && (
+          <span id={labelId} className={utilities.visuallyHidden}>
+            {ariaLabel}
+          </span>
+        )
       )}
       <div
-        className={jC([
-          shared.fieldWrapper,
-          fullWidth && shared.fullWidth,
-          styles.dropdown,
-        ])}
+        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth, styles.dropdown])}
         data-status={dataStatus}
       >
         <button
@@ -155,114 +152,131 @@ const Dropdown = ({
           aria-invalid={aria.invalid}
           aria-busy={aria.busy}
           aria-describedby={aria.describedBy}
+          role="combobox"
+          aria-labelledby={labelText ? `${labelId} ${valueId}` : valueId}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
-          aria-controls={isOpen ? inputId : undefined}
-          {...getReferenceProps()}
+          aria-controls={isOpen ? listboxId : undefined}
+          {...getReferenceProps({ onKeyDown: selectOnKey })}
         >
-          {triggerContent}
+          <span
+            id={valueId}
+            className={selectedValues.length === 0 ? styles.dropdownPlaceholder : undefined}
+          >
+            {triggerLabel}
+          </span>
 
-          <ChevronDownIcon
-            className={jC([styles.chevron, isOpen ? styles.chevronOpen : ""])}
-          />
+          <ChevronDownIcon className={jC([styles.chevron, isOpen ? styles.chevronOpen : ""])} />
         </button>
+
+        {multiple && selectedValues.length > 0 && (
+          <ChipList
+            aria-label={labelText ? `Selected ${labelText}` : "Selected options"}
+            chips={selectedValues.map((value, index) => ({
+              value,
+              label: options.find((option) => option.value === value)?.label ?? value,
+              ref: (node) => {
+                chipRefs.current[index] = node;
+              },
+              onRemove: removeChip,
+            }))}
+          />
+        )}
 
         {isOpen && (
           <FloatingPortal root={portalRoot ?? undefined}>
-            <FloatingFocusManager context={context} modal={false}>
+            <FloatingFocusManager
+              context={context}
+              modal={false}
+              initialFocus={searchable ? searchRef : -1}
+            >
               <div
                 ref={refs.setFloating}
                 className={jC([styles.dropdownPanel])}
                 data-placement={placement}
                 style={floatingStyles}
                 {...getFloatingProps()}
+                aria-activedescendant={undefined}
               >
                 {searchable && (
                   <div className={styles.dropdownSearch}>
                     <input
+                      ref={searchRef}
                       type="text"
                       value={query}
                       onChange={(e) => {
                         setQuery(e.target.value);
                       }}
+                      onKeyDown={selectOnKey}
                       placeholder="Search..."
                       aria-label="Search options"
-                      // The panel is already a raised surface — opt the search
-                      // box out of the shared field chrome (bg/shadow).
+                      role="combobox"
+                      aria-expanded
+                      aria-controls={listboxId}
+                      aria-activedescendant={activeId}
+                      aria-autocomplete="list"
+                      autoComplete="off"
                       className={shared.noBorders}
-                      autoFocus
                     />
                   </div>
                 )}
                 <ul
-                  id={`${inputId}-inputId`}
+                  id={listboxId}
                   role="listbox"
+                  aria-labelledby={labelText ? labelId : undefined}
+                  aria-label={labelText ? undefined : "Options"}
                   aria-multiselectable={multiple}
                   className={styles.dropdownList}
                 >
-                  {filtered.length === 0 ? (
-                    <li className={styles.dropdownEmpty}>No options</li>
-                  ) : (
-                    filtered.map((opt, index) => (
-                      <li
-                        key={opt.value}
-                        role="option"
-                        aria-selected={selectedValues.includes(opt.value)}
-                        className={jC([
-                          styles.dropdownOption,
-                          selectedValues.includes(opt.value)
-                            ? styles.selected
-                            : "",
-                        ])}
-                        ref={(node) => {
-                          optionRefs.current[index] = node;
-                          optionLabels.current[index] = opt.label;
-                        }}
-                        {...getItemProps({
-                          onClick: () => {
-                            toggle(opt.value);
-                          },
-                          onKeyDown: (event) => {
-                            if (event.key === "Enter" || event.key === " ") {
-                              event.preventDefault();
-                              toggle(opt.value);
-                            }
-                          },
-                        })}
-                        tabIndex={activeIndex === index ? 0 : -1}
-                      >
-                        {multiple && (
-                          <input
-                            type="checkbox"
-                            readOnly
-                            checked={selectedValues.includes(opt.value)}
-                            tabIndex={-1}
-                            aria-hidden="true"
-                          />
-                        )}
-                        {opt.label}
-                      </li>
-                    ))
-                  )}
+                  {filtered.map((opt, index) => (
+                    <li
+                      key={opt.value}
+                      id={optionId(index)}
+                      role="option"
+                      aria-selected={selectedValues.includes(opt.value)}
+                      data-active={activeIndex === index}
+                      className={jC([
+                        styles.dropdownOption,
+                        selectedValues.includes(opt.value) ? styles.selected : "",
+                      ])}
+                      ref={(node) => {
+                        optionRefs.current[index] = node;
+                        optionLabels.current[index] = opt.label;
+                      }}
+                      {...getItemProps({
+                        onClick: () => {
+                          toggle(opt.value);
+                        },
+                      })}
+                    >
+                      {multiple && (
+                        <CheckIcon
+                          aria-hidden="true"
+                          className={jC([
+                            styles.optionCheck,
+                            selectedValues.includes(opt.value) ? styles.optionCheckOn : "",
+                          ])}
+                        />
+                      )}
+                      {opt.label}
+                    </li>
+                  ))}
                 </ul>
+                {/* Outside the <ul>: a listbox may only own `option` children. */}
+                {filtered.length === 0 && <div className={styles.dropdownEmpty}>No options</div>}
+                {searchable && (
+                  <span aria-live="polite" className={utilities.visuallyHidden}>
+                    {`${filtered.length.toString()} options available`}
+                  </span>
+                )}
               </div>
             </FloatingFocusManager>
           </FloatingPortal>
         )}
 
-        {hasMessage && (
-          <span
-            id={messageId}
-            aria-live="polite"
-            className={jC([
-              shared.inputInfoMessage,
-              shared.message,
-              errorMessage ? shared.errorMessage : "",
-            ])}
-          >
-            {errorMessage ?? infoMessage}
-          </span>
-        )}
+        {/* Mounted unconditionally: a live region inserted at the same moment as
+            its text is not announced. */}
+        <FeedbackMessage id={messageId} errorMessage={errorMessage} infoMessage={infoMessage} />
       </div>
     </div>
   );

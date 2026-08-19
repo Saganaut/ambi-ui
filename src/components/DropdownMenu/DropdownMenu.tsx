@@ -16,11 +16,11 @@ import {
   type Placement,
 } from "@floating-ui/react";
 import React, { createContext, use, useRef, useState } from "react";
-import variantStyles from "../../styles/variants.module.css";
-import { jC } from "../../utils/utils";
+import variantStyles from "@styles/variants.module.css";
+import { jC } from "@utils/utils";
 import styles from "./DropdownMenu.module.css";
 
-import { inheritThemeMiddleware } from "../../utils/inheritTheme";
+import { inheritThemeMiddleware } from "@utils/inheritTheme";
 import type { MenuPosition } from "../Base.types";
 import type {
   DropdownMenuContextValue,
@@ -70,12 +70,7 @@ const DropdownMenu = ({
     onOpenChange: setOpen,
     placement: placementMap[position],
     strategy: "fixed",
-    middleware: [
-      offset(8),
-      flip(),
-      shift({ padding: 8 }),
-      inheritThemeMiddleware,
-    ],
+    middleware: [offset(8), flip(), shift({ padding: 8 }), inheritThemeMiddleware],
     whileElementsMounted: autoUpdate,
   });
   const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
@@ -102,9 +97,11 @@ const DropdownMenu = ({
     onNavigate: setActiveIndex,
     loop: true,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [role, dismiss, listNavigation],
-  );
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
+    role,
+    dismiss,
+    listNavigation,
+  ]);
 
   const toggle: ToggleFn = (anchor) => {
     if (anchorToCursor && anchor) {
@@ -165,12 +162,8 @@ const DropdownMenu = ({
                 ])}
                 style={transitionStyles}
               >
-                <DropdownMenuContext
-                  value={{ closeMenu, getItemProps, activeIndex }}
-                >
-                  <FloatingList elementsRef={elementsRef}>
-                    {children}
-                  </FloatingList>
+                <DropdownMenuContext value={{ closeMenu, getItemProps, activeIndex }}>
+                  <FloatingList elementsRef={elementsRef}>{children}</FloatingList>
                 </DropdownMenuContext>
               </div>
             </div>

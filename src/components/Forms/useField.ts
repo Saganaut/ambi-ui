@@ -4,7 +4,7 @@ import {
   resolveHasError,
   resolveHasMessage,
   resolveVariant,
-} from "../../utils/utils";
+} from "@utils/utils";
 import type { FieldVariant, ValidationState } from "./Field.types";
 
 export interface UseFieldProps {
