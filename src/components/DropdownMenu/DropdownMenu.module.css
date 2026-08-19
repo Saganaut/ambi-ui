@@ -34,12 +34,12 @@
   --dropdown-menu-icon-size: 1em;
 
   display: flex;
+  background: var(--dropdown-menu-bg-color);
+  font-size: var(--dropdown-menu-font-size);
   flex-direction: column;
   min-width: var(--dropdown-menu-min-width);
-  font-size: var(--dropdown-menu-font-size);
   border: var(--border-size-xs) solid var(--dropdown-menu-border-color);
   border-radius: var(--dropdown-menu-radius);
-  background: var(--dropdown-menu-bg-color);
   box-shadow: var(--dropdown-menu-shadow);
   overflow: hidden;
   will-change: opacity, transform;
@@ -92,7 +92,9 @@
   }
 
   .item {
-    --dropdown-menu-item-hover-color: oklch(from var(--dropdown-menu-color) calc(l + 0) c h);
+    --dropdown-menu-item-hover-color: oklch(
+      from var(--dropdown-menu-color) calc(l + 0) c h
+    );
     --dropdown-menu-item-hover-bg-color: oklch(
       from var(--dropdown-menu-bg-color) calc(l + 0.05) c h
     );
@@ -121,8 +123,8 @@
       --hover-color: var(--dropdown-menu-item-hover-color);
       --hover-bg-color: var(--dropdown-menu-item-hover-bg-color);
 
-      color: var(--hover-color);
       background: var(--hover-bg-color);
+      color: var(--hover-color);
     }
 
     &:disabled {
@@ -144,7 +146,8 @@
 
     padding: var(--dropdown-menu-label-padding);
     color: var(--dropdown-menu-label-color);
-    border-bottom: var(--border-size-sm) solid var(--dropdown-menu-label-border-color);
+    border-bottom: var(--border-size-sm) solid
+      var(--dropdown-menu-label-border-color);
   }
 
   .divider {
@@ -170,8 +173,10 @@
       from var(--dropdown-menu-bg-color) calc(l + 0.1) calc(c - 0.02) h
     );
 
-    .item:not(disabled):hover {
-      --dropdown-menu-item-hover-color: oklch(from var(--dropdown-menu-color) calc(l + 0.9) c h);
+    .item:not(:disabled):hover {
+      --dropdown-menu-item-hover-color: oklch(
+        from var(--dropdown-menu-color) calc(l + 0.9) c h
+      );
       --dropdown-menu-item-hover-bg-color: oklch(
         from var(--dropdown-menu-bg-color) calc(l - 0.1) c h
       );

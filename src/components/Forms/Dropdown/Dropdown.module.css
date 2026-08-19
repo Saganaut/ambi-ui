@@ -10,7 +10,6 @@
   position: relative;
   width: var(--dropdown-width);
 
-  /* One --space-6 step below the field, x-aligned with its --p-sm text inset. */
   .message {
     position: absolute;
     bottom: calc(-1 * var(--dropdown-message-offset));
@@ -31,6 +30,9 @@
   justify-content: space-between;
   gap: var(--dropdown-trigger-gap);
   text-align: left;
+
+  /* Overwriting existing padding because the validation status conflicts with dropdown */
+  padding: var(--p-pill-sm);
 }
 
 .dropdownPlaceholder {
@@ -177,7 +179,8 @@
   display: inline-flex;
 
   /* (2px, 8px) has no --p-pill-* equivalent — composed per axis on the gap tier */
-  padding: var(--dropdown-chip-padding-block) var(--dropdown-chip-padding-inline);
+  padding: var(--dropdown-chip-padding-block)
+    var(--dropdown-chip-padding-inline);
   color: var(--dropdown-chip-color);
   font-size: var(--dropdown-chip-font-size);
   align-items: center;

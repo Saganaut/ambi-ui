@@ -1,51 +1,28 @@
 import {
-  autoUpdate,
-  flip,
   FloatingFocusManager,
   FloatingList,
   FloatingPortal,
-  offset,
-  shift,
-  useDismiss,
-  useFloating,
-  useInteractions,
   useListItem,
-  useListNavigation,
-  useRole,
-  useTransitionStyles,
-  type Placement,
 } from "@floating-ui/react";
-import React, { createContext, use, useRef, useState } from "react";
+import React, { createContext, use } from "react";
 import variantStyles from "@styles/variants.module.css";
 import { jC } from "@utils/utils";
 import styles from "./DropdownMenu.module.css";
 
-import { inheritThemeMiddleware } from "@utils/inheritTheme";
-import type { MenuPosition } from "../Base.types";
 import type {
   DropdownMenuContextValue,
   DropdownMenuItemProps,
   DropdownMenuLabelProps,
   DropdownMenuLinkProps,
   DropdownMenuProps,
-  ToggleFn,
 } from "./DropdownMenu.types";
+import { useDropdownMenu } from "./useDropdownMenu";
 
 const DropdownMenuContext = createContext<DropdownMenuContextValue>({
   closeMenu: () => undefined,
   getItemProps: () => ({}),
   activeIndex: null,
 });
-
-// `position` names the corner of the panel that meets the trigger: top-* opens
-// below the trigger, bottom-* above; -right/-left aligns that edge. Translated
-// to floating-ui placements (LTR: start = left edge, end = right edge).
-const placementMap: Record<MenuPosition, Placement> = {
-  "top-right": "bottom-end",
-  "top-left": "bottom-start",
-  "bottom-right": "top-end",
-  "bottom-left": "top-start",
-};
 
 const DropdownMenu = ({
   variant = "primary",
@@ -59,76 +36,20 @@ const DropdownMenu = ({
   className,
   anchorToCursor = false,
 }: DropdownMenuProps) => {
-  const [open, setOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  // Shared with FloatingList (populated via useListItem) and read by
-  // useListNavigation to move focus between items with the arrow keys.
-  const elementsRef = useRef<(HTMLElement | null)[]>([]);
-
-  const { refs, floatingStyles, context } = useFloating({
-    open,
-    onOpenChange: setOpen,
-    placement: placementMap[position],
-    strategy: "fixed",
-    middleware: [offset(8), flip(), shift({ padding: 8 }), inheritThemeMiddleware],
-    whileElementsMounted: autoUpdate,
-  });
-  const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
-    duration: { open: 150, close: 100 },
-    initial: ({ side }) => ({
-      opacity: 0,
-      transform: `translateY(${side === "top" ? "4px" : "-4px"}) scale(0.98)`,
-    }),
-    open: {
-      opacity: 1,
-      transform: "translateY(0) scale(1)",
-    },
-    close: ({ side }) => ({
-      opacity: 0,
-      transform: `translateY(${side === "top" ? "4px" : "-4px"}) scale(0.98)`,
-    }),
-  });
-
-  const role = useRole(context, { role: "menu" });
-  const dismiss = useDismiss(context);
-  const listNavigation = useListNavigation(context, {
-    listRef: elementsRef,
+  const {
     activeIndex,
-    onNavigate: setActiveIndex,
-    loop: true,
-  });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
-    role,
-    dismiss,
-    listNavigation,
-  ]);
-
-  const toggle: ToggleFn = (anchor) => {
-    if (anchorToCursor && anchor) {
-      // Anchor to a zero-size virtual element at the click point so floating-ui
-      // positions the panel from the cursor (context-menu behaviour).
-      const { clientX: x, clientY: y } = anchor;
-      refs.setPositionReference({
-        getBoundingClientRect: () => ({
-          width: 0,
-          height: 0,
-          x,
-          y,
-          top: y,
-          left: x,
-          right: x,
-          bottom: y,
-        }),
-      });
-      setOpen(true);
-      return;
-    }
-    setOpen((prev) => !prev);
-  };
-
-  const closeMenu = () => {
-    setOpen(false);
-  };
+    closeMenu,
+    context,
+    elementsRef,
+    floatingStyles,
+    getFloatingProps,
+    getItemProps,
+    getReferenceProps,
+    isMounted,
+    refs,
+    toggle,
+    transitionStyles,
+  } = useDropdownMenu({ position, anchorToCursor });
   return (
     <div
       ref={(node) => {
