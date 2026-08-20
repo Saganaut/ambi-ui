@@ -29,13 +29,14 @@ const Toggle = ({
   ref,
   ...rest
 }: ToggleProps) => {
-  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
-    id,
-    infoMessage,
-    errorMessage,
-    validationState,
-    variant,
-  });
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } =
+    useField({
+      id,
+      infoMessage,
+      errorMessage,
+      validationState,
+      variant,
+    });
 
   return (
     <div
@@ -78,11 +79,20 @@ const Toggle = ({
             <span className={styles.toggleThumb} />
           </span>
           {label && (
-            <FieldLabel id={`${inputId}Label`} extraLabelInfo={extraLabelInfo} label={label} />
+            <FieldLabel
+              className={shared.labelWrapper}
+              id={`${inputId}Label`}
+              extraLabelInfo={extraLabelInfo}
+              label={label}
+            />
           )}
         </label>
         {hasMessage && (
-          <FeedbackMessage id={messageId} errorMessage={errorMessage} infoMessage={infoMessage} />
+          <FeedbackMessage
+            id={messageId}
+            errorMessage={errorMessage}
+            infoMessage={infoMessage}
+          />
         )}
         <div className={shared.statusIcon}>
           {dataStatus === "valid" && <Check />}

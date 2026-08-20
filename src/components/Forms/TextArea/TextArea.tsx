@@ -3,7 +3,6 @@
 // cells like MCQ option cards).
 import variantStyles from "@styles/variants.module.css";
 import { jC } from "@utils/utils";
-import { Check, Loader, X } from "lucide-react";
 import shared from "../Field.module.css";
 import type { TextAreaProps } from "../Field.types";
 import { FeedbackMessage } from "../_shared/FeedbackMessage";
@@ -39,13 +38,14 @@ const TextArea = ({
   fieldSize = "md",
   ...rest
 }: TextAreaProps) => {
-  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
-    id,
-    infoMessage,
-    errorMessage,
-    validationState,
-    variant,
-  });
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } =
+    useField({
+      id,
+      infoMessage,
+      errorMessage,
+      validationState,
+      variant,
+    });
   return (
     <div
       data-fill={fill === "default" ? undefined : fill}
@@ -60,9 +60,20 @@ const TextArea = ({
         inputVariant !== "brand" && shared[inputVariant],
       ])}
     >
-      {label && <FieldLabel id={inputId} label={label} extraLabelInfo={extraLabelInfo} />}
+      {label && (
+        <FieldLabel
+          className={styles.textAreaLabelWrapper}
+          id={inputId}
+          label={label}
+          extraLabelInfo={extraLabelInfo}
+        />
+      )}
       <div
-        className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth, styles.textarea])}
+        className={jC([
+          shared.fieldWrapper,
+          fullWidth && shared.fullWidth,
+          styles.textarea,
+        ])}
         data-status={dataStatus}
       >
         <textarea
@@ -86,18 +97,18 @@ const TextArea = ({
           className={jC([
             shared.field,
             shape === "pill" && shared.pill,
+            shape === "squircle" && shared.squircle,
             fullWidth ? "" : styles.noAutoGrow,
           ])}
           data-fill={fill === "default" ? undefined : fill}
         />
         {hasMessage && (
-          <FeedbackMessage id={messageId} errorMessage={errorMessage} infoMessage={infoMessage} />
+          <FeedbackMessage
+            id={messageId}
+            errorMessage={errorMessage}
+            infoMessage={infoMessage}
+          />
         )}
-        <div className={shared.statusIcon}>
-          {dataStatus === "valid" && <Check />}
-          {dataStatus === "validating" && <Loader />}
-          {dataStatus === "invalid" && <X />}
-        </div>
       </div>
     </div>
   );

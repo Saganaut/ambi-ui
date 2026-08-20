@@ -46,13 +46,14 @@ const FileUpload = ({
     openPicker,
   } = useFileUpload({ onChange, multiple, accept, maxBytes });
   const displayedError = rejection ?? errorMessage;
-  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } = useField({
-    id,
-    infoMessage,
-    errorMessage: displayedError,
-    validationState,
-    variant,
-  });
+  const { inputId, messageId, hasMessage, dataStatus, inputVariant, aria } =
+    useField({
+      id,
+      infoMessage,
+      errorMessage: displayedError,
+      validationState,
+      variant,
+    });
 
   return (
     <div
@@ -68,7 +69,14 @@ const FileUpload = ({
         inputVariant !== "brand" && shared[inputVariant],
       ])}
     >
-      {label && <FieldLabel id={inputId} label={label} extraLabelInfo={extraLabelInfo} />}
+      {label && (
+        <FieldLabel
+          className={shared.labelWrapper}
+          id={inputId}
+          label={label}
+          extraLabelInfo={extraLabelInfo}
+        />
+      )}
       <div
         className={jC([
           shared.fieldWrapper,
@@ -146,7 +154,11 @@ const FileUpload = ({
           </ul>
         )}
         {hasMessage && (
-          <FeedbackMessage id={messageId} errorMessage={displayedError} infoMessage={infoMessage} />
+          <FeedbackMessage
+            id={messageId}
+            errorMessage={displayedError}
+            infoMessage={infoMessage}
+          />
         )}
         {/* <div className={shared.statusIcon}>
           {dataStatus === "valid" && <Check />}

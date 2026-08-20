@@ -1,185 +1,182 @@
-/* Reusable dropdown panel anchored to an arbitrary trigger element.
-   Positioning (placement, offset, flip, shift, cursor anchoring) is owned by
-   @floating-ui/react and applied as inline styles on the panel — this module
-   only carries the panel's appearance and the menu-item visuals. */
-
-.wrapper {
-  display: flex;
-}
-
-.positioner {
-  --dropdown-menu-z-index: var(--z-dropdown);
-
-  z-index: var(--dropdown-menu-z-index);
-}
-
-.panel {
-  /* composes: hoverable from "../../styles/utilities.module.css"; */
-
-  /** Layout & Size **/
-  --dropdown-menu-gap: var(--space-2);
-  --dropdown-menu-padding: var(--gap-md) var(--gap-lg);
-  --dropdown-menu-radius: var(--control-radius-md);
-  --dropdown-menu-min-height: var(--control-height-md);
-  --dropdown-menu-min-width: 11.25rem;
-
-  /** Styling **/
-  --dropdown-menu-font-family: var(--font-sans);
-  --dropdown-menu-font-weight: var(--font-weight-semibold);
-  --dropdown-menu-font-size: var(--control-font-md);
-  --dropdown-menu-color: var(--color);
-  --dropdown-menu-bg-color: var(--bg-color);
-  --dropdown-menu-border-color: var(--border-color);
-  --dropdown-menu-shadow: var(--shadow-md);
-  --dropdown-menu-icon-size: 1em;
-
-  display: flex;
-  background: var(--dropdown-menu-bg-color);
-  font-size: var(--dropdown-menu-font-size);
-  flex-direction: column;
-  min-width: var(--dropdown-menu-min-width);
-  border: var(--border-size-xs) solid var(--dropdown-menu-border-color);
-  border-radius: var(--dropdown-menu-radius);
-  box-shadow: var(--dropdown-menu-shadow);
-  overflow: hidden;
-  will-change: opacity, transform;
-
-  &.pill {
-    border-radius: var(--radius-full);
+@layer ambi.component {
+  .wrapper {
+    display: flex;
   }
 
-  &.squircle {
-    @supports (corner-shape: squircle) {
-      corner-shape: squircle;
-      border-radius: var(--radius-full);
-    }
+  .positioner {
+    --dropdown-menu-z-index: var(--z-dropdown);
+
+    z-index: var(--dropdown-menu-z-index);
   }
 
-  &.xs {
-    --dropdown-menu-padding: var(--gap-sm) var(--gap-md);
-    --dropdown-menu-font-size: var(--control-font-xs);
-    --dropdown-menu-radius: var(--control-radius-xs);
-    --dropdown-menu-gap: var(--space-1);
-    --dropdown-menu-min-height: var(--control-height-xs);
-    --dropdown-menu-min-width: 6.25rem;
-  }
+  .panel {
+    /* composes: hoverable from "../../styles/utilities.module.css"; */
 
-  &.sm {
-    --dropdown-menu-padding: var(--gap-sm) var(--gap-md);
-    --dropdown-menu-font-size: var(--control-font-sm);
-    --dropdown-menu-radius: var(--control-radius-sm);
-    --dropdown-menu-gap: 0;
-    --dropdown-menu-min-height: var(--control-height-sm);
-    --dropdown-menu-min-width: 7.5rem;
-  }
-
-  &.md {
-    --dropdown-menu-padding: var(--gap-md) var(--gap-xl);
-    --dropdown-menu-font-size: var(--control-font-md);
+    /** Layout & Size **/
+    --dropdown-menu-gap: var(--space-2);
+    --dropdown-menu-padding: var(--gap-md) var(--gap-lg);
     --dropdown-menu-radius: var(--control-radius-md);
-    --dropdown-menu-gap: var(--space-3);
     --dropdown-menu-min-height: var(--control-height-md);
     --dropdown-menu-min-width: 11.25rem;
-  }
 
-  &.lg {
-    --dropdown-menu-padding: var(--gap-lg) var(--gap-xl);
-    --dropdown-menu-font-size: var(--control-font-lg);
-    --dropdown-menu-radius: var(--control-radius-lg);
-    --dropdown-menu-gap: var(--space-4);
-    --dropdown-menu-min-height: var(--control-height-lg);
-    --dropdown-menu-min-width: 13.75rem;
-  }
-
-  .item {
-    --dropdown-menu-item-hover-color: oklch(
-      from var(--dropdown-menu-color) calc(l + 0) c h
-    );
-    --dropdown-menu-item-hover-bg-color: oklch(
-      from var(--dropdown-menu-bg-color) calc(l + 0.05) c h
-    );
+    /** Styling **/
+    --dropdown-menu-font-family: var(--font-sans);
+    --dropdown-menu-font-weight: var(--font-weight-semibold);
+    --dropdown-menu-font-size: var(--control-font-md);
+    --dropdown-menu-color: var(--color);
+    --dropdown-menu-bg-color: var(--bg-color);
+    --dropdown-menu-border-color: var(--border-color);
+    --dropdown-menu-shadow: var(--shadow-md);
+    --dropdown-menu-icon-size: 1em;
 
     display: flex;
-    align-items: center;
-    width: 100%;
-    gap: var(--dropdown-menu-gap);
-    padding: var(--dropdown-menu-padding);
-    border: none;
-    background: none;
-    color: var(--dropdown-menu-color);
-    font-family: inherit;
+    background: var(--dropdown-menu-bg-color);
     font-size: var(--dropdown-menu-font-size);
-    font-weight: var(--dropdown-menu-font-weight);
-    text-align: left;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background var(--duration-fast);
+    flex-direction: column;
+    min-width: var(--dropdown-menu-min-width);
+    border: var(--border-size-xs) solid var(--dropdown-menu-border-color);
+    border-radius: var(--dropdown-menu-radius);
+    box-shadow: var(--dropdown-menu-shadow);
+    overflow: hidden;
+    will-change: opacity, transform;
 
-    &.center {
-      justify-content: center;
+    &.pill {
+      border-radius: var(--radius-full);
     }
 
-    &:hover {
-      --hover-color: var(--dropdown-menu-item-hover-color);
-      --hover-bg-color: var(--dropdown-menu-item-hover-bg-color);
-
-      background: var(--hover-bg-color);
-      color: var(--hover-color);
+    &.squircle {
+      @supports (corner-shape: squircle) {
+        corner-shape: squircle;
+        border-radius: var(--radius-full);
+      }
     }
 
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+    &.xs {
+      --dropdown-menu-padding: var(--gap-sm) var(--gap-md);
+      --dropdown-menu-font-size: var(--control-font-xs);
+      --dropdown-menu-radius: var(--control-radius-xs);
+      --dropdown-menu-gap: var(--space-1);
+      --dropdown-menu-min-height: var(--control-height-xs);
+      --dropdown-menu-min-width: 6.25rem;
     }
 
-    a {
-      display: block;
-      color: inherit;
-      text-decoration: none;
+    &.sm {
+      --dropdown-menu-padding: var(--gap-sm) var(--gap-md);
+      --dropdown-menu-font-size: var(--control-font-sm);
+      --dropdown-menu-radius: var(--control-radius-sm);
+      --dropdown-menu-gap: 0;
+      --dropdown-menu-min-height: var(--control-height-sm);
+      --dropdown-menu-min-width: 7.5rem;
     }
-  }
 
-  .label {
-    --dropdown-menu-label-padding: var(--gap-sm) var(--gap-lg);
-    --dropdown-menu-label-color: var(--text-muted);
-    --dropdown-menu-label-border-color: var(--border-subtle);
+    &.md {
+      --dropdown-menu-padding: var(--gap-md) var(--gap-xl);
+      --dropdown-menu-font-size: var(--control-font-md);
+      --dropdown-menu-radius: var(--control-radius-md);
+      --dropdown-menu-gap: var(--space-3);
+      --dropdown-menu-min-height: var(--control-height-md);
+      --dropdown-menu-min-width: 11.25rem;
+    }
 
-    padding: var(--dropdown-menu-label-padding);
-    color: var(--dropdown-menu-label-color);
-    border-bottom: var(--border-size-sm) solid
-      var(--dropdown-menu-label-border-color);
-  }
+    &.lg {
+      --dropdown-menu-padding: var(--gap-lg) var(--gap-xl);
+      --dropdown-menu-font-size: var(--control-font-lg);
+      --dropdown-menu-radius: var(--control-radius-lg);
+      --dropdown-menu-gap: var(--space-4);
+      --dropdown-menu-min-height: var(--control-height-lg);
+      --dropdown-menu-min-width: 13.75rem;
+    }
 
-  .divider {
-    --dropdown-menu-divider-size: 1px;
-    --dropdown-menu-divider-color: var(--border-subtle);
-    --dropdown-menu-divider-margin: var(--gap-xs);
-
-    height: var(--dropdown-menu-divider-size);
-    margin: var(--dropdown-menu-divider-margin) 0;
-    background: var(--dropdown-menu-divider-color);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .panel {
-    transition-duration: 0ms !important;
-  }
-}
-
-[data-appearance="dark"] {
-  .panel {
-    --dropdown-menu-border-color: oklch(
-      from var(--dropdown-menu-bg-color) calc(l + 0.1) calc(c - 0.02) h
-    );
-
-    .item:not(:disabled):hover {
+    .item {
       --dropdown-menu-item-hover-color: oklch(
-        from var(--dropdown-menu-color) calc(l + 0.9) c h
+        from var(--dropdown-menu-color) calc(l + 0) c h
       );
       --dropdown-menu-item-hover-bg-color: oklch(
-        from var(--dropdown-menu-bg-color) calc(l - 0.1) c h
+        from var(--dropdown-menu-bg-color) calc(l + 0.05) c h
       );
+
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: var(--dropdown-menu-gap);
+      padding: var(--dropdown-menu-padding);
+      border: none;
+      background: none;
+      color: var(--dropdown-menu-color);
+      font-family: inherit;
+      font-size: var(--dropdown-menu-font-size);
+      font-weight: var(--dropdown-menu-font-weight);
+      text-align: left;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background var(--duration-fast);
+
+      &.center {
+        justify-content: center;
+      }
+
+      &:hover {
+        --hover-color: var(--dropdown-menu-item-hover-color);
+        --hover-bg-color: var(--dropdown-menu-item-hover-bg-color);
+
+        background: var(--hover-bg-color);
+        color: var(--hover-color);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      a {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+
+    .label {
+      --dropdown-menu-label-padding: var(--gap-sm) var(--gap-lg);
+      --dropdown-menu-label-color: var(--text-muted);
+      --dropdown-menu-label-border-color: var(--border-subtle);
+
+      padding: var(--dropdown-menu-label-padding);
+      color: var(--dropdown-menu-label-color);
+      border-bottom: var(--border-size-sm) solid
+        var(--dropdown-menu-label-border-color);
+    }
+
+    .divider {
+      --dropdown-menu-divider-size: 1px;
+      --dropdown-menu-divider-color: var(--border-subtle);
+      --dropdown-menu-divider-margin: var(--gap-xs);
+
+      height: var(--dropdown-menu-divider-size);
+      margin: var(--dropdown-menu-divider-margin) 0;
+      background: var(--dropdown-menu-divider-color);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .panel {
+      transition-duration: 0ms !important;
+    }
+  }
+
+  [data-appearance="dark"] {
+    .panel {
+      --dropdown-menu-border-color: oklch(
+        from var(--dropdown-menu-bg-color) calc(l + 0.1) calc(c - 0.02) h
+      );
+
+      .item:not(:disabled):hover {
+        --dropdown-menu-item-hover-color: oklch(
+          from var(--dropdown-menu-color) calc(l + 0.9) c h
+        );
+        --dropdown-menu-item-hover-bg-color: oklch(
+          from var(--dropdown-menu-bg-color) calc(l - 0.1) c h
+        );
+      }
     }
   }
 }

@@ -1,195 +1,153 @@
-/* NumberInput — DS numeric control (Figma 482-2326): a raised surface lifted
-   by --shadow-xs holding a centred bold value box and a two-button stepper,
-   separated by hairline --border-subtle dividers. */
+@layer ambi.components {
+  .wrapper {
+    --number-input-stepper-width: var(--space-10);
+    --number-input-icon-size: var(--space-4);
+    --number-input-value-width: var(--space-16);
+    --number-input-padding: var(--p-pill-sm);
+    --number-input-font-size: var(--font-size-sm);
+    --number-input-divider-width: var(--border-size-xs);
+    --number-input-divider-color: var(--border-subtle);
+    --number-input-value-font-family: var(--font-mono);
+    --number-input-value-font-weight: var(--font-weight-bold);
+    --number-input-value-color: var(--text-secondary);
+    --number-input-step-color: var(--text-primary);
+    --number-input-step-hover-bg-color: var(--action-hover);
+    --input-padding: 0;
+    --status-input-padding-right: 0;
 
-.wrapper {
-  position: relative;
-  display: flex;
-  width: 100%;
-
-  .field {
-    /* manifest defaults (md) — flipped by the nested size classes below */
-    --input-padding: var(--space-2) var(--space-3);
-    --font-size: var(--font-size-sm);
-    --stepper-width: var(--space-10);
-    --icon-size: var(--space-4);
-
-    /* DS control (Figma 482-2326): raised surface lifted by --shadow-xs;
-       the transparent border keeps layout stable when the error tint
-       swaps in via --border-color. */
+    position: relative;
     display: flex;
-    align-items: stretch;
     width: 100%;
-    border: var(--border-size-sm) solid var(--border-color, var(--border-subtle));
-    border-radius: var(--radius-md);
-    background: var(--bg-surface-raised);
-    box-shadow: none;
-    overflow: hidden;
 
-    &[data-fill="bordered"] {
-      border-width: 2px;
-      box-shadow: var(--shadow-xs-size) var(--shadow-xs-color);
-    }
+    .field {
+      overflow: hidden;
 
-    &[data-fill="ghost"] {
-      border-color: transparent;
-      background: transparent;
-      box-shadow: none;
-    }
+      &.xs,
+      &.sm {
+        --number-input-stepper-width: var(--space-6);
+        --number-input-icon-size: var(--space-3);
+        --number-input-padding: var(--p-pill-xs);
+        --number-input-font-size: var(--font-size-xs);
+      }
 
-    &.pill {
-      border-radius: var(--radius-full);
-    }
+      &.md {
+        --number-input-stepper-width: var(--space-10);
+        --number-input-icon-size: var(--space-4);
+        --number-input-padding: var(--p-pill-sm);
+        --number-input-font-size: var(--font-size-sm);
+      }
 
-    &.xs {
-      --input-padding: var(--p-pill-xs);
-      --font-size: var(--font-size-xs);
-      --stepper-width: var(--space-6);
-      --icon-size: var(--space-3);
+      &.lg {
+        --number-input-stepper-width: var(--space-10);
+        --number-input-icon-size: var(--space-5);
+        --number-input-padding: var(--space-3) var(--space-5);
+        --number-input-font-size: var(--font-size-lg);
+      }
 
-      min-height: 1.5rem;
-    }
+      &:focus-within:not(.disabled) {
+        outline-color: var(--border-focus);
+        box-shadow: none;
+      }
 
-    &.sm {
-      --input-padding: var(--space-1) var(--space-2);
-      --font-size: var(--font-size-sm);
-      --stepper-width: var(--space-6);
-      --icon-size: var(--space-3);
-
-      min-height: 1.75rem;
-    }
-
-    &.md {
-      --input-padding: var(--space-2) var(--space-3);
-      --font-size: var(--font-size-sm);
-      --stepper-width: var(--space-10);
-      --icon-size: var(--space-4);
-
-      min-height: 2.5rem;
-    }
-
-    &.lg {
-      --input-padding: var(--space-3) var(--space-4);
-      --font-size: var(--font-size-lg);
-      --stepper-width: var(--space-10);
-      --icon-size: var(--space-5);
-
-      min-height: 3.75rem;
-    }
-
-    &.disabled {
-      border-color: var(--border-is-disabled);
-      background: var(--bg-is-disabled);
-      pointer-events: none;
-    }
-
-    &.error {
-      --border-color: var(--border-error);
-    }
-
-    &:focus-within {
-      --border-color: var(--border-focus);
-
-      box-shadow: var(--shadow-focus);
-    }
-
-    input.input {
-      font-family: var(--font-mono);
-      appearance: textfield;
-      flex: 1 1 auto;
-      min-width: 0;
-      width: 100%;
-      border: none;
-      border-radius: 0;
-      outline: none;
-      background: transparent;
-      padding: var(--input-padding);
-      /* stylelint-disable-next-line declaration-property-value-disallowed-list */
-      padding-left: var(--space-1);
-      /* stylelint-disable-next-line declaration-property-value-disallowed-list */
-      padding-right: var(--space-1);
-      font-size: var(--font-size);
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-      text-align: center;
-      color: var(--text-secondary);
-
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        appearance: none;
-        margin: 0;
+      &.disabled {
+        border-color: var(--border-is-disabled);
+        background-color: var(--bg-is-disabled);
+        color: var(--text-is-disabled);
+        cursor: not-allowed;
+        pointer-events: none;
       }
 
       &.error {
-        color: var(--text-error);
+        --field-border-color: var(--border-error);
+        --number-input-value-color: var(--text-error);
       }
     }
 
-    /* Hairline dividers (not lifted surfaces) separate the value box from
-       the stepper and the two step buttons — a true-divider border case. */
-    .stepper {
-      flex: 0 0 auto;
-      display: flex;
-      flex-direction: column;
-      width: var(--stepper-width);
-      border-left: 1px solid var(--border-subtle);
+    .input {
+      flex: 1 1 auto;
+      width: 100%;
+      min-width: 0;
+      padding: var(--number-input-padding);
+      color: var(--number-input-value-color);
+      font-size: var(--number-input-font-size);
+      font-family: var(--number-input-value-font-family);
+      font-weight: var(--number-input-value-font-weight);
+      font-variant-numeric: tabular-nums;
+      text-align: center;
+      background-color: transparent;
+      border: 0;
+      border-radius: 0;
+      outline: none;
+      appearance: textfield;
 
-      .stepBtn {
-        flex: 1 1 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.12s ease;
-
-        &:disabled {
-          cursor: default;
-          opacity: 0.4;
-        }
-
-        .icon {
-          width: var(--icon-size);
-          height: var(--icon-size);
-        }
-
-        &.stepUp,
-        &.stepDown {
-          background: var(--bg-surface-raised);
-          color: var(--text-primary);
-        }
-
-        &.stepUp {
-          border-bottom: 1px solid var(--border-subtle);
-        }
-
-        &.stepUp:not(:disabled):hover,
-        &.stepDown:not(:disabled):hover {
-          background: var(--bg-secondary);
-        }
+      &::placeholder {
+        color: oklch(
+          from var(--number-input-value-color) calc(l * 0.8) calc(c * 0.1) h
+        );
       }
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        margin: 0;
+        appearance: none;
+      }
+    }
+
+    .stepper {
+      display: flex;
+      width: var(--number-input-stepper-width);
+      border-left: var(--number-input-divider-width) solid
+        var(--number-input-divider-color);
+      flex: 0 0 auto;
+      flex-direction: column;
+    }
+
+    .stepBtn {
+      display: flex;
+      flex: 1 1 0;
+      padding: 0;
+      color: var(--number-input-step-color);
+      background-color: transparent;
+      border: 0;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color var(--duration-base) ease-in-out;
+
+      &:disabled {
+        color: var(--text-is-disabled);
+        cursor: default;
+        opacity: 0.5;
+      }
+
+      &:not(:disabled):hover {
+        background-color: var(--number-input-step-hover-bg-color);
+      }
+    }
+
+    .stepUp {
+      border-bottom: var(--number-input-divider-width) solid
+        var(--number-input-divider-color);
+    }
+
+    .icon {
+      width: var(--number-input-icon-size);
+      height: var(--number-input-icon-size);
+      stroke: currentcolor;
     }
 
     &.compact {
       width: auto;
       flex-shrink: 0;
+
+      .field {
+        width: auto;
+      }
+
+      .input {
+        flex: 0 0 auto;
+        width: var(--number-input-value-width);
+      }
     }
-
-    &.compact .input {
-      width: var(--space-16);
-      flex: 0 0 auto;
-    }
-  }
-
-  /* One --space-6 step below the field, x-aligned with its --p-sm text inset. */
-  .message {
-    position: absolute;
-    bottom: calc(-1 * var(--space-6));
-    left: var(--space-3);
-  }
-
-  &.compact {
-    width: auto;
   }
 }

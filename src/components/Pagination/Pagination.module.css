@@ -1,167 +1,175 @@
-.pagination {
-  /* composes: hoverable from "../../styles/utilities.module.css"; */
+@layer ambi.component {
+  .pagination {
+    /* composes: hoverable from "../../styles/utilities.module.css"; */
 
-  /** Layout & Size **/
-  --page-size: 1em;
-  --page-gap: var(--gap-xs);
-  --page-radius: var(--control-radius-md);
-
-  /** Styling **/
-  --page-font-family: var(--font-sans);
-  --page-font-size: var(--control-font-md);
-  --page-font-weight: var(--font-weight-medium);
-  --page-color: var(--color);
-  --page-bg-color: var(--bg-color);
-  --page-border-color: var(--border-color);
-  --page-shadow-size: var(--shadow-size);
-  --page-shadow-color: var(--shadow-color);
-  --page-btn-padding: var(--p-md);
-
-  display: inline-flex;
-  align-items: center;
-  gap: var(--page-gap);
-  font-variant-numeric: tabular-nums;
-
-  &.xs {
-    --page-size: var(--space-4);
-    --page-min-width: var(--space-4);
-    --page-font-size: var(--control-font-xs);
-    --page-radius: var(--control-radius-xs);
-    --page-padding: var(--space-half);
-    --page-min-height: var(--control-height-xs);
-  }
-
-  &.sm {
-    --page-size: var(--space-5);
-    --page-min-width: var(--space-5);
-    --page-font-size: var(--control-font-sm);
-    --page-radius: var(--control-radius-sm);
-    --page-padding: var(--space-1);
-    --page-min-height: var(--control-height-sm);
-  }
-
-  &.md {
-    --page-size: var(--space-8);
-    --page-min-width: var(--space-8);
-    --page-font-size: var(--control-font-md);
+    /** Layout & Size **/
+    --page-size: 1em;
+    --page-gap: var(--gap-xs);
     --page-radius: var(--control-radius-md);
-    --page-padding: var(--space-1);
-    --page-min-height: var(--control-height-md);
-  }
 
-  &.lg {
-    --page-size: var(--space-10);
-    --page-min-width: var(--space-10);
-    --page-font-size: var(--control-font-lg);
-    --page-radius: var(--control-radius-lg);
-    --page-gap: var(--gap-sm);
-    --page-padding: var(--space-2);
-    --page-min-height: var(--control-height-lg);
-  }
+    /** Styling **/
+    --page-font-family: var(--font-sans);
+    --page-font-size: var(--control-font-md);
+    --page-font-weight: var(--font-weight-medium);
+    --page-color: var(--color);
+    --page-bg-color: var(--bg-color);
+    --page-border-color: var(--border-color);
+    --page-shadow-size: var(--shadow-size);
+    --page-shadow-color: var(--shadow-color);
+    --page-btn-padding: var(--p-md);
 
-  .list {
     display: inline-flex;
     align-items: center;
     gap: var(--page-gap);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+    font-variant-numeric: tabular-nums;
 
-  .item {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .navBtn,
-  .pageBtn,
-  .ellipsis {
-    flex: none;
-    display: inline-flex;
-    inline-size: var(--page-size);
-    aspect-ratio: 1;
-    align-items: center;
-    padding: var(--page-padding);
-    box-sizing: border-box;
-    width: var(--page-min-height);
-    height: var(--page-min-height);
-  }
-
-  .pageBtn.current {
-    filter: brightness(0.85);
-    pointer-events: none;
-    cursor: default;
-  }
-
-  .ellipsis {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-  }
-
-  .navBtn,
-  .pageBtn {
-    &:focus-visible {
-      outline: 2px solid var(--border-focus);
-      outline-offset: 2px;
+    &.xs {
+      --page-size: var(--space-4);
+      --page-min-width: var(--space-4);
+      --page-font-size: var(--control-font-xs);
+      --page-radius: var(--control-radius-xs);
+      --page-padding: var(--space-half);
+      --page-min-height: var(--control-height-xs);
     }
 
-    &:hover:not([data-fill="ghost"], :disabled, .current) {
-      --hover-color: oklch(from var(--color) calc(l - 0.1) calc(c + 0.01) h);
-      --hover-bg-color: oklch(from var(--bg-color) calc(l + 0.05) calc(c + 0.02) h);
-      --border-color: var(--role-border);
-
-      box-shadow: var(--shadow-sm);
-      background-color: var(--hover-bg-color);
-      color: var(--hover-color);
+    &.sm {
+      --page-size: var(--space-5);
+      --page-min-width: var(--space-5);
+      --page-font-size: var(--control-font-sm);
+      --page-radius: var(--control-radius-sm);
+      --page-padding: var(--space-1);
+      --page-min-height: var(--control-height-sm);
     }
-  }
 
-  .navBtn {
-    transition: opacity var(--duration-base) ease-in-out;
-
-    &:disabled {
-      opacity: 0.3;
-      border-color: transparent;
+    &.md {
+      --page-size: var(--space-8);
+      --page-min-width: var(--control-height-md);
+      --page-font-size: var(--control-font-md);
+      --page-radius: var(--control-radius-md);
+      --page-padding: var(--space-1);
+      --page-min-height: var(--control-height-md);
     }
-  }
 
-  &[data-fill="bordered"] .pageBtn {
-    border-width: 2px;
-    border-color: var(--page-border-color);
-  }
+    &.lg {
+      --page-size: var(--space-10);
+      --page-min-width: var(--space-10);
+      --page-font-size: var(--control-font-lg);
+      --page-radius: var(--control-radius-lg);
+      --page-gap: var(--gap-sm);
+      --page-padding: var(--space-2);
+      --page-min-height: var(--control-height-lg);
+    }
 
-  &[data-fill="ghost"] .pageBtn,
-  &[data-fill="ghost"] .ellipsis {
-    background-color: transparent;
-    box-shadow: none;
-  }
+    .list {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--page-gap);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
 
-  .chevron {
-    width: var(--space-5);
-    height: var(--space-5);
-  }
+    .item {
+      display: inline-flex;
+      align-items: center;
+    }
 
-  .compactLabel {
-    color: var(--page-color);
-    font-family: var(--page-font-family);
-    font-size: var(--page-font-size);
-    padding: 0 var(--gap-sm);
-  }
-}
+    .navBtn,
+    .pageBtn,
+    .ellipsis {
+      display: flex;
+      width: var(--page-min-height);
+      height: var(--page-min-height);
+      padding: var(--page-padding);
+      flex: none;
 
-.compact {
-  gap: var(--gap-md);
-}
+      /* inline-size: var(--page-size); */
+      aspect-ratio: 1;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
 
-[data-appearance="dark"] {
-  .pagination {
+    .pageBtn.current {
+      filter: brightness(0.85);
+      pointer-events: none;
+      cursor: default;
+    }
+
+    .ellipsis {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .navBtn,
     .pageBtn {
-      &:not(:disabled, [data-fill="ghost"]):hover {
-        --hover-border-color: oklch(from var(--bg-color) calc(l + 0.3) calc(c - 0.02) h);
+      &:focus-visible {
+        outline: 2px solid var(--border-focus);
+        outline-offset: 2px;
+      }
 
-        border-color: var(--hover-border-color);
+      &:hover:not([data-fill="ghost"], :disabled, .current) {
+        --hover-color: oklch(from var(--color) calc(l - 0.1) calc(c + 0.01) h);
+        --hover-bg-color: oklch(
+          from var(--bg-color) calc(l + 0.05) calc(c + 0.02) h
+        );
+        --border-color: var(--role-border);
+
+        box-shadow: var(--shadow-sm);
+        background-color: var(--hover-bg-color);
+        color: var(--hover-color);
+      }
+    }
+
+    .navBtn {
+      transition: opacity var(--duration-base) ease-in-out;
+
+      &:disabled {
+        opacity: 0.3;
+        border-color: transparent;
+      }
+    }
+
+    &[data-fill="bordered"] .pageBtn {
+      border-width: 2px;
+      border-color: var(--page-border-color);
+    }
+
+    &[data-fill="ghost"] .pageBtn,
+    &[data-fill="ghost"] .ellipsis {
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    .chevron {
+      width: var(--space-5);
+      height: var(--space-5);
+    }
+
+    .compactLabel {
+      padding: 0 var(--gap-sm);
+      color: var(--page-color);
+      font-size: var(--page-font-size);
+      font-family: var(--page-font-family);
+    }
+  }
+
+  .compact {
+    gap: var(--gap-md);
+  }
+
+  [data-appearance="dark"] {
+    .pagination {
+      .pageBtn {
+        &:not(:disabled, [data-fill="ghost"]):hover {
+          --hover-border-color: oklch(
+            from var(--bg-color) calc(l + 0.3) calc(c - 0.02) h
+          );
+
+          border-color: var(--hover-border-color);
+        }
       }
     }
   }

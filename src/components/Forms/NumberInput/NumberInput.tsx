@@ -5,7 +5,6 @@ import shared from "../Field.module.css";
 import type { NumberInputProps } from "../Field.types";
 import { FeedbackMessage } from "../_shared/FeedbackMessage";
 import { FieldLabel } from "../_shared/FieldLabel";
-import { StatusIcon } from "../_shared/StatusIcon";
 import { useField } from "../useField";
 import styles from "./NumberInput.module.css";
 
@@ -42,21 +41,14 @@ const NumberInput = ({
   ref,
   ...rest
 }: NumberInputProps) => {
-  const {
-    inputId,
-    messageId,
-    hasMessage,
-    hasError,
-    dataStatus,
-    inputVariant,
-    aria,
-  } = useField({
-    id,
-    infoMessage,
-    errorMessage,
-    validationState,
-    variant,
-  });
+  const { inputId, messageId, hasMessage, hasError, inputVariant, aria } =
+    useField({
+      id,
+      infoMessage,
+      errorMessage,
+      validationState,
+      variant,
+    });
   const minN = toNumber(min);
   const maxN = toNumber(max);
   const stepN = toNumber(step) ?? 1;
@@ -80,6 +72,7 @@ const NumberInput = ({
   return (
     <div
       data-fill={fill === "default" ? undefined : fill}
+      data-label-position={labelPosition}
       className={jC([
         shared.fieldBlock,
         shared[labelPosition],
@@ -93,6 +86,7 @@ const NumberInput = ({
     >
       {label && (
         <FieldLabel
+          className={styles.labelWrapper}
           id={inputId}
           label={label}
           extraLabelInfo={extraLabelInfo}
@@ -104,13 +98,13 @@ const NumberInput = ({
           fullWidth && shared.fullWidth,
           styles.wrapper,
         ])}
-        data-status={dataStatus}
       >
         <div
           className={jC([
+            shared.field,
             styles.field,
             styles[fieldSize],
-            shape === "pill" ? styles.pill : "",
+            shape !== "default" && shared[shape],
             disabled ? styles.disabled : "",
             hasError ? styles.error : "",
           ])}
@@ -168,7 +162,6 @@ const NumberInput = ({
             infoMessage={infoMessage}
           />
         )}
-        <StatusIcon dataStatus={dataStatus} />
       </div>
     </div>
   );

@@ -1,110 +1,112 @@
-.popover {
-  /** Layout & Size **/
-  --popover-gap: var(--gap-sm);
-  --popover-padding: var(--p-square-xs);
-  --popover-radius: var(--radius-md);
+@layer ambi.component {
+  .popover {
+    /** Layout & Size **/
+    --popover-gap: var(--gap-sm);
+    --popover-padding: var(--p-square-xs);
+    --popover-radius: var(--radius-md);
 
-  /** Styling **/
-  --popover-bg-color: var(--bg-canvas);
-  --popover-shadow: var(--shadow-md);
+    /** Styling **/
+    --popover-bg-color: var(--bg-canvas);
+    --popover-shadow: var(--shadow-md);
 
-  display: flex;
-  flex-direction: column;
-  gap: var(--popover-gap);
-  padding: var(--popover-padding);
-  background-color: var(--popover-bg-color);
-  border-radius: var(--popover-radius);
-  box-shadow: var(--popover-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: var(--popover-gap);
+    padding: var(--popover-padding);
+    background-color: var(--popover-bg-color);
+    border-radius: var(--popover-radius);
+    box-shadow: var(--popover-shadow);
 
-  &.pill {
-    border-radius: var(--radius-full);
-  }
-
-  &.squircle {
-    @supports (corner-shape: squircle) {
-      corner-shape: squircle;
+    &.pill {
       border-radius: var(--radius-full);
     }
+
+    &.squircle {
+      @supports (corner-shape: squircle) {
+        corner-shape: squircle;
+        border-radius: var(--radius-full);
+      }
+    }
   }
-}
 
-.row {
-  --popover-row-gap: var(--gap-xs);
+  .row {
+    --popover-row-gap: var(--gap-xs);
 
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--popover-row-gap);
-}
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--popover-row-gap);
+  }
 
-.btn {
-  /** Layout & Size **/
-  --popover-btn-min-width: 1.75rem;
-  --popover-btn-height: 1.75rem;
-  --popover-btn-padding-inline: var(--gap-sm);
-  --popover-btn-radius: var(--radius-sm);
-  --popover-btn-icon-size: 1rem;
+  .btn {
+    /** Layout & Size **/
+    --popover-btn-min-width: 1.75rem;
+    --popover-btn-height: 1.75rem;
+    --popover-btn-padding-inline: var(--gap-sm);
+    --popover-btn-radius: var(--radius-sm);
+    --popover-btn-icon-size: 1rem;
 
-  /** Styling **/
-  --popover-btn-color: var(--text-primary);
-  --popover-btn-bg-color: transparent;
-  --popover-btn-border-color: transparent;
-  --popover-btn-hover-bg-color: var(--bg-subtle);
-  --popover-btn-hover-border-color: var(--border-subtle);
-  --popover-btn-font-family: var(--font-sans);
-  --popover-btn-font-size: var(--font-size-sm);
+    /** Styling **/
+    --popover-btn-color: var(--text-primary);
+    --popover-btn-bg-color: transparent;
+    --popover-btn-border-color: transparent;
+    --popover-btn-hover-bg-color: var(--bg-subtle);
+    --popover-btn-hover-border-color: var(--border-subtle);
+    --popover-btn-font-family: var(--font-sans);
+    --popover-btn-font-size: var(--font-size-sm);
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: var(--popover-btn-min-width);
-  height: var(--popover-btn-height);
-  padding: 0 var(--popover-btn-padding-inline);
-  border: var(--border-size-sm) solid var(--popover-btn-border-color);
-  border-radius: var(--popover-btn-radius);
-  background-color: var(--popover-btn-bg-color);
-  color: var(--popover-btn-color);
-  font-family: var(--popover-btn-font-family);
-  font-size: var(--popover-btn-font-size);
-  cursor: pointer;
-  transition:
-    background-color var(--duration-fast, 150ms) ease-out,
-    border-color var(--duration-fast, 150ms) ease-out;
-}
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--popover-btn-min-width);
+    height: var(--popover-btn-height);
+    padding: 0 var(--popover-btn-padding-inline);
+    border: var(--border-size-sm) solid var(--popover-btn-border-color);
+    border-radius: var(--popover-btn-radius);
+    background-color: var(--popover-btn-bg-color);
+    color: var(--popover-btn-color);
+    font-family: var(--popover-btn-font-family);
+    font-size: var(--popover-btn-font-size);
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast, 150ms) ease-out,
+      border-color var(--duration-fast, 150ms) ease-out;
+  }
 
-.btn:hover {
-  background-color: var(--popover-btn-hover-bg-color);
-  border-color: var(--popover-btn-hover-border-color);
-}
+  .btn:hover {
+    background-color: var(--popover-btn-hover-bg-color);
+    border-color: var(--popover-btn-hover-border-color);
+  }
 
-.btn svg {
-  width: var(--popover-btn-icon-size);
-  height: var(--popover-btn-icon-size);
-}
+  .btn svg {
+    width: var(--popover-btn-icon-size);
+    height: var(--popover-btn-icon-size);
+  }
 
-.btnActive {
-  --popover-btn-bg-color: var(--action-active);
-  --popover-btn-color: var(--zinc-100);
-  --popover-btn-border-color: var(--action-active);
-}
+  .btnActive {
+    --popover-btn-bg-color: var(--action-active);
+    --popover-btn-color: var(--zinc-100);
+    --popover-btn-border-color: var(--action-active);
+  }
 
-.divider {
-  --popover-divider-size: 1px;
-  --popover-divider-color: var(--border-subtle);
-  --popover-divider-margin: var(--gap-xs);
+  .divider {
+    --popover-divider-size: 1px;
+    --popover-divider-color: var(--border-subtle);
+    --popover-divider-margin: var(--gap-xs);
 
-  width: var(--popover-divider-size);
-  align-self: stretch;
-  background-color: var(--popover-divider-color);
-  margin: 0 var(--popover-divider-margin);
-}
+    width: var(--popover-divider-size);
+    align-self: stretch;
+    background-color: var(--popover-divider-color);
+    margin: 0 var(--popover-divider-margin);
+  }
 
-.groupLabel {
-  --popover-label-font-size: var(--font-size-xs);
-  --popover-label-color: var(--text-muted);
-  --popover-label-padding-inline: var(--gap-xs);
+  .groupLabel {
+    --popover-label-font-size: var(--font-size-xs);
+    --popover-label-color: var(--text-muted);
+    --popover-label-padding-inline: var(--gap-xs);
 
-  font-size: var(--popover-label-font-size);
-  color: var(--popover-label-color);
-  padding: 0 var(--popover-label-padding-inline);
+    padding: 0 var(--popover-label-padding-inline);
+    color: var(--popover-label-color);
+    font-size: var(--popover-label-font-size);
+  }
 }

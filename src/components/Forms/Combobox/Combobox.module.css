@@ -3,90 +3,91 @@
   * Refactor this with proper nesting
   * Change padding right var for input
 */
-
-.combobox {
-  position: relative;
-  width: 100%;
-}
-
-.input {
-  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value, declaration-property-value-disallowed-list, csstools/value-no-unknown-custom-properties */
-  padding-right: calc(var(--input-padding) + var(--space-5));
-}
-
-.chevronButton {
-  position: absolute;
-  display: flex;
-  padding: 0;
-  background: none;
-  color: var(--text-brand);
-  top: 50%;
-  right: var(--space-3);
-  border: 0;
-  translate: 0 -50%;
-  cursor: pointer;
-}
-
-.chevronButton:disabled {
-  cursor: default;
-}
-
-.chevron {
-  width: 1.125rem;
-  height: 1.125rem;
-  transition: transform var(--duration-base) var(--ease-out);
-
-  &:hover {
-    stroke: var(--text-accent);
+@layer ambi.component {
+  .combobox {
+    position: relative;
+    width: 100%;
   }
-}
 
-.chevronOpen {
-  transform: rotate(180deg);
-}
+  .input {
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value, declaration-property-value-disallowed-list, csstools/value-no-unknown-custom-properties */
+    padding-right: calc(var(--input-padding) + var(--space-5));
+  }
 
-.panel {
-  --combobox-reference-width: 0px;
+  .chevronButton {
+    position: absolute;
+    display: flex;
+    padding: 0;
+    background: none;
+    color: var(--text-brand);
+    top: 50%;
+    right: var(--space-3);
+    border: 0;
+    translate: 0 -50%;
+    cursor: pointer;
+  }
 
-  width: var(--combobox-reference-width);
-  background-color: var(--bg-surface-raised);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-  z-index: var(--z-dropdown);
-}
+  .chevronButton:disabled {
+    cursor: default;
+  }
 
-.list {
-  margin: 0;
-  padding: var(--gap-xs) 0;
-  max-height: 12.5rem;
-  overflow-y: auto;
-  list-style: none;
-}
+  .chevron {
+    width: 1.125rem;
+    height: 1.125rem;
+    transition: transform var(--duration-base) var(--ease-out);
 
-.option {
-  display: flex;
-  padding: var(--p-sm);
-  color: var(--text-secondary);
-  font-size: var(--font-size-sm);
-  cursor: pointer;
-  align-items: center;
-}
+    &:hover {
+      stroke: var(--text-accent);
+    }
+  }
 
-.option:hover,
-.active {
-  color: var(--text-primary);
-  background-color: var(--bg-subtle);
-}
+  .chevronOpen {
+    transform: rotate(180deg);
+  }
 
-.selected {
-  color: var(--text-primary);
-  background-color: var(--bg-secondary);
-}
+  .panel {
+    --combobox-reference-width: 0px;
 
-.empty {
-  padding: var(--p-sm);
-  color: var(--text-muted);
-  font-size: var(--font-size-sm);
-  text-align: center;
+    width: var(--combobox-reference-width);
+    background-color: var(--bg-surface-raised);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    z-index: var(--z-dropdown);
+  }
+
+  .list {
+    margin: 0;
+    padding: var(--gap-xs) 0;
+    max-height: 12.5rem;
+    overflow-y: auto;
+    list-style: none;
+  }
+
+  .option {
+    display: flex;
+    padding: var(--p-sm);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    align-items: center;
+  }
+
+  .option:hover,
+  .active {
+    color: var(--text-primary);
+    background-color: var(--bg-subtle);
+  }
+
+  .selected {
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+  }
+
+  .empty {
+    padding: var(--p-sm);
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+    text-align: center;
+  }
 }

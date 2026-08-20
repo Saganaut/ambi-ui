@@ -53,6 +53,14 @@ My custom component library used in new project.
 - CSS modules to isolate styling into own files per component
 - Components styles are composed of shared + individual style sheets
 
+## CSS layering
+
+- 3 top level layers that allow for easy overrides using components and overrides layers on top of the ability to override with css properties
+- Lower ambi layer is only for in package use
+- Top level layer: @layer ambi, components, overrides;
+- Ambi implementation layer: @layer ambi.tokens, ambi.reset, ambi.base, ambi.components,
+    ambi.modifiers, ambi.states;
+
 ## Accessibility
 
 - All the components aim to fully abide by accessibility best practices

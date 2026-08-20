@@ -1,38 +1,41 @@
-.chip {
-  --dropdown-chip-gap: var(--gap-xs);
-  --dropdown-chip-padding-block: var(--gap-xxs);
-  --dropdown-chip-padding-inline: var(--gap-sm);
-  --dropdown-chip-bg-color: var(--bg-subtle);
-  --dropdown-chip-radius: var(--radius-full);
-  --dropdown-chip-font-size: var(--font-size-xs);
-  --dropdown-chip-color: var(--text-secondary);
+@layer ambi.component {
+  .chip {
+    --dropdown-chip-gap: var(--gap-xs);
+    --dropdown-chip-padding-block: var(--gap-xxs);
+    --dropdown-chip-padding-inline: var(--gap-sm);
+    --dropdown-chip-bg-color: var(--bg-subtle);
+    --dropdown-chip-radius: var(--radius-full);
+    --dropdown-chip-font-size: var(--font-size-xs);
+    --dropdown-chip-color: var(--text-secondary);
 
-  display: inline-flex;
+    display: inline-flex;
 
-  /* (2px, 8px) has no --p-pill-* equivalent — composed per axis on the gap tier */
-  padding: var(--dropdown-chip-padding-block) var(--dropdown-chip-padding-inline);
-  color: var(--dropdown-chip-color);
-  font-size: var(--dropdown-chip-font-size);
-  align-items: center;
-  gap: var(--dropdown-chip-gap);
-  background-color: var(--dropdown-chip-bg-color);
-  border-radius: var(--dropdown-chip-radius);
-  white-space: nowrap;
-}
+    /* (2px, 8px) has no --p-pill-* equivalent — composed per axis on the gap tier */
+    padding: var(--dropdown-chip-padding-block)
+      var(--dropdown-chip-padding-inline);
+    color: var(--dropdown-chip-color);
+    font-size: var(--dropdown-chip-font-size);
+    align-items: center;
+    gap: var(--dropdown-chip-gap);
+    background-color: var(--dropdown-chip-bg-color);
+    border-radius: var(--dropdown-chip-radius);
+    white-space: nowrap;
+  }
 
-.chipRemove {
-  --dropdown-chip-remove-color: var(--text-muted);
-  --dropdown-chip-remove-hover-color: var(--text-error);
+  .chipRemove {
+    --dropdown-chip-remove-color: var(--text-muted);
+    --dropdown-chip-remove-hover-color: var(--text-error);
 
-  display: flex;
-  width: 1em;
-  height: 1em;
-  color: var(--dropdown-chip-remove-color);
-  cursor: pointer;
-  line-height: 1em;
-  align-items: center;
+    display: flex;
+    width: 1em;
+    height: 1em;
+    color: var(--dropdown-chip-remove-color);
+    cursor: pointer;
+    line-height: 1em;
+    align-items: center;
 
-  &:hover {
-    color: var(--dropdown-chip-remove-hover-color);
+    &:hover {
+      color: var(--dropdown-chip-remove-hover-color);
+    }
   }
 }

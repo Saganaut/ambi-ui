@@ -1,187 +1,188 @@
 /* Checkbox — visually hidden native input + a styled control box.
    :has() drives all visual state so no JS class toggling is needed. */
-
-.checkboxBlock {
-  --message-reserve: var(--space-6);
-  --checkbox-border-color: var(--role-border);
-  --checkbox-bg-color: var(--bg-color);
-  --checkbox-color: var(--color);
-  --checkbox-label-color: var(--alt-color);
-  --checkbox-box-height: 20px;
-  --checkbox-box-width: 20px;
-  --checkbox-check-stroke: var(--border-size-sm);
-
-  position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--gap-sm);
-
-  &.xs {
-    --checkbox-padding: var(--p-pill-xs);
-    --checkbox-font-size: var(--control-font-xs);
-    --checkbox-box-height: 14px;
-    --checkbox-box-width: 14px;
-    --checkbox-check-stroke: var(--border-size-xs);
-    --checkbox-radius: var(--control-radius-xs);
-    --checkbox-gap: var(--space-1);
-  }
-
-  &.sm {
-    --checkbox-box-height: 18px;
-    --checkbox-box-width: 18px;
-    --checkbox-font-size: var(--control-font-sm);
-    --checkbox-radius: var(--control-radius-sm);
-    --checkbox-gap: 0;
-  }
-
-  &.md {
-    --checkbox-padding: var(--p-pill-md);
-    --checkbox-font-size: var(--control-font-md);
-    --checkbox-radius: var(--control-radius-md);
-    --checkbox-gap: var(--space-3);
+@layer ambi.component {
+  .checkboxBlock {
+    --message-reserve: var(--space-6);
+    --checkbox-border-color: var(--role-border);
+    --checkbox-bg-color: var(--bg-color);
+    --checkbox-color: var(--color);
+    --checkbox-label-color: var(--alt-color);
     --checkbox-box-height: 20px;
     --checkbox-box-width: 20px;
-  }
+    --checkbox-check-stroke: var(--border-size-sm);
 
-  &.lg {
-    --checkbox-padding: var(--p-pill-lg);
-    --checkbox-font-size: var(--control-font-lg);
-    --checkbox-radius: var(--control-radius-lg);
-    --checkbox-gap: var(--space-4);
-    --checkbox-box-height: 30px;
-    --checkbox-box-width: 30px;
-  }
-
-  .message {
-    order: 2;
-  }
-
-  &.reserveMessageSpace {
-    padding-bottom: var(--message-reserve);
-  }
-
-  /* Visually hidden native checkbox — keyboard/pointer events still fire */
-  .checkboxInput {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border: none;
-  }
-
-  .labelBefore {
-    .checkboxLabelWrapper {
-      span {
-        width: 100%;
-        text-align: start;
-      }
-    }
-  }
-
-  label.checkboxWrap {
-    display: flex;
-    align-items: start;
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: var(--gap-sm);
-    cursor: pointer;
 
-    .checkboxLabelText {
-      color: var(--checkbox-label-color);
-      font-size: var(--checkbox-font-size);
-      font-weight: 500;
-      cursor: pointer;
+    &.xs {
+      --checkbox-padding: var(--p-pill-xs);
+      --checkbox-font-size: var(--control-font-xs);
+      --checkbox-box-height: 14px;
+      --checkbox-box-width: 14px;
+      --checkbox-check-stroke: var(--border-size-xs);
+      --checkbox-radius: var(--control-radius-xs);
+      --checkbox-gap: var(--space-1);
     }
 
-    .checkboxLabelWrapper {
-      text-align: end;
-
-      .checkboxLabelText {
-        width: 100%;
-      }
+    &.sm {
+      --checkbox-box-height: 18px;
+      --checkbox-box-width: 18px;
+      --checkbox-font-size: var(--control-font-sm);
+      --checkbox-radius: var(--control-radius-sm);
+      --checkbox-gap: 0;
     }
 
-    .checkboxControl {
-      display: flex;
-      width: var(--checkbox-box-width);
-      height: var(--checkbox-box-height);
-      flex-shrink: 0;
-      border-radius: var(--radius-sm);
-      border: var(--border-size-xs) solid var(--checkbox-border-color);
-      background-color: var(--checkbox-bg-color);
-      align-items: center;
-      justify-content: center;
-      transition:
-        background-color var(--duration-base) var(--ease-out),
-        border-color var(--duration-base) var(--ease-out);
+    &.md {
+      --checkbox-padding: var(--p-pill-md);
+      --checkbox-font-size: var(--control-font-md);
+      --checkbox-radius: var(--control-radius-md);
+      --checkbox-gap: var(--space-3);
+      --checkbox-box-height: 20px;
+      --checkbox-box-width: 20px;
+    }
 
-      &.squircle {
-        @supports (corner-shape: squircle) {
-          border-radius: var(--radius-full);
-          corner-shape: squircle;
+    &.lg {
+      --checkbox-padding: var(--p-pill-lg);
+      --checkbox-font-size: var(--control-font-lg);
+      --checkbox-radius: var(--control-radius-lg);
+      --checkbox-gap: var(--space-4);
+      --checkbox-box-height: 30px;
+      --checkbox-box-width: 30px;
+    }
+
+    .message {
+      order: 2;
+    }
+
+    &.reserveMessageSpace {
+      padding-bottom: var(--message-reserve);
+    }
+
+    /* Visually hidden native checkbox — keyboard/pointer events still fire */
+    .checkboxInput {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: none;
+    }
+
+    .labelBefore {
+      .checkboxLabelWrapper {
+        span {
+          width: 100%;
+          text-align: start;
         }
       }
     }
-  }
 
-  .labelBefore .checkboxWrap {
-    flex-direction: row-reverse;
-  }
+    label.checkboxWrap {
+      display: flex;
+      align-items: start;
+      gap: var(--gap-sm);
+      cursor: pointer;
 
-  &.stretch,
-  &.stretch .checkboxWrap {
-    width: 100%;
-  }
+      .checkboxLabelText {
+        color: var(--checkbox-label-color);
+        font-size: var(--checkbox-font-size);
+        font-weight: 500;
+        cursor: pointer;
+      }
 
-  &.stretch {
-    padding-top: var(--gap-xs);
-    padding-bottom: var(--gap-xs);
+      .checkboxLabelWrapper {
+        text-align: end;
 
-    .checkboxWrap {
-      justify-content: space-between;
-    }
-  }
+        .checkboxLabelText {
+          width: 100%;
+        }
+      }
 
-  &:has(.checkboxInput:checked) .checkboxControl {
-    background-color: var(--checkbox-bg-color);
-  }
+      .checkboxControl {
+        display: flex;
+        width: var(--checkbox-box-width);
+        height: var(--checkbox-box-height);
+        flex-shrink: 0;
+        border-radius: var(--radius-sm);
+        border: var(--border-size-xs) solid var(--checkbox-border-color);
+        background-color: var(--checkbox-bg-color);
+        align-items: center;
+        justify-content: center;
+        transition:
+          background-color var(--duration-base) var(--ease-out),
+          border-color var(--duration-base) var(--ease-out);
 
-  &:has(.checkboxInput:checked) .checkboxControl::after {
-    content: "";
-    display: block;
-    width: 20%;
-    height: 40%;
-    border-right: var(--checkbox-check-stroke) solid var(--checkbox-color);
-    border-bottom: var(--checkbox-check-stroke) solid var(--checkbox-color);
-    transform: rotate(45deg) translate(-12.5%, -12.5%);
-  }
-
-  &:has(.checkboxInput:disabled) .checkboxWrap {
-    cursor: not-allowed;
-  }
-
-  &:has(.checkboxInput:disabled) .checkboxControl {
-    border-color: var(--border-is-disabled);
-    background-color: var(--bg-is-disabled);
-  }
-
-  &:has(.checkboxInput:focus-visible) .checkboxControl {
-    outline: var(--border-size-sm) solid var(--border-focus);
-    outline-offset: var(--border-size-sm);
-
-    &.squircle {
-      @supports (corner-shape: squircle) {
-        outline: none;
-        box-shadow: 0 0 0 var(--border-size-sm) var(--border-focus);
+        &.squircle {
+          @supports (corner-shape: squircle) {
+            border-radius: var(--radius-full);
+            corner-shape: squircle;
+          }
+        }
       }
     }
-  }
 
-  /* stylelint-disable-next-line no-descending-specificity */
-  &:has(.checkboxInput:disabled) .checkboxLabelText {
-    color: var(--text-is-disabled);
+    .labelBefore .checkboxWrap {
+      flex-direction: row-reverse;
+    }
+
+    &.stretch,
+    &.stretch .checkboxWrap {
+      width: 100%;
+    }
+
+    &.stretch {
+      padding-top: var(--gap-xs);
+      padding-bottom: var(--gap-xs);
+
+      .checkboxWrap {
+        justify-content: space-between;
+      }
+    }
+
+    &:has(.checkboxInput:checked) .checkboxControl {
+      background-color: var(--checkbox-bg-color);
+    }
+
+    &:has(.checkboxInput:checked) .checkboxControl::after {
+      content: "";
+      display: block;
+      width: 20%;
+      height: 40%;
+      border-right: var(--checkbox-check-stroke) solid var(--checkbox-color);
+      border-bottom: var(--checkbox-check-stroke) solid var(--checkbox-color);
+      transform: rotate(45deg) translate(-12.5%, -12.5%);
+    }
+
+    &:has(.checkboxInput:disabled) .checkboxWrap {
+      cursor: not-allowed;
+    }
+
+    &:has(.checkboxInput:disabled) .checkboxControl {
+      border-color: var(--border-is-disabled);
+      background-color: var(--bg-is-disabled);
+    }
+
+    &:has(.checkboxInput:focus-visible) .checkboxControl {
+      outline: var(--border-size-sm) solid var(--border-focus);
+      outline-offset: var(--border-size-sm);
+
+      &.squircle {
+        @supports (corner-shape: squircle) {
+          outline: none;
+          box-shadow: 0 0 0 var(--border-size-sm) var(--border-focus);
+        }
+      }
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:has(.checkboxInput:disabled) .checkboxLabelText {
+      color: var(--text-is-disabled);
+    }
   }
 }

@@ -126,6 +126,7 @@ const Dropdown = ({
       {label ? (
         <FieldLabel
           id={labelId}
+          className={shared.labelWrapper}
           label={label}
           extraLabelInfo={extraLabelInfo}
         />

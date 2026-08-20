@@ -1,55 +1,58 @@
-/* TextArea — multi-line text entry that visually matches the single-line Input.
-   Lives in the .fieldBlock shared with Input, so the label/info layout
-   matches form rows that mix the two.
+/* TODO:
+- Refactor with proper nesting
 
-   `field-sizing: content` auto-grows the textarea to fit its contents (no
-   vertical scrollbar appears until `maxLength` or container limits kick in),
-   which is what we want inside compact author surfaces like MCQ option
-   cards. `min-height` keeps an empty field readable; we drop the fixed
-   width default to 300px to match the single-line Input. */
+*/
+@layer ambi.component {
+  .textarea {
+    --input-padding: var(--space-3);
 
-.textarea {
-  position: relative;
+    position: relative;
 
-  /* DS field chrome (Figma 193-506): flat canvas surface lifted by
-     --shadow-xs; the transparent border keeps layout stable when the
-     focus tint swaps in. Mirrors the single-line Input in ../Field.module.css. */
-  textarea {
-    width: 300px;
-    font-family: var(--font-sans);
-    resize: none;
-    field-sizing: content;
-
-    /* Opt-out of auto-grow: textarea fills its container instead.
-       Hosts (e.g. the MCQ option card) pair this with `useFitText` so
-       the font shrinks as content lengthens rather than the field
-       growing. */
-    &.noAutoGrow {
-      field-sizing: fixed;
-      height: 100%;
+    textarea {
+      width: 300px;
+      font-family: var(--font-sans);
       resize: none;
+      field-sizing: content;
+
+      &.noAutoGrow {
+        field-sizing: fixed;
+        height: 100%;
+        resize: none;
+      }
+    }
+
+    .message {
+      position: absolute;
+      bottom: calc(-1 * var(--space-6));
+      left: var(--space-3);
     }
   }
 
-  /* One --space-6 step below the field, x-aligned with its --p-sm text inset. */
-  .message {
-    position: absolute;
-    bottom: calc(-1 * var(--space-6));
-    left: var(--space-3);
+  .fullWidth,
+  .fullWidth textarea {
+    width: 100%;
   }
-}
 
-.fullWidth,
-.fullWidth textarea {
-  width: 100%;
-}
+  .textarea:has([data-auto-grow="false"]) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 
-/* When the textarea is in noAutoGrow mode, propagate height up the
-   wrapper chain so the textarea has a real 100% to fill. The
-   `fieldContainer` propagation lives in the shared Field.module.css.
-   Attribute selector here avoids cross-module class-name lookups. */
-.textarea:has([data-auto-grow="false"]) {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  .textAreaLabelWrapper {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: start;
+
+    div {
+      width: 100%;
+      color: var(--text-muted);
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      font-size: 0.8em;
+      line-height: 0.8em;
+      font-weight: normal;
+      overflow-wrap: anywhere;
+    }
+  }
 }

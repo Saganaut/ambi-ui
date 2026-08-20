@@ -31,7 +31,7 @@ const meta = {
   onChange={setSeconds}
 />`,
           styles:
-            "Use shared field appearance and width props first. Stepper-specific custom properties include `--stepper-width`, `--icon-size`, `--input-padding`, and `--font-size`; the shared field tokens control labels and messages.",
+            "Use shared field appearance and width props first. NumberInput-specific custom properties use the `--number-input-*` prefix; shared field tokens control sizing, labels, and messages.",
         }),
       },
     },

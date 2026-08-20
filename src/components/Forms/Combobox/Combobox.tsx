@@ -61,7 +61,14 @@ const Combobox = ({
         Combobox.inputVariant !== "brand" && shared[Combobox.inputVariant],
       ])}
     >
-      {label && <FieldLabel id={Combobox.inputId} label={label} extraLabelInfo={extraLabelInfo} />}
+      {label && (
+        <FieldLabel
+          className={shared.labelWrapper}
+          id={Combobox.inputId}
+          label={label}
+          extraLabelInfo={extraLabelInfo}
+        />
+      )}
       <div
         className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth])}
         data-status={Combobox.dataStatus}
@@ -83,9 +90,11 @@ const Combobox = ({
                   const direction = event.key === "ArrowDown" ? 1 : -1;
                   Combobox.setActiveIndex((current) => {
                     if (Combobox.filtered.length === 0) return -1;
-                    if (current < 0) return direction === 1 ? 0 : Combobox.filtered.length - 1;
+                    if (current < 0)
+                      return direction === 1 ? 0 : Combobox.filtered.length - 1;
                     return (
-                      (current + direction + Combobox.filtered.length) % Combobox.filtered.length
+                      (current + direction + Combobox.filtered.length) %
+                      Combobox.filtered.length
                     );
                   });
                 } else if (
@@ -94,7 +103,9 @@ const Combobox = ({
                   Combobox.filtered.length > 0
                 ) {
                   event.preventDefault();
-                  Combobox.select(Combobox.activeIndex >= 0 ? Combobox.activeIndex : 0);
+                  Combobox.select(
+                    Combobox.activeIndex >= 0 ? Combobox.activeIndex : 0,
+                  );
                 } else if (event.key === "Escape") {
                   Combobox.setInputValue(Combobox.selectedLabel);
                   Combobox.setOpen(false);
@@ -124,7 +135,11 @@ const Combobox = ({
             aria-invalid={Combobox.aria.invalid}
             aria-busy={Combobox.aria.busy}
             aria-describedby={Combobox.aria.describedBy}
-            className={jC([shared.field, styles.input, shape !== "default" && shared[shape]])}
+            className={jC([
+              shared.field,
+              styles.input,
+              shape !== "default" && shared[shape],
+            ])}
             data-fill={fill === "default" ? undefined : fill}
             onChange={(event) => {
               Combobox.setInputValue(event.target.value);
@@ -148,7 +163,10 @@ const Combobox = ({
           >
             <ChevronDownIcon
               aria-hidden="true"
-              className={jC([styles.chevron, Combobox.isOpen && styles.chevronOpen])}
+              className={jC([
+                styles.chevron,
+                Combobox.isOpen && styles.chevronOpen,
+              ])}
             />
           </button>
         </div>
@@ -161,7 +179,11 @@ const Combobox = ({
               className={styles.panel}
               {...Combobox.getFloatingProps()}
             >
-              <ul id={Combobox.listboxId} role="listbox" className={styles.list}>
+              <ul
+                id={Combobox.listboxId}
+                role="listbox"
+                className={styles.list}
+              >
                 {Combobox.filtered.length === 0 ? (
                   <li className={styles.empty}>{noOptionsMessage}</li>
                 ) : (

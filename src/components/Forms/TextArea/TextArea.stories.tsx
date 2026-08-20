@@ -9,6 +9,16 @@ import { TextArea } from "./TextArea";
 
 const SIZES = ["xs", "sm", "md", "lg"] as const;
 const FILLS = ["default", "bordered", "ghost"] as const;
+const SHAPES = ["default", "pill", "squircle"] as const;
+const VARIANTS = [
+  "primary",
+  "secondary",
+  "brand",
+  "info",
+  "error",
+  "success",
+  "warning",
+] as const;
 const Section = ({ title, children }: { title: string; children: ReactNode }) => (
   <section style={{ display: "grid", gap: "1rem" }}>
     <h2 style={{ margin: 0, fontSize: "1rem" }}>{title}</h2>
@@ -61,10 +71,10 @@ const meta = {
     labelPosition: { control: "inline-radio", options: ["top", "start"] },
     variant: {
       control: "select",
-      options: ["primary", "secondary", "brand", "info", "error", "success", "warning"],
+      options: VARIANTS,
     },
     fill: { control: "inline-radio", options: FILLS },
-    shape: { control: "inline-radio", options: ["default", "pill"] },
+    shape: { control: "inline-radio", options: SHAPES },
     fieldSize: { control: "inline-radio", options: SIZES },
     validationState: {
       control: "inline-radio",
@@ -102,6 +112,18 @@ export const Overview: Story = {
           />
         ))}
       </Section>
+      <Section title="Color variants">
+        {VARIANTS.map((variant) => (
+          <TextArea
+            {...args}
+            key={variant}
+            id={`${args.id}-${variant}`}
+            label={variant}
+            variant={variant}
+            rows={2}
+          />
+        ))}
+      </Section>
       <Section title="Fills and shapes">
         {FILLS.map((fill) => (
           <TextArea
@@ -113,7 +135,16 @@ export const Overview: Story = {
             rows={2}
           />
         ))}
-        <TextArea {...args} id={`${args.id}-pill`} label="Pill" shape="pill" rows={2} />
+        {SHAPES.map((shape) => (
+          <TextArea
+            {...args}
+            key={shape}
+            id={`${args.id}-${shape}`}
+            label={`${shape} shape`}
+            shape={shape}
+            rows={2}
+          />
+        ))}
       </Section>
       <Section title="Messages and validation">
         <TextArea

@@ -62,6 +62,7 @@ const InputWithButton = ({
     >
       {label && (
         <FieldLabel
+          className={shared.labelWrapper}
           id={inputId}
           label={label}
           extraLabelInfo={extraLabelInfo}
