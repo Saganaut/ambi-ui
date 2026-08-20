@@ -1,103 +1,179 @@
 /* Toggle — visually hidden checkbox + a styled track + thumb.
    :has() drives all visual state so no JS class toggling is needed. */
 @layer ambi.component {
-  .toggleContainer {
+  .toggleBlock {
+    --message-reserve: var(--space-6);
+    --toggle-border-color: var(--role-border);
+    --toggle-bg-color: var(--bg-color);
+    --toggle-label-color: var(--alt-color);
+    --toggle-track-width: 44px;
+    --toggle-track-height: 24px;
+    --toggle-thumb-size: 20px;
+    --toggle-thumb-offset: 2px;
+    --toggle-thumb-translation: 20px;
+
     position: relative;
-    display: flex;
-    width: 100%;
-    align-items: center;
-
-    /* One --space-6 step below the control (flush left — no field text inset). */
-    .message {
-      position: absolute;
-      bottom: calc(-1 * var(--space-6));
-      left: 0;
-    }
-  }
-
-  /* Visually hidden but still focusable — keyboard/pointer events still fire */
-  .toggleInput {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border: none;
-  }
-
-  .toggleWrap {
-    display: flex;
-    align-items: center;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: var(--gap-sm);
-    cursor: pointer;
-    padding-bottom: var(--gap-sm);
-  }
 
-  .toggleContainer.labelBefore .toggleWrap {
-    flex-direction: row-reverse;
-    width: 100%;
-    justify-content: space-between;
-  }
+    &.xs {
+      --toggle-font-size: var(--control-font-xs);
+      --toggle-track-width: 32px;
+      --toggle-track-height: 18px;
+      --toggle-thumb-size: 14px;
+      --toggle-thumb-offset: 1px;
+      --toggle-thumb-translation: 14px;
+    }
 
-  /* DS track (Figma 260-1591): off rests on the subtle wash, on fills with the
-   brand primary, disabled greys out; the raised knob carries --shadow-xs. */
-  .toggleTrack {
-    position: relative;
-    width: 44px;
-    height: 24px;
-    border: var(--border-size-xs) solid var(--border-default);
-    background-color: var(--bg-subtle);
-    border-radius: var(--radius-full);
-    flex-shrink: 0;
-    transition: background-color var(--duration-base) var(--ease-out);
-  }
+    &.sm {
+      --toggle-font-size: var(--control-font-sm);
+      --toggle-track-width: 38px;
+      --toggle-track-height: 22px;
+      --toggle-thumb-size: 18px;
+      --toggle-thumb-offset: 1px;
+      --toggle-thumb-translation: 16px;
+    }
 
-  .toggleThumb {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 20px;
-    height: 20px;
-    background-color: var(--bg-surface-raised);
-    border-radius: var(--radius-full);
-    box-shadow: var(--shadow-xs);
-    transition: transform var(--duration-base) var(--ease-out);
-  }
+    &.md {
+      --toggle-font-size: var(--control-font-md);
+    }
 
-  .toggleContainer:has(.toggleInput:checked) .toggleTrack {
-    background-color: var(--bg-primary);
-  }
+    &.lg {
+      --toggle-font-size: var(--control-font-lg);
+      --toggle-track-width: 54px;
+      --toggle-track-height: 30px;
+      --toggle-thumb-size: 26px;
+      --toggle-thumb-offset: 1px;
+      --toggle-thumb-translation: 24px;
+    }
 
-  .toggleContainer:has(.toggleInput:checked) .toggleThumb {
-    transform: translateX(20px);
-  }
+    &.reserveMessageSpace {
+      padding-bottom: var(--message-reserve);
+    }
 
-  .toggleContainer:has(.toggleInput:disabled) .toggleWrap {
-    cursor: not-allowed;
-  }
+    .toggleWrap {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-sm);
+      cursor: pointer;
+    }
 
-  .toggleContainer:has(.toggleInput:disabled) .toggleTrack {
-    border-color: var(--border-is-disabled);
-    background-color: var(--bg-is-disabled);
-  }
+    .toggleContainer {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: var(--gap-sm);
 
-  .toggleContainer:has(.toggleInput:focus-visible) .toggleTrack {
-    outline: 2px solid var(--border-focus);
-    outline-offset: 2px;
-  }
+      .message {
+        order: 2;
+        flex-basis: 100%;
+      }
 
-  .toggleLabelText {
-    color: var(--text-secondary);
-    font-size: var(--font-size-sm);
-    font-weight: 500;
-    cursor: pointer;
-    text-align: start;
-  }
+      &.reserveMessageSpace {
+        padding-bottom: var(--message-reserve);
+      }
 
-  .toggleContainer:has(.toggleInput:disabled) .toggleLabelText {
-    color: var(--text-is-disabled);
+      &.labelBefore .toggleWrap {
+        flex-direction: row-reverse;
+      }
+
+      &.labelAbove .toggleWrap {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+      }
+
+      &.stretch,
+      &.stretch .toggleWrap {
+        width: 100%;
+      }
+
+      &.stretch .toggleWrap {
+        justify-content: space-between;
+      }
+    }
+
+    /* Visually hidden but still focusable — keyboard/pointer events still fire */
+    .toggleInput {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: none;
+    }
+
+    .toggleTrack {
+      position: relative;
+      width: var(--toggle-track-width);
+      height: var(--toggle-track-height);
+      flex-shrink: 0;
+      border: var(--border-size-xs) solid var(--toggle-border-color);
+      border-radius: var(--radius-sm);
+      background-color: var(--bg-subtle);
+      transition: background-color var(--duration-base) var(--ease-out);
+
+      &.pill {
+        border-radius: var(--radius-full);
+      }
+
+      &.squircle {
+        @supports (corner-shape: squircle) {
+          border-radius: var(--radius-full);
+          corner-shape: squircle;
+        }
+      }
+    }
+
+    .toggleThumb {
+      position: absolute;
+      top: var(--toggle-thumb-offset);
+      left: var(--toggle-thumb-offset);
+      width: var(--toggle-thumb-size);
+      height: var(--toggle-thumb-size);
+      border-radius: inherit;
+      background-color: var(--bg-surface-raised);
+      box-shadow: var(--shadow-xs);
+      transition: transform var(--duration-base) var(--ease-out);
+    }
+
+    &:has(.toggleInput:checked) .toggleTrack {
+      background-color: var(--toggle-bg-color);
+    }
+
+    &:has(.toggleInput:checked) .toggleThumb {
+      transform: translateX(var(--toggle-thumb-translation));
+    }
+
+    &:has(.toggleInput:disabled) .toggleWrap {
+      cursor: not-allowed;
+    }
+
+    &:has(.toggleInput:disabled) .toggleTrack {
+      border-color: var(--border-is-disabled);
+      background-color: var(--bg-is-disabled);
+    }
+
+    &:has(.toggleInput:focus-visible) .toggleTrack {
+      outline: var(--border-size-sm) solid var(--border-focus);
+      outline-offset: var(--border-size-sm);
+    }
+
+    .toggleLabelText {
+      color: var(--toggle-label-color);
+      font-size: var(--toggle-font-size);
+      font-weight: 500;
+      text-align: start;
+      cursor: pointer;
+    }
+
+    &:has(.toggleInput:disabled) .toggleLabelText {
+      color: var(--text-is-disabled);
+    }
   }
 }

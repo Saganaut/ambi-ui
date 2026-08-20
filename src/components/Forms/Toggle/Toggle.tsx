@@ -1,9 +1,7 @@
 // Toggle switch built on a visually-hidden checkbox; CSS :has() drives all visual state
 import variantStyles from "@styles/variants.module.css";
 import { jC } from "@utils/utils";
-import { Check, Loader, X } from "lucide-react";
 import { FeedbackMessage } from "../_shared/FeedbackMessage";
-import { FieldLabel } from "../_shared/FieldLabel";
 import shared from "../Field.module.css";
 import type { ToggleProps } from "../Field.types";
 import { useField } from "../useField";
@@ -12,8 +10,9 @@ import styles from "./Toggle.module.css";
 const Toggle = ({
   id,
   label,
-  labelPosition = "start",
+  labelPosition = "labelAfter",
   extraLabelInfo,
+  spaceBetween = false,
   checked,
   onChange,
   disabled,
@@ -25,6 +24,7 @@ const Toggle = ({
   validationState,
   variant = "primary",
   fill = "default",
+  shape = "default",
   fieldSize = "md",
   ref,
   ...rest
@@ -43,13 +43,13 @@ const Toggle = ({
       data-fill={fill === "default" ? undefined : fill}
       className={jC([
         shared.fieldBlock,
-        shared[labelPosition],
         fullWidth && shared.fullWidth,
+        styles.toggleBlock,
         className,
-        variantStyles[variant],
+        variantStyles[inputVariant],
         reserveMessageSpace && shared.reserveMessageSpace,
         shared[fieldSize],
-        inputVariant !== "brand" && shared[inputVariant],
+        styles[fieldSize],
       ])}
     >
       <div
@@ -57,7 +57,10 @@ const Toggle = ({
           shared.fieldWrapper,
           fullWidth && shared.fullWidth,
           styles.toggleContainer,
-          labelPosition === "start" && styles.labelBefore,
+          labelPosition === "labelBefore" && styles.labelBefore,
+          labelPosition === "labelAbove" && styles.labelAbove,
+          spaceBetween && labelPosition !== "labelAbove" && styles.stretch,
+          reserveMessageSpace && !hasMessage && styles.reserveMessageSpace,
         ])}
         data-status={dataStatus}
       >
@@ -75,16 +78,23 @@ const Toggle = ({
           aria-describedby={aria.describedBy}
         />
         <label htmlFor={inputId} className={styles.toggleWrap}>
-          <span className={styles.toggleTrack}>
+          <span
+            className={jC([
+              styles.toggleTrack,
+              shape !== "default" && styles[shape],
+            ])}
+          >
             <span className={styles.toggleThumb} />
           </span>
           {label && (
-            <FieldLabel
-              className={shared.labelWrapper}
-              id={`${inputId}Label`}
-              extraLabelInfo={extraLabelInfo}
-              label={label}
-            />
+            <span
+              className={jC([shared.labelWrapper, styles.toggleLabelWrapper])}
+            >
+              <span className={styles.toggleLabelText}>{label}</span>
+              {extraLabelInfo && (
+                <span className={shared.extraLabelInfo}>{extraLabelInfo}</span>
+              )}
+            </span>
           )}
         </label>
         {hasMessage && (
@@ -94,11 +104,6 @@ const Toggle = ({
             infoMessage={infoMessage}
           />
         )}
-        <div className={shared.statusIcon}>
-          {dataStatus === "valid" && <Check />}
-          {dataStatus === "validating" && <Loader />}
-          {dataStatus === "invalid" && <X />}
-        </div>
       </div>
     </div>
   );

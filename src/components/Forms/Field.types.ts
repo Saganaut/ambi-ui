@@ -100,9 +100,16 @@ export type NumberInputProps = FieldBase &
     value: number;
     onChange: (value: number) => void;
     compact?: boolean;
+    /** Reserves enough compact-mode width to display this value without resizing. */
+    expectedMaxValue?: number;
   };
 
-export type RadioProps = FieldBase & FieldStyle & Omit<ComponentPropsWithRef<"input">, "type">;
+export type RadioProps = Omit<FieldBase, "labelPosition"> &
+  FieldStyle &
+  Omit<ComponentPropsWithRef<"input">, "type"> & {
+    labelPosition?: "labelBefore" | "labelAfter" | "labelAbove";
+    spaceBetween?: boolean;
+  };
 
 export interface RadioGroupOption {
   value: string;
@@ -121,6 +128,11 @@ export type RadioGroupProps = FieldBase &
 
 export type TextAreaProps = FieldBase & FieldStyle & ComponentPropsWithRef<"textarea">;
 
-export type ToggleProps = FieldBase & FieldStyle & Omit<ComponentPropsWithRef<"input">, "type">;
+export type ToggleProps = Omit<FieldBase, "labelPosition"> &
+  FieldStyle &
+  Omit<ComponentPropsWithRef<"input">, "type"> & {
+    labelPosition?: "labelBefore" | "labelAfter" | "labelAbove";
+    spaceBetween?: boolean;
+  };
 
 export type PrettifiedDropdownProps = Prettify<DropdownProps>;

@@ -1,5 +1,5 @@
 @layer ambi.components {
-  .wrapper {
+  .numberInputWrapper {
     --number-input-stepper-width: var(--space-10);
     --number-input-icon-size: var(--space-4);
     --number-input-value-width: var(--space-16);
@@ -18,6 +18,7 @@
     position: relative;
     display: flex;
     width: 100%;
+    flex-direction: column;
 
     .field {
       overflow: hidden;
@@ -63,6 +64,18 @@
       }
     }
 
+    .valueStack {
+      display: grid;
+      min-width: 0;
+      flex: 1 1 auto;
+      grid-template-areas: "value";
+    }
+
+    .input,
+    .valueSizer {
+      grid-area: value;
+    }
+
     .input {
       flex: 1 1 auto;
       width: 100%;
@@ -91,6 +104,17 @@
         margin: 0;
         appearance: none;
       }
+    }
+
+    .valueSizer {
+      padding: var(--number-input-padding);
+      font-size: var(--number-input-font-size);
+      font-family: var(--number-input-value-font-family);
+      font-weight: var(--number-input-value-font-weight);
+      font-variant-numeric: tabular-nums;
+      white-space: pre;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .stepper {
@@ -137,16 +161,23 @@
     }
 
     &.compact {
-      width: auto;
+      width: fit-content;
       flex-shrink: 0;
 
       .field {
-        width: auto;
+        width: fit-content;
+      }
+
+      .valueStack {
+        width: fit-content;
+        flex: 0 0 auto;
       }
 
       .input {
         flex: 0 0 auto;
-        width: var(--number-input-value-width);
+        width: auto;
+        min-width: 1ch;
+        field-sizing: content;
       }
     }
   }

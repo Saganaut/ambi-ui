@@ -38,6 +38,8 @@ const NumberInput = ({
   max,
   step,
   placeholder,
+  compact = false,
+  expectedMaxValue,
   ref,
   ...rest
 }: NumberInputProps) => {
@@ -53,6 +55,9 @@ const NumberInput = ({
   const maxN = toNumber(max);
   const stepN = toNumber(step) ?? 1;
   const current = Number.isFinite(value) ? value : 0;
+  const sizingValue = Number.isFinite(expectedMaxValue)
+    ? expectedMaxValue
+    : undefined;
 
   const clamp = (candidate: number) => {
     let next = candidate;
@@ -96,7 +101,8 @@ const NumberInput = ({
         className={jC([
           shared.fieldWrapper,
           fullWidth && shared.fullWidth,
-          styles.wrapper,
+          styles.numberInputWrapper,
+          compact ? styles.compact : "",
         ])}
       >
         <div
@@ -110,28 +116,35 @@ const NumberInput = ({
           ])}
           data-fill={fill === "default" ? undefined : fill}
         >
-          <input
-            {...rest}
-            type="number"
-            id={inputId}
-            ref={ref}
-            name={name}
-            value={current}
-            onChange={(event) => {
-              const next = Number(event.target.value);
-              onChange(Number.isFinite(next) ? next : 0);
-            }}
-            onBlur={onBlur}
-            disabled={disabled}
-            min={min}
-            max={max}
-            step={step}
-            placeholder={placeholder}
-            aria-invalid={aria.invalid}
-            aria-busy={aria.busy}
-            aria-describedby={aria.describedBy}
-            className={jC([styles.input, hasError ? styles.error : ""])}
-          />
+          <span className={styles.valueStack}>
+            <input
+              {...rest}
+              type="number"
+              id={inputId}
+              ref={ref}
+              name={name}
+              value={current}
+              onChange={(event) => {
+                const next = Number(event.target.value);
+                onChange(Number.isFinite(next) ? next : 0);
+              }}
+              onBlur={onBlur}
+              disabled={disabled}
+              min={min}
+              max={max}
+              step={step}
+              placeholder={placeholder}
+              aria-invalid={aria.invalid}
+              aria-busy={aria.busy}
+              aria-describedby={aria.describedBy}
+              className={jC([styles.input, hasError ? styles.error : ""])}
+            />
+            {compact && sizingValue != null && (
+              <span className={styles.valueSizer} aria-hidden="true">
+                {sizingValue}
+              </span>
+            )}
+          </span>
           <div className={styles.stepper}>
             <button
               type="button"

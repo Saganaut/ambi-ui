@@ -1,7 +1,6 @@
 // Common radio input component used in form option groups throughout the app
 import variantStyles from "@styles/variants.module.css";
 import { jC } from "@utils/utils";
-import { Check, Loader, X } from "lucide-react";
 import { FeedbackMessage } from "../_shared/FeedbackMessage";
 import shared from "../Field.module.css";
 import type { RadioProps } from "../Field.types";
@@ -11,8 +10,9 @@ import styles from "./Radio.module.css";
 const Radio = ({
   id,
   label,
-  labelPosition = "start",
+  labelPosition = "labelAfter",
   extraLabelInfo,
+  spaceBetween = false,
   checked,
   onChange,
   name,
@@ -26,6 +26,7 @@ const Radio = ({
   validationState,
   variant = "primary",
   fill = "default",
+  shape = "default",
   fieldSize = "md",
   ref,
   ...rest
@@ -44,13 +45,13 @@ const Radio = ({
       data-fill={fill === "default" ? undefined : fill}
       className={jC([
         shared.fieldBlock,
-        shared[labelPosition],
         fullWidth && shared.fullWidth,
+        styles.radioBlock,
         className,
-        variantStyles[variant],
+        variantStyles[inputVariant],
         reserveMessageSpace && shared.reserveMessageSpace,
         shared[fieldSize],
-        inputVariant !== "brand" && shared[inputVariant],
+        styles[fieldSize],
       ])}
     >
       <div
@@ -58,7 +59,10 @@ const Radio = ({
           shared.fieldWrapper,
           fullWidth && shared.fullWidth,
           styles.radioContainer,
-          labelPosition === "start" && styles.labelBefore,
+          labelPosition === "labelBefore" && styles.labelBefore,
+          labelPosition === "labelAbove" && styles.labelAbove,
+          spaceBetween && labelPosition !== "labelAbove" && styles.stretch,
+          reserveMessageSpace && !hasMessage && styles.reserveMessageSpace,
         ])}
         data-status={dataStatus}
       >
@@ -80,7 +84,12 @@ const Radio = ({
         {/* Leave as is, do not replace with FieldLabel component otherwise we ll have nested labels*/}
 
         <label htmlFor={inputId} className={styles.radioWrap}>
-          <span className={styles.radioControl} />
+          <span
+            className={jC([
+              styles.radioControl,
+              shape !== "default" && styles[shape],
+            ])}
+          />
           {label && (
             <span className={shared.labelWrapper}>
               <span className={styles.radioLabelText}>{label}</span>
@@ -97,11 +106,6 @@ const Radio = ({
             infoMessage={infoMessage}
           />
         )}
-        <div className={shared.statusIcon}>
-          {dataStatus === "valid" && <Check />}
-          {dataStatus === "validating" && <Loader />}
-          {dataStatus === "invalid" && <X />}
-        </div>
       </div>
     </div>
   );

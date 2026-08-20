@@ -1,10 +1,43 @@
 /* oxlint-disable react-hooks/rules-of-hooks, no-console */
 /* oxlint-disable react-x/rules-of-hooks, no-console */
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { ReactNode } from "react";
 import { fn } from "storybook/test";
 import { componentDocs } from "../../../storybookDocs";
 import "@styles/variants.module.css";
 import { Radio } from "./Radio";
+
+const SIZES = ["xs", "sm", "md", "lg"] as const;
+const VARIANTS = [
+  "primary",
+  "secondary",
+  "brand",
+  "info",
+  "error",
+  "success",
+  "warning",
+] as const;
+const Section = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) => (
+  <section style={{ display: "grid", gap: ".75rem" }}>
+    <h2 style={{ margin: 0, fontSize: "1rem" }}>{title}</h2>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 18rem), 1fr))",
+        gap: "1rem 2rem",
+        alignItems: "start",
+      }}
+    >
+      {children}
+    </div>
+  </section>
+);
 
 const meta = {
   title: "Common/Input/Radio",
@@ -37,12 +70,23 @@ const meta = {
     value: "option-1",
     label: "Option one",
     checked: true,
+    labelPosition: "labelAfter",
     onChange: fn(),
   },
   argTypes: {
     labelPosition: {
       control: "inline-radio",
-      options: ["top", "start"],
+      options: ["labelBefore", "labelAfter", "labelAbove"],
+    },
+    fieldSize: { control: "inline-radio", options: SIZES },
+    variant: { control: "select", options: VARIANTS },
+    fill: {
+      control: "inline-radio",
+      options: ["default", "bordered", "ghost"],
+    },
+    shape: {
+      control: "inline-radio",
+      options: ["default", "pill", "squircle"],
     },
   },
 } satisfies Meta<typeof Radio>;
@@ -53,24 +97,107 @@ type Story = StoryObj<typeof meta>;
 /** All radio variants and states on a single canvas. */
 export const Overview: Story = {
   render: (args) => (
-    <div style={{ display: "grid", gap: "1.5rem" }}>
-      <Radio {...args} name={`${args.name}-default`} label="Default" />
-      <Radio {...args} name={`${args.name}-unchecked`} label="Unchecked" checked={false} />
-      <Radio {...args} name={`${args.name}-before`} label="Label before" labelPosition="top" />
-      <Radio {...args} name={`${args.name}-disabled`} label="Disabled" disabled />
-      <Radio
-        {...args}
-        name={`${args.name}-info`}
-        label="With info message"
-        infoMessage="Recommended for new players."
-      />
-      <Radio
-        {...args}
-        name={`${args.name}-error`}
-        label="With error"
-        checked={false}
-        errorMessage="Selection required."
-      />
+    <div style={{ display: "grid", gap: "2.5rem", width: "min(68rem, 92vw)" }}>
+      <Section title="Selection and state">
+        <Radio {...args} name={`${args.name}-default`} label="Default" />
+        <Radio
+          {...args}
+          name={`${args.name}-unchecked`}
+          label="Unchecked"
+          checked={false}
+        />
+        <Radio
+          {...args}
+          name={`${args.name}-disabled`}
+          label="Disabled"
+          disabled
+        />
+      </Section>
+      <Section title="Label position and spacing">
+        <Radio
+          {...args}
+          name={`${args.name}-before`}
+          label="Label before"
+          labelPosition="labelBefore"
+        />
+        <Radio
+          {...args}
+          name={`${args.name}-after`}
+          label="Label after"
+          labelPosition="labelAfter"
+        />
+        <Radio
+          {...args}
+          name={`${args.name}-above`}
+          label="Label above"
+          labelPosition="labelAbove"
+        />
+        <Radio
+          {...args}
+          name={`${args.name}-spaced`}
+          label="Opposite ends"
+          labelPosition="labelBefore"
+          fullWidth
+          spaceBetween
+        />
+      </Section>
+      <Section title="Sizes">
+        {SIZES.map((fieldSize) => (
+          <Radio
+            {...args}
+            key={fieldSize}
+            name={`${args.name}-${fieldSize}`}
+            label={fieldSize.toUpperCase()}
+            fieldSize={fieldSize}
+          />
+        ))}
+      </Section>
+      <Section title="Shapes and fills">
+        {(["default", "pill", "squircle"] as const).map((shape) => (
+          <Radio
+            {...args}
+            key={shape}
+            name={`${args.name}-${shape}`}
+            label={shape}
+            shape={shape}
+          />
+        ))}
+        {(["default", "bordered", "ghost"] as const).map((fill) => (
+          <Radio
+            {...args}
+            key={fill}
+            name={`${args.name}-${fill}`}
+            label={`${fill} fill`}
+            fill={fill}
+          />
+        ))}
+      </Section>
+      <Section title="Variants">
+        {VARIANTS.map((variant) => (
+          <Radio
+            {...args}
+            key={variant}
+            name={`${args.name}-${variant}`}
+            label={variant}
+            variant={variant}
+          />
+        ))}
+      </Section>
+      <Section title="Messages and validation">
+        <Radio
+          {...args}
+          name={`${args.name}-info`}
+          label="With info message"
+          infoMessage="Recommended for new players."
+        />
+        <Radio
+          {...args}
+          name={`${args.name}-error`}
+          label="With error"
+          checked={false}
+          errorMessage="Selection required."
+        />
+      </Section>
     </div>
   ),
 };

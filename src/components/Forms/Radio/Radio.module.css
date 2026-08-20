@@ -1,98 +1,162 @@
-/* Radio — visually hidden native input + a styled control circle.
+/* Radio — visually hidden native input + a styled control.
    :has() drives all visual state so no JS class toggling is needed. */
+@layer ambi.component {
+  .radioBlock {
+    --message-reserve: var(--space-6);
+    --radio-border-color: var(--role-border);
+    --radio-bg-color: var(--bg-color);
+    --radio-color: var(--color);
+    --radio-label-color: var(--alt-color);
+    --radio-control-size: 20px;
+    --radio-dot-size: 10px;
 
-.radioContainer {
-  /* Row held free below the control so the absolutely positioned .message has
-     somewhere to land without overlapping whatever follows. */
-  --message-reserve: var(--space-6);
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-sm);
 
-  display: flex;
-  align-items: center;
-  gap: var(--gap-sm);
-  padding-bottom: var(--message-reserve);
-  position: relative;
+    &.xs {
+      --radio-font-size: var(--control-font-xs);
+      --radio-control-size: 14px;
+      --radio-dot-size: 6px;
+    }
 
-  .message {
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-    white-space: nowrap;
+    &.sm {
+      --radio-font-size: var(--control-font-sm);
+      --radio-control-size: 18px;
+      --radio-dot-size: 8px;
+    }
+
+    &.md {
+      --radio-font-size: var(--control-font-md);
+    }
+
+    &.lg {
+      --radio-font-size: var(--control-font-lg);
+      --radio-control-size: 30px;
+      --radio-dot-size: 14px;
+    }
+
+    &.reserveMessageSpace {
+      padding-bottom: var(--message-reserve);
+    }
+
+    .radioWrap {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-sm);
+      cursor: pointer;
+    }
+
+    .radioContainer {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: var(--gap-sm);
+
+      .message {
+        order: 2;
+        flex-basis: 100%;
+      }
+
+      &.reserveMessageSpace {
+        padding-bottom: var(--message-reserve);
+      }
+
+      &.labelBefore .radioWrap {
+        flex-direction: row-reverse;
+      }
+
+      &.labelAbove .radioWrap {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+      }
+
+      &.stretch,
+      &.stretch .radioWrap {
+        width: 100%;
+      }
+
+      &.stretch .radioWrap {
+        justify-content: space-between;
+      }
+    }
+
+    /* Visually hidden native radio — keyboard/pointer events still fire */
+    .radioInput {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: none;
+    }
+
+    .radioControl {
+      display: flex;
+      width: var(--radio-control-size);
+      height: var(--radio-control-size);
+      flex-shrink: 0;
+      border: var(--border-size-xs) solid var(--radio-border-color);
+      border-radius: var(--radius-sm);
+      background-color: var(--radio-bg-color);
+      align-items: center;
+      justify-content: center;
+      transition: background-color var(--duration-base) var(--ease-out);
+
+      &.pill {
+        border-radius: var(--radius-full);
+      }
+
+      &.squircle {
+        @supports (corner-shape: squircle) {
+          border-radius: var(--radius-full);
+          corner-shape: squircle;
+        }
+      }
+    }
+
+    &:has(.radioInput:checked) .radioControl::after {
+      content: "";
+      display: block;
+      width: var(--radio-dot-size);
+      height: var(--radio-dot-size);
+      border-radius: inherit;
+      background-color: var(--radio-color);
+    }
+
+    &:has(.radioInput:disabled) .radioWrap {
+      cursor: not-allowed;
+    }
+
+    &:has(.radioInput:disabled) .radioControl {
+      border-color: var(--border-is-disabled);
+      background-color: var(--bg-is-disabled);
+    }
+
+    &:has(.radioInput:disabled) .radioControl::after {
+      background-color: var(--text-is-disabled);
+    }
+
+    &:has(.radioInput:focus-visible) .radioControl {
+      outline: var(--border-size-sm) solid var(--border-focus);
+      outline-offset: var(--border-size-sm);
+    }
+
+    .radioLabelText {
+      color: var(--radio-label-color);
+      font-size: var(--radio-font-size);
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    &:has(.radioInput:disabled) .radioLabelText {
+      color: var(--text-is-disabled);
+    }
   }
-}
-
-/* Visually hidden native radio — keyboard/pointer events still fire */
-.radioInput {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: none;
-}
-
-.radioWrap {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-sm);
-  cursor: pointer;
-}
-
-.radioContainer.labelBefore .radioWrap {
-  flex-direction: row-reverse;
-}
-
-/* DS circle (Figma 260-1580): borderless 20px disc lifted by --shadow-xs;
-   selected drops a 10px brand dot in the centre, disabled greys the fill. */
-.radioControl {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: var(--radius-full);
-  border: var(--border-size-xs) solid var(--border-default);
-  background-color: var(--bg-surface-raised);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color var(--duration-base) var(--ease-out);
-}
-
-.radioContainer:has(.radioInput:checked) .radioControl::after {
-  content: "";
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: var(--radius-full);
-  background-color: var(--bg-primary);
-}
-
-.radioContainer:has(.radioInput:disabled) .radioWrap {
-  cursor: not-allowed;
-}
-
-.radioContainer:has(.radioInput:disabled) .radioControl {
-  border-color: var(--border-is-disabled);
-  background-color: var(--bg-is-disabled);
-}
-
-.radioContainer:has(.radioInput:disabled) .radioControl::after {
-  background-color: var(--text-is-disabled);
-}
-
-.radioContainer:has(.radioInput:focus-visible) .radioControl {
-  outline: 2px solid var(--border-focus);
-  outline-offset: 2px;
-}
-
-.radioLabelText {
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--text-secondary);
-  cursor: pointer;
-}
-
-.radioContainer:has(.radioInput:disabled) .radioLabelText {
-  color: var(--text-is-disabled);
 }
