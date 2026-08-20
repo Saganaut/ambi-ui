@@ -26,7 +26,6 @@ const Radio = ({
   validationState,
   variant = "primary",
   fill = "default",
-  shape = "default",
   fieldSize = "md",
   ref,
   ...rest
@@ -84,12 +83,7 @@ const Radio = ({
         {/* Leave as is, do not replace with FieldLabel component otherwise we ll have nested labels*/}
 
         <label htmlFor={inputId} className={styles.radioWrap}>
-          <span
-            className={jC([
-              styles.radioControl,
-              shape !== "default" && styles[shape],
-            ])}
-          />
+          <span className={styles.radioControl} />
           {label && (
             <span className={shared.labelWrapper}>
               <span className={styles.radioLabelText}>{label}</span>
@@ -100,11 +94,13 @@ const Radio = ({
           )}
         </label>
         {hasMessage && (
-          <FeedbackMessage
-            id={messageId}
-            errorMessage={errorMessage}
-            infoMessage={infoMessage}
-          />
+          <div className={styles.message}>
+            <FeedbackMessage
+              id={messageId}
+              errorMessage={errorMessage}
+              infoMessage={infoMessage}
+            />
+          </div>
         )}
       </div>
     </div>

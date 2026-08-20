@@ -59,6 +59,7 @@
       .message {
         order: 2;
         flex-basis: 100%;
+        width: 100%;
       }
 
       &.reserveMessageSpace {
@@ -103,22 +104,12 @@
       height: var(--radio-control-size);
       flex-shrink: 0;
       border: var(--border-size-xs) solid var(--radio-border-color);
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-full);
       background-color: var(--radio-bg-color);
       align-items: center;
       justify-content: center;
       transition: background-color var(--duration-base) var(--ease-out);
 
-      &.pill {
-        border-radius: var(--radius-full);
-      }
-
-      &.squircle {
-        @supports (corner-shape: squircle) {
-          border-radius: var(--radius-full);
-          corner-shape: squircle;
-        }
-      }
     }
 
     &:has(.radioInput:checked) .radioControl::after {
@@ -126,7 +117,7 @@
       display: block;
       width: var(--radio-dot-size);
       height: var(--radio-dot-size);
-      border-radius: inherit;
+      border-radius: var(--radius-full);
       background-color: var(--radio-color);
     }
 
