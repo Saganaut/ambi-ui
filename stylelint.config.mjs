@@ -81,7 +81,7 @@ export default {
       },
       {
         message:
-          "Use semantic spacing tokens (--gap-*, --p-*, --stack-*, --gutter-*) instead of raw --space-* (spacing-hierarchy rule)",
+          "Use semantic spacing tokens (--control-gap-*, --p-*, --stack-*, --gutter-*) instead of raw --space-* (spacing-hierarchy rule)",
       },
     ],
     "selector-class-pattern": [

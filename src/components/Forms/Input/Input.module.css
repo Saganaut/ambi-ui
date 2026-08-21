@@ -1,4 +1,4 @@
-@layer ambi.component {
+@layer ambi.components {
   .input {
     position: relative;
     display: flex;

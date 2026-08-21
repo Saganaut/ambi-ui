@@ -1,4 +1,4 @@
-@layer ambi.component {
+@layer ambi.components {
   .fieldGroup {
     --field-label-width: clamp(8rem, 30%, 14rem);
 
@@ -7,7 +7,7 @@
     display: grid;
     grid-template-columns: minmax(0, var(--field-label-width)) minmax(0, 1fr);
     width: 100%;
-    gap: var(--gap-lg);
+    gap: var(--control-gap-lg);
 
     > [data-label-position="start"] {
       display: grid;

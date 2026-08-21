@@ -1,6 +1,11 @@
-import type { ComponentPropsWithRef, ReactNode } from "react";
 import type { Prettify } from "@utils/utils.types";
-import type { BaseFills, BaseShapes, BaseSizes, BaseVariants } from "../Base.types";
+import type { ComponentPropsWithRef, ReactNode } from "react";
+import type {
+  BaseFills,
+  BaseShapes,
+  BaseSizes,
+  BaseVariants,
+} from "../Base.types";
 import type { UseFieldProps } from "./useField";
 
 export type FieldFill = BaseFills;
@@ -8,13 +13,14 @@ export type FieldShape = BaseShapes;
 export type FieldSize = Exclude<BaseSizes, "xl">;
 export type FieldVariant = BaseVariants;
 export type ValidationState = "validating" | "idle" | "valid" | "invalid";
+export type LabelPosition = "top" | "start" | "end";
 
 export interface FieldBase {
   name?: string;
   id?: string;
   required?: boolean;
   label?: string;
-  labelPosition?: "top" | "start";
+  labelPosition?: Exclude<LabelPosition, "end">;
   extraLabelInfo?: ReactNode;
   infoMessage?: string | string[];
   errorMessage?: string | string[];
@@ -70,7 +76,7 @@ export interface UseDropdownArgs {
 export type CheckboxProps = Omit<FieldBase, "labelPosition"> &
   FieldStyle &
   Omit<ComponentPropsWithRef<"input">, "type"> & {
-    labelPosition?: "labelBefore" | "labelAfter";
+    labelPosition?: Exclude<LabelPosition, "top">;
     spaceBetween?: boolean;
   };
 
@@ -82,7 +88,9 @@ export type FileUploadProps = FieldBase &
     onChange?: (files: File[]) => void;
   };
 
-export type InputProps = FieldBase & FieldStyle & ComponentPropsWithRef<"input">;
+export type InputProps = FieldBase &
+  FieldStyle &
+  ComponentPropsWithRef<"input">;
 
 export type InputWithButtonProps = FieldBase &
   FieldStyle &
@@ -107,7 +115,7 @@ export type NumberInputProps = FieldBase &
 export type RadioProps = Omit<FieldBase, "labelPosition"> &
   FieldStyle &
   Omit<ComponentPropsWithRef<"input">, "type"> & {
-    labelPosition?: "labelBefore" | "labelAfter" | "labelAbove";
+    labelPosition?: Exclude<LabelPosition, "top">;
     spaceBetween?: boolean;
   };
 
@@ -126,12 +134,14 @@ export type RadioGroupProps = FieldBase &
     isDisabled?: boolean;
   };
 
-export type TextAreaProps = FieldBase & FieldStyle & ComponentPropsWithRef<"textarea">;
+export type TextAreaProps = FieldBase &
+  FieldStyle &
+  ComponentPropsWithRef<"textarea">;
 
 export type ToggleProps = Omit<FieldBase, "labelPosition"> &
   FieldStyle &
   Omit<ComponentPropsWithRef<"input">, "type"> & {
-    labelPosition?: "labelBefore" | "labelAfter" | "labelAbove";
+    labelPosition?: Exclude<LabelPosition, "top">;
     spaceBetween?: boolean;
   };
 

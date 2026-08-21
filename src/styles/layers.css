@@ -11,3 +11,7 @@
 @layer ambi, components, overrides;
 @layer ambi.tokens, ambi.reset, ambi.base, ambi.components,
     ambi.modifiers, ambi.states;
+@layer ambi.modifiers.variant,
+    ambi.modifiers.size,
+    ambi.modifiers.shape,
+    ambi.modifiers.fill;

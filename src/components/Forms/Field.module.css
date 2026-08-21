@@ -5,7 +5,7 @@
 }
 
 @layer ambi.base {
-  .fieldBlock {
+  .fieldRoot {
     --field-message-reserve: var(--space-6);
     --field-gap: var(--space-half);
     --input-padding: var(--p-md);
@@ -16,17 +16,17 @@
     --field-font-family: var(--font-sans);
     --field-font-weight: var(--font-weight-semibold);
     --field-font-size: var(--control-font-md);
-    --field-color: var(--color);
-    --field-bg-color: var(--bg-color);
-    --field-border-color: var(--border-color);
-    --field-shadow-size: var(--shadow-size);
-    --field-shadow-color: var(--shadow-color);
+    --field-color: var(--control-color);
+    --field-bg-color: var(--control-bg-color);
+    --field-border-color: var(--control-border-color);
+    --field-shadow-size: var(--control-shadow-size);
+    --field-shadow-color: var(--control-shadow-color);
     --field-icon-size: 1em;
     --field-max-width: 300px;
-    --input-font-size: var(--font-size-sm);
-    --label-wrapper-gap: var(--gap-xxs);
-    --input-shadow: var(--shadow-size) var(--shadow-color);
-    --input-info-font-size: var(--font-size-xs);
+    --input-font-size: var(--control-font-size-sm);
+    --label-wrapper-gap: var(--control-gap-xxs);
+    --input-shadow: var(--control-shadow-size) var(--control-shadow-color);
+    --input-info-font-size: var(--control-font-size-xs);
 
     display: flex;
     width: 100%;
@@ -71,9 +71,9 @@
       --field-gap: var(--space-2);
       --field-min-height: var(--control-height-xs);
       --field-max-width: 200px;
-      --label-wrapper-gap: var(--gap-xs);
-      --input-font-size: var(--font-size-xs);
-      --input-info-font-size: var(--font-size-2xs);
+      --label-wrapper-gap: var(--control-gap-xs);
+      --input-font-size: var(--control-font-size-xs);
+      --input-info-font-size: var(--control-font-size-2xs);
       --field-wrapper-min-width: 100px;
       --checkbox-box-height: 14px;
       --checkbox-box-width: 14px;
@@ -86,9 +86,9 @@
       --field-gap: var(--space-2);
       --field-min-height: var(--control-height-sm);
       --field-max-width: 300px;
-      --label-wrapper-gap: var(--gap-xs);
-      --input-font-size: var(--font-size-xs);
-      --input-info-font-size: var(--font-size-2xs);
+      --label-wrapper-gap: var(--control-gap-xs);
+      --input-font-size: var(--control-font-size-xs);
+      --input-info-font-size: var(--control-font-size-2xs);
       --field-wrapper-min-width: 200px;
       --checkbox-box-height: 16px;
       --checkbox-box-width: 16px;
@@ -96,14 +96,14 @@
 
     &.md {
       --input-padding: var(--p-pill-sm);
-      --field-font-size: var(--font-size-sm);
+      --field-font-size: var(--control-font-size-sm);
       --field-radius: var(--control-radius-md);
       --field-gap: var(--space-2);
       --field-min-height: var(--control-height-md);
       --field-max-width: 400px;
-      --label-wrapper-gap: var(--gap-xs);
-      --input-font-size: var(--font-size-sm);
-      --input-info-font-size: var(--font-size-xs);
+      --label-wrapper-gap: var(--control-gap-xs);
+      --input-font-size: var(--control-font-size-sm);
+      --input-info-font-size: var(--control-font-size-xs);
       --field-wrapper-min-width: 300px;
       --checkbox-box-height: 20px;
       --checkbox-box-width: 20px;
@@ -116,9 +116,9 @@
       --field-gap: var(--space-4);
       --field-min-height: var(--control-height-lg);
       --field-max-width: 600px;
-      --label-wrapper-gap: var(--gap-xs);
-      --input-font-size: var(--font-size-lg);
-      --input-info-font-size: var(--font-size-xs);
+      --label-wrapper-gap: var(--control-gap-xs);
+      --input-font-size: var(--control-font-size-lg);
+      --input-info-font-size: var(--control-font-size-xs);
       --field-wrapper-min-width: 300px;
       --checkbox-box-height: 24px;
       --checkbox-box-width: 24px;
@@ -138,7 +138,7 @@
         display: flex;
         width: 100%;
         height: 100%;
-        color: var(--alt-color);
+        color: var(--control-alt-color);
         font-size: var(--field-font-size);
         line-height: var(--line-height-body);
         font-weight: 600;
@@ -215,12 +215,12 @@
         }
 
         &.pill {
-          border-radius: var(--radius-full);
+          border-radius: var(--control-radius-full);
         }
 
         &.squircle {
           @supports (corner-shape: squircle) {
-            border-radius: var(--radius-full);
+            border-radius: var(--control-radius-full);
             corner-shape: squircle;
           }
         }
@@ -308,7 +308,7 @@
   }
 
   @container field-group (width < 32rem) {
-    .fieldBlock.start {
+    .fieldRoot.start {
       --label-container-flex: initial;
       --label-container-width: 100%;
       --field-wrapper-flex: initial;
@@ -339,7 +339,7 @@
   [data-appearance="dark"] {
     .fieldWrapper {
       --field-border-color: oklch(
-        from var(--bg-color) calc(l + 0.1) calc(c - 0.02) h
+        from var(--control-bg-color) calc(l + 0.1) calc(c - 0.02) h
       );
 
       .field {

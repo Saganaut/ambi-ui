@@ -1,25 +1,27 @@
-@layer ambi.component {
-  .btn {
-    composes: hoverable from "../../styles/utilities.module.css";
+@layer ambi.components {
+  .btnRoot {
+    /* composes: hoverable from "../../styles/utilities.module.css"; */
 
     /** Layout & Size **/
 
-    --btn-gap: var(--space-2);
-    --btn-padding: var(--p-md);
-    --btn-radius: var(--control-radius-md);
-    --btn-min-height: var(--control-height-md);
+    --btn-gap: var(--control-gap, var(--space-2));
+    --btn-padding: var(--control-padding, var(--space-2));
+    --btn-radius: var(--control-radius);
+    --btn-min-height: var(--control-min-height);
 
     /** Styling **/
 
+    --btn-corner-shape: var(--control-corner-shape);
     --btn-font-family: var(--font-sans);
     --btn-font-weight: var(--font-weight-semibold);
-    --btn-font-size: var(--control-font-md);
-    --btn-color: var(--color);
-    --btn-bg-color: var(--bg-color);
-    --btn-border-color: var(--border-color);
-    --btn-shadow-size: var(--shadow-size);
-    --btn-shadow-color: var(--shadow-color);
-    --btn-icon-size: 1em;
+    --btn-font-size: var(--control-font-size, var(--font-size-base));
+    --btn-color: var(--control-color);
+    --btn-bg-color: var(--control-bg-color);
+    --btn-shadow-size: var(--control-shadow-size);
+    --btn-shadow-color: var(--control-shadow-color);
+    --btn-line-height: 1em;
+    --btn-border-width: var(--control-border-width, var(--border-size-xs));
+    --btn-border-color: var(--control-border-color);
 
     display: flex;
     padding: var(--btn-padding);
@@ -28,18 +30,19 @@
     align-items: center;
     justify-content: center;
     min-height: var(--btn-min-height);
-    line-height: var(--line-height-control);
+    line-height: var(--btn-line-height);
     gap: var(--btn-gap);
     font-family: var(--btn-font-family);
     font-weight: var(--btn-font-weight);
     text-transform: capitalize;
     background-color: var(--btn-bg-color);
     border-radius: var(--btn-radius);
-    border: var(--border-size-xs) solid var(--btn-border-color);
+    border: var(--btn-border-width) solid var(--btn-border-color);
     box-shadow: var(--btn-shadow-size) var(--btn-shadow-color);
     cursor: pointer;
-    outline: var(--border-size-sm) solid transparent;
+    outline: var(--btn-border-width) solid transparent;
     outline-offset: var(--space-half);
+    corner-shape: var(--btn-corner-shape);
     transition:
       background-color var(--duration-base) ease-in-out,
       color var(--duration-base) ease-in-out,
@@ -56,9 +59,13 @@
     .icon {
       flex: none;
       display: inline-flex;
-      inline-size: var(--btn-icon-size);
-      block-size: var(--btn-icon-size);
+      inline-size: calc(var(--btn-min-height) * 0.6);
+      block-size: calc(var(--btn-min-height) * 0.6);
       align-items: center;
+
+      img {
+        border-radius: var(--btn-radius);
+      }
 
       svg,
       img {
@@ -70,62 +77,7 @@
       }
     }
 
-    /* ─── Sizes ─────────────────────────────────────────────────── */
-    &.xs {
-      --btn-padding: var(--p-pill-xs);
-      --btn-font-size: var(--control-font-xs);
-      --btn-radius: var(--control-radius-xs);
-      --btn-gap: var(--space-1);
-      --btn-min-height: var(--control-height-xs);
-    }
-
-    &.sm {
-      --btn-padding: var(--p-pill-xs);
-      --btn-font-size: var(--control-font-sm);
-      --btn-radius: var(--control-radius-sm);
-      --btn-gap: 0;
-      --btn-min-height: var(--control-height-sm);
-    }
-
-    &.md {
-      --btn-padding: var(--p-pill-md);
-      --btn-font-size: var(--control-font-md);
-      --btn-radius: var(--control-radius-md);
-      --btn-gap: var(--space-3);
-      --btn-min-height: var(--control-height-md);
-    }
-
-    &.lg {
-      --btn-padding: var(--p-pill-lg);
-      --btn-font-size: var(--control-font-lg);
-      --btn-radius: var(--control-radius-lg);
-      --btn-gap: var(--space-4);
-      --btn-min-height: var(--control-height-lg);
-    }
-
-    &.pill,
-    &.avatar {
-      border-radius: var(--radius-full);
-    }
-
-    &.squircle {
-      @supports (corner-shape: squircle) {
-        corner-shape: squircle;
-        border-radius: var(--radius-full);
-      }
-    }
-
-    &.avatar {
-      border: none;
-      padding: 0;
-      border-width: var(--border-size-md);
-
-      img {
-        border-radius: var(--radius-full);
-      }
-    }
-
-    &[data-fill="bordered"] {
+    /* &[data-fill="bordered"] {
       --btn-shadow-size: var(--shadow-xs-size);
       --btn-shadow-color: var(--shadow-xs-color);
       --btn-border-color: oklch(
@@ -136,9 +88,9 @@
       );
 
       border-width: 2px;
-    }
+    } */
 
-    &[data-fill="ghost"] {
+    /* &[data-fill="ghost"] {
       --btn-bg-color: transparent;
       --btn-border-color: transparent;
       --btn-shadow-size: 0 0;
@@ -146,7 +98,7 @@
       --hover-color: oklch(
         from var(--btn-color) calc(l + 0.5) calc(c + 0.01) h
       );
-    }
+    } */
 
     &:disabled {
       --btn-color: var(--text-is-disabled);
@@ -166,31 +118,11 @@
     }
 
     &.iconBtn {
-      --btn-icon-size: var(--space-7);
-
       gap: 0;
-      aspect-ratio: 1;
-
-      &.xs {
-        --btn-icon-size: var(--space-4);
-        --btn-padding: var(--space-half);
-      }
-
-      &.sm {
-        --btn-icon-size: var(--space-5);
-        --btn-padding: var(--space-1);
-      }
-
-      &.md {
-        --btn-icon-size: var(--space-8);
-        --btn-padding: var(--space-1);
-      }
-
-      &.lg {
-        --btn-icon-size: var(--space-10);
-        --btn-padding: var(--space-2);
-        --btn-min-height: 3.5rem;
-      }
+      inline-size: var(--btn-min-height);
+      min-inline-size: var(--btn-min-height);
+      min-height: var(--btn-min-height);
+      padding: 0;
     }
 
     &[data-icon-position="right"] {
@@ -203,15 +135,6 @@
       outline-color: var(--border-focus);
       box-shadow: none;
     }
-
-    /* &.squircle:focus-visible:not(:disabled) {
-    @supports (corner-shape: squircle) {
-      outline: none;
-      box-shadow:
-        var(--btn-shadow-size) var(--btn-shadow-color),
-        0 0 0 var(--border-size-sm) var(--border-focus);
-    }
-  } */
 
     &.splitBtnSecondary {
       --split-btn-shadow-size: 2px 2px 3px 1px;
@@ -254,7 +177,7 @@
 
   [data-appearance="dark"] {
     /* stylelint-disable-next-line no-descending-specificity */
-    .btn {
+    .btnRoot {
       --btn-border-color: oklch(
         from var(--btn-bg-color) calc(l + 0.1) calc(c - 0.02) h
       );
@@ -270,14 +193,14 @@
 
       &[data-fill="ghost"] {
         &:hover {
-          color: oklch(from var(--btn-color) calc(1 + 0.3) calc(c + 0.2) h);
+          color: oklch(from var(--btn-color) calc(l + 0.3) calc(c + 0.2) h);
         }
       }
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .btn {
+    .btnRoot {
       transition: none;
 
       .chevronIcon {

@@ -10,7 +10,7 @@ import styles from "./Radio.module.css";
 const Radio = ({
   id,
   label,
-  labelPosition = "labelAfter",
+  labelPosition = "end",
   extraLabelInfo,
   spaceBetween = false,
   checked,
@@ -43,7 +43,7 @@ const Radio = ({
     <div
       data-fill={fill === "default" ? undefined : fill}
       className={jC([
-        shared.fieldBlock,
+        shared.fieldRoot,
         fullWidth && shared.fullWidth,
         styles.radioBlock,
         className,
@@ -58,9 +58,9 @@ const Radio = ({
           shared.fieldWrapper,
           fullWidth && shared.fullWidth,
           styles.radioContainer,
-          labelPosition === "labelBefore" && styles.labelBefore,
-          labelPosition === "labelAbove" && styles.labelAbove,
-          spaceBetween && labelPosition !== "labelAbove" && styles.stretch,
+          labelPosition === "start" && styles.start,
+          labelPosition === "top" && styles.top,
+          spaceBetween && labelPosition !== "top" && styles.stretch,
           reserveMessageSpace && !hasMessage && styles.reserveMessageSpace,
         ])}
         data-status={dataStatus}

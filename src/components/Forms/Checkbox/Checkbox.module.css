@@ -1,12 +1,12 @@
 /* Checkbox — visually hidden native input + a styled control box.
    :has() drives all visual state so no JS class toggling is needed. */
-@layer ambi.component {
-  .checkboxBlock {
+@layer ambi.components {
+  .checkboxComponent {
     --message-reserve: var(--space-6);
     --checkbox-border-color: var(--role-border);
-    --checkbox-bg-color: var(--bg-color);
-    --checkbox-color: var(--color);
-    --checkbox-label-color: var(--alt-color);
+    --checkbox-bg-color: var(--control-bg-color);
+    --checkbox-color: var(--control-color);
+    --checkbox-label-color: var(--control-alt-color);
     --checkbox-box-height: 20px;
     --checkbox-box-width: 20px;
     --checkbox-check-stroke: var(--border-size-sm);
@@ -15,7 +15,7 @@
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--gap-sm);
+    gap: var(--control-gap-sm);
 
     &.xs {
       --checkbox-padding: var(--p-pill-xs);
@@ -74,7 +74,7 @@
       border: none;
     }
 
-    .labelBefore {
+    .start {
       .checkboxLabelWrapper {
         span {
           width: 100%;
@@ -86,7 +86,7 @@
     label.checkboxWrap {
       display: flex;
       align-items: start;
-      gap: var(--gap-sm);
+      gap: var(--control-gap-sm);
       cursor: pointer;
 
       .checkboxLabelText {
@@ -109,7 +109,7 @@
         width: var(--checkbox-box-width);
         height: var(--checkbox-box-height);
         flex-shrink: 0;
-        border-radius: var(--radius-sm);
+        border-radius: var(--control-radius-sm);
         border: var(--border-size-xs) solid var(--checkbox-border-color);
         background-color: var(--checkbox-bg-color);
         align-items: center;
@@ -120,14 +120,14 @@
 
         &.squircle {
           @supports (corner-shape: squircle) {
-            border-radius: var(--radius-full);
+            border-radius: var(--control-radius-full);
             corner-shape: squircle;
           }
         }
       }
     }
 
-    .labelBefore .checkboxWrap {
+    .start .checkboxWrap {
       flex-direction: row-reverse;
     }
 
@@ -137,8 +137,8 @@
     }
 
     &.stretch {
-      padding-top: var(--gap-xs);
-      padding-bottom: var(--gap-xs);
+      padding-top: var(--control-gap-xs);
+      padding-bottom: var(--control-gap-xs);
 
       .checkboxWrap {
         justify-content: space-between;

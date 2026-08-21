@@ -6,23 +6,31 @@
   --file-upload-width: min(100%, 30rem);
   --file-upload-min-height: 10rem;
   --file-upload-padding: var(--p-square-md);
-  --file-upload-gap: var(--gap-md);
-  --file-upload-radius: var(--radius-lg);
+  --file-upload-gap: var(--control-gap-md);
+  --file-upload-radius: var(--control-radius-lg);
   --file-upload-border-width: var(--border-size-sm);
-  --file-upload-border-color: var(--border-color, var(--role-border));
-  --file-upload-bg-color: var(--bg-color, transparent);
-  --file-upload-hover-bg-color: oklch(from var(--bg-color) calc(l + 0.03) calc(c + 0.02) h);
-  --file-upload-color: var(--color, var(--text-secondary));
+  --file-upload-border-color: var(--control-border-color, var(--role-border));
+  --file-upload-bg-color: var(--control-bg-color, transparent);
+  --file-upload-hover-bg-color: oklch(
+    from var(--control-bg-color) calc(l + 0.03) calc(c + 0.02) h
+  );
+  --file-upload-color: var(--control-color, var(--text-secondary));
   --file-upload-muted-color: var(--text-muted);
-  --file-upload-link-color: var(--color, var(--text-brand));
+  --file-upload-link-color: var(--control-color, var(--text-brand));
   --file-upload-icon-size: var(--space-8);
-  --file-upload-font-size: var(--input-font-size, var(--font-size-sm));
-  --file-upload-hint-font-size: var(--input-info-font-size, var(--font-size-xs));
-  --file-upload-item-padding: var(--gap-xs) var(--gap-sm);
-  --file-upload-item-gap: var(--gap-xs);
-  --file-upload-item-radius: var(--radius-sm);
-  --file-upload-item-border-color: var(--border-color, var(--border-subtle));
-  --file-upload-item-bg-color: var(--bg-color, var(--bg-surface));
+  --file-upload-font-size: var(--input-font-size, var(--control-font-size-sm));
+  --file-upload-hint-font-size: var(
+    --input-info-font-size,
+    var(--control-font-size-xs)
+  );
+  --file-upload-item-padding: var(--control-gap-xs) var(--control-gap-sm);
+  --file-upload-item-gap: var(--control-gap-xs);
+  --file-upload-item-radius: var(--control-radius-sm);
+  --file-upload-item-border-color: var(
+    --control-border-color,
+    var(--border-subtle)
+  );
+  --file-upload-item-bg-color: var(--control-bg-color, var(--bg-surface));
   --file-upload-remove-color: var(--text-muted);
   --file-upload-remove-hover-color: var(--text-error);
 
@@ -30,13 +38,13 @@
   display: flex;
   width: var(--file-upload-width);
   flex-direction: column;
-  gap: var(--gap-sm);
+  gap: var(--control-gap-sm);
   padding-bottom: var(--file-upload-message-reserve);
 
   &.xs {
     --file-upload-min-height: 6rem;
     --file-upload-padding: var(--p-square-xs);
-    --file-upload-gap: var(--gap-xs);
+    --file-upload-gap: var(--control-gap-xs);
     --file-upload-radius: var(--control-radius-xs);
     --file-upload-icon-size: var(--space-5);
   }
@@ -44,7 +52,7 @@
   &.sm {
     --file-upload-min-height: 8rem;
     --file-upload-padding: var(--p-square-sm);
-    --file-upload-gap: var(--gap-sm);
+    --file-upload-gap: var(--control-gap-sm);
     --file-upload-radius: var(--control-radius-sm);
     --file-upload-icon-size: var(--space-6);
   }
@@ -52,7 +60,7 @@
   &.md {
     --file-upload-min-height: 10rem;
     --file-upload-padding: var(--p-square-md);
-    --file-upload-gap: var(--gap-md);
+    --file-upload-gap: var(--control-gap-md);
     --file-upload-radius: var(--control-radius-md);
     --file-upload-icon-size: var(--space-8);
   }
@@ -60,7 +68,7 @@
   &.lg {
     --file-upload-min-height: 12rem;
     --file-upload-padding: var(--p-square-lg);
-    --file-upload-gap: var(--gap-lg);
+    --file-upload-gap: var(--control-gap-lg);
     --file-upload-radius: var(--control-radius-lg);
     --file-upload-icon-size: var(--space-10);
   }
@@ -76,7 +84,8 @@
     width: 100%;
     min-height: var(--file-upload-min-height);
     padding: var(--file-upload-padding);
-    border: var(--file-upload-border-width) dashed var(--file-upload-border-color);
+    border: var(--file-upload-border-width) dashed
+      var(--file-upload-border-color);
     border-radius: var(--file-upload-radius);
     background-color: var(--file-upload-bg-color);
     color: var(--file-upload-color);
@@ -117,12 +126,12 @@
     }
 
     &.pill {
-      border-radius: var(--radius-full);
+      border-radius: var(--control-radius-full);
     }
 
     &.squircle {
       @supports (corner-shape: squircle) {
-        border-radius: var(--radius-full);
+        border-radius: var(--control-radius-full);
         corner-shape: squircle;
       }
     }
@@ -173,7 +182,8 @@
     align-items: center;
     justify-content: space-between;
     padding: var(--file-upload-item-padding);
-    border: var(--file-upload-border-width) solid var(--file-upload-item-border-color);
+    border: var(--file-upload-border-width) solid
+      var(--file-upload-item-border-color);
     border-radius: var(--file-upload-item-radius);
     background-color: var(--file-upload-item-bg-color);
   }
@@ -187,11 +197,11 @@
   }
 
   .removeFile {
-    padding: 0 var(--gap-xs);
+    padding: 0 var(--control-gap-xs);
     border: none;
     background: none;
     color: var(--file-upload-remove-color);
-    font-size: var(--font-size-base);
+    font-size: var(--control-font-size-base);
     line-height: 1;
     cursor: pointer;
     flex-shrink: 0;

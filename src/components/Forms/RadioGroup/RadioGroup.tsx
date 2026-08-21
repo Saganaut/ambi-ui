@@ -47,7 +47,7 @@ const RadioGroup = ({
       aria-invalid={aria.invalid}
       aria-busy={aria.busy}
       aria-describedby={aria.describedBy}
-      className={jC([shared.fieldBlock, shared.top, shared.md, className])}
+      className={jC([shared.fieldRoot, shared.top, shared.md, className])}
     >
       {/* Leave as is, do not replace with FieldLabel component otherwise we ll have nested labels*/}
 

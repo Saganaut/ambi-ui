@@ -3,8 +3,8 @@
 // set of row / button / divider primitives
 // Used in conjuction wiht PopverWrapper and PopoverNavContext to provide full utility
 import { useListItem } from "@floating-ui/react";
-import { useContext, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { jC } from "@utils/utils";
+import { useContext, type ButtonHTMLAttributes, type ReactNode } from "react";
 import styles from "./Popover.module.css";
 import type { PopoverProps } from "./Popover.types";
 import { PopoverNavContext } from "./PopoverNavContext";
@@ -18,7 +18,11 @@ const Popover = ({
   shape = "default",
 }: PopoverProps) => (
   <div
-    className={jC([styles.popover, shape !== "default" && styles[shape], className])}
+    className={jC([
+      styles.popover,
+      shape !== "default" && styles[shape],
+      className,
+    ])}
     role={role}
     aria-label={ariaLabel}
     style={style}
@@ -36,20 +40,23 @@ const Row = ({ children, className }: RowProps) => (
   <div className={jC([styles.row, className])}>{children}</div>
 );
 
-const Button = ({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => {
+const Button = ({
+  children,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement>) => {
   const nav = useContext(PopoverNavContext);
   const { ref, index } = useListItem();
 
   if (!nav) {
     return (
-      <button className={styles.btn} type="button" {...props}>
+      <button className={styles.btnRoot} type="button" {...props}>
         {children}
       </button>
     );
   }
   return (
     <button
-      className={styles.btn}
+      className={styles.btnRoot}
       type="button"
       ref={ref}
       {...nav.getItemProps(props)}

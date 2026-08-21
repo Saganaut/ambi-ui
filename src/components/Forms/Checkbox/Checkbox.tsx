@@ -10,7 +10,7 @@ import styles from "./Checkbox.module.css";
 const Checkbox = ({
   id,
   label,
-  labelPosition = "labelAfter",
+  labelPosition = "end",
   extraLabelInfo,
   spaceBetween = false,
   checked,
@@ -42,9 +42,9 @@ const Checkbox = ({
     <div
       data-fill={fill === "default" ? undefined : fill}
       className={jC([
-        shared.fieldBlock,
+        shared.fieldRoot,
         fullWidth && shared.fullWidth,
-        styles.checkboxBlock,
+        styles.checkboxComponent,
         className,
         variantStyles[inputVariant],
         reserveMessageSpace && shared.reserveMessageSpace,
@@ -56,7 +56,7 @@ const Checkbox = ({
         className={jC([
           shared.fieldWrapper,
           fullWidth && shared.fullWidth,
-          labelPosition === "labelBefore" && styles.labelBefore,
+          labelPosition === "start" && styles.start,
           spaceBetween && styles.stretch,
           reserveMessageSpace && !hasMessage && styles.reserveMessageSpace,
         ])}

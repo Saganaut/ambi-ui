@@ -25,13 +25,14 @@ const Btn = ({
       aria-busy={isLoading || undefined}
       data-icon-position={icon ? iconPosition : undefined}
       {...rest}
-      data-fill={fill === "default" ? undefined : fill}
+      // data-fill={fill === "default" ? undefined : fill}
       className={jC([
-        styles.btn,
+        styles.btnRoot,
         children == null && styles.iconBtn,
         variantStyles[variant],
-        styles[size],
-        shape !== "default" && styles[shape],
+        variantStyles[size],
+        variantStyles[shape],
+        variantStyles[fill],
         className,
       ])}
     >

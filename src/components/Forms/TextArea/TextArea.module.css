@@ -2,7 +2,7 @@
 - Refactor with proper nesting
 
 */
-@layer ambi.component {
+@layer ambi.components {
   .textarea {
     --input-padding: var(--space-3);
 

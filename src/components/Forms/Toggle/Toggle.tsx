@@ -1,7 +1,6 @@
 // Toggle switch built on a visually-hidden checkbox; CSS :has() drives all visual state
 import variantStyles from "@styles/variants.module.css";
 import { jC } from "@utils/utils";
-import { Check, Loader, X } from "lucide-react";
 import { FeedbackMessage } from "../_shared/FeedbackMessage";
 import { FieldLabel } from "../_shared/FieldLabel";
 import shared from "../Field.module.css";
@@ -26,6 +25,8 @@ const Toggle = ({
   variant = "primary",
   fill = "default",
   fieldSize = "md",
+  shape = "pill",
+  spaceBetween = false,
   ref,
   ...rest
 }: ToggleProps) => {
@@ -42,51 +43,64 @@ const Toggle = ({
     <div
       data-fill={fill === "default" ? undefined : fill}
       className={jC([
-        shared.fieldBlock,
+        shared.fieldRoot,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
         variantStyles[variant],
         reserveMessageSpace && shared.reserveMessageSpace,
-        shared[fieldSize],
-        inputVariant !== "brand" && shared[inputVariant],
+
+        shared[inputVariant],
       ])}
     >
       <div
         className={jC([
           shared.fieldWrapper,
           fullWidth && shared.fullWidth,
-          styles.toggleContainer,
-          labelPosition === "start" && styles.labelBefore,
+          styles.toggleComponent,
+          spaceBetween && styles.spaceBetween,
+          styles[fieldSize],
+          styles[shape],
+          labelPosition === "start" && styles.start,
         ])}
         data-status={dataStatus}
       >
-        <input
-          {...rest}
-          ref={ref}
-          type="checkbox"
-          id={inputId}
-          className={styles.toggleInput}
-          checked={checked}
-          onChange={onChange}
-          disabled={disabled}
-          aria-invalid={aria.invalid}
-          aria-busy={aria.busy}
-          aria-describedby={aria.describedBy}
-        />
-        <label htmlFor={inputId} className={styles.toggleWrap}>
-          <span className={styles.toggleTrack}>
-            <span className={styles.toggleThumb} />
-          </span>
-          {label && (
-            <FieldLabel
-              className={shared.labelWrapper}
-              id={`${inputId}Label`}
-              extraLabelInfo={extraLabelInfo}
-              label={label}
-            />
-          )}
-        </label>
+        {" "}
+        <div className={jC([spaceBetween && styles.spaceBetween])}>
+          <input
+            {...rest}
+            ref={ref}
+            type="checkbox"
+            id={inputId}
+            className={styles.toggleInput}
+            checked={checked ?? false}
+            onChange={onChange}
+            disabled={disabled}
+            aria-invalid={aria.invalid}
+            aria-busy={aria.busy}
+            aria-describedby={aria.describedBy}
+          />
+
+          <label
+            htmlFor={inputId}
+            className={jC([
+              styles.toggleWrap,
+              spaceBetween && styles.spaceBetween,
+            ])}
+          >
+            <span className={styles.toggleTrack}>
+              <span className={styles.toggleThumb} />
+            </span>
+            {label && (
+              <FieldLabel
+                className={shared.labelWrapper}
+                id={`${inputId}Label`}
+                extraLabelInfo={extraLabelInfo}
+                label={label}
+              />
+            )}
+          </label>
+        </div>
         {hasMessage && (
           <FeedbackMessage
             id={messageId}
@@ -94,11 +108,6 @@ const Toggle = ({
             infoMessage={infoMessage}
           />
         )}
-        <div className={shared.statusIcon}>
-          {dataStatus === "valid" && <Check />}
-          {dataStatus === "validating" && <Loader />}
-          {dataStatus === "invalid" && <X />}
-        </div>
       </div>
     </div>
   );

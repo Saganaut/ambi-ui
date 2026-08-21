@@ -1,11 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Check, ChevronDown, Copy, ExternalLink, Pencil, Trash2 } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  Copy,
+  ExternalLink,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 import type { BaseShapes, MenuPosition } from "../Base.types";
 import { Btn } from "../Buttons/Btn";
 import type { BtnFill, BtnSize, BtnVariant } from "../Buttons/Btn.types";
 import { DropdownMenu } from "./DropdownMenu";
 
-const POSITIONS: MenuPosition[] = ["top-left", "top-right", "bottom-left", "bottom-right"];
+const POSITIONS: MenuPosition[] = [
+  "top-left",
+  "top-right",
+  "bottom-left",
+  "bottom-right",
+];
 const VARIANTS: BtnVariant[] = [
   "primary",
   "secondary",
@@ -117,7 +129,8 @@ The API table is generated from \`DropdownMenuProps\`; compound items use \`Drop
     },
     anchorToCursor: {
       control: "boolean",
-      description: "Position the menu at the pointer coordinates passed to toggle.",
+      description:
+        "Position the menu at the pointer coordinates passed to toggle.",
     },
     trigger: {
       control: false,
@@ -136,7 +149,13 @@ The API table is generated from \`DropdownMenuProps\`; compound items use \`Drop
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+const Section = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) => (
   <section style={{ display: "grid", gap: "1rem" }}>
     <h2 style={{ margin: 0, fontSize: "1rem" }}>{title}</h2>
     {children}
@@ -239,7 +258,7 @@ export const Overview: Story = {
                 minHeight: "10rem",
                 placeItems: "center",
                 border: "1px dashed var(--border-default)",
-                borderRadius: "var(--radius-md)",
+                borderRadius: "var(--control-radius-md)",
                 color: "var(--text-muted)",
                 userSelect: "none",
               }}

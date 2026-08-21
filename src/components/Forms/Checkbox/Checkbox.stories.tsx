@@ -1,15 +1,29 @@
 /* oxlint-disable react-hooks/rules-of-hooks, no-console */
 /* oxlint-disable react-x/rules-of-hooks, no-console */
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import "@styles/variants.module.css";
 import type { ReactNode } from "react";
 import { fn } from "storybook/test";
 import { componentDocs } from "../../../storybookDocs";
-import "@styles/variants.module.css";
 import { Checkbox } from "./Checkbox";
 
 const SIZES = ["xs", "sm", "md", "lg"] as const;
-const VARIANTS = ["primary", "secondary", "brand", "info", "error", "success", "warning"] as const;
-const Section = ({ title, children }: { title: string; children: ReactNode }) => (
+const VARIANTS = [
+  "primary",
+  "secondary",
+  "brand",
+  "info",
+  "error",
+  "success",
+  "warning",
+] as const;
+const Section = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) => (
   <section style={{ display: "grid", gap: ".75rem" }}>
     <h2 style={{ margin: 0, fontSize: "1rem" }}>{title}</h2>
     <div
@@ -53,15 +67,24 @@ const meta = {
   args: {
     label: "Allow guests to join",
     id: "allow-guests",
-    labelPosition: "labelAfter",
+    labelPosition: "end",
     onChange: fn(),
   },
   argTypes: {
-    labelPosition: { control: "inline-radio", options: ["labelBefore", "labelAfter"] },
+    labelPosition: {
+      control: "inline-radio",
+      options: ["start", "end"],
+    },
     fieldSize: { control: "inline-radio", options: SIZES },
     variant: { control: "select", options: VARIANTS },
-    fill: { control: "inline-radio", options: ["default", "bordered", "ghost"] },
-    shape: { control: "inline-radio", options: ["default", "pill", "squircle"] },
+    fill: {
+      control: "inline-radio",
+      options: ["default", "bordered", "ghost"],
+    },
+    shape: {
+      control: "inline-radio",
+      options: ["default", "pill", "squircle"],
+    },
     validationState: {
       control: "inline-radio",
       options: ["idle", "validating", "valid", "invalid"],
@@ -78,7 +101,12 @@ export const Overview: Story = {
       <Section title="Playground and selection">
         <Checkbox {...args} id={`${args.id}-playground`} />
         <Checkbox {...args} id={`${args.id}-checked`} label="Checked" checked />
-        <Checkbox {...args} id={`${args.id}-disabled`} label="Disabled" disabled />
+        <Checkbox
+          {...args}
+          id={`${args.id}-disabled`}
+          label="Disabled"
+          disabled
+        />
         <Checkbox
           {...args}
           id={`${args.id}-checked-disabled`}
@@ -93,13 +121,13 @@ export const Overview: Story = {
           {...args}
           id={`${args.id}-before`}
           label="Label before"
-          labelPosition="labelBefore"
+          labelPosition="start"
         />
         <Checkbox
           {...args}
           id={`${args.id}-spaced`}
           label="Opposite ends of the row"
-          labelPosition="labelBefore"
+          labelPosition="start"
           fullWidth
           spaceBetween
         />
@@ -198,7 +226,7 @@ export const Overview: Story = {
           {...args}
           id={`${args.id}-long-row`}
           label="A long full-width settings-row label keeps the control aligned at the far edge"
-          labelPosition="labelBefore"
+          labelPosition="start"
           fullWidth
           spaceBetween
         />

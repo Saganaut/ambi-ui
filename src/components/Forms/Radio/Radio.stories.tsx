@@ -1,10 +1,10 @@
 /* oxlint-disable react-hooks/rules-of-hooks, no-console */
 /* oxlint-disable react-x/rules-of-hooks, no-console */
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import "@styles/variants.module.css";
 import type { ReactNode } from "react";
 import { fn } from "storybook/test";
 import { componentDocs } from "../../../storybookDocs";
-import "@styles/variants.module.css";
 import { Radio } from "./Radio";
 
 const SIZES = ["xs", "sm", "md", "lg"] as const;
@@ -70,13 +70,13 @@ const meta = {
     value: "option-1",
     label: "Option one",
     checked: true,
-    labelPosition: "labelAfter",
+    labelPosition: "end",
     onChange: fn(),
   },
   argTypes: {
     labelPosition: {
       control: "inline-radio",
-      options: ["labelBefore", "labelAfter", "labelAbove"],
+      options: ["start", "end", "top"],
     },
     fieldSize: { control: "inline-radio", options: SIZES },
     variant: { control: "select", options: VARIANTS },
@@ -118,25 +118,25 @@ export const Overview: Story = {
           {...args}
           name={`${args.name}-before`}
           label="Label before"
-          labelPosition="labelBefore"
+          labelPosition="start"
         />
         <Radio
           {...args}
           name={`${args.name}-after`}
           label="Label after"
-          labelPosition="labelAfter"
+          labelPosition="end"
         />
         <Radio
           {...args}
           name={`${args.name}-above`}
           label="Label above"
-          labelPosition="labelAbove"
+          labelPosition="top"
         />
         <Radio
           {...args}
           name={`${args.name}-spaced`}
           label="Opposite ends"
-          labelPosition="labelBefore"
+          labelPosition="start"
           fullWidth
           spaceBetween
         />

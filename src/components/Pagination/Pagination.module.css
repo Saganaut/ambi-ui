@@ -1,21 +1,21 @@
-@layer ambi.component {
+@layer ambi.components {
   .pagination {
     /* composes: hoverable from "../../styles/utilities.module.css"; */
 
     /** Layout & Size **/
     --page-size: 1em;
-    --page-gap: var(--gap-xs);
+    --page-gap: var(--control-gap-xs);
     --page-radius: var(--control-radius-md);
 
     /** Styling **/
     --page-font-family: var(--font-sans);
     --page-font-size: var(--control-font-md);
     --page-font-weight: var(--font-weight-medium);
-    --page-color: var(--color);
-    --page-bg-color: var(--bg-color);
-    --page-border-color: var(--border-color);
-    --page-shadow-size: var(--shadow-size);
-    --page-shadow-color: var(--shadow-color);
+    --page-color: var(--control-color);
+    --page-bg-color: var(--control-bg-color);
+    --page-border-color: var(--control-border-color);
+    --page-shadow-size: var(--control-shadow-size);
+    --page-shadow-color: var(--control-shadow-color);
     --page-btn-padding: var(--p-md);
 
     display: inline-flex;
@@ -55,7 +55,7 @@
       --page-min-width: var(--space-10);
       --page-font-size: var(--control-font-lg);
       --page-radius: var(--control-radius-lg);
-      --page-gap: var(--gap-sm);
+      --page-gap: var(--control-gap-sm);
       --page-padding: var(--space-2);
       --page-min-height: var(--control-height-lg);
     }
@@ -111,11 +111,13 @@
       }
 
       &:hover:not([data-fill="ghost"], :disabled, .current) {
-        --hover-color: oklch(from var(--color) calc(l - 0.1) calc(c + 0.01) h);
-        --hover-bg-color: oklch(
-          from var(--bg-color) calc(l + 0.05) calc(c + 0.02) h
+        --hover-color: oklch(
+          from var(--control-color) calc(l - 0.1) calc(c + 0.01) h
         );
-        --border-color: var(--role-border);
+        --hover-bg-color: oklch(
+          from var(--control-bg-color) calc(l + 0.05) calc(c + 0.02) h
+        );
+        --control-border-color: var(--role-border);
 
         box-shadow: var(--shadow-sm);
         background-color: var(--hover-bg-color);
@@ -149,7 +151,7 @@
     }
 
     .compactLabel {
-      padding: 0 var(--gap-sm);
+      padding: 0 var(--control-gap-sm);
       color: var(--page-color);
       font-size: var(--page-font-size);
       font-family: var(--page-font-family);
@@ -157,7 +159,7 @@
   }
 
   .compact {
-    gap: var(--gap-md);
+    gap: var(--control-gap-md);
   }
 
   [data-appearance="dark"] {
@@ -165,7 +167,7 @@
       .pageBtn {
         &:not(:disabled, [data-fill="ghost"]):hover {
           --hover-border-color: oklch(
-            from var(--bg-color) calc(l + 0.3) calc(c - 0.02) h
+            from var(--control-bg-color) calc(l + 0.3) calc(c - 0.02) h
           );
 
           border-color: var(--hover-border-color);

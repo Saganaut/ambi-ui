@@ -1,4 +1,4 @@
-@layer ambi.component {
+@layer ambi.components {
   .wrapper {
     display: flex;
   }
@@ -14,7 +14,7 @@
 
     /** Layout & Size **/
     --dropdown-menu-gap: var(--space-2);
-    --dropdown-menu-padding: var(--gap-md) var(--gap-lg);
+    --dropdown-menu-padding: var(--control-gap-md) var(--control-gap-lg);
     --dropdown-menu-radius: var(--control-radius-md);
     --dropdown-menu-min-height: var(--control-height-md);
     --dropdown-menu-min-width: 11.25rem;
@@ -23,9 +23,9 @@
     --dropdown-menu-font-family: var(--font-sans);
     --dropdown-menu-font-weight: var(--font-weight-semibold);
     --dropdown-menu-font-size: var(--control-font-md);
-    --dropdown-menu-color: var(--color);
-    --dropdown-menu-bg-color: var(--bg-color);
-    --dropdown-menu-border-color: var(--border-color);
+    --dropdown-menu-color: var(--control-color);
+    --dropdown-menu-bg-color: var(--control-bg-color);
+    --dropdown-menu-border-color: var(--control-border-color);
     --dropdown-menu-shadow: var(--shadow-md);
     --dropdown-menu-icon-size: 1em;
 
@@ -41,18 +41,18 @@
     will-change: opacity, transform;
 
     &.pill {
-      border-radius: var(--radius-full);
+      border-radius: var(--control-radius-full);
     }
 
     &.squircle {
       @supports (corner-shape: squircle) {
         corner-shape: squircle;
-        border-radius: var(--radius-full);
+        border-radius: var(--control-radius-full);
       }
     }
 
     &.xs {
-      --dropdown-menu-padding: var(--gap-sm) var(--gap-md);
+      --dropdown-menu-padding: var(--control-gap-sm) var(--control-gap-md);
       --dropdown-menu-font-size: var(--control-font-xs);
       --dropdown-menu-radius: var(--control-radius-xs);
       --dropdown-menu-gap: var(--space-1);
@@ -61,7 +61,7 @@
     }
 
     &.sm {
-      --dropdown-menu-padding: var(--gap-sm) var(--gap-md);
+      --dropdown-menu-padding: var(--control-gap-sm) var(--control-gap-md);
       --dropdown-menu-font-size: var(--control-font-sm);
       --dropdown-menu-radius: var(--control-radius-sm);
       --dropdown-menu-gap: 0;
@@ -70,7 +70,7 @@
     }
 
     &.md {
-      --dropdown-menu-padding: var(--gap-md) var(--gap-xl);
+      --dropdown-menu-padding: var(--control-gap-md) var(--control-gap-xl);
       --dropdown-menu-font-size: var(--control-font-md);
       --dropdown-menu-radius: var(--control-radius-md);
       --dropdown-menu-gap: var(--space-3);
@@ -79,7 +79,7 @@
     }
 
     &.lg {
-      --dropdown-menu-padding: var(--gap-lg) var(--gap-xl);
+      --dropdown-menu-padding: var(--control-gap-lg) var(--control-gap-xl);
       --dropdown-menu-font-size: var(--control-font-lg);
       --dropdown-menu-radius: var(--control-radius-lg);
       --dropdown-menu-gap: var(--space-4);
@@ -136,7 +136,7 @@
     }
 
     .label {
-      --dropdown-menu-label-padding: var(--gap-sm) var(--gap-lg);
+      --dropdown-menu-label-padding: var(--control-gap-sm) var(--control-gap-lg);
       --dropdown-menu-label-color: var(--text-muted);
       --dropdown-menu-label-border-color: var(--border-subtle);
 
@@ -149,7 +149,7 @@
     .divider {
       --dropdown-menu-divider-size: 1px;
       --dropdown-menu-divider-color: var(--border-subtle);
-      --dropdown-menu-divider-margin: var(--gap-xs);
+      --dropdown-menu-divider-margin: var(--control-gap-xs);
 
       height: var(--dropdown-menu-divider-size);
       margin: var(--dropdown-menu-divider-margin) 0;

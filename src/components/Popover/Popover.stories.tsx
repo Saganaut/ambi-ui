@@ -9,7 +9,7 @@ import { PopoverWrapper } from "./PopoverWrapper";
 const triggerStyle = {
   padding: "0.5rem 0.75rem",
   border: "1px solid var(--border-subtle)",
-  borderRadius: "var(--radius-sm)",
+  borderRadius: "var(--control-radius-sm)",
   background: "var(--bg-canvas)",
   color: "var(--text-primary)",
   cursor: "pointer",
@@ -89,7 +89,14 @@ type Story = StoryObj<typeof meta>;
 /** Popover composition, roles, shapes, navigation, and short or long action content. */
 export const Overview: Story = {
   render: (args) => (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "start" }}>
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "1rem",
+        alignItems: "start",
+      }}
+    >
       <PopoverWrapper
         placement="bottom-start"
         listNavigation

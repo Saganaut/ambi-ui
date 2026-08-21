@@ -1,10 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { ReactNode } from "react";
-import "@styles/variants.module.css";
 import { Btn } from "@components/Buttons/Btn";
-import type { BtnFill, BtnSize, BtnVariant } from "@components/Buttons/Btn.types";
+import type {
+  BtnFill,
+  BtnSize,
+  BtnVariant,
+} from "@components/Buttons/Btn.types";
 import { Checkbox } from "@components/Forms/Checkbox/Checkbox";
 import { Input } from "@components/Forms/Input/Input";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import "@styles/variants.module.css";
+import type { ReactNode } from "react";
 import { referenceDocs } from "./storybookDocs";
 
 const SIZES: BtnSize[] = ["xs", "sm", "md", "lg"];
@@ -21,9 +25,10 @@ const FILLS: BtnFill[] = ["default", "bordered", "ghost"];
 
 const comparisonGridStyle = {
   display: "grid",
-  gridTemplateColumns: "minmax(5rem, max-content) minmax(18rem, 28rem) minmax(8rem, max-content)",
+  gridTemplateColumns:
+    "minmax(5rem, max-content) minmax(18rem, 28rem) minmax(8rem, max-content)",
   alignItems: "center",
-  gap: "var(--stack-md) var(--gap-lg)",
+  gap: "var(--stack-md) var(--control-gap-lg)",
   width: "max-content",
   maxWidth: "100%",
 } as const;
@@ -162,7 +167,11 @@ export const InputsVsButtons: Story = {
           reserveMessageSpace={false}
           fullWidth
         />
-        <Checkbox id="comparison-checkbox-default" label="Checkbox" reserveMessageSpace={false} />
+        <Checkbox
+          id="comparison-checkbox-default"
+          label="Checkbox"
+          reserveMessageSpace={false}
+        />
         <Btn>Button</Btn>
 
         <strong>pill</strong>

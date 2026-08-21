@@ -1,59 +1,11 @@
-.primary,
-.secondary,
-.brand,
-.info,
-.error,
-.success,
-.warning {
-  --shadow-size: var(--shadow-xs-size);
-  --shadow-color: var(--shadow-xs-color);
-}
+@layer ambi.modifiers.variant,
+    ambi.modifiers.size,
+    ambi.modifiers.shape,
+    ambi.modifiers.fill;
 
-.primary {
-  --color: var(--text-primary);
-  --bg-color: var(--bg-secondary);
-  --border-color: var(--role-border);
-}
+/* Color variants */
 
-.secondary {
-  --color: var(--text-on-brand);
-  --alt-color: var(--text-primary);
-  --bg-color: var(--bg-brand);
-  --border-color: var(--role-border);
-}
-
-.brand {
-  --color: var(--text-on-brand);
-  --alt-color: var(--text-primary);
-  --bg-color: var(--role-accent-secondary);
-  --border-color: var(--role-border);
-}
-
-.info {
-  --color: var(--text-info);
-  --bg-color: var(--bg-info);
-  --border-color: var(--border-info);
-}
-
-.error {
-  --color: var(--text-error);
-  --bg-color: var(--bg-error);
-  --border-color: var(--border-error);
-}
-
-.success {
-  --color: var(--text-success);
-  --bg-color: var(--bg-success);
-  --border-color: var(--border-success);
-}
-
-.warning {
-  --color: var(--text-warning);
-  --bg-color: var(--bg-warning);
-  --border-color: var(--border-warning);
-}
-
-[data-appearance="light"] {
+@layer ambi.modifiers.variant {
   .primary,
   .secondary,
   .brand,
@@ -61,20 +13,181 @@
   .error,
   .success,
   .warning {
-    --border-color: var(--role-border);
+    --control-shadow-size: var(--shadow-xs-size);
+    --control-shadow-color: var(--shadow-xs-color);
   }
-}
 
-[data-appearance="dark"] {
-  --role-border: oklch(from var(--bg-color) calc(l + 0.2) calc(c - 0.01) h);
+  .primary {
+    --control-color: var(--text-primary);
+    --control-bg-color: var(--bg-secondary);
+    --control-border-color: var(--role-border);
+  }
 
   .secondary {
-    --color: var(--text-primary);
-    --bg-color: var(--bg-brand);
+    --control-color: var(--text-on-brand);
+    --control-alt-color: var(--text-primary);
+    --control-bg-color: var(--bg-brand);
+    --control-border-color: var(--role-border);
   }
 
   .brand {
-    --color: var(--text-primary);
-    --bg-color: var(--role-accent-secondary);
+    --control-color: var(--text-on-brand);
+    --control-alt-color: var(--text-primary);
+    --control-bg-color: var(--role-accent-secondary);
+    --control-border-color: var(--role-border);
+  }
+
+  .info {
+    --control-color: var(--text-info);
+    --control-bg-color: var(--bg-info);
+    --control-border-color: var(--border-info);
+  }
+
+  .error {
+    --control-color: var(--text-error);
+    --control-bg-color: var(--bg-error);
+    --control-border-color: var(--border-error);
+  }
+
+  .success {
+    --control-color: var(--text-success);
+    --control-bg-color: var(--bg-success);
+    --control-border-color: var(--border-success);
+  }
+
+  .warning {
+    --control-color: var(--text-warning);
+    --control-bg-color: var(--bg-warning);
+    --control-border-color: var(--border-warning);
+  }
+
+  [data-appearance="light"] {
+    .primary,
+    .secondary,
+    .brand,
+    .info,
+    .error,
+    .success,
+    .warning {
+      --control-border-color: var(--role-border);
+    }
+  }
+
+  [data-appearance="dark"] {
+    --control-border-color: oklch(
+      from var(--control-bg-color) calc(l + 0.2) calc(c - 0.01) h
+    );
+
+    .secondary {
+      --control-color: var(--text-primary);
+      --control-bg-color: var(--bg-brand);
+    }
+
+    .brand {
+      --control-color: var(--text-primary);
+      --control-bg-color: var(--role-accent-secondary);
+    }
+  }
+}
+
+/* Size Modifiers */
+
+@layer ambi.modifiers.size {
+  .xs {
+    --control-padding: var(--p-pill-xs);
+    --control-font-size: var(--font-size-xs);
+    --control-radius: var(--radius-xs);
+    --control-gap: var(--space-1);
+    --control-min-height: var(--height-xs);
+
+    &.default {
+      --control-radius: var(--radius-sm);
+    }
+
+    &.avatar {
+      --control-padding: var(--p-pill-sm);
+      --control-radius: var(--radius-full);
+    }
+  }
+
+  .sm {
+    --control-padding: var(--p-pill-sm);
+    --control-font-size: var(--font-size-sm);
+    --control-radius: var(--radius-sm);
+    --control-gap: var(--space-1);
+    --control-min-height: var(--height-sm);
+
+    &.avatar {
+      --control-padding: var(--p-pill-sm);
+    }
+  }
+
+  .md {
+    --control-padding: var(--p-pill-md);
+    --control-font-size: var(--font-size-md);
+    --control-radius: var(--radius-md);
+    --control-gap: var(--space-3);
+    --control-min-height: var(--height-md);
+
+    &.avatar {
+      --control-padding: var(--p-pill-xs);
+    }
+  }
+
+  .lg {
+    --control-padding: var(--p-pill-lg);
+    --control-font-size: var(--font-size-lg);
+    --control-radius: var(--radius-lg);
+    --control-gap: var(--space-4);
+    --control-min-height: var(--height-lg);
+
+    &.avatar {
+      --control-padding: var(--p-pill-sm);
+    }
+  }
+}
+
+/* Shape Modifiers */
+
+@layer ambi.modifiers.shape {
+  .default {
+    --control-radius: var(--radius-md);
+  }
+
+  .pill,
+  .avatar {
+    --control-radius: var(--radius-full);
+  }
+
+  .squircle {
+    @supports (corner-shape: squircle) {
+      --control-radius: var(--radius-full);
+      --control-corner-shape: squircle;
+    }
+  }
+}
+
+/* Fill Modifiers */
+@layer ambi.modifiers.fill {
+  .ghost {
+    --control-bg-color: transparent;
+    --control-border-color: transparent;
+    --control-shadow-size: 0 0;
+    --control-shadow-color: transparent;
+    --hover-color: oklch(
+      from var(--control-color) calc(l + 0.5) calc(c + 0.01) h
+    );
+  }
+
+  .bordered {
+    --control-shadow-size: var(--shadow-xs-size);
+    --control-shadow-color: var(--shadow-xs-color);
+    --control-border-color: oklch(
+      from var(--control-bg-color) calc(l * 0.95) calc(c + 0.02) h
+    );
+    --hover-border-color: oklch(
+      from var(--control-bg-color) calc(l + 0.5) calc(c - 0.02) h
+    );
+    --control-border-width: 2px;
   }
 }

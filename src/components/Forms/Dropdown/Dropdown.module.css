@@ -1,6 +1,6 @@
 /* Dropdown-specific trigger layout and portalled option panel structure.
    Shared field chrome and states come from Forms/Input/Field.module.css. */
-@layer ambi.component {
+@layer ambi.components {
   .dropdown {
     /** Layout & Size **/
     --dropdown-width: 100%;
@@ -24,7 +24,7 @@
   /* The select affordance is local; dimensions and interaction states are shared
    with native text fields through .field. */
   .dropdownTrigger {
-    --dropdown-trigger-gap: var(--gap-sm);
+    --dropdown-trigger-gap: var(--control-gap-sm);
 
     align-items: center;
     justify-content: space-between;
@@ -36,7 +36,7 @@
   }
 
   .dropdownPlaceholder {
-    --dropdown-placeholder-color: var(--color);
+    --dropdown-placeholder-color: var(--control-color);
 
     color: var(--dropdown-placeholder-color);
   }
@@ -65,7 +65,7 @@
 
   .dropdownPanel {
     /** Layout & Size **/
-    --dropdown-panel-radius: var(--radius-md);
+    --dropdown-panel-radius: var(--control-radius-md);
 
     /** Styling **/
     --dropdown-panel-bg-color: var(--bg-surface-raised);
@@ -109,12 +109,12 @@
 
     input {
       width: 100%;
-      font-size: var(--font-size-sm);
+      font-size: var(--control-font-size-sm);
     }
   }
 
   .dropdownList {
-    --dropdown-list-padding: var(--gap-xs);
+    --dropdown-list-padding: var(--control-gap-xs);
     --dropdown-list-max-height: 12.5rem;
 
     list-style: none;
@@ -125,9 +125,9 @@
   }
 
   .dropdownOption {
-    --dropdown-option-gap: var(--gap-sm);
+    --dropdown-option-gap: var(--control-gap-sm);
     --dropdown-option-padding: var(--p-sm);
-    --dropdown-option-font-size: var(--font-size-sm);
+    --dropdown-option-font-size: var(--control-font-size-sm);
     --dropdown-option-color: var(--text-secondary);
     --dropdown-option-hover-bg-color: var(--bg-subtle);
     --dropdown-option-selected-bg-color: var(--bg-secondary);
@@ -170,7 +170,7 @@
 
   .dropdownEmpty {
     --dropdown-empty-padding: var(--p-sm);
-    --dropdown-empty-font-size: var(--font-size-sm);
+    --dropdown-empty-font-size: var(--control-font-size-sm);
     --dropdown-empty-color: var(--text-muted);
 
     padding: var(--dropdown-empty-padding);
@@ -180,12 +180,12 @@
   }
 
   .chip {
-    --dropdown-chip-gap: var(--gap-xs);
-    --dropdown-chip-padding-block: var(--gap-xxs);
-    --dropdown-chip-padding-inline: var(--gap-sm);
+    --dropdown-chip-gap: var(--control-gap-xs);
+    --dropdown-chip-padding-block: var(--control-gap-xxs);
+    --dropdown-chip-padding-inline: var(--control-gap-sm);
     --dropdown-chip-bg-color: var(--bg-subtle);
-    --dropdown-chip-radius: var(--radius-full);
-    --dropdown-chip-font-size: var(--font-size-xs);
+    --dropdown-chip-radius: var(--control-radius-full);
+    --dropdown-chip-font-size: var(--control-font-size-xs);
     --dropdown-chip-color: var(--text-secondary);
 
     display: inline-flex;

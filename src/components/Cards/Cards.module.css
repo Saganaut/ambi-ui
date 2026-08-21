@@ -1,0 +1,231 @@
+@layer ambi.base {
+  .cardRoot {
+    --card-gap: var(--space-2);
+    --card-padding: var(--p-md);
+    --card-radius: var(--radius-md);
+    --card-min-height: var(--control-height-md);
+
+    /** Styling **/
+    --card-font-family: var(--font-sans);
+    --card-font-weight: var(--font-weight-semibold);
+    --card-font-size: var(--control-font-md);
+    --card-color: var(--control-color);
+    --card-bg-color: var(--control-bg-color);
+    --card-border-color: var(--control-border-color);
+    --card-shadow-size: var(--control-shadow-size);
+    --card-shadow-color: var(--control-shadow-color);
+    --card-icon-size: 1em;
+  }
+}
+
+/** From Previous components **/
+
+/* ActionCard — hero action card: icon + title + description, rendered as a
+   link, button, or (disabled) inert element. */
+.actionCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--control-gap-md);
+  padding: var(--gutter-lg) var(--gutter-md);
+  min-width: 220px;
+  max-width: 280px;
+  flex: 1 1 220px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color var(--duration-base) ease-in-out;
+}
+
+.actionCard:hover {
+  background-color: var(--bg-primary);
+}
+
+.actionCard:focus-visible {
+  outline: 2px solid var(--action-hover);
+  outline-offset: 2px;
+}
+
+.actionCard.disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.actionCard.selected {
+  border-color: var(--action-hover);
+  background: var(--bg-canvas);
+}
+
+.icon {
+  color: var(--action-hover);
+  font-size: var(--control-font-size-2xl);
+  line-height: 1;
+  font-weight: 700;
+}
+
+.title {
+  font-size: var(--control-font-size-md);
+  font-weight: 700;
+}
+
+.description {
+  color: var(--text-secondary);
+  font-size: var(--control-font-size-sm);
+  line-height: 1.4;
+}
+
+.badge {
+  position: absolute;
+  padding: var(--control-gap-xxs) var(--control-gap-sm);
+  background: var(--bg-canvas);
+  color: var(--text-secondary);
+  font-size: var(--control-font-size-xs);
+  top: var(--space-2);
+  right: var(--space-2);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--control-radius-sm);
+}
+
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--control-gap-xl);
+}
+
+/* Card — owns its variant/size classes. The base .card declares the canonical */
+
+/* component vars; nested modifier classes override only what they care about. */
+
+/* Component-local concept: .isClickable.                                       */
+.card {
+  --control-padding: var(--p-sm);
+  --control-radius: var(--control-radius-lg);
+  --control-gap: var(--control-gap-sm);
+  --control-color: var(--text-primary);
+  --background-color: var(--bg-surface);
+  --control-border-color: var(--border-default);
+
+  display: flex;
+  padding: var(--control-padding);
+  color: var(--control-color);
+  background-color: var(--background-color);
+  border-radius: var(--control-radius);
+  border-color: var(--control-border-color);
+  flex-direction: column;
+  gap: var(--control-gap);
+  transition: border-color 300ms ease-in-out;
+
+  /* ─── Variants ─────────────────────────────────────────────── */
+  &.error {
+    --control-color: var(--text-error);
+    --background-color: var(--bg-error);
+    --control-border-color: var(--border-error);
+  }
+
+  &.success {
+    --control-color: var(--text-success);
+    --background-color: var(--bg-success);
+    --control-border-color: var(--border-success);
+  }
+
+  &.warning {
+    --control-color: var(--text-warning);
+    --background-color: var(--bg-warning);
+    --control-border-color: var(--border-warning);
+  }
+
+  &.info {
+    --control-color: var(--text-info);
+    --background-color: var(--bg-info);
+    --control-border-color: var(--border-info);
+  }
+
+  &.brand {
+    --control-color: var(--text-on-brand);
+    --background-color: var(--bg-brand);
+    --control-border-color: var(--border-brand);
+  }
+
+  /* ─── Sizes ─────────────────────────────────────────────────── */
+  &.xs {
+    --control-padding: var(--p-xxs);
+    --control-radius: var(--control-radius-sm);
+    --control-gap: var(--control-gap-xs);
+  }
+
+  &.sm {
+    --control-padding: var(--p-sm);
+    --control-radius: var(--control-radius-md);
+    --control-gap: var(--control-gap-sm);
+  }
+
+  &.md {
+    --control-padding: var(--p-md);
+    --control-radius: var(--control-radius-md);
+    --control-gap: var(--control-gap-md);
+  }
+
+  &.lg {
+    --control-padding: var(--p-lg);
+    --control-radius: var(--control-radius-lg);
+    --control-gap: var(--control-gap-lg);
+  }
+
+  &.isClickable {
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--action-hover);
+    }
+  }
+
+  .header,
+  .body,
+  .footer {
+    padding: var(--p-square-xs);
+    background-color: var(--bg-canvas);
+    border-radius: var(--control-radius-md);
+  }
+
+  .header {
+    display: flex;
+    font-size: var(--control-font-size-lg);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .body {
+    color: var(--text-secondary);
+    font-size: var(--control-font-size-sm);
+    text-align: start;
+    flex-grow: 1;
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: var(--control-gap-sm);
+      flex-grow: 1;
+
+      img {
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

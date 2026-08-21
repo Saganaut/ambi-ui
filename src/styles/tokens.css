@@ -197,7 +197,7 @@
     var(--role-muted-foreground) 55%,
     var(--role-canvas)
   );
-  --line-height-control: 1;
+  --line-height: 1;
   --line-height-body: 1.5;
 
   /** Inverted Text — swap toward the canvas end (mirrors inverted backgrounds). */
@@ -435,6 +435,7 @@
   --gutter-fluid: clamp(var(--gutter-sm), 3cqi, var(--gutter-md));
 
   /* --- Border Radius --- */
+  --radius-xs: 1px;
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px;
@@ -514,19 +515,10 @@
   --max-screen-width: 2440px;
 
   /* ----- Sizing variants mapping ---- */
-
-  --control-height-xs: 1.5rem;
-  --control-height-sm: 1.75rem;
-  --control-height-md: 2.5rem;
-  --control-height-lg: 3.75rem;
-  --control-font-xs: var(--font-size-xs);
-  --control-font-sm: var(--font-size-xs);
-  --control-font-md: var(--font-size-base);
-  --control-font-lg: var(--font-size-lg);
-  --control-radius-xs: var(--radius-sm);
-  --control-radius-sm: var(--radius-md);
-  --control-radius-md: var(--radius-md);
-  --control-radius-lg: var(--radius-lg);
+  --height-xs: 1.2rem;
+  --height-sm: 1.75rem;
+  --height-md: 2.5rem;
+  --height-lg: 3.75rem;
 }
 
 /* ─── Appearance Overrides ──────────────────────────────────────────────────── */

@@ -1,11 +1,11 @@
-@layer ambi.component {
+@layer ambi.components {
   .chip {
-    --dropdown-chip-gap: var(--gap-xs);
-    --dropdown-chip-padding-block: var(--gap-xxs);
-    --dropdown-chip-padding-inline: var(--gap-sm);
+    --dropdown-chip-gap: var(--control-gap-xs);
+    --dropdown-chip-padding-block: var(--control-gap-xxs);
+    --dropdown-chip-padding-inline: var(--control-gap-sm);
     --dropdown-chip-bg-color: var(--bg-subtle);
-    --dropdown-chip-radius: var(--radius-full);
-    --dropdown-chip-font-size: var(--font-size-xs);
+    --dropdown-chip-radius: var(--control-radius-full);
+    --dropdown-chip-font-size: var(--control-font-size-xs);
     --dropdown-chip-color: var(--text-secondary);
 
     display: inline-flex;

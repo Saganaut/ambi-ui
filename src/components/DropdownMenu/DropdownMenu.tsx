@@ -4,9 +4,9 @@ import {
   FloatingPortal,
   useListItem,
 } from "@floating-ui/react";
-import React, { createContext, use } from "react";
 import variantStyles from "@styles/variants.module.css";
 import { jC } from "@utils/utils";
+import React, { createContext, use } from "react";
 import styles from "./DropdownMenu.module.css";
 
 import type {
@@ -23,7 +23,7 @@ const DropdownMenuContext = createContext<DropdownMenuContextValue>({
   getItemProps: () => ({}),
   activeIndex: null,
 });
-
+/* Root styling should have a .rootDropdown class for styling */
 const DropdownMenu = ({
   variant = "primary",
   fill = "default",
@@ -83,8 +83,12 @@ const DropdownMenu = ({
                 ])}
                 style={transitionStyles}
               >
-                <DropdownMenuContext value={{ closeMenu, getItemProps, activeIndex }}>
-                  <FloatingList elementsRef={elementsRef}>{children}</FloatingList>
+                <DropdownMenuContext
+                  value={{ closeMenu, getItemProps, activeIndex }}
+                >
+                  <FloatingList elementsRef={elementsRef}>
+                    {children}
+                  </FloatingList>
                 </DropdownMenuContext>
               </div>
             </div>

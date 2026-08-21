@@ -45,15 +45,15 @@
   }
 
   h1 {
-    font-size: var(--font-size-3xl);
+    font-size: var(--control-font-size-3xl);
   }
 
   h2 {
-    font-size: var(--font-size-xl);
+    font-size: var(--control-font-size-xl);
   }
 
   h3 {
-    font-size: var(--font-size-lg);
+    font-size: var(--control-font-size-lg);
   }
 
   p {
@@ -80,13 +80,13 @@
   code,
   .counter {
     display: inline-flex;
-    border-radius: var(--radius-sm);
+    border-radius: var(--control-radius-sm);
   }
 
   code {
     padding: var(--p-md);
     background: var(--bg-canvas);
-    font-size: var(--font-size-sm);
+    font-size: var(--control-font-size-sm);
     line-height: 135%;
   }
 
@@ -119,12 +119,12 @@
 
   ::-webkit-scrollbar-track {
     background: transparent;
-    border-radius: var(--radius-sm);
+    border-radius: var(--control-radius-sm);
   }
 
   ::-webkit-scrollbar-thumb {
     background: var(--border-subtle);
-    border-radius: var(--radius-full);
+    border-radius: var(--control-radius-full);
   }
 
   ::-webkit-scrollbar-thumb:hover {

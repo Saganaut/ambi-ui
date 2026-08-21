@@ -50,7 +50,7 @@ const InputWithButton = ({
     <div
       data-fill={fill === "default" ? undefined : fill}
       className={jC([
-        shared.fieldBlock,
+        shared.fieldRoot,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,

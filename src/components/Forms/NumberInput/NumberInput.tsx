@@ -79,7 +79,7 @@ const NumberInput = ({
       data-fill={fill === "default" ? undefined : fill}
       data-label-position={labelPosition}
       className={jC([
-        shared.fieldBlock,
+        shared.fieldRoot,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,

@@ -1,10 +1,10 @@
 /* oxlint-disable react-hooks/rules-of-hooks, no-console */
 /* oxlint-disable react-x/rules-of-hooks, no-console */
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import "@styles/variants.module.css";
 import { useState } from "react";
 import { fn } from "storybook/test";
 import { componentDocs } from "../../../storybookDocs";
-import "@styles/variants.module.css";
 import { RadioGroup } from "./RadioGroup";
 import { difficultyOptions, visibilityOptions } from "./RadioGroup.mocks";
 
@@ -29,7 +29,7 @@ const meta = {
   onChange={setDifficulty}
 />`,
           styles:
-            "RadioGroup uses native fieldset/legend structure and shared field messages. Layout tokens include `--gap-sm`, `--gap-xs`, and `--gutter-sm`; use `className` or `style` when a page needs a different local arrangement.",
+            "RadioGroup uses native fieldset/legend structure and shared field messages. Layout tokens include `--control-gap-sm`, `--control-gap-xs`, and `--gutter-sm`; use `className` or `style` when a page needs a different local arrangement.",
         }),
       },
     },
