@@ -15,6 +15,8 @@
   .warning {
     --control-shadow-size: var(--shadow-xs-size);
     --control-shadow-color: var(--shadow-xs-color);
+    --control-hover-shadow: var(--shadow-xs-color);
+    --control-hover-border-color: transparent;
   }
 
   .primary {
@@ -70,13 +72,37 @@
     .success,
     .warning {
       --control-border-color: var(--role-border);
+      --control-hover-bg-color: oklch(
+        from var(--control-bg-color) calc(l + 0.02) calc(c - 0.01) h
+      );
+      --control-hover-color: oklch(
+        from var(--control-color) calc(l) calc(c - 0.01) h
+      );
     }
   }
 
   [data-appearance="dark"] {
-    --control-border-color: oklch(
-      from var(--control-bg-color) calc(l + 0.2) calc(c - 0.01) h
-    );
+    .primary,
+    .secondary,
+    .brand,
+    .info,
+    .error,
+    .success,
+    .warning {
+      --control-shadow-size: 0px 0px 0px 0px;
+      --control-border-color: oklch(
+        from var(--control-bg-color) calc(l + 0.2) calc(c - 0.01) h
+      );
+      --control-hover-bg-color: oklch(
+        from var(--control-bg-color) calc(l + 0.02) calc(c - 0.01) h
+      );
+      --control-hover-color: oklch(
+        from var(--control-color) calc(l + 0) calc(c - 0.01) h
+      );
+      --control-hover-border-color: oklch(
+        from var(--control-border-color) calc(l + 0) calc(c - 0) h
+      );
+    }
 
     .secondary {
       --control-color: var(--text-primary);
@@ -174,9 +200,16 @@
     --control-border-color: transparent;
     --control-shadow-size: 0 0;
     --control-shadow-color: transparent;
-    --hover-color: oklch(
+
+    /* --control-hover-color: oklch(
       from var(--control-color) calc(l + 0.5) calc(c + 0.01) h
-    );
+    ); */
+
+    [data-appearance="dark"] & {
+      --control-hover-border-color: oklch(
+        from var(--control-color) calc(l + 0.5) calc(c + 0.01) h
+      );
+    }
   }
 
   .bordered {
@@ -185,9 +218,13 @@
     --control-border-color: oklch(
       from var(--control-bg-color) calc(l * 0.95) calc(c + 0.02) h
     );
-    --hover-border-color: oklch(
+    --control-hover-border-color: oklch(
       from var(--control-bg-color) calc(l + 0.5) calc(c - 0.02) h
     );
     --control-border-width: 2px;
+
+    [data-appearance="light"] & {
+      --control-hover-border-color: var(--control-border-color);
+    }
   }
 }

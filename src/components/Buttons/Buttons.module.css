@@ -6,7 +6,7 @@
 
     --btn-gap: var(--control-gap, var(--space-2));
     --btn-padding: var(--control-padding, var(--space-2));
-    --btn-radius: var(--control-radius);
+    --btn-radius: var(--control-radius, var(--radius-md));
     --btn-min-height: var(--control-min-height);
 
     /** Styling **/
@@ -22,6 +22,16 @@
     --btn-line-height: 1em;
     --btn-border-width: var(--control-border-width, var(--border-size-xs));
     --btn-border-color: var(--control-border-color);
+
+    /** States **/
+    --btn-hover-bg-color: var(--control-hover-bg-color);
+    --btn-hover-color: var(--control-hover-color);
+    --btn-hover-shadow: var(--control-hover-shadow);
+    --btn-hover-border-width: var(--btn-border-width);
+    --btn-hover-border-color: var(
+      --control-hover-border-color,
+      var(--btn-border-color)
+    );
 
     display: flex;
     padding: var(--btn-padding);
@@ -77,29 +87,6 @@
       }
     }
 
-    /* &[data-fill="bordered"] {
-      --btn-shadow-size: var(--shadow-xs-size);
-      --btn-shadow-color: var(--shadow-xs-color);
-      --btn-border-color: oklch(
-        from var(--btn-bg-color) calc(l * 0.95) calc(c + 0.02) h
-      );
-      --hover-border-color: oklch(
-        from var(--btn-bg-color) calc(l + 0.5) calc(c - 0.02) h
-      );
-
-      border-width: 2px;
-    } */
-
-    /* &[data-fill="ghost"] {
-      --btn-bg-color: transparent;
-      --btn-border-color: transparent;
-      --btn-shadow-size: 0 0;
-      --btn-shadow-color: transparent;
-      --hover-color: oklch(
-        from var(--btn-color) calc(l + 0.5) calc(c + 0.01) h
-      );
-    } */
-
     &:disabled {
       --btn-color: var(--text-is-disabled);
       --btn-bg-color: var(--bg-is-disabled);
@@ -112,9 +99,12 @@
       cursor: not-allowed;
     }
 
-    &:not([data-fill="ghost"], :disabled):hover {
+    &:not(:disabled):hover {
       --btn-shadow-size: var(--shadow-sm-size);
       --btn-shadow-color: var(--shadow-hover-color);
+      --btn-bg-color: var(--btn-hover-bg-color);
+      --btn-color: var(--btn-hover-color);
+      --btn-border-color: var(--btn-hover-border-color);
     }
 
     &.iconBtn {
@@ -148,6 +138,11 @@
       &[data-fill="ghost"] {
         --split-btn-shadow-size: 0 0;
         --split-btn-shadow-color: transparent;
+      }
+
+      &:not([data-fill="ghost"], :disabled):hover {
+        --split-btn-shadow-size: 0px 3px 10px 0px;
+        --split-btn-shadow-color: var(--shadow-hover-color);
       }
     }
   }
