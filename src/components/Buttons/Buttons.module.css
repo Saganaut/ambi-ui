@@ -3,14 +3,12 @@
     /* composes: hoverable from "../../styles/utilities.module.css"; */
 
     /** Layout & Size **/
-
     --btn-gap: var(--control-gap, var(--space-2));
     --btn-padding: var(--control-padding, var(--space-2));
     --btn-radius: var(--control-radius, var(--radius-md));
     --btn-min-height: var(--control-min-height);
 
     /** Styling **/
-
     --btn-corner-shape: var(--control-corner-shape);
     --btn-font-family: var(--font-sans);
     --btn-font-weight: var(--font-weight-semibold);
@@ -50,7 +48,9 @@
     border: var(--btn-border-width) solid var(--btn-border-color);
     box-shadow: var(--btn-shadow-size) var(--btn-shadow-color);
     cursor: pointer;
-    outline: var(--btn-border-width) solid transparent;
+
+    /* TODO: Consider whether outline should be a custom prop */
+    outline: 2px solid transparent;
     outline-offset: var(--space-half);
     corner-shape: var(--btn-corner-shape);
     transition:

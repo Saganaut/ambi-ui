@@ -25,7 +25,6 @@ const Btn = ({
       aria-busy={isLoading || undefined}
       data-icon-position={icon ? iconPosition : undefined}
       {...rest}
-      // data-fill={fill === "default" ? undefined : fill}
       className={jC([
         styles.btnRoot,
         children == null && styles.iconBtn,
