@@ -111,16 +111,16 @@ const Dropdown = ({
 
   return (
     <div
-      data-fill={fill === "default" ? undefined : fill}
       className={jC([
         shared.fieldRoot,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
-        variantStyles[variant],
+        variantStyles[inputVariant],
+        variantStyles[fieldSize],
+        variantStyles[shape],
+        variantStyles[fill],
         reserveMessageSpace && shared.reserveMessageSpace,
-        shared[fieldSize],
-        inputVariant !== "brand" && shared[inputVariant],
       ])}
     >
       {label ? (
@@ -156,10 +156,8 @@ const Dropdown = ({
           id={inputId}
           className={jC([
             shared.field,
-            shape !== "default" && shared[shape],
             styles.dropdownTrigger,
           ])}
-          data-fill={fill === "default" ? undefined : fill}
           disabled={disabled}
           aria-invalid={aria.invalid}
           aria-busy={aria.busy}

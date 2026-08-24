@@ -40,16 +40,16 @@ const Checkbox = ({
 
   return (
     <div
-      data-fill={fill === "default" ? undefined : fill}
       className={jC([
         shared.fieldRoot,
         fullWidth && shared.fullWidth,
         styles.checkboxComponent,
         className,
         variantStyles[inputVariant],
+        variantStyles[fieldSize],
+        variantStyles[shape],
+        variantStyles[fill],
         reserveMessageSpace && shared.reserveMessageSpace,
-        shared[fieldSize],
-        styles[fieldSize],
       ])}
     >
       <div
@@ -77,12 +77,15 @@ const Checkbox = ({
         />
         {/* Leave as is, do not replace with FieldLabel component otherwise we ll have nested labels*/}
         <label htmlFor={inputId} className={styles.checkboxWrap}>
-          <span
-            className={jC([
-              styles.checkboxControl,
-              shape !== "default" && styles[shape],
-            ])}
-          />
+          <span className={styles.checkboxControl}>
+            <svg
+              className={styles.checkboxTick}
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M5 12.5 9.5 17 19 7" />
+            </svg>
+          </span>
           {label && (
             <span
               className={jC([shared.labelWrapper, styles.checkboxLabelWrapper])}

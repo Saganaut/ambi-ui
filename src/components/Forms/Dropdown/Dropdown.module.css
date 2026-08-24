@@ -24,7 +24,7 @@
   /* The select affordance is local; dimensions and interaction states are shared
    with native text fields through .field. */
   .dropdownTrigger {
-    --dropdown-trigger-gap: var(--control-gap-sm);
+    --dropdown-trigger-gap: var(--control-gap, var(--space-2));
 
     align-items: center;
     justify-content: space-between;
@@ -32,7 +32,7 @@
     text-align: left;
 
     /* Overwriting existing padding because the validation status conflicts with dropdown */
-    padding: var(--p-pill-sm);
+    padding: var(--control-padding, var(--p-pill-sm));
   }
 
   .dropdownPlaceholder {
@@ -65,7 +65,7 @@
 
   .dropdownPanel {
     /** Layout & Size **/
-    --dropdown-panel-radius: var(--control-radius-md);
+    --dropdown-panel-radius: var(--control-radius, var(--radius-md));
 
     /** Styling **/
     --dropdown-panel-bg-color: var(--bg-surface-raised);
@@ -109,7 +109,7 @@
 
     input {
       width: 100%;
-      font-size: var(--control-font-size-sm);
+      font-size: var(--font-size-sm);
     }
   }
 
@@ -125,9 +125,9 @@
   }
 
   .dropdownOption {
-    --dropdown-option-gap: var(--control-gap-sm);
+    --dropdown-option-gap: var(--control-gap, var(--space-2));
     --dropdown-option-padding: var(--p-sm);
-    --dropdown-option-font-size: var(--control-font-size-sm);
+    --dropdown-option-font-size: var(--font-size-sm);
     --dropdown-option-color: var(--text-secondary);
     --dropdown-option-hover-bg-color: var(--bg-subtle);
     --dropdown-option-selected-bg-color: var(--bg-secondary);
@@ -170,7 +170,7 @@
 
   .dropdownEmpty {
     --dropdown-empty-padding: var(--p-sm);
-    --dropdown-empty-font-size: var(--control-font-size-sm);
+    --dropdown-empty-font-size: var(--font-size-sm);
     --dropdown-empty-color: var(--text-muted);
 
     padding: var(--dropdown-empty-padding);
@@ -181,11 +181,11 @@
 
   .chip {
     --dropdown-chip-gap: 10px;
-    --dropdown-chip-padding-block: var(--control-gap-xxs);
-    --dropdown-chip-padding-inline: var(--control-gap-sm);
+    --dropdown-chip-padding-block: var(--space-half);
+    --dropdown-chip-padding-inline: var(--gap-sm);
     --dropdown-chip-bg-color: var(--bg-subtle);
-    --dropdown-chip-radius: var(--control-radius-full);
-    --dropdown-chip-font-size: var(--control-font-size-xs);
+    --dropdown-chip-radius: var(--radius-full);
+    --dropdown-chip-font-size: var(--font-size-xs);
     --dropdown-chip-color: var(--text-secondary);
 
     display: inline-flex;

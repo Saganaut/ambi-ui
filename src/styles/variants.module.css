@@ -200,6 +200,8 @@
     --control-border-color: transparent;
     --control-shadow-size: 0 0;
     --control-shadow-color: transparent;
+    --control-hover-bg-color: transparent;
+    --control-hover-border-color: transparent;
     --control-hover-shadow: transparent;
 
     /* --control-hover-color: oklch(

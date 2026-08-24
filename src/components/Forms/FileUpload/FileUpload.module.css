@@ -1,31 +1,40 @@
 /* FileUpload — drag-and-drop drop zone with a click-to-browse fallback,
    plus a list of accepted files below the zone. */
 
-.fileUploadContainer {
+@layer ambi.components {
+  .fileUploadContainer {
   --file-upload-message-reserve: var(--space-6);
   --file-upload-width: min(100%, 30rem);
-  --file-upload-min-height: 10rem;
-  --file-upload-padding: var(--p-square-md);
-  --file-upload-gap: var(--control-gap-md);
-  --file-upload-radius: var(--control-radius-lg);
-  --file-upload-border-width: var(--border-size-sm);
+  --file-upload-min-height: calc(
+    var(--control-min-height, var(--height-md)) * 4
+  );
+  --file-upload-padding: calc(
+    var(--control-min-height, var(--height-md)) / 3
+  );
+  --file-upload-gap: var(--control-gap, var(--space-3));
+  --file-upload-radius: var(--control-radius, var(--radius-md));
+  --file-upload-corner-shape: var(--control-corner-shape);
+  --file-upload-border-width: var(--control-border-width, var(--border-size-sm));
   --file-upload-border-color: var(--control-border-color, var(--role-border));
   --file-upload-bg-color: var(--control-bg-color, transparent);
-  --file-upload-hover-bg-color: oklch(
-    from var(--control-bg-color) calc(l + 0.03) calc(c + 0.02) h
+  --file-upload-hover-bg-color: var(
+    --control-hover-bg-color,
+    var(--file-upload-bg-color)
   );
   --file-upload-color: var(--control-color, var(--text-secondary));
   --file-upload-muted-color: var(--text-muted);
   --file-upload-link-color: var(--control-color, var(--text-brand));
-  --file-upload-icon-size: var(--space-8);
-  --file-upload-font-size: var(--input-font-size, var(--control-font-size-sm));
+  --file-upload-icon-size: calc(
+    var(--control-min-height, var(--height-md)) * 0.75
+  );
+  --file-upload-font-size: var(--input-font-size, var(--font-size-sm));
   --file-upload-hint-font-size: var(
     --input-info-font-size,
-    var(--control-font-size-xs)
+    var(--font-size-xs)
   );
-  --file-upload-item-padding: 10px var(--control-gap-sm);
+  --file-upload-item-padding: 10px var(--gap-sm);
   --file-upload-item-gap: 10px;
-  --file-upload-item-radius: var(--control-radius-sm);
+  --file-upload-item-radius: var(--control-radius, var(--radius-sm));
   --file-upload-item-border-color: var(
     --control-border-color,
     var(--border-subtle)
@@ -38,40 +47,8 @@
   display: flex;
   width: var(--file-upload-width);
   flex-direction: column;
-  gap: var(--control-gap-sm);
+  gap: var(--file-upload-gap);
   padding-bottom: var(--file-upload-message-reserve);
-
-  &.xs {
-    --file-upload-min-height: 6rem;
-    --file-upload-padding: var(--p-square-xs);
-    --file-upload-gap: 10px;
-    --file-upload-radius: var(--control-radius-xs);
-    --file-upload-icon-size: var(--space-5);
-  }
-
-  &.sm {
-    --file-upload-min-height: 8rem;
-    --file-upload-padding: var(--p-square-sm);
-    --file-upload-gap: var(--control-gap-sm);
-    --file-upload-radius: var(--control-radius-sm);
-    --file-upload-icon-size: var(--space-6);
-  }
-
-  &.md {
-    --file-upload-min-height: 10rem;
-    --file-upload-padding: var(--p-square-md);
-    --file-upload-gap: var(--control-gap-md);
-    --file-upload-radius: var(--control-radius-md);
-    --file-upload-icon-size: var(--space-8);
-  }
-
-  &.lg {
-    --file-upload-min-height: 12rem;
-    --file-upload-padding: var(--p-square-lg);
-    --file-upload-gap: var(--control-gap-lg);
-    --file-upload-radius: var(--control-radius-lg);
-    --file-upload-icon-size: var(--space-10);
-  }
 
   .message {
     position: absolute;
@@ -88,6 +65,7 @@
       var(--file-upload-border-color);
     border-radius: var(--file-upload-radius);
     background-color: var(--file-upload-bg-color);
+    corner-shape: var(--file-upload-corner-shape);
     color: var(--file-upload-color);
     flex-direction: column;
     align-items: center;
@@ -123,17 +101,6 @@
     &:focus-visible {
       outline: var(--border-size-sm) solid var(--border-focus);
       outline-offset: var(--border-size-sm);
-    }
-
-    &.pill {
-      border-radius: var(--control-radius-full);
-    }
-
-    &.squircle {
-      @supports (corner-shape: squircle) {
-        border-radius: var(--control-radius-full);
-        corner-shape: squircle;
-      }
     }
 
     &:has(input:disabled) {
@@ -197,11 +164,11 @@
   }
 
   .removeFile {
-    padding: 0 10px;
+    padding: 0 var(--gap-md);
     border: none;
     background: none;
     color: var(--file-upload-remove-color);
-    font-size: var(--control-font-size-base);
+    font-size: var(--font-size-base);
     line-height: 1;
     cursor: pointer;
     flex-shrink: 0;
@@ -212,5 +179,6 @@
 
       /* color: var(--file-upload-remove-hover-color); */
     }
+  }
   }
 }

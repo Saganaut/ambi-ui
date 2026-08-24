@@ -49,16 +49,16 @@ const Combobox = ({
   });
   return (
     <div
-      data-fill={fill === "default" ? undefined : fill}
       className={jC([
         shared.fieldRoot,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
-        variantStyles[variant],
+        variantStyles[Combobox.inputVariant],
+        variantStyles[fieldSize],
+        variantStyles[shape],
+        variantStyles[fill],
         reserveMessageSpace && shared.reserveMessageSpace,
-        shared[fieldSize],
-        Combobox.inputVariant !== "brand" && shared[Combobox.inputVariant],
       ])}
     >
       {label && (
@@ -135,12 +135,7 @@ const Combobox = ({
             aria-invalid={Combobox.aria.invalid}
             aria-busy={Combobox.aria.busy}
             aria-describedby={Combobox.aria.describedBy}
-            className={jC([
-              shared.field,
-              styles.input,
-              shape !== "default" && shared[shape],
-            ])}
-            data-fill={fill === "default" ? undefined : fill}
+            className={jC([shared.field, styles.input])}
             onChange={(event) => {
               Combobox.setInputValue(event.target.value);
               onInputValueChange?.(event.target.value);

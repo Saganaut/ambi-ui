@@ -57,16 +57,16 @@ const FileUpload = ({
 
   return (
     <div
-      data-fill={fill === "default" ? undefined : fill}
       className={jC([
         shared.fieldRoot,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
         variantStyles[inputVariant],
+        variantStyles[fieldSize],
+        variantStyles[shape],
+        variantStyles[fill],
         reserveMessageSpace && shared.reserveMessageSpace,
-        shared[fieldSize],
-        inputVariant !== "brand" && shared[inputVariant],
       ])}
     >
       {label && (
@@ -82,14 +82,12 @@ const FileUpload = ({
           shared.fieldWrapper,
           fullWidth && shared.fullWidth,
           styles.fileUploadContainer,
-          styles[fieldSize],
         ])}
         data-status={dataStatus}
       >
         <div
           className={jC([
             styles.dropZone,
-            shape !== "default" && styles[shape],
             isDragging && styles.dragging,
           ])}
           onClick={openPicker}
