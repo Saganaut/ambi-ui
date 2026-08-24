@@ -3,62 +3,24 @@
     /* composes: hoverable from "../../styles/utilities.module.css"; */
 
     /** Layout & Size **/
-    --page-size: 1em;
-    --page-gap: 10px;
-    --page-radius: var(--control-radius-md);
+    --page-gap: var(--control-gap, 6px);
+    --page-radius: var(--control-radius, var(--radius-md));
 
     /** Styling **/
     --page-font-family: var(--font-sans);
-    --page-font-size: var(--control-font-md);
+    --page-font-size: var(--control-font-size, var(--font-size-md));
     --page-font-weight: var(--font-weight-medium);
     --page-color: var(--control-color);
     --page-bg-color: var(--control-bg-color);
     --page-border-color: var(--control-border-color);
     --page-shadow-size: var(--control-shadow-size);
     --page-shadow-color: var(--control-shadow-color);
-    --page-btn-padding: var(--p-md);
+    --page-min-height: var(--control-min-height, var(--height-md));
 
     display: inline-flex;
     align-items: center;
     gap: var(--page-gap);
     font-variant-numeric: tabular-nums;
-
-    &.xs {
-      --page-size: var(--space-4);
-      --page-min-width: var(--space-4);
-      --page-font-size: var(--control-font-xs);
-      --page-radius: var(--control-radius-xs);
-      --page-padding: var(--space-half);
-      --page-min-height: var(--control-height-xs);
-    }
-
-    &.sm {
-      --page-size: var(--space-5);
-      --page-min-width: var(--space-5);
-      --page-font-size: var(--control-font-sm);
-      --page-radius: var(--control-radius-sm);
-      --page-padding: var(--space-1);
-      --page-min-height: var(--control-height-sm);
-    }
-
-    &.md {
-      --page-size: var(--space-8);
-      --page-min-width: var(--control-height-md);
-      --page-font-size: var(--control-font-md);
-      --page-radius: var(--control-radius-md);
-      --page-padding: var(--space-1);
-      --page-min-height: var(--control-height-md);
-    }
-
-    &.lg {
-      --page-size: var(--space-10);
-      --page-min-width: var(--space-10);
-      --page-font-size: var(--control-font-lg);
-      --page-radius: var(--control-radius-lg);
-      --page-gap: var(--control-gap-sm);
-      --page-padding: var(--space-2);
-      --page-min-height: var(--control-height-lg);
-    }
 
     .list {
       display: inline-flex;
@@ -78,13 +40,13 @@
     .pageBtn,
     .ellipsis {
       display: flex;
-      width: var(--page-min-height);
-      height: var(--page-min-height);
-      padding: var(--page-padding);
+      inline-size: var(--page-min-height);
+      block-size: var(--page-min-height);
+      min-inline-size: var(--page-min-height);
+      min-block-size: var(--page-min-height);
+      padding: 0;
       flex: none;
-
-      /* inline-size: var(--page-size); */
-      aspect-ratio: 1;
+      aspect-ratio: 1 / 1;
       align-items: center;
       justify-content: center;
       box-sizing: border-box;
@@ -103,28 +65,6 @@
       pointer-events: none;
     }
 
-    .navBtn,
-    .pageBtn {
-      &:focus-visible {
-        outline: 2px solid var(--border-focus);
-        outline-offset: 2px;
-      }
-
-      &:hover:not([data-fill="ghost"], :disabled, .current) {
-        --hover-color: oklch(
-          from var(--control-color) calc(l - 0.1) calc(c + 0.01) h
-        );
-        --hover-bg-color: oklch(
-          from var(--control-bg-color) calc(l + 0.05) calc(c + 0.02) h
-        );
-        --control-border-color: var(--role-border);
-
-        box-shadow: var(--shadow-sm);
-        background-color: var(--hover-bg-color);
-        color: var(--hover-color);
-      }
-    }
-
     .navBtn {
       transition: opacity var(--duration-base) ease-in-out;
 
@@ -134,24 +74,13 @@
       }
     }
 
-    &[data-fill="bordered"] .pageBtn {
-      border-width: 2px;
-      border-color: var(--page-border-color);
-    }
-
-    &[data-fill="ghost"] .pageBtn,
-    &[data-fill="ghost"] .ellipsis {
-      background-color: transparent;
-      box-shadow: none;
-    }
-
     .chevron {
       width: var(--space-5);
       height: var(--space-5);
     }
 
     .compactLabel {
-      padding: 0 var(--control-gap-sm);
+      padding: 0 var(--gap-sm);
       color: var(--page-color);
       font-size: var(--page-font-size);
       font-family: var(--page-font-family);
@@ -159,20 +88,6 @@
   }
 
   .compact {
-    gap: var(--control-gap-md);
-  }
-
-  [data-appearance="dark"] {
-    .pagination {
-      .pageBtn {
-        &:not(:disabled, [data-fill="ghost"]):hover {
-          --hover-border-color: oklch(
-            from var(--control-bg-color) calc(l + 0.3) calc(c - 0.02) h
-          );
-
-          border-color: var(--hover-border-color);
-        }
-      }
-    }
+    gap: var(--gap-md);
   }
 }

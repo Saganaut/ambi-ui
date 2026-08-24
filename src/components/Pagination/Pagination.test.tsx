@@ -159,13 +159,13 @@ describe("Pagination", () => {
     );
 
     const pagination = screen.getByRole("navigation");
-    expect(pagination).toHaveAttribute("data-fill", "ghost");
     expect(pagination.className).toContain("success");
+    expect(pagination.className).toContain("ghost");
     expect(pagination.className).toContain("lg");
 
     const previous = screen.getByRole("button", { name: "Previous page" });
-    expect(previous).toHaveAttribute("data-fill", "ghost");
     expect(previous.className).toContain("success");
+    expect(previous.className).toContain("ghost");
     expect(previous.className).toContain("lg");
   });
 

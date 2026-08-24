@@ -152,7 +152,7 @@
     --control-padding: var(--p-pill-md);
     --control-font-size: var(--font-size-md);
     --control-radius: var(--radius-md);
-    --control-gap: var(--space-3);
+    --control-gap: var(--space-1);
     --control-min-height: var(--height-md);
 
     &.avatar {

@@ -66,11 +66,12 @@ const Pagination = (props: PaginationProps) => {
     <nav
       aria-label={ariaLabel}
       onKeyDown={handleKeyDown}
-      data-fill={fill === "default" ? undefined : fill}
       className={jC([
         styles.pagination,
         variantStyles[variant],
-        styles[size],
+        variantStyles[size],
+        variantStyles[shape],
+        variantStyles[fill],
         compact ? styles.compact : null,
         className,
       ])}
