@@ -30,7 +30,7 @@
   }
 
   .row {
-    --popover-row-gap: var(--control-gap-xs);
+    --popover-row-gap: 10px;
 
     display: flex;
     flex-wrap: wrap;
@@ -92,7 +92,7 @@
   .divider {
     --popover-divider-size: 1px;
     --popover-divider-color: var(--border-subtle);
-    --popover-divider-margin: var(--control-gap-xs);
+    --popover-divider-margin: 10px;
 
     width: var(--popover-divider-size);
     align-self: stretch;
@@ -103,7 +103,7 @@
   .groupLabel {
     --popover-label-font-size: var(--control-font-size-xs);
     --popover-label-color: var(--text-muted);
-    --popover-label-padding-inline: var(--control-gap-xs);
+    --popover-label-padding-inline: 10px;
 
     padding: 0 var(--popover-label-padding-inline);
     color: var(--popover-label-color);

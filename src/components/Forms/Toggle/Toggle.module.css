@@ -12,7 +12,7 @@
     --track-border-radius: var(--control-radius-sm);
     --track-box-shadow: var(--shadow-xs);
     --track-padding: var(--space-1);
-    --thumb-size: 20px;
+    --thumb-size: 10px;
     --thumb-border-radius: var(--control-radius-sm);
     --thumb-color: var(--control-color);
     --thumb-box-shadow: var(--shadow-xs);
@@ -40,7 +40,7 @@
     }
 
     &.sm {
-      --track-height: 20px;
+      --track-height: 10px;
       --track-padding: var(--space-half);
       --thumb-translate: 110%;
     }

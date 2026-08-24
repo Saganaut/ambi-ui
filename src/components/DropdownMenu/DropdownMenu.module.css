@@ -13,16 +13,17 @@
     /* composes: hoverable from "../../styles/utilities.module.css"; */
 
     /** Layout & Size **/
-    --dropdown-menu-gap: var(--space-2);
-    --dropdown-menu-padding: var(--control-gap-md) var(--control-gap-lg);
-    --dropdown-menu-radius: var(--control-radius-md);
-    --dropdown-menu-min-height: var(--control-height-md);
+    --dropdown-menu-gap: var(--control-gap, var(--space-2));
+    --dropdown-menu-padding: var(--control-padding, var(--space-2));
+    --dropdown-menu-radius: var(--control-radius, var(--radius-md));
+    --dropdown-menu-min-height: var(--control-min-height);
     --dropdown-menu-min-width: 11.25rem;
 
     /** Styling **/
+    --dropdown-menu-corner-shape: var(--control-corner-shape);
     --dropdown-menu-font-family: var(--font-sans);
     --dropdown-menu-font-weight: var(--font-weight-semibold);
-    --dropdown-menu-font-size: var(--control-font-md);
+    --dropdown-menu-font-size: var(--control-font-size, var(--font-size-base));
     --dropdown-menu-color: var(--control-color);
     --dropdown-menu-bg-color: var(--control-bg-color);
     --dropdown-menu-border-color: var(--control-border-color);
@@ -37,55 +38,9 @@
     border: var(--border-size-xs) solid var(--dropdown-menu-border-color);
     border-radius: var(--dropdown-menu-radius);
     box-shadow: var(--dropdown-menu-shadow);
+    corner-shape: var(--dropdown-menu-corner-shape);
     overflow: hidden;
     will-change: opacity, transform;
-
-    &.pill {
-      border-radius: var(--control-radius-full);
-    }
-
-    &.squircle {
-      @supports (corner-shape: squircle) {
-        corner-shape: squircle;
-        border-radius: var(--control-radius-full);
-      }
-    }
-
-    &.xs {
-      --dropdown-menu-padding: var(--control-gap-sm) var(--control-gap-md);
-      --dropdown-menu-font-size: var(--control-font-xs);
-      --dropdown-menu-radius: var(--control-radius-xs);
-      --dropdown-menu-gap: var(--space-1);
-      --dropdown-menu-min-height: var(--control-height-xs);
-      --dropdown-menu-min-width: 6.25rem;
-    }
-
-    &.sm {
-      --dropdown-menu-padding: var(--control-gap-sm) var(--control-gap-md);
-      --dropdown-menu-font-size: var(--control-font-sm);
-      --dropdown-menu-radius: var(--control-radius-sm);
-      --dropdown-menu-gap: 0;
-      --dropdown-menu-min-height: var(--control-height-sm);
-      --dropdown-menu-min-width: 7.5rem;
-    }
-
-    &.md {
-      --dropdown-menu-padding: var(--control-gap-md) var(--control-gap-xl);
-      --dropdown-menu-font-size: var(--control-font-md);
-      --dropdown-menu-radius: var(--control-radius-md);
-      --dropdown-menu-gap: var(--space-3);
-      --dropdown-menu-min-height: var(--control-height-md);
-      --dropdown-menu-min-width: 11.25rem;
-    }
-
-    &.lg {
-      --dropdown-menu-padding: var(--control-gap-lg) var(--control-gap-xl);
-      --dropdown-menu-font-size: var(--control-font-lg);
-      --dropdown-menu-radius: var(--control-radius-lg);
-      --dropdown-menu-gap: var(--space-4);
-      --dropdown-menu-min-height: var(--control-height-lg);
-      --dropdown-menu-min-width: 13.75rem;
-    }
 
     .item {
       --dropdown-menu-item-hover-color: oklch(
@@ -149,7 +104,7 @@
     .divider {
       --dropdown-menu-divider-size: 1px;
       --dropdown-menu-divider-color: var(--border-subtle);
-      --dropdown-menu-divider-margin: var(--control-gap-xs);
+      --dropdown-menu-divider-margin: 10px;
 
       height: var(--dropdown-menu-divider-size);
       margin: var(--dropdown-menu-divider-margin) 0;

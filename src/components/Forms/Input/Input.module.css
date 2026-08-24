@@ -17,8 +17,8 @@
     .checked {
       position: absolute;
       display: flex;
-      width: 20px;
-      height: 20px;
+      width: 10px;
+      height: 10px;
       right: var(--space-2);
       top: var(--space-2);
       stroke: var(--text-success);

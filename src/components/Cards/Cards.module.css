@@ -29,9 +29,9 @@
   align-items: center;
   gap: var(--control-gap-md);
   padding: var(--gutter-lg) var(--gutter-md);
-  min-width: 220px;
+  min-width: 210px;
   max-width: 280px;
-  flex: 1 1 220px;
+  flex: 1 1 210px;
   border-radius: var(--radius-lg);
   background: var(--bg-surface);
   color: var(--text-primary);
@@ -158,7 +158,7 @@
   &.xs {
     --control-padding: var(--p-xxs);
     --control-radius: var(--control-radius-sm);
-    --control-gap: var(--control-gap-xs);
+    --control-gap: 10px;
   }
 
   &.sm {

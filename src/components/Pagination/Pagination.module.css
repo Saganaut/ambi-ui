@@ -4,7 +4,7 @@
 
     /** Layout & Size **/
     --page-size: 1em;
-    --page-gap: var(--control-gap-xs);
+    --page-gap: 10px;
     --page-radius: var(--control-radius-md);
 
     /** Styling **/

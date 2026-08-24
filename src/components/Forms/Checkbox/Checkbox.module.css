@@ -7,8 +7,8 @@
     --checkbox-bg-color: var(--control-bg-color);
     --checkbox-color: var(--control-color);
     --checkbox-label-color: var(--control-alt-color);
-    --checkbox-box-height: 20px;
-    --checkbox-box-width: 20px;
+    --checkbox-box-height: 10px;
+    --checkbox-box-width: 10px;
     --checkbox-check-stroke: var(--border-size-sm);
 
     position: relative;
@@ -40,8 +40,8 @@
       --checkbox-font-size: var(--control-font-md);
       --checkbox-radius: var(--control-radius-md);
       --checkbox-gap: var(--space-3);
-      --checkbox-box-height: 20px;
-      --checkbox-box-width: 20px;
+      --checkbox-box-height: 10px;
+      --checkbox-box-width: 10px;
     }
 
     &.lg {
@@ -137,8 +137,8 @@
     }
 
     &.stretch {
-      padding-top: var(--control-gap-xs);
-      padding-bottom: var(--control-gap-xs);
+      padding-top: 10px;
+      padding-bottom: 10px;
 
       .checkboxWrap {
         justify-content: space-between;

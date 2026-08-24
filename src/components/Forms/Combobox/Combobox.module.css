@@ -58,7 +58,7 @@
 
   .list {
     margin: 0;
-    padding: var(--control-gap-xs) 0;
+    padding: 10px 0;
     max-height: 12.5rem;
     overflow-y: auto;
     list-style: none;

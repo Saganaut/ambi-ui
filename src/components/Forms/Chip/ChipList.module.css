@@ -1,5 +1,5 @@
 .chipList {
-  --dropdown-chip-list-gap: var(--control-gap-xs);
+  --dropdown-chip-list-gap: 10px;
 
   display: flex;
   flex: 1;

@@ -73,12 +73,12 @@ const DropdownMenu = ({
               {...getFloatingProps()}
             >
               <div
-                data-fill={fill === "default" ? undefined : fill}
                 className={jC([
                   styles.panel,
                   variantStyles[variant],
-                  styles[size],
-                  shape !== "default" && styles[shape],
+                  variantStyles[size],
+                  variantStyles[shape],
+                  variantStyles[fill],
                   className,
                 ])}
                 style={transitionStyles}

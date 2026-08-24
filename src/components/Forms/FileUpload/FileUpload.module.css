@@ -23,8 +23,8 @@
     --input-info-font-size,
     var(--control-font-size-xs)
   );
-  --file-upload-item-padding: var(--control-gap-xs) var(--control-gap-sm);
-  --file-upload-item-gap: var(--control-gap-xs);
+  --file-upload-item-padding: 10px var(--control-gap-sm);
+  --file-upload-item-gap: 10px;
   --file-upload-item-radius: var(--control-radius-sm);
   --file-upload-item-border-color: var(
     --control-border-color,
@@ -44,7 +44,7 @@
   &.xs {
     --file-upload-min-height: 6rem;
     --file-upload-padding: var(--p-square-xs);
-    --file-upload-gap: var(--control-gap-xs);
+    --file-upload-gap: 10px;
     --file-upload-radius: var(--control-radius-xs);
     --file-upload-icon-size: var(--space-5);
   }
@@ -197,7 +197,7 @@
   }
 
   .removeFile {
-    padding: 0 var(--control-gap-xs);
+    padding: 0 10px;
     border: none;
     background: none;
     color: var(--file-upload-remove-color);

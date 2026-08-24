@@ -39,5 +39,5 @@
    away from the legend, which spaces itself via its own padding-bottom. */
 .message {
   display: inline-block;
-  margin-top: var(--control-gap-xs);
+  margin-top: 10px;
 }

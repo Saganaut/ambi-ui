@@ -1,6 +1,6 @@
 @layer ambi.components {
   .chip {
-    --dropdown-chip-gap: var(--control-gap-xs);
+    --dropdown-chip-gap: 10px;
     --dropdown-chip-padding-block: var(--control-gap-xxs);
     --dropdown-chip-padding-inline: var(--control-gap-sm);
     --dropdown-chip-bg-color: var(--bg-subtle);

@@ -7,26 +7,30 @@
 @layer ambi.base {
   .fieldRoot {
     --field-message-reserve: var(--space-6);
-    --field-gap: var(--space-half);
-    --input-padding: var(--p-md);
-    --field-radius: var(--control-radius-md);
-    --field-min-height: var(--control-height-md);
+    --field-gap: var(--control-gap, var(--space-half));
+    --input-padding: var(--control-padding, var(--p-md));
+    --field-radius: var(--control-radius, var(--radius-md));
+    --field-min-height: var(--control-min-height, var(--height-md));
 
     /** Styling **/
     --field-font-family: var(--font-sans);
     --field-font-weight: var(--font-weight-semibold);
-    --field-font-size: var(--control-font-md);
+    --field-font-size: var(--control-font-size, var(--font-size-md));
     --field-color: var(--control-color);
     --field-bg-color: var(--control-bg-color);
     --field-border-color: var(--control-border-color);
     --field-shadow-size: var(--control-shadow-size);
     --field-shadow-color: var(--control-shadow-color);
+    --field-border-width: var(--control-border-width, var(--border-size-xs));
+    --field-corner-shape: var(--control-corner-shape);
     --field-icon-size: 1em;
     --field-max-width: 300px;
-    --input-font-size: var(--control-font-size-sm);
-    --label-wrapper-gap: var(--control-gap-xxs);
+    --input-font-size: var(--control-font-size, var(--font-size-sm));
+    --label-wrapper-gap: var(--space-half);
     --input-shadow: var(--control-shadow-size) var(--control-shadow-color);
-    --input-info-font-size: var(--control-font-size-xs);
+    --input-hover-shadow: var(--shadow-sm-size)
+      var(--control-hover-shadow, var(--shadow-hover-color));
+    --input-info-font-size: var(--font-size-xs);
 
     display: flex;
     width: 100%;
@@ -62,66 +66,6 @@
     &.fullWidth {
       width: 100%;
       max-width: none;
-    }
-
-    &.xs {
-      --input-padding: var(--p-pill-xs);
-      --field-font-size: var(--control-font-xs);
-      --field-radius: var(--control-radius-xs);
-      --field-gap: var(--space-2);
-      --field-min-height: var(--control-height-xs);
-      --field-max-width: 200px;
-      --label-wrapper-gap: var(--control-gap-xs);
-      --input-font-size: var(--control-font-size-xs);
-      --input-info-font-size: var(--control-font-size-2xs);
-      --field-wrapper-min-width: 100px;
-      --checkbox-box-height: 14px;
-      --checkbox-box-width: 14px;
-    }
-
-    &.sm {
-      --input-padding: var(--p-pill-xs);
-      --field-font-size: var(--control-font-sm);
-      --field-radius: var(--control-radius-sm);
-      --field-gap: var(--space-2);
-      --field-min-height: var(--control-height-sm);
-      --field-max-width: 300px;
-      --label-wrapper-gap: var(--control-gap-xs);
-      --input-font-size: var(--control-font-size-xs);
-      --input-info-font-size: var(--control-font-size-2xs);
-      --field-wrapper-min-width: 200px;
-      --checkbox-box-height: 16px;
-      --checkbox-box-width: 16px;
-    }
-
-    &.md {
-      --input-padding: var(--p-pill-sm);
-      --field-font-size: var(--control-font-size-sm);
-      --field-radius: var(--control-radius-md);
-      --field-gap: var(--space-2);
-      --field-min-height: var(--control-height-md);
-      --field-max-width: 400px;
-      --label-wrapper-gap: var(--control-gap-xs);
-      --input-font-size: var(--control-font-size-sm);
-      --input-info-font-size: var(--control-font-size-xs);
-      --field-wrapper-min-width: 300px;
-      --checkbox-box-height: 20px;
-      --checkbox-box-width: 20px;
-    }
-
-    &.lg {
-      --input-padding: var(--space-3) var(--space-5);
-      --field-font-size: var(--control-font-lg);
-      --field-radius: var(--control-radius-lg);
-      --field-gap: var(--space-4);
-      --field-min-height: var(--control-height-lg);
-      --field-max-width: 600px;
-      --label-wrapper-gap: var(--control-gap-xs);
-      --input-font-size: var(--control-font-size-lg);
-      --input-info-font-size: var(--control-font-size-xs);
-      --field-wrapper-min-width: 300px;
-      --checkbox-box-height: 24px;
-      --checkbox-box-width: 24px;
     }
 
     .labelWrapper {
@@ -192,9 +136,10 @@
         color: var(--input-color);
         font-size: var(--input-font-size);
         min-height: var(--field-min-height);
-        border: var(--border-size-xs) solid var(--field-border-color);
+        border: var(--field-border-width) solid var(--field-border-color);
         border-radius: var(--field-radius);
         box-shadow: var(--input-shadow);
+        corner-shape: var(--field-corner-shape);
         font-weight: var(--input-font-weight);
         background-color: var(--field-bg-color);
         outline: var(--border-size-sm) solid transparent;
@@ -206,41 +151,12 @@
           box-shadow var(--duration-base) ease-in-out,
           outline var(--duration-base) ease-in-out;
 
-        &:not([data-fill="ghost"], :disabled):hover {
-          --input-shadow: var(--shadow-hover);
+        &:not(:disabled, [aria-disabled="true"]):hover {
+          --input-shadow: var(--input-hover-shadow);
         }
 
         &::placeholder {
           color: oklch(from var(--input-color) calc(l * 0.8) calc(c * 0.1) h);
-        }
-
-        &.pill {
-          border-radius: var(--control-radius-full);
-        }
-
-        &.squircle {
-          @supports (corner-shape: squircle) {
-            border-radius: var(--control-radius-full);
-            corner-shape: squircle;
-          }
-        }
-
-        &[data-fill="ghost"] {
-          --field-border-color: transparent;
-          --field-shadow: none;
-          --field-bg-color: transparent;
-          --input-shadow: none;
-
-          background-color: transparent;
-        }
-
-        &[data-fill="bordered"] {
-          border-width: 2px;
-          box-shadow: var(--shadow-xs-size) var(--shadow-xs-color);
-
-          --field-border-color: oklch(
-            from var(--field-bg-color) calc(l * 0.95) calc(c + 0.02) h
-          );
         }
 
         &:disabled,
@@ -320,50 +236,19 @@
     }
   }
 
-  [data-appearance="light"] {
-    .fieldWrapper {
-      .field {
-        &:hover:not(
-            :disabled,
-            [aria-disabled="true"],
-            [aria-expanded="true"],
-            :focus,
-            .noBorders
-          ) {
-          --field-border-color: var(--border-default);
-        }
-      }
-    }
-  }
-
-  [data-appearance="dark"] {
-    .fieldWrapper {
-      --field-border-color: oklch(
-        from var(--control-bg-color) calc(l + 0.1) calc(c - 0.02) h
-      );
-
-      .field {
-        /* stylelint-disable-next-line no-descending-specificity */
-        &[data-fill="bordered"] {
-          --field-border-color: oklch(
-            from var(--field-bg-color) calc(l + 0.3) calc(c - 0.02) h
-          );
-          --hover-field-color: oklch(
-            from var(--field-bg-color) calc(l + 0.5) calc(c - 0.02) h
-          );
-        }
-
-        &:hover:not(
-            :disabled,
-            [aria-disabled="true"],
-            [aria-expanded="true"],
-            :focus,
-            .noBorders
-          ) {
-          --field-border-color: oklch(
-            from var(--field-bg-color) calc(l + 0.3) calc(c - 0.02) h
-          );
-        }
+  .fieldWrapper {
+    .field {
+      &:hover:not(
+          :disabled,
+          [aria-disabled="true"],
+          [aria-expanded="true"],
+          :focus,
+          .noBorders
+        ) {
+        --field-border-color: var(
+          --control-hover-border-color,
+          var(--control-border-color)
+        );
       }
     }
   }

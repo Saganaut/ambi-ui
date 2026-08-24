@@ -7,7 +7,7 @@
     --radio-bg-color: var(--control-bg-color);
     --radio-color: var(--control-color);
     --radio-label-color: var(--control-alt-color);
-    --radio-control-size: 20px;
+    --radio-control-size: 10px;
     --radio-dot-size: 10px;
 
     position: relative;

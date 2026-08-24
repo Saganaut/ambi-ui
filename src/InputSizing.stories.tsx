@@ -40,7 +40,7 @@ const SizeCell = ({
   size: FieldSize;
   children: ReactNode;
 }) => (
-  <div style={{ display: "grid", gap: "var(--control-gap-xs)", minWidth: 0 }}>
+  <div style={{ display: "grid", gap: "10px", minWidth: 0 }}>
     <strong>{size}</strong>
     <div style={{ minWidth: 0 }}>{children}</div>
   </div>

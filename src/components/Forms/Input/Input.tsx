@@ -36,17 +36,17 @@ const Input = ({
 
   return (
     <div
-      data-fill={fill === "default" ? undefined : fill}
       data-label-position={labelPosition}
       className={jC([
         shared.fieldRoot,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
-        variantStyles[variant],
+        variantStyles[inputVariant],
+        variantStyles[fieldSize],
+        variantStyles[shape],
+        variantStyles[fill],
         reserveMessageSpace && shared.reserveMessageSpace,
-        shared[fieldSize],
-        inputVariant !== "brand" && shared[inputVariant],
       ])}
     >
       {/* Label Wrapper */}
@@ -71,8 +71,7 @@ const Input = ({
           aria-invalid={aria.invalid}
           aria-busy={aria.busy}
           aria-describedby={aria.describedBy}
-          className={jC([shared.field, shape !== "default" && shared[shape]])}
-          data-fill={fill === "default" ? undefined : fill}
+          className={shared.field}
         />
 
         {hasMessage && (

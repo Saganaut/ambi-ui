@@ -200,6 +200,7 @@
     --control-border-color: transparent;
     --control-shadow-size: 0 0;
     --control-shadow-color: transparent;
+    --control-hover-shadow: transparent;
 
     /* --control-hover-color: oklch(
       from var(--control-color) calc(l + 0.5) calc(c + 0.01) h
