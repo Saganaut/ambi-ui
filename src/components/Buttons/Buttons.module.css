@@ -4,7 +4,8 @@
 
     /** Layout & Size **/
     --btn-gap: var(--control-gap, var(--space-2));
-    --btn-padding: var(--control-padding, var(--space-2));
+    --btn-padding: var(--control-padding-block, var(--space-half))
+      var(--control-padding-inline, var(--space-3));
     --btn-radius: var(--control-radius, var(--radius-md));
     --btn-min-height: var(--control-min-height);
 
@@ -26,9 +27,13 @@
     --btn-hover-color: var(--control-hover-color);
     --btn-hover-shadow: var(--control-hover-shadow);
     --btn-hover-border-width: var(--btn-border-width);
+
+    /* Falls back to the source token, never to --btn-border-color: the hover
+       state assigns that from this property, and referencing it back — even
+       from a fallback — cycles them and invalidates the border. */
     --btn-hover-border-color: var(
       --control-hover-border-color,
-      var(--btn-border-color)
+      var(--control-border-color)
     );
 
     display: flex;
@@ -38,7 +43,7 @@
     align-items: center;
     justify-content: center;
     min-height: var(--btn-min-height);
-    line-height: var(--btn-line-height);
+    line-height: 1em;
     gap: var(--btn-gap);
     font-family: var(--btn-font-family);
     font-weight: var(--btn-font-weight);

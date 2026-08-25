@@ -28,7 +28,7 @@ const comparisonGridStyle = {
   gridTemplateColumns:
     "minmax(5rem, max-content) minmax(18rem, 28rem) minmax(8rem, max-content)",
   alignItems: "center",
-  gap: "var(--stack-md) var(--control-gap-lg)",
+  gap: "10px",
   width: "max-content",
   maxWidth: "100%",
 } as const;

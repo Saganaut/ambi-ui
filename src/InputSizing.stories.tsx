@@ -12,36 +12,104 @@ import { referenceDocs } from "./storybookDocs";
 
 const SIZES: FieldSize[] = ["xs", "sm", "md", "lg"];
 
-const sizeGridStyle = {
+const FIELDS: { label: string; render: (fieldSize: FieldSize) => ReactNode }[] =
+  [
+    {
+      label: "Input",
+      render: (fieldSize) => (
+        <Input
+          fieldSize={fieldSize}
+          label="Label"
+          labelPosition="start"
+          placeholder="Value"
+          fullWidth
+          validationState="validating"
+        />
+      ),
+    },
+    {
+      label: "Input + button",
+      render: (fieldSize) => (
+        <InputWithButton
+          fieldSize={fieldSize}
+          label="Label"
+          labelPosition="start"
+          placeholder="Value"
+          buttonLabel="Submit"
+        />
+      ),
+    },
+    {
+      label: "Dropdown",
+      render: (fieldSize) => (
+        <Dropdown
+          fieldSize={fieldSize}
+          label="Label"
+          labelPosition="start"
+          options={REGION_OPTIONS}
+          placeholder="Select a region"
+          fullWidth
+        />
+      ),
+    },
+    {
+      label: "Number input",
+      render: (fieldSize) => (
+        <NumberInput
+          fieldSize={fieldSize}
+          label="Label"
+          labelPosition="start"
+          value={30}
+          onChange={() => undefined}
+          fullWidth
+        />
+      ),
+    },
+    {
+      label: "Text area",
+      render: (fieldSize) => (
+        <TextArea
+          fieldSize={fieldSize}
+          label="Label"
+          labelPosition="start"
+          placeholder="Value"
+          rows={2}
+          fullWidth
+        />
+      ),
+    },
+  ];
+
+const fieldGridStyle = {
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 18rem), 1fr))",
+  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 16rem), 1fr))",
   alignItems: "start",
   gap: "var(--control-gap-lg)",
   width: "100%",
 } as const;
 
-const ComparisonSection = ({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) => (
-  <section style={{ display: "grid", gap: "var(--stack-sm)", minWidth: 0 }}>
-    <h2 style={{ margin: 0 }}>{title}</h2>
-    <div style={sizeGridStyle}>{children}</div>
-  </section>
-);
-
-const SizeCell = ({
+const SizeSection = ({
   size,
   children,
 }: {
   size: FieldSize;
   children: ReactNode;
 }) => (
+  <section style={{ display: "grid", gap: "var(--stack-sm)", minWidth: 0 }}>
+    <h2 style={{ margin: 0 }}>{size}</h2>
+    <div style={fieldGridStyle}>{children}</div>
+  </section>
+);
+
+const FieldCell = ({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) => (
   <div style={{ display: "grid", gap: "10px", minWidth: 0 }}>
-    <strong>{size}</strong>
+    <strong>{label}</strong>
     <div style={{ minWidth: 0 }}>{children}</div>
   </div>
 );
@@ -56,11 +124,11 @@ const meta = {
       description: {
         component: referenceDocs({
           summary:
-            "Field component sizes displayed side by side for visual alignment.",
+            "Field components grouped by size so every control at the same `fieldSize` sits side by side.",
           usage:
             "Use this reference to choose one `fieldSize` for a row or form containing different field types. Component pages contain the controlled/uncontrolled usage examples and full prop types.",
           styles:
-            "Every column uses the same `FieldSize` value (`xs`, `sm`, `md`, or `lg`) so control height, typography, padding, labels, and validation affordances can be reviewed together.",
+            "Each section pins one `FieldSize` value (`xs`, `sm`, `md`, or `lg`) across every field type so control height, typography, padding, labels, and validation affordances can be compared directly.",
         }),
       },
     },
@@ -82,79 +150,15 @@ export const InputSizing: Story = {
         margin: "0 auto",
       }}
     >
-      <ComparisonSection title="Input">
-        {SIZES.map((fieldSize) => (
-          <SizeCell key={fieldSize} size={fieldSize}>
-            <Input
-              fieldSize={fieldSize}
-              label="Label"
-              labelPosition="start"
-              placeholder="Value"
-              fullWidth
-              validationState="validating"
-            />
-          </SizeCell>
-        ))}
-      </ComparisonSection>
-
-      <ComparisonSection title="Input + button">
-        {SIZES.map((fieldSize) => (
-          <SizeCell key={fieldSize} size={fieldSize}>
-            <InputWithButton
-              fieldSize={fieldSize}
-              label="Label"
-              labelPosition="start"
-              placeholder="Value"
-              buttonLabel="Submit"
-            />
-          </SizeCell>
-        ))}
-      </ComparisonSection>
-
-      <ComparisonSection title="Dropdown">
-        {SIZES.map((fieldSize) => (
-          <SizeCell key={fieldSize} size={fieldSize}>
-            <Dropdown
-              fieldSize={fieldSize}
-              label="Label"
-              labelPosition="start"
-              options={REGION_OPTIONS}
-              placeholder="Select a region"
-              fullWidth
-            />
-          </SizeCell>
-        ))}
-      </ComparisonSection>
-
-      <ComparisonSection title="Number input">
-        {SIZES.map((fieldSize) => (
-          <SizeCell key={fieldSize} size={fieldSize}>
-            <NumberInput
-              fieldSize={fieldSize}
-              label="Label"
-              labelPosition="start"
-              value={30}
-              onChange={() => undefined}
-              fullWidth
-            />
-          </SizeCell>
-        ))}
-      </ComparisonSection>
-
-      <ComparisonSection title="Text area">
-        {SIZES.map((fieldSize) => (
-          <SizeCell key={fieldSize} size={fieldSize}>
-            <TextArea
-              fieldSize={fieldSize}
-              label="Label"
-              labelPosition="start"
-              placeholder="Value"
-              rows={2}
-              fullWidth
-            />
-          </SizeCell>
-        ))}
-      </ComparisonSection>
+      {SIZES.map((fieldSize) => (
+        <SizeSection key={fieldSize} size={fieldSize}>
+          {FIELDS.map((field) => (
+            <FieldCell key={field.label} label={field.label}>
+              {field.render(fieldSize)}
+            </FieldCell>
+          ))}
+        </SizeSection>
+      ))}
     </div>
   ),
 };

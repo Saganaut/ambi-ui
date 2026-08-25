@@ -3,7 +3,7 @@
     --number-input-stepper-width: var(--control-min-height);
     --number-input-icon-size: calc(var(--control-min-height) * 0.4);
     --number-input-value-width: var(--space-16);
-    --number-input-padding: var(--control-padding);
+    --number-input-padding: var(--control-padding-block, var(--space-half));
     --number-input-font-size: var(--control-font-size);
     --number-input-divider-width: var(--border-size-xs);
     --number-input-divider-color: var(--border-subtle);

@@ -14,7 +14,7 @@
 
     /** Layout & Size **/
     --dropdown-menu-gap: var(--control-gap, var(--space-2));
-    --dropdown-menu-padding: var(--control-padding, var(--space-2));
+    --dropdown-menu-padding: var(--control-padding-block, var(--space-half));
     --dropdown-menu-radius: var(--control-radius, var(--radius-md));
     --dropdown-menu-min-height: var(--control-min-height);
     --dropdown-menu-min-width: 11.25rem;
@@ -91,7 +91,7 @@
     }
 
     .label {
-      --dropdown-menu-label-padding: var(--control-gap-sm) var(--control-gap-lg);
+      --dropdown-menu-label-padding: var(--dropdown-menu-padding);
       --dropdown-menu-label-color: var(--text-muted);
       --dropdown-menu-label-border-color: var(--border-subtle);
 

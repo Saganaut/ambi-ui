@@ -8,9 +8,9 @@
   .fieldRoot {
     --field-message-reserve: var(--space-6);
     --field-gap: var(--control-gap, var(--space-half));
-    --input-padding: var(--control-padding, var(--p-md));
+    --input-padding: var(--control-padding-block, var(--space-half));
     --field-radius: var(--control-radius, var(--radius-md));
-    --field-min-height: var(--control-min-height, var(--height-md));
+    --field-min-height: var(--control-min-height);
 
     /** Styling **/
     --field-font-family: var(--font-sans);
@@ -36,6 +36,7 @@
     width: 100%;
     color: var(--field-color);
     font-size: var(--field-font-size);
+    line-height: 1em;
     font-family: var(--field-font-family);
     font-weight: var(--field-font-weight);
     border-color: var(--field-border-color);
@@ -46,6 +47,11 @@
     gap: var(--field-gap);
     min-height: var(--field-min-height);
     max-width: var(--field-max-width);
+
+    input {
+      font-family: inherit;
+      line-height: 1em;
+    }
 
     &.top {
       flex-direction: column;
@@ -132,10 +138,10 @@
 
         display: flex;
         width: 100%;
+        height: var(--field-min-height);
         padding: var(--input-padding);
         color: var(--input-color);
         font-size: var(--input-font-size);
-        min-height: var(--field-min-height);
         border: var(--field-border-width) solid var(--field-border-color);
         border-radius: var(--field-radius);
         box-shadow: var(--input-shadow);

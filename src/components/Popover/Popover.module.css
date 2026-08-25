@@ -2,7 +2,7 @@
   .popover {
     /** Layout & Size **/
     --popover-gap: var(--control-gap, var(--space-2));
-    --popover-padding: var(--control-padding, var(--space-2));
+    --popover-padding: var(--control-padding-block, var(--space-half));
     --popover-radius: var(--control-radius, var(--radius-md));
 
     /** Styling **/
@@ -95,10 +95,14 @@
         cursor: not-allowed;
       }
 
+      /* Set the properties, not the custom properties they read from: assigning
+         --popover-btn-border-color from its own hover alias cycles the two, and
+         a cycle drops the border shorthand back to `none`, shrinking the button
+         by its border on hover. */
       &:not(:disabled):hover {
-        --popover-btn-color: var(--popover-btn-hover-color);
-        --popover-btn-bg-color: var(--popover-btn-hover-bg-color);
-        --popover-btn-border-color: var(--popover-btn-hover-border-color);
+        color: var(--popover-btn-hover-color);
+        background-color: var(--popover-btn-hover-bg-color);
+        border-color: var(--popover-btn-hover-border-color);
       }
 
       &:focus-visible:not(:disabled) {

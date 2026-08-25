@@ -120,27 +120,20 @@
 
 @layer ambi.modifiers.size {
   .xs {
-    --control-padding: var(--p-pill-xs);
+    --control-padding-block: var(--space-1);
+    --control-padding-inline: var(--space-3);
     --control-font-size: var(--font-size-xs);
-    --control-radius: var(--radius-xs);
+    --control-radius: 1px;
     --control-gap: var(--space-1);
     --control-min-height: var(--height-xs);
-
-    &.default {
-      --control-radius: var(--radius-sm);
-    }
-
-    &.avatar {
-      --control-padding: var(--p-pill-sm);
-      --control-radius: var(--radius-full);
-    }
   }
 
   .sm {
-    --control-padding: var(--p-pill-sm);
+    --control-padding-block: var(--space-1);
+    --control-padding-inline: var(--space-4);
     --control-font-size: var(--font-size-sm);
     --control-radius: var(--radius-sm);
-    --control-gap: var(--space-1);
+    --control-gap: var(--space-2);
     --control-min-height: var(--height-sm);
 
     &.avatar {
@@ -149,10 +142,11 @@
   }
 
   .md {
-    --control-padding: var(--p-pill-md);
+    --control-padding-block: var(--space-2);
+    --control-padding-inline: var(--space-6);
     --control-font-size: var(--font-size-md);
     --control-radius: var(--radius-md);
-    --control-gap: var(--space-1);
+    --control-gap: var(--space-3);
     --control-min-height: var(--height-md);
 
     &.avatar {
@@ -161,7 +155,8 @@
   }
 
   .lg {
-    --control-padding: var(--p-pill-lg);
+    --control-padding-block: var(--space-3);
+    --control-padding-inline: var(--space-10);
     --control-font-size: var(--font-size-lg);
     --control-radius: var(--radius-lg);
     --control-gap: var(--space-4);
@@ -176,10 +171,6 @@
 /* Shape Modifiers */
 
 @layer ambi.modifiers.shape {
-  .default {
-    --control-radius: var(--radius-md);
-  }
-
   .pill,
   .avatar {
     --control-radius: var(--radius-full);

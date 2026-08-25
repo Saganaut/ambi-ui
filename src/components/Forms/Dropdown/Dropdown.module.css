@@ -1,5 +1,7 @@
 /* Dropdown-specific trigger layout and portalled option panel structure.
-   Shared field chrome and states come from Forms/Input/Field.module.css. */
+   Shared field chrome and states come from Forms/Input/Field.module.css. 
+   
+   TODO: this needs to be refactored, too messy */
 @layer ambi.components {
   .dropdown {
     /** Layout & Size **/
@@ -32,7 +34,8 @@
     text-align: left;
 
     /* Overwriting existing padding because the validation status conflicts with dropdown */
-    padding: var(--control-padding, var(--p-pill-sm));
+    /* stylelint-disable-next-line declaration-property-value-disallowed-list */
+    padding: var(--control-padding-block, var(--space-half));
   }
 
   .dropdownPlaceholder {

@@ -94,7 +94,13 @@ import { Pagination } from "@saganaut/ambi-ui";
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const Row = ({ title, children }: { title: string; children: React.ReactNode }) => (
+const Row = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) => (
   <section style={{ display: "grid", gap: "0.75rem" }}>
     <h2 style={{ margin: 0, fontSize: "1rem" }}>{title}</h2>
     <div
@@ -111,7 +117,9 @@ const Row = ({ title, children }: { title: string; children: React.ReactNode }) 
 );
 
 // Controlled wrapper so clicking pages actually moves the active page.
-const ControlledPagination = (args: React.ComponentProps<typeof Pagination>) => {
+const ControlledPagination = (
+  args: React.ComponentProps<typeof Pagination>,
+) => {
   const [page, setPage] = useState(args.page);
   return (
     <Pagination
@@ -160,7 +168,37 @@ export const Overview: Story = {
           pageCount={50}
           onPageChange={fn()}
         />
-        <ControlledPagination {...appearanceProps(args)} page={0} hasMore onPageChange={fn()} />
+        <ControlledPagination
+          {...appearanceProps(args)}
+          page={0}
+          hasMore
+          onPageChange={fn()}
+        />
+      </Row>
+
+      {/* Click Next through each of these: the label text changes but the
+          pager's width and button positions must stay put. */}
+      <Row title="Compact label sizing">
+        <ControlledPagination
+          {...appearanceProps(args)}
+          page={7}
+          pageCount={120}
+          compact
+          onPageChange={fn()}
+        />
+        <ControlledPagination
+          {...appearanceProps(args)}
+          page={7}
+          hasMore
+          expectedMaxValue={20}
+          onPageChange={fn()}
+        />
+        <ControlledPagination
+          {...appearanceProps(args)}
+          page={7}
+          hasMore
+          onPageChange={fn()}
+        />
       </Row>
 
       <Row title="Variants">

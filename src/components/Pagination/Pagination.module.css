@@ -3,7 +3,7 @@
     /* composes: hoverable from "../../styles/utilities.module.css"; */
 
     /** Layout & Size **/
-    --page-gap: var(--control-gap, 6px);
+    --page-gap: min(var(--control-gap, 6px), 6px);
     --page-radius: var(--control-radius, var(--radius-md));
 
     /** Styling **/
@@ -80,10 +80,26 @@
     }
 
     .compactLabel {
+      display: grid;
       padding: 0 var(--gap-sm);
       color: var(--page-color);
       font-size: var(--page-font-size);
       font-family: var(--page-font-family);
+      grid-template-areas: "label";
+      justify-items: center;
+    }
+
+    /* Both spans share one grid cell, so the hidden sizer holds the label at
+       its widest page number and the visible text never shifts the layout. */
+    .labelValue,
+    .labelSizer {
+      grid-area: label;
+      white-space: pre;
+    }
+
+    .labelSizer {
+      visibility: hidden;
+      pointer-events: none;
     }
   }
 

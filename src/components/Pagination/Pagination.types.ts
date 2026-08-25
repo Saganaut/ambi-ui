@@ -20,12 +20,19 @@ interface KnownTotalProps extends PaginationBaseProps {
   pageCount: number;
   hasMore?: never;
   compact?: boolean;
+  expectedMaxValue?: never;
 }
 
 interface UnknownTotalProps extends PaginationBaseProps {
   pageCount?: undefined;
   hasMore: boolean;
   compact?: never;
+  /**
+   * Highest page number the compact label should be able to show without
+   * resizing. Known totals derive this from `pageCount`; supply it here so an
+   * unknown-total pager reserves room up front. Defaults to three digits.
+   */
+  expectedMaxValue?: number;
 }
 
 export type PaginationProps = KnownTotalProps | UnknownTotalProps;

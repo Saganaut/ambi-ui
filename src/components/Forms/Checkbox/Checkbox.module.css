@@ -11,7 +11,7 @@
       var(--control-min-height, var(--height-md)) * 0.6
     );
     --checkbox-box-width: var(--checkbox-box-height);
-    --checkbox-radius: var(--control-radius, var(--radius-sm));
+    --checkbox-radius: min(var(--control-radius, var(--radius-sm)), 8px);
     --checkbox-corner-shape: var(--control-corner-shape);
     --checkbox-gap: var(--control-gap, var(--space-2));
 
@@ -100,6 +100,8 @@
         stroke-dashoffset: 24;
         opacity: 0;
         transform: scale(0.75);
+        min-height: 10px;
+        min-width: 10px;
         transition:
           stroke-dashoffset var(--duration-base) var(--ease-out),
           opacity var(--duration-base) var(--ease-out),

@@ -38,6 +38,17 @@ export interface FieldStyle {
   reserveMessageSpace?: boolean;
 }
 
+type NoGhostFill = Exclude<FieldFill, "ghost">;
+
+export interface FieldStyleNoGhost {
+  fill?: NoGhostFill;
+  shape?: FieldShape;
+  fieldSize?: FieldSize;
+  variant?: FieldVariant;
+  fullWidth?: boolean;
+  reserveMessageSpace?: boolean;
+}
+
 export interface DropdownOption {
   value: string;
   label: string;
@@ -74,7 +85,7 @@ export interface UseDropdownArgs {
 }
 
 export type CheckboxProps = Omit<FieldBase, "labelPosition"> &
-  FieldStyle &
+  FieldStyleNoGhost &
   Omit<ComponentPropsWithRef<"input">, "type"> & {
     labelPosition?: Exclude<LabelPosition, "top">;
     spaceBetween?: boolean;
@@ -113,7 +124,7 @@ export type NumberInputProps = FieldBase &
   };
 
 export type RadioProps = Omit<FieldBase, "labelPosition"> &
-  FieldStyle &
+  FieldStyleNoGhost &
   Omit<ComponentPropsWithRef<"input">, "type"> & {
     labelPosition?: Exclude<LabelPosition, "top">;
     spaceBetween?: boolean;

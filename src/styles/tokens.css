@@ -354,7 +354,12 @@
 
   /* Stronger horizontal stretch than the default --p-* set. Use for chips,   */
 
-  /* badges, capsule buttons, tabs, search bars.                              */
+  /* badges, capsule buttons, tabs, search bars.   
+  DEPRECATED 
+  TODO: In our component system this is getting replaced by custom classes 
+  in variants.module.css - this should be gradually removed from the entire project
+  
+  */
   --p-pill-xs: var(--space-half) var(--space-3);
   --p-pill-sm: var(--space-1) var(--space-4);
   --p-pill-md: var(--space-2) var(--space-6);

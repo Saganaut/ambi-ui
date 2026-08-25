@@ -7,7 +7,8 @@
     position: relative;
     display: flex;
     align-items: center;
-    gap: var(--control-gap-sm);
+    /* stylelint-disable-next-line declaration-property-value-disallowed-list */
+    gap: min(var(--control-gap), var(--space-1));
 
     input {
       width: min(20rem, 60vw);

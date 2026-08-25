@@ -7,12 +7,13 @@ import styles from "./Pagination.module.css";
 import type { PageToken, PaginationProps } from "./Pagination.types";
 
 /*TODO:
-* Compact version needs to deal with variable number length.
-Either a min width or use the grid area trick with highest value 
-(e.g if there are 50 pages, Page 50 of 50 or Page 50)
+ * Could have more consistent styling for the bordered variants
+ */
 
-* Could have more consistent styling for the bordered variants
-*/
+// Unknown-total pagers can't derive their widest label, so reserve three digits
+// unless the caller says how far the pager is expected to go.
+const DEFAULT_EXPECTED_MAX_PAGE = 999;
+
 const Pagination = (props: PaginationProps) => {
   const {
     page,
@@ -27,6 +28,7 @@ const Pagination = (props: PaginationProps) => {
     ariaLabel = "Pagination",
     className,
     pageLabel = "Page",
+    expectedMaxValue,
   } = props;
 
   const knownTotal = props.pageCount != null;
@@ -41,6 +43,19 @@ const Pagination = (props: PaginationProps) => {
   const canGoPrev = !disabled && clampedPage > 0;
   const canGoNext =
     !disabled && (knownTotal ? clampedPage < pageCount - 1 : props.hasMore);
+
+  // Widest page number the compact label has to fit, so the hidden sizer can
+  // hold the label at that width and stop it reflowing as digits are added.
+  const expectedMax =
+    expectedMaxValue != null && Number.isFinite(expectedMaxValue)
+      ? expectedMaxValue
+      : DEFAULT_EXPECTED_MAX_PAGE;
+  const sizingValue = knownTotal ? pageCount : expectedMax;
+
+  const compactLabelFor = (value: number) =>
+    knownTotal
+      ? `${pageLabel} ${String(value)} of ${String(pageCount)}`
+      : `${pageLabel} ${String(value)}`;
 
   const goTo = (next: number) => {
     if (disabled) return;
@@ -97,10 +112,13 @@ const Pagination = (props: PaginationProps) => {
       />
 
       {compact ? (
-        <span className={styles.compactLabel} aria-live="polite">
-          {knownTotal
-            ? `${pageLabel} ${String(clampedPage + 1)} of ${String(pageCount)}`
-            : `${pageLabel} ${String(clampedPage + 1)}`}
+        <span className={styles.compactLabel}>
+          <span className={styles.labelValue} aria-live="polite">
+            {compactLabelFor(clampedPage + 1)}
+          </span>
+          <span className={styles.labelSizer} aria-hidden="true">
+            {compactLabelFor(sizingValue)}
+          </span>
         </span>
       ) : (
         <ol className={styles.list}>

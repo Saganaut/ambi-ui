@@ -8,16 +8,23 @@
     --radio-color: var(--control-color);
     --radio-label-color: var(--control-alt-color);
     --radio-font-size: var(--control-font-size, var(--font-size-md));
-    --radio-control-size: calc(var(--control-min-height, var(--height-md)) * 0.6);
-    --radio-dot-size: calc(var(--radio-control-size) * 0.45);
+
+    /* Snapped to even pixels: the ring's 1px border leaves an even content box,
+       so an even dot centres on whole pixels instead of blurring across them. */
+    --radio-control-size: round(
+      calc(var(--control-min-height, var(--height-md)) * 0.6),
+      2px
+    );
+    --radio-dot-size: round(calc(var(--radio-control-size) * 0.45), 2px);
     --radio-radius: var(--radius-full);
     --radio-corner-shape: var(--control-corner-shape);
+    --radio-gap: var(--control-gap, var(--space-2));
 
     position: relative;
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--control-gap-sm);
+    gap: var(--radio-gap);
 
     &.reserveMessageSpace {
       padding-bottom: var(--message-reserve);
@@ -26,7 +33,7 @@
     .radioWrap {
       display: flex;
       align-items: center;
-      gap: var(--control-gap-sm);
+      gap: var(--radio-gap);
       cursor: pointer;
     }
 
@@ -35,7 +42,7 @@
       display: flex;
       flex-wrap: wrap;
       align-items: flex-start;
-      gap: var(--control-gap-sm);
+      gap: var(--radio-gap);
 
       .message {
         order: 2;
@@ -99,7 +106,6 @@
       width: var(--radio-dot-size);
       height: var(--radio-dot-size);
       border-radius: var(--radio-radius);
-      corner-shape: var(--radio-corner-shape);
       background-color: var(--radio-color);
     }
 
