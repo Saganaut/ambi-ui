@@ -48,16 +48,16 @@ const TextArea = ({
     });
   return (
     <div
-      data-fill={fill === "default" ? undefined : fill}
       className={jC([
         shared.fieldRoot,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
-        variantStyles[variant],
+        variantStyles[inputVariant],
+        variantStyles[fieldSize],
+        variantStyles[shape],
+        variantStyles[fill],
         reserveMessageSpace && shared.reserveMessageSpace,
-        shared[fieldSize],
-        inputVariant !== "brand" && shared[inputVariant],
       ])}
     >
       {label && (
@@ -94,13 +94,7 @@ const TextArea = ({
           aria-busy={aria.busy}
           aria-describedby={aria.describedBy}
           data-auto-grow={fullWidth ? "true" : "false"}
-          className={jC([
-            shared.field,
-            shape === "pill" && shared.pill,
-            shape === "squircle" && shared.squircle,
-            fullWidth ? "" : styles.noAutoGrow,
-          ])}
-          data-fill={fill === "default" ? undefined : fill}
+          className={jC([shared.field, fullWidth ? "" : styles.noAutoGrow])}
         />
         {hasMessage && (
           <FeedbackMessage

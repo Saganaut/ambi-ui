@@ -20,7 +20,7 @@
     );
     --hover-border-color: var(--role-border);
 
-    &:not(:disabled, [data-fill="ghost"]):hover {
+    &:not(:disabled):hover {
       background-color: var(--hover-bg-color);
 
       /* color: var(--hover-color); */
@@ -30,7 +30,7 @@
 
 [data-appearance="dark"] {
   .hoverable {
-    &:not(:disabled, [data-fill="ghost"]):hover {
+    &:not(:disabled):hover {
       --hover-border-color: oklch(
         from var(--control-bg-color) calc(l + 0.3) calc(c - 0.02) h
       );

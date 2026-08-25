@@ -135,12 +135,7 @@
       box-shadow: var(--split-btn-shadow-size) var(--split-btn-shadow-color);
       border-left: none;
 
-      &[data-fill="ghost"] {
-        --split-btn-shadow-size: 0 0;
-        --split-btn-shadow-color: transparent;
-      }
-
-      &:not([data-fill="ghost"], :disabled):hover {
+      &:not(:disabled):hover {
         --split-btn-shadow-size: 0px 3px 10px 0px;
         --split-btn-shadow-color: var(--shadow-hover-color);
       }
@@ -176,21 +171,6 @@
       --btn-border-color: oklch(
         from var(--btn-bg-color) calc(l + 0.1) calc(c - 0.02) h
       );
-
-      &[data-fill="bordered"] {
-        --btn-border-color: oklch(
-          from var(--btn-bg-color) calc(l + 0.3) calc(c - 0.02) h
-        );
-        --hover-border-color: oklch(
-          from var(--btn-bg-color) calc(l + 0.5) calc(c - 0.02) h
-        );
-      }
-
-      &[data-fill="ghost"] {
-        &:hover {
-          color: oklch(from var(--btn-color) calc(l + 0.3) calc(c + 0.2) h);
-        }
-      }
     }
   }
 

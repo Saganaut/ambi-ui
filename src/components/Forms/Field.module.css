@@ -178,7 +178,8 @@
       }
 
       &:not([data-status="idle"]) {
-        .field {
+        /* Only inputs make room for the status icon; */
+        .field:not(button) {
           /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
           padding-right: var(--status-input-padding-right, 2em);
         }

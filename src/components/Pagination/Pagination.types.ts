@@ -13,6 +13,7 @@ export interface PaginationBaseProps {
   disabled?: boolean;
   ariaLabel?: string;
   className?: string;
+  pageLabel?: string;
 }
 
 interface KnownTotalProps extends PaginationBaseProps {

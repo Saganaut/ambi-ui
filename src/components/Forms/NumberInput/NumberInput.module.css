@@ -1,10 +1,10 @@
 @layer ambi.components {
   .numberInputWrapper {
-    --number-input-stepper-width: var(--space-10);
-    --number-input-icon-size: var(--space-4);
+    --number-input-stepper-width: var(--control-min-height);
+    --number-input-icon-size: calc(var(--control-min-height) * 0.4);
     --number-input-value-width: var(--space-16);
-    --number-input-padding: var(--p-pill-sm);
-    --number-input-font-size: var(--control-font-size-sm);
+    --number-input-padding: var(--control-padding);
+    --number-input-font-size: var(--control-font-size);
     --number-input-divider-width: var(--border-size-xs);
     --number-input-divider-color: var(--border-subtle);
     --number-input-value-font-family: var(--font-mono);
@@ -22,28 +22,6 @@
 
     .field {
       overflow: hidden;
-
-      &.xs,
-      &.sm {
-        --number-input-stepper-width: var(--space-6);
-        --number-input-icon-size: var(--space-3);
-        --number-input-padding: var(--p-pill-xs);
-        --number-input-font-size: var(--control-font-size-xs);
-      }
-
-      &.md {
-        --number-input-stepper-width: var(--space-10);
-        --number-input-icon-size: var(--space-4);
-        --number-input-padding: var(--p-pill-sm);
-        --number-input-font-size: var(--control-font-size-sm);
-      }
-
-      &.lg {
-        --number-input-stepper-width: var(--space-10);
-        --number-input-icon-size: var(--space-5);
-        --number-input-padding: var(--space-3) var(--space-5);
-        --number-input-font-size: var(--control-font-size-lg);
-      }
 
       &:focus-within:not(.disabled) {
         outline-color: var(--border-focus);

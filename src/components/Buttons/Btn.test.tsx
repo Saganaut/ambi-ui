@@ -1,5 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vite-plus/test";
+import variantStyles from "@styles/variants.module.css";
 import { Btn } from "./Btn";
 
 describe("Btn", () => {
@@ -8,8 +9,8 @@ describe("Btn", () => {
 
     expect(markup).toContain('type="button"');
     expect(markup).toContain(">Save</span>");
-    expect(markup).toContain("primary");
-    expect(markup).toContain("md");
+    expect(markup).toContain(variantStyles.primary);
+    expect(markup).toContain(variantStyles.md);
     expect(markup).not.toContain("data-fill");
   });
 
@@ -20,10 +21,10 @@ describe("Btn", () => {
       </Btn>,
     );
 
-    expect(markup).toContain("error");
-    expect(markup).toContain('data-fill="ghost"');
-    expect(markup).toContain("lg");
-    expect(markup).toContain("pill");
+    expect(markup).toContain(variantStyles.error);
+    expect(markup).toContain(variantStyles.ghost);
+    expect(markup).toContain(variantStyles.lg);
+    expect(markup).toContain(variantStyles.pill);
     expect(markup).toContain("custom-btn");
   });
 

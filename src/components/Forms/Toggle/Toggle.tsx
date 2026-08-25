@@ -41,16 +41,16 @@ const Toggle = ({
 
   return (
     <div
-      data-fill={fill === "default" ? undefined : fill}
       className={jC([
         shared.fieldRoot,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
-        variantStyles[variant],
+        variantStyles[inputVariant],
+        variantStyles[fieldSize],
+        variantStyles[shape],
+        variantStyles[fill],
         reserveMessageSpace && shared.reserveMessageSpace,
-
-        shared[inputVariant],
       ])}
     >
       <div
@@ -59,8 +59,6 @@ const Toggle = ({
           fullWidth && shared.fullWidth,
           styles.toggleComponent,
           spaceBetween && styles.spaceBetween,
-          styles[fieldSize],
-          styles[shape],
           labelPosition === "start" && styles.start,
         ])}
         data-status={dataStatus}

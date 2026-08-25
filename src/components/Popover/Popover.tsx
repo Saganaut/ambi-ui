@@ -3,6 +3,7 @@
 // set of row / button / divider primitives
 // Used in conjuction wiht PopverWrapper and PopoverNavContext to provide full utility
 import { useListItem } from "@floating-ui/react";
+import variantStyles from "@styles/variants.module.css";
 import { jC } from "@utils/utils";
 import { useContext, type ButtonHTMLAttributes, type ReactNode } from "react";
 import styles from "./Popover.module.css";
@@ -15,12 +16,18 @@ const Popover = ({
   role = "dialog",
   ariaLabel,
   style,
+  variant = "primary",
+  fill = "default",
+  size = "md",
   shape = "default",
 }: PopoverProps) => (
   <div
     className={jC([
       styles.popover,
-      shape !== "default" && styles[shape],
+      variantStyles[variant],
+      variantStyles[size],
+      variantStyles[shape],
+      variantStyles[fill],
       className,
     ])}
     role={role}

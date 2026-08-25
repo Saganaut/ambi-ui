@@ -1,6 +1,7 @@
 import type { Placement, UseInteractionsReturn } from "@floating-ui/react";
 import type { HTMLProps, ReactNode } from "react";
-import type { BaseShapes } from "../Base.types";
+import type { BaseShapes, BaseVariants } from "../Base.types";
+import type { BtnFill, BtnSize } from "../Buttons/Btn.types";
 
 interface ListNavContext {
   getItemProps: UseInteractionsReturn["getItemProps"];
@@ -69,5 +70,13 @@ export interface PopoverProps {
   role?: "dialog" | "toolbar" | "menu";
   ariaLabel?: string;
   style?: React.CSSProperties;
+  /**
+   * Surface presentation. These drive the shared `--control-*` custom
+   * properties from `variants.module.css`, which the popover's own
+   * `--popover-*` properties (and its nested primitives) read from.
+   */
+  variant?: BaseVariants;
+  fill?: BtnFill;
+  size?: BtnSize;
   shape?: BaseShapes;
 }

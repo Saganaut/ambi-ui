@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Bold, Italic, Link, Underline } from "lucide-react";
 import type { ButtonHTMLAttributes } from "react";
-import type { BaseShapes } from "../Base.types";
+import type { BaseFills, BaseShapes, BaseSizes, BaseVariants } from "../Base.types";
 import { Popover } from "./Popover";
 import { PopoverNavContext } from "./PopoverNavContext";
 import { PopoverWrapper } from "./PopoverWrapper";
@@ -9,12 +9,23 @@ import { PopoverWrapper } from "./PopoverWrapper";
 const triggerStyle = {
   padding: "0.5rem 0.75rem",
   border: "1px solid var(--border-subtle)",
-  borderRadius: "var(--control-radius-sm)",
+  borderRadius: "var(--radius-sm)",
   background: "var(--bg-canvas)",
   color: "var(--text-primary)",
   cursor: "pointer",
 } as const;
 
+const VARIANTS: BaseVariants[] = [
+  "primary",
+  "secondary",
+  "brand",
+  "info",
+  "error",
+  "success",
+  "warning",
+];
+const FILLS: BaseFills[] = ["default", "bordered", "ghost"];
+const SIZES: Exclude<BaseSizes, "xl">[] = ["xs", "sm", "md", "lg"];
 const SHAPES: BaseShapes[] = ["default", "pill", "squircle"];
 
 const meta = {
@@ -46,7 +57,9 @@ import { Popover, PopoverWrapper } from "@saganaut/ambi-ui";
 
 ### Types and styles
 
-The surface uses \`PopoverProps\`; positioning and interaction use \`PopoverWrapperProps\`. Use \`shape\` for the supported surface form and the wrapper for position styles. Scoped custom properties include \`--popover-bg-color\`, \`--popover-radius\`, \`--popover-shadow\`, \`--popover-btn-color\`, and \`--popover-btn-hover-bg-color\`.
+The surface uses \`PopoverProps\`; positioning and interaction use \`PopoverWrapperProps\`. Use the wrapper for position styles.
+
+\`variant\`, \`fill\`, \`size\`, and \`shape\` apply the shared modifier classes from \`variants.module.css\`, which set the \`--control-*\` custom properties. The popover reads those into its own scoped properties — \`--popover-bg-color\`, \`--popover-color\`, \`--popover-radius\`, \`--popover-gap\`, \`--popover-padding\`, \`--popover-shadow\` — and its nested primitives derive from the surface in turn (\`--popover-btn-size\`, \`--popover-btn-color\`, \`--popover-btn-hover-bg-color\`). Override any of them on \`className\` or \`style\` for one-off surfaces.
 
 ### Accessibility
 
@@ -70,6 +83,9 @@ The surface uses \`PopoverProps\`; positioning and interaction use \`PopoverWrap
       description: "ARIA role describing the floating surface.",
     },
     ariaLabel: { description: "Accessible name for the floating surface." },
+    variant: { control: "select", options: VARIANTS },
+    fill: { control: "select", options: FILLS },
+    size: { control: "inline-radio", options: SIZES },
     shape: { control: "select", options: SHAPES },
     children: {
       control: false,

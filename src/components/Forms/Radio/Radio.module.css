@@ -3,40 +3,21 @@
 @layer ambi.components {
   .radioBlock {
     --message-reserve: var(--space-6);
-    --radio-border-color: var(--role-border);
+    --radio-border-color: var(--control-border-color);
     --radio-bg-color: var(--control-bg-color);
     --radio-color: var(--control-color);
     --radio-label-color: var(--control-alt-color);
-    --radio-control-size: 10px;
-    --radio-dot-size: 10px;
+    --radio-font-size: var(--control-font-size, var(--font-size-md));
+    --radio-control-size: calc(var(--control-min-height, var(--height-md)) * 0.6);
+    --radio-dot-size: calc(var(--radio-control-size) * 0.45);
+    --radio-radius: var(--radius-full);
+    --radio-corner-shape: var(--control-corner-shape);
 
     position: relative;
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--control-gap-sm);
-
-    &.xs {
-      --radio-font-size: var(--control-font-xs);
-      --radio-control-size: 14px;
-      --radio-dot-size: 6px;
-    }
-
-    &.sm {
-      --radio-font-size: var(--control-font-sm);
-      --radio-control-size: 18px;
-      --radio-dot-size: 8px;
-    }
-
-    &.md {
-      --radio-font-size: var(--control-font-md);
-    }
-
-    &.lg {
-      --radio-font-size: var(--control-font-lg);
-      --radio-control-size: 30px;
-      --radio-dot-size: 14px;
-    }
 
     &.reserveMessageSpace {
       padding-bottom: var(--message-reserve);
@@ -104,7 +85,8 @@
       height: var(--radio-control-size);
       flex-shrink: 0;
       border: var(--border-size-xs) solid var(--radio-border-color);
-      border-radius: var(--control-radius-full);
+      border-radius: var(--radio-radius);
+      corner-shape: var(--radio-corner-shape);
       background-color: var(--radio-bg-color);
       align-items: center;
       justify-content: center;
@@ -116,7 +98,8 @@
       display: block;
       width: var(--radio-dot-size);
       height: var(--radio-dot-size);
-      border-radius: var(--control-radius-full);
+      border-radius: var(--radio-radius);
+      corner-shape: var(--radio-corner-shape);
       background-color: var(--radio-color);
     }
 

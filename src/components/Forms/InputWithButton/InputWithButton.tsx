@@ -48,16 +48,16 @@ const InputWithButton = ({
     });
   return (
     <div
-      data-fill={fill === "default" ? undefined : fill}
       className={jC([
         shared.fieldRoot,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
-        variantStyles[variant],
+        variantStyles[inputVariant],
+        variantStyles[fieldSize],
+        variantStyles[shape],
+        variantStyles[fill],
         reserveMessageSpace && shared.reserveMessageSpace,
-        shared[fieldSize],
-        inputVariant !== "brand" && shared[inputVariant],
       ])}
     >
       {label && (
@@ -93,11 +93,7 @@ const InputWithButton = ({
               aria-invalid={aria.invalid}
               aria-busy={aria.busy}
               aria-describedby={aria.describedBy}
-              className={jC([
-                shared.field,
-                shape !== "default" && shared[shape],
-              ])}
-              data-fill={fill === "default" ? undefined : fill}
+              className={shared.field}
             />
             <StatusIcon dataStatus={dataStatus} />
           </div>

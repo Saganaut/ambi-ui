@@ -76,17 +76,17 @@ const NumberInput = ({
 
   return (
     <div
-      data-fill={fill === "default" ? undefined : fill}
       data-label-position={labelPosition}
       className={jC([
         shared.fieldRoot,
         shared[labelPosition],
         fullWidth && shared.fullWidth,
         className,
-        variantStyles[variant],
+        variantStyles[inputVariant],
+        variantStyles[fieldSize],
+        variantStyles[shape],
+        variantStyles[fill],
         reserveMessageSpace && shared.reserveMessageSpace,
-        shared[fieldSize],
-        inputVariant !== "brand" && shared[inputVariant],
       ])}
     >
       {label && (
@@ -109,12 +109,9 @@ const NumberInput = ({
           className={jC([
             shared.field,
             styles.field,
-            styles[fieldSize],
-            shape !== "default" && shared[shape],
             disabled ? styles.disabled : "",
             hasError ? styles.error : "",
           ])}
-          data-fill={fill === "default" ? undefined : fill}
         >
           <span className={styles.valueStack}>
             <input

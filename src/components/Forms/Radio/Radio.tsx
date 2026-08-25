@@ -26,6 +26,7 @@ const Radio = ({
   validationState,
   variant = "primary",
   fill = "default",
+  shape = "default",
   fieldSize = "md",
   ref,
   ...rest
@@ -41,16 +42,16 @@ const Radio = ({
 
   return (
     <div
-      data-fill={fill === "default" ? undefined : fill}
       className={jC([
         shared.fieldRoot,
         fullWidth && shared.fullWidth,
         styles.radioBlock,
         className,
         variantStyles[inputVariant],
+        variantStyles[fieldSize],
+        variantStyles[shape],
+        variantStyles[fill],
         reserveMessageSpace && shared.reserveMessageSpace,
-        shared[fieldSize],
-        styles[fieldSize],
       ])}
     >
       <div
@@ -59,8 +60,7 @@ const Radio = ({
           fullWidth && shared.fullWidth,
           styles.radioContainer,
           labelPosition === "start" && styles.start,
-          labelPosition === "top" && styles.top,
-          spaceBetween && labelPosition !== "top" && styles.stretch,
+          spaceBetween && styles.stretch,
           reserveMessageSpace && !hasMessage && styles.reserveMessageSpace,
         ])}
         data-status={dataStatus}

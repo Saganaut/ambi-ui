@@ -3,21 +3,22 @@
     /** Toggle  **/
     --toggle-border-color: var(--control-border-color);
     --toggle-box-shadow: var(--shadow-xs);
-    --toggle-corner-shape: default;
+    --toggle-corner-shape: var(--control-corner-shape);
 
     /** Track **/
-    --track-height: 24px;
+    --track-height: calc(var(--control-min-height, var(--height-md)) * 0.6);
+    --track-width: calc(var(--track-height) * 2);
     --track-bg-color: var(--control-bg-color);
     --track-color: var(--control-color);
-    --track-border-radius: var(--control-radius-sm);
+    --track-border-radius: var(--control-radius, var(--radius-full));
     --track-box-shadow: var(--shadow-xs);
-    --track-padding: var(--space-1);
-    --thumb-size: 10px;
-    --thumb-border-radius: var(--control-radius-sm);
+    --thumb-size: calc(var(--track-height) * 0.8);
+    --track-padding: calc((var(--track-height) - var(--thumb-size)) / 2 - var(--border-size-xs));
+    --thumb-border-radius: var(--control-radius, var(--radius-full));
     --thumb-color: var(--control-color);
     --thumb-box-shadow: var(--shadow-xs);
     --thumb-bg-color: var(--control-color);
-    --thumb-translate: 120%;
+    --thumb-translate: var(--track-height);
 
     position: relative;
     display: flex;
@@ -25,48 +26,11 @@
     align-items: start;
     justify-content: center;
     flex-direction: column;
-    border: 1px dashed blue;
 
     .message {
       position: absolute;
       bottom: calc(-1 * var(--space-6));
       left: 0;
-    }
-
-    &.xs {
-      --track-height: 16px;
-      --track-padding: var(--space-half);
-      --thumb-translate: 110%;
-    }
-
-    &.sm {
-      --track-height: 10px;
-      --track-padding: var(--space-half);
-      --thumb-translate: 110%;
-    }
-
-    &.md {
-      --track-height: 24px;
-      --track-padding: var(--space-half);
-    }
-
-    &.lg {
-      --track-height: 30px;
-      --track-padding: var(--space-half);
-    }
-
-    &.pill {
-      --track-border-radius: var(--control-radius-full);
-      --thumb-border-radius: var(--control-radius-full);
-    }
-
-    &.squircle {
-      @supports (corner-shape: squircle) {
-        --toggle-corner-shape: squircle;
-      }
-
-      --track-border-radius: var(--control-radius-full);
-      --thumb-border-radius: var(--control-radius-full);
     }
 
     .toggleInput {
@@ -98,7 +62,7 @@
         position: relative;
         display: flex;
         align-items: center;
-        width: calc(var(--track-height) * 2);
+        width: var(--track-width);
         height: var(--track-height);
         border: var(--border-size-xs) solid var(--toggle-border-color);
         background-color: oklch(from var(--track-bg-color) l c h / 50%);
@@ -109,8 +73,6 @@
         corner-shape: var(--toggle-corner-shape);
 
         .toggleThumb {
-          --thumb-size: calc(var(--track-height) * 0.8);
-
           width: var(--thumb-size);
           height: var(--thumb-size);
           background-color: var(--thumb-bg-color);
@@ -136,26 +98,26 @@
       .toggleThumb {
         transform: translateX(var(--thumb-translate));
       }
+    }
 
-      &:has(.toggleInput:disabled) {
-        .toggleWrap {
-          cursor: not-allowed;
-        }
-
-        .toggleTrack {
-          border-color: var(--border-is-disabled);
-          background-color: var(--bg-is-disabled);
-        }
-
-        .toggleThumb {
-          --thumb-bg-color: var(--text-is-disabled);
-        }
+    &:has(.toggleInput:disabled) {
+      .toggleWrap {
+        cursor: not-allowed;
       }
 
-      &:has(.toggleInput:focus-visible) .toggleTrack {
-        outline: 2px solid var(--border-focus);
-        outline-offset: 2px;
+      .toggleTrack {
+        border-color: var(--border-is-disabled);
+        background-color: var(--bg-is-disabled);
       }
+
+      .toggleThumb {
+        --thumb-bg-color: var(--text-is-disabled);
+      }
+    }
+
+    &:has(.toggleInput:focus-visible) .toggleTrack {
+      outline: var(--border-size-sm) solid var(--border-focus);
+      outline-offset: var(--border-size-sm);
     }
   }
 
