@@ -2,7 +2,6 @@
    :has() drives all visual state so no JS class toggling is needed. */
 @layer ambi.components {
   .checkboxComponent {
-    --message-reserve: var(--space-6);
     --checkbox-border-color: var(--control-border-color);
     --checkbox-bg-color: var(--control-bg-color);
     --checkbox-color: var(--control-color);
@@ -23,10 +22,6 @@
 
     .message {
       order: 2;
-    }
-
-    &.reserveMessageSpace {
-      padding-bottom: var(--message-reserve);
     }
 
     /* Visually hidden native checkbox — keyboard/pointer events still fire */

@@ -51,7 +51,6 @@ const Radio = ({
         variantStyles[fieldSize],
         variantStyles[shape],
         variantStyles[fill],
-        reserveMessageSpace && shared.reserveMessageSpace,
       ])}
     >
       <div

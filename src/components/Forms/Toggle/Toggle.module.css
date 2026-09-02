@@ -27,12 +27,6 @@
     justify-content: center;
     flex-direction: column;
 
-    .message {
-      position: absolute;
-      bottom: calc(-1 * var(--space-6));
-      left: 0;
-    }
-
     .toggleInput {
       position: absolute;
       width: 1px;

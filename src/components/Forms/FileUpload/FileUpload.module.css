@@ -48,7 +48,10 @@
   width: var(--file-upload-width);
   flex-direction: column;
   gap: var(--file-upload-gap);
-  padding-bottom: var(--file-upload-message-reserve);
+
+  &.reserveMessageSpace {
+    padding-bottom: var(--file-upload-message-reserve);
+  }
 
   .message {
     position: absolute;

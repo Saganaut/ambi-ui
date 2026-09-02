@@ -58,7 +58,9 @@ const Combobox = ({
         variantStyles[fieldSize],
         variantStyles[shape],
         variantStyles[fill],
-        reserveMessageSpace && shared.reserveMessageSpace,
+        reserveMessageSpace &&
+          !Combobox.hasMessage &&
+          shared.reserveMessageSpace,
       ])}
     >
       {label && (

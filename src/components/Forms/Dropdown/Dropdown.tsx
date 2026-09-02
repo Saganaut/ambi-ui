@@ -70,6 +70,7 @@ const Dropdown = ({
     optionId,
     activeId,
     messageId,
+    hasMessage,
     dataStatus,
     inputVariant,
     aria,
@@ -120,7 +121,7 @@ const Dropdown = ({
         variantStyles[fieldSize],
         variantStyles[shape],
         variantStyles[fill],
-        reserveMessageSpace && shared.reserveMessageSpace,
+        reserveMessageSpace && !hasMessage && shared.reserveMessageSpace,
       ])}
     >
       {label ? (

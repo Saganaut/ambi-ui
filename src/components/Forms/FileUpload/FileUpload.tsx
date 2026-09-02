@@ -66,7 +66,6 @@ const FileUpload = ({
         variantStyles[fieldSize],
         variantStyles[shape],
         variantStyles[fill],
-        reserveMessageSpace && shared.reserveMessageSpace,
       ])}
     >
       {label && (
@@ -82,6 +81,7 @@ const FileUpload = ({
           shared.fieldWrapper,
           fullWidth && shared.fullWidth,
           styles.fileUploadContainer,
+          reserveMessageSpace && styles.reserveMessageSpace,
         ])}
         data-status={dataStatus}
       >
@@ -153,6 +153,7 @@ const FileUpload = ({
         )}
         {hasMessage && (
           <FeedbackMessage
+            className={styles.message}
             id={messageId}
             errorMessage={displayedError}
             infoMessage={infoMessage}

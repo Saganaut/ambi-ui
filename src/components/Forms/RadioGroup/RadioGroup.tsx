@@ -81,6 +81,7 @@ const RadioGroup = ({
         </div>
         {hasMessage && (
           <FeedbackMessage
+            className={styles.message}
             id={messageId}
             errorMessage={errorMessage}
             infoMessage={infoMessage}

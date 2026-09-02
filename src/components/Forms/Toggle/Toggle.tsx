@@ -50,7 +50,7 @@ const Toggle = ({
         variantStyles[fieldSize],
         variantStyles[shape],
         variantStyles[fill],
-        reserveMessageSpace && shared.reserveMessageSpace,
+        reserveMessageSpace && !hasMessage && shared.reserveMessageSpace,
       ])}
     >
       <div

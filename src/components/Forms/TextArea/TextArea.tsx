@@ -57,7 +57,7 @@ const TextArea = ({
         variantStyles[fieldSize],
         variantStyles[shape],
         variantStyles[fill],
-        reserveMessageSpace && shared.reserveMessageSpace,
+        reserveMessageSpace && !hasMessage && shared.reserveMessageSpace,
       ])}
     >
       {label && (

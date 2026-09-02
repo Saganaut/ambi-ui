@@ -12,12 +12,6 @@
     position: relative;
     width: var(--dropdown-width);
 
-    .message {
-      position: absolute;
-      bottom: calc(-1 * var(--dropdown-message-offset));
-      left: var(--dropdown-message-inset);
-    }
-
     button {
       text-align: start;
     }

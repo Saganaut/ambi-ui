@@ -63,6 +63,7 @@ const InputWithButton = ({
 
   return (
     <div
+      data-label-position={labelPosition}
       className={jC([
         shared.fieldRoot,
         shared[labelPosition],
@@ -72,7 +73,7 @@ const InputWithButton = ({
         variantStyles[fieldSize],
         variantStyles[shape],
         variantStyles[fill],
-        reserveMessageSpace && shared.reserveMessageSpace,
+        reserveMessageSpace && !hasMessage && shared.reserveMessageSpace,
       ])}
     >
       {label && (
@@ -87,14 +88,7 @@ const InputWithButton = ({
         className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth])}
         data-status={dataStatus}
       >
-        <div
-          className={jC([
-            shared.fieldWrapper,
-            fullWidth && shared.fullWidth,
-            styles.inputWithButton,
-          ])}
-          data-status={dataStatus}
-        >
+        <div className={styles.inputWithButton}>
           <div className={styles.relative}>
             <input
               {...rest}

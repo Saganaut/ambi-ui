@@ -49,7 +49,7 @@ const Checkbox = ({
         variantStyles[fieldSize],
         variantStyles[shape],
         variantStyles[fill],
-        reserveMessageSpace && shared.reserveMessageSpace,
+        reserveMessageSpace && !hasMessage && shared.reserveMessageSpace,
       ])}
     >
       <div
@@ -58,7 +58,6 @@ const Checkbox = ({
           fullWidth && shared.fullWidth,
           labelPosition === "start" && styles.start,
           spaceBetween && styles.stretch,
-          reserveMessageSpace && !hasMessage && styles.reserveMessageSpace,
         ])}
         data-status={dataStatus}
       >
@@ -99,6 +98,7 @@ const Checkbox = ({
         </label>
         {hasMessage && (
           <FeedbackMessage
+            className={styles.message}
             id={messageId}
             errorMessage={errorMessage}
             infoMessage={infoMessage}

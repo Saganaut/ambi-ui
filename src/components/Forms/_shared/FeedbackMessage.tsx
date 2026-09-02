@@ -8,16 +8,27 @@ import shared from "../Field.module.css";
 
 interface FeedbackMessageProps {
   id: string;
+  /** Component-scoped class used to place the message within that component's layout. */
+  className?: string;
   errorMessage?: string | string[];
   infoMessage?: string | string[];
 }
 
-const FeedbackMessage = ({ id, errorMessage, infoMessage }: FeedbackMessageProps) => {
+const FeedbackMessage = ({
+  id,
+  className,
+  errorMessage,
+  infoMessage,
+}: FeedbackMessageProps) => {
   return (
     <span
       id={id}
       aria-live="polite"
-      className={jC([shared.inputInfoMessage, shared.message, errorMessage && shared.errorMessage])}
+      className={jC([
+        shared.inputInfoMessage,
+        className,
+        errorMessage && shared.errorMessage,
+      ])}
     >
       {errorMessage ?? infoMessage}
     </span>
