@@ -1,11 +1,11 @@
 /* oxlint-disable react-hooks/rules-of-hooks, no-console */
 /* oxlint-disable react-x/rules-of-hooks, no-console */
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import "@styles/variants.module.css";
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { fn } from "storybook/test";
 import { componentDocs } from "../../../storybookDocs";
-import "@styles/variants.module.css";
 import type { FieldVariant } from "../Field.types";
 import { InputWithButton } from "./InputWithButton";
 
@@ -20,18 +20,26 @@ const VARIANTS: FieldVariant[] = [
 ];
 
 const sectionStyle = {
+  border: "1px dashed gray",
+  padding: "8px",
   display: "grid",
   gap: "1rem",
+  width: "100%",
 } as const;
 
 const gridStyle = {
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 28rem), 1fr))",
   gap: "2rem 3rem",
   alignItems: "start",
 } as const;
 
-const Section = ({ title, children }: { title: string; children: ReactNode }) => (
+const Section = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) => (
   <section style={sectionStyle}>
     <h2 style={{ margin: 0, fontSize: "1rem" }}>{title}</h2>
     <div style={gridStyle}>{children}</div>
@@ -102,7 +110,7 @@ type Story = StoryObj<typeof meta>;
 /** All input-with-button variants and states on a single canvas. */
 export const Overview: Story = {
   render: (args) => (
-    <div style={{ display: "grid", gap: "3rem", width: "min(76rem, 90vw)" }}>
+    <div style={{ display: "grid", gap: "3rem", width: "90vw" }}>
       <Section title="Message and label placement">
         <InputWithButton
           {...args}
@@ -166,7 +174,12 @@ export const Overview: Story = {
             fill={fill}
           />
         ))}
-        <InputWithButton {...args} id={`${args.id}-pill`} label="Pill shape" shape="pill" />
+        <InputWithButton
+          {...args}
+          id={`${args.id}-pill`}
+          label="Pill shape"
+          shape="pill"
+        />
         <InputWithButton
           {...args}
           id={`${args.id}-squircle`}

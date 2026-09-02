@@ -16,6 +16,7 @@
     --control-shadow-size: var(--shadow-xs-size);
     --control-shadow-color: var(--shadow-xs-color);
     --control-hover-shadow: var(--shadow-xs-color);
+    --control-hover-shadow-size: var(--shadow-sm-size);
     --control-hover-border-color: transparent;
   }
 
@@ -118,12 +119,56 @@
 
 /* Size Modifiers */
 
+/* Sizes: 
+- xs
+-- Font size: 0.75rem, 12 px
+-- Min height: 1.25rem, 19.2px
+-- Padding Y (block): 0.25rem
+-- Padding X (inline): 0.75rem
+-- Gap: 0.25rem, 4px;
+-- Radius: 0.25rem, 4px;
+-----------------------------
+- sm
+-- Font size: 0.875rem, 14 px
+-- Min height: 1.75rem, 28px
+-- Padding Y (block): 0.25rem
+-- Padding X (inline): 1rem
+-- Gap: 0.5rem, 8px;
+-- Radius: 0.25rem, 4px;
+-----------------------------
+- md 
+-- Font size: 1.125, 18px
+-- Min height: 2.5rem, 40px
+-- Padding Y (block): 0.5rem
+-- Padding X (inline): 1.5rem
+-- Gap: 0.75rem, 12px;
+-- Radius: 1rem, 16px;
+-----------------------------
+- lg 
+-- Font size: 1.5, 24px
+-- Min height: 3.75rem, 60px
+-- Padding Y (block):  0.75rem, 12 px
+-- Padding X (inline): 2.5rem, 40px
+-- Gap: 1rem, 16px;
+-- Radius: 1rem, 16px;
+
+
+
+text-box-trim: trim-both;
+text-box-edge: cap alphabetic;
+
+-----
+margin-block: calc(0.5cap - 0.5lh); 
+
+
+*/
+
 @layer ambi.modifiers.size {
   .xs {
     --control-padding-block: var(--space-1);
     --control-padding-inline: var(--space-3);
     --control-font-size: var(--font-size-xs);
-    --control-radius: 1px;
+    --control-radius: var(--space-1);
     --control-gap: var(--space-1);
     --control-min-height: var(--height-xs);
   }

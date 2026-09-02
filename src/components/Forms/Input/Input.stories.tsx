@@ -129,6 +129,30 @@ export const Overview: Story = {
           />
         ))}
       </Section>
+      <Section title="Label in front">
+        {SIZES.map((fieldSize) => (
+          <Input
+            {...args}
+            key={`start-${fieldSize}`}
+            id={`${args.id}-start-${fieldSize}`}
+            label={fieldSize.toUpperCase()}
+            labelPosition="start"
+            fieldSize={fieldSize}
+            fullWidth
+          />
+        ))}
+        {VARIANTS.map((variant) => (
+          <Input
+            {...args}
+            key={`start-${variant}`}
+            id={`${args.id}-start-${variant}`}
+            label={variant}
+            labelPosition="start"
+            variant={variant}
+            fullWidth
+          />
+        ))}
+      </Section>
       <Section title="Messages and validation">
         <Input
           {...args}

@@ -22,6 +22,7 @@
 
     .field {
       overflow: hidden;
+      width: auto;
 
       &:focus-within:not(.disabled) {
         outline-color: var(--border-focus);
@@ -124,6 +125,10 @@
 
       &:not(:disabled):hover {
         background-color: var(--number-input-step-hover-bg-color);
+      }
+
+      &:active {
+        opacity: 0.9;
       }
     }
 

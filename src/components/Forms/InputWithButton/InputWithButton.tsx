@@ -46,6 +46,21 @@ const InputWithButton = ({
       validationState,
       variant,
     });
+
+  const deriveButtonVariant = () => {
+    if (dataStatus === "invalid") {
+      return "error";
+    }
+    return variant;
+  };
+  const deriveButtonDisabledState = () => {
+    if (disabled === true) return true;
+    if (dataStatus === "invalid" || dataStatus === "validating") {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div
       className={jC([
@@ -100,13 +115,14 @@ const InputWithButton = ({
           <Btn
             type="button"
             onClick={onButtonClick}
-            isDisabled={disabled}
+            isDisabled={deriveButtonDisabledState()}
             fill={fill}
             shape={shape}
             size={fieldSize}
             icon={buttonIcon}
             iconPosition={buttonIconPosition}
             aria-label={buttonAriaLabel}
+            variant={deriveButtonVariant()}
           >
             {buttonLabel ?? (buttonIcon == null ? "Submit" : undefined)}
           </Btn>

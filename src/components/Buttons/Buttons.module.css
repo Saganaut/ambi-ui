@@ -66,9 +66,8 @@
       outline var(--duration-base) ease-in-out;
 
     .label {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      text-box-trim: trim-both;
+      text-box-edge: cap alphabetic;
     }
 
     .icon {

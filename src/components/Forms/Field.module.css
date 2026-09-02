@@ -1,3 +1,4 @@
+/* TODO: need to match the disabled colors for the field with buttons */
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -24,7 +25,7 @@
     --field-border-width: var(--control-border-width, var(--border-size-xs));
     --field-corner-shape: var(--control-corner-shape);
     --field-icon-size: 1em;
-    --field-max-width: 300px;
+    --field-max-width: 800px;
     --input-font-size: var(--control-font-size, var(--font-size-sm));
     --label-wrapper-gap: var(--space-half);
     --input-shadow: var(--control-shadow-size) var(--control-shadow-color);
@@ -50,7 +51,6 @@
 
     input {
       font-family: inherit;
-      line-height: 1em;
     }
 
     &.top {
@@ -83,6 +83,7 @@
       align-items: var(--label-container-align, center);
       justify-content: space-between;
       gap: var(--label-wrapper-gap);
+      align-self: start;
 
       label {
         display: flex;

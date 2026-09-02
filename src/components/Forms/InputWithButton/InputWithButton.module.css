@@ -1,7 +1,3 @@
-/* InputWithButton — text input paired with an action button (Figma 637-3143).
-   The two sit side by side as separate DS surfaces: the input keeps the
-   shared field chrome, the button keeps its default Btn treatment. */
-
 @layer ambi.base {
   .inputWithButton {
     position: relative;
@@ -18,7 +14,6 @@
       white-space: nowrap;
     }
 
-    /* One --space-6 step below the field, x-aligned with its --p-sm text inset. */
     .message {
       position: absolute;
       bottom: calc(-1 * var(--space-6));

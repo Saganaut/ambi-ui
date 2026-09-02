@@ -459,7 +459,7 @@
   /* rules/styling/elevation-over-borders.md — prefer elevation over borders.     
    offset-x offset-y blur-radius spread-radius
   */
-  --shadow-xs-size: 0 2px 3px 1px;
+  --shadow-xs-size: 0 2px 3px;
   --shadow-sm-size: 0 3px 10px;
   --shadow-md-size: 0 8px 24px;
   --shadow-lg-size: 0 16px 40px;
@@ -520,7 +520,7 @@
   --max-screen-width: 2440px;
 
   /* ----- Sizing variants mapping ---- */
-  --height-xs: 1.2rem;
+  --height-xs: 1.25rem;
   --height-sm: 1.75rem;
   --height-md: 2.5rem;
   --height-lg: 3.75rem;
