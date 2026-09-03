@@ -8,7 +8,6 @@ import shared from "../Field.module.css";
 
 interface FeedbackMessageProps {
   id: string;
-  /** Component-scoped class used to place the message within that component's layout. */
   className?: string;
   errorMessage?: string | string[];
   infoMessage?: string | string[];

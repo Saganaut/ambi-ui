@@ -74,10 +74,6 @@
       max-width: none;
     }
 
-    /* Holds a message-sized band below the control so validation text appearing
-       later doesn't shift the layout. Components drop the class once a message
-       is rendered: the message then supplies that height, and is free to wrap
-       past it instead of being clipped to the reserve. */
     &.reserveMessageSpace {
       padding-bottom: var(--field-message-reserve);
     }

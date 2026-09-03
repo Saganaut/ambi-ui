@@ -85,6 +85,7 @@ const NumberInput = ({
         variantStyles[inputVariant],
         variantStyles[fieldSize],
         variantStyles[shape],
+
         variantStyles[fill],
         reserveMessageSpace && !hasMessage && shared.reserveMessageSpace,
       ])}

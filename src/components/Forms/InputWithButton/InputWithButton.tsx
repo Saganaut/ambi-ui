@@ -10,6 +10,12 @@ import { StatusIcon } from "../_shared/StatusIcon";
 import { useField } from "../useField";
 import styles from "./InputWithButton.module.css";
 
+/*
+TODO: We should have states for the button that align with the input field
+Validating
+Disabled should be similar color
+
+*/
 const InputWithButton = ({
   id,
   value,
@@ -63,7 +69,6 @@ const InputWithButton = ({
 
   return (
     <div
-      data-label-position={labelPosition}
       className={jC([
         shared.fieldRoot,
         shared[labelPosition],
@@ -73,7 +78,7 @@ const InputWithButton = ({
         variantStyles[fieldSize],
         variantStyles[shape],
         variantStyles[fill],
-        reserveMessageSpace && !hasMessage && shared.reserveMessageSpace,
+        reserveMessageSpace && shared.reserveMessageSpace,
       ])}
     >
       {label && (
@@ -88,7 +93,14 @@ const InputWithButton = ({
         className={jC([shared.fieldWrapper, fullWidth && shared.fullWidth])}
         data-status={dataStatus}
       >
-        <div className={styles.inputWithButton}>
+        <div
+          className={jC([
+            shared.fieldWrapper,
+            fullWidth && shared.fullWidth,
+            styles.inputWithButton,
+          ])}
+          data-status={dataStatus}
+        >
           <div className={styles.relative}>
             <input
               {...rest}

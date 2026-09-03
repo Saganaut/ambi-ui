@@ -19,6 +19,8 @@ const VARIANTS: FieldVariant[] = [
   "warning",
 ];
 
+const SIZES = ["xs", "sm", "md", "lg"] as const;
+
 const sectionStyle = {
   border: "1px dashed gray",
   padding: "8px",
@@ -33,13 +35,7 @@ const gridStyle = {
   alignItems: "start",
 } as const;
 
-const Section = ({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) => (
+const Section = ({ title, children }: { title: string; children: ReactNode }) => (
   <section style={sectionStyle}>
     <h2 style={{ margin: 0, fontSize: "1rem" }}>{title}</h2>
     <div style={gridStyle}>{children}</div>
@@ -99,7 +95,7 @@ const meta = {
     },
     fieldSize: {
       control: "inline-radio",
-      options: ["xs", "sm", "md", "lg"],
+      options: SIZES,
     },
   },
 } satisfies Meta<typeof InputWithButton>;
@@ -141,7 +137,7 @@ export const Overview: Story = {
       </Section>
 
       <Section title="Sizes">
-        {(["xs", "sm", "md", "lg"] as const).map((fieldSize) => (
+        {SIZES.map((fieldSize) => (
           <InputWithButton
             {...args}
             key={fieldSize}
@@ -174,12 +170,7 @@ export const Overview: Story = {
             fill={fill}
           />
         ))}
-        <InputWithButton
-          {...args}
-          id={`${args.id}-pill`}
-          label="Pill shape"
-          shape="pill"
-        />
+        <InputWithButton {...args} id={`${args.id}-pill`} label="Pill shape" shape="pill" />
         <InputWithButton
           {...args}
           id={`${args.id}-squircle`}
@@ -236,6 +227,54 @@ export const Overview: Story = {
           value="ABC123"
           disabled
         />
+      </Section>
+    </div>
+  ),
+};
+
+/** All supported field sizes, including alternate label and button content layouts. */
+export const Sizes: Story = {
+  parameters: { layout: "padded" },
+  render: (args) => (
+    <div style={{ display: "grid", gap: "3rem", width: "min(90vw, 48rem)" }}>
+      <Section title="Label above">
+        {SIZES.map((fieldSize) => (
+          <InputWithButton
+            {...args}
+            key={fieldSize}
+            id={`${args.id}-sizes-top-${fieldSize}`}
+            label={fieldSize.toUpperCase()}
+            fieldSize={fieldSize}
+          />
+        ))}
+      </Section>
+
+      <Section title="Label in front">
+        {SIZES.map((fieldSize) => (
+          <InputWithButton
+            {...args}
+            key={fieldSize}
+            id={`${args.id}-sizes-start-${fieldSize}`}
+            label={fieldSize.toUpperCase()}
+            labelPosition="start"
+            fieldSize={fieldSize}
+          />
+        ))}
+      </Section>
+
+      <Section title="Icon action">
+        {SIZES.map((fieldSize) => (
+          <InputWithButton
+            {...args}
+            key={fieldSize}
+            id={`${args.id}-sizes-icon-${fieldSize}`}
+            label={fieldSize.toUpperCase()}
+            fieldSize={fieldSize}
+            buttonLabel={undefined}
+            buttonIcon={<ArrowRight />}
+            buttonAriaLabel="Join session"
+          />
+        ))}
       </Section>
     </div>
   ),

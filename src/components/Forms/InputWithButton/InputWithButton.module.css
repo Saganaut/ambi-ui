@@ -10,8 +10,6 @@
       white-space: nowrap;
     }
 
-    /* Owns the free space in the row so the input stretches like a bare Input;
-       min-width:0 lets it shrink past the input's intrinsic size. */
     .relative {
       position: relative;
       flex: 1;
